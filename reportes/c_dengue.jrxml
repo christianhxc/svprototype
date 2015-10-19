@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="c_dengue" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="814" leftMargin="14" rightMargin="14" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[select  semana, id_area, id_distrito,
+        area, distrito,
+        total_muestras,
+        sum(mala_muestra+negativas+positivas+no_procesadas)as analizadas,
+        no_procesadas,
+        mala_muestra,
+        negativas,
+        positivas,
+        Dengue1,
+        Dengue2,
+        Dengue3,
+        Dengue4,
+        total_virus
+        from vw_matriz_general_dengue
+        where semana between 1 and 52
+        group by semana, id_area, id_distrito;]]>
+	</queryString>
+	<field name="semana" class="java.lang.Integer"/>
+	<field name="id_area" class="java.lang.String"/>
+	<field name="id_distrito" class="java.lang.String"/>
+	<field name="area" class="java.lang.String"/>
+	<field name="distrito" class="java.lang.String"/>
+	<field name="total_muestras" class="java.math.BigDecimal"/>
+	<field name="analizadas" class="java.math.BigDecimal"/>
+	<field name="no_procesadas" class="java.math.BigDecimal"/>
+	<field name="mala_muestra" class="java.math.BigDecimal"/>
+	<field name="negativas" class="java.math.BigDecimal"/>
+	<field name="positivas" class="java.math.BigDecimal"/>
+	<field name="Dengue1" class="java.math.BigDecimal"/>
+	<field name="Dengue2" class="java.math.BigDecimal"/>
+	<field name="Dengue3" class="java.math.BigDecimal"/>
+	<field name="Dengue4" class="java.math.BigDecimal"/>
+	<field name="total_virus" class="java.math.BigDecimal"/>
+	<group name="semana">
+		<groupExpression><![CDATA[$F{semana}]]></groupExpression>
+	</group>
+	<group name="area">
+		<groupExpression><![CDATA[$F{area}]]></groupExpression>
+	</group>
+	<group name="distrito">
+		<groupExpression><![CDATA[$F{distrito}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement x="179" y="0" width="430" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="SansSerif" size="11" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Ministerio de Salud Pública y Asistencia Social]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="179" y="28" width="430" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Reporte Consolidado para Dengue]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="179" y="14" width="430" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="SansSerif" size="11" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Laboratorio Nacional de Salud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="179" y="42" width="430" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Kilómetro 22 Carretera al Pacífico, Bárcenas, Villa Nueva, Guatemala, C.A.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="774" y="0" width="40" height="20"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="694" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pág. "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="morbilidad_sub_grupo_edad" pageWidth="820" pageHeight="820" columnWidth="820" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d11f3c80-da97-45a2-85dc-416e0f751e63">
+	<property name="ireport.zoom" value="1.610510000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="numero" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFin" class="java.lang.String"/>
+	<parameter name="fechaIni" class="java.lang.String"/>
+	<parameter name="genero" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="numFin" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idUn" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="add_idun_sql" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[($P{idUn} != null ) ? " and vic.id_un = "+$P{idUn} : ""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="add_idunlab_sql" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[($P{idUn} != null ) ? " and vlab.id_un = "+$P{idUn} : ""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+(
+  select count(vlab.id_vicits_laboratorio) as VIH
+  FROM vicits_laboratorio vlab
+  inner join vicits_form vic on vlab.id_tipo_identidad = vic.id_tipo_identidad and vlab.numero_identificacion = vic.numero_identificacion
+  inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+  where vlab.resultados_vih = 1
+    and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+    and vic.per_edad between (15+($P{numero}*5)) and (19+($P{numFin}*5))
+    $P!{genero}
+    $P!{add_idunlab_sql}
+) as vih,
+(
+select COUNT(vic.id_vicits_form ) as sifilis
+from vicits_form vic
+inner join vicits_its vits on vic.id_vicits_form = vits.id_vicits_form
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vits.id_ITS = 1
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and vic.per_edad between (15+($P{numero}*5)) and (19+($P{numFin}*5))
+  $P!{genero}
+  $P!{add_idun_sql}
+  ) as sifilis,
+(
+select COUNT(vic.id_vicits_form ) as gonorrea
+from vicits_form vic
+inner join vicits_its vits on vic.id_vicits_form = vits.id_vicits_form
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vits.id_ITS = 3
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and vic.per_edad between (15+($P{numero}*5)) and (19+($P{numFin}*5))
+  $P!{genero}
+  $P!{add_idun_sql}
+  ) as gonorrea,
+(
+select COUNT(vic.id_vicits_form ) as hepatitis
+from vicits_form vic
+inner join vicits_its vits on vic.id_vicits_form = vits.id_vicits_form
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vits.id_ITS = 4
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and vic.per_edad between (15+($P{numero}*5)) and (19+($P{numFin}*5))
+  $P!{genero}
+  $P!{add_idun_sql}
+  ) as hepatitis,
+(
+select COUNT(vic.id_vicits_form ) as condiloma
+from vicits_form vic
+inner join vicits_its vits on vic.id_vicits_form = vits.id_vicits_form
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vits.id_ITS = 5
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and vic.per_edad between (15+($P{numero}*5)) and (19+($P{numFin}*5))
+  $P!{genero}
+  $P!{add_idun_sql}
+  ) as condiloma,
+(
+select COUNT(vic.id_vicits_form ) as clamidia
+from vicits_form vic
+inner join vicits_its vits on vic.id_vicits_form = vits.id_vicits_form
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vits.id_ITS = 6
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and vic.per_edad between (15+($P{numero}*5)) and (19+($P{numFin}*5))
+  $P!{genero}
+  $P!{add_idun_sql}
+  ) as clamidia,
+(
+select COUNT(vic.id_vicits_form ) as herpes
+from vicits_form vic
+inner join vicits_its vits on vic.id_vicits_form = vits.id_vicits_form
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vits.id_ITS = 7
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and vic.per_edad between (15+($P{numero}*5)) and (19+($P{numFin}*5))
+  $P!{genero}
+  $P!{add_idun_sql}
+  ) as herpes,
+(
+select COUNT(vic.id_vicits_form ) as otras
+from vicits_form vic
+inner join vicits_its vits on vic.id_vicits_form = vits.id_vicits_form
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where (vits.id_ITS <> 1 and vits.id_ITS <> 3 and vits.id_ITS <> 4 and vits.id_ITS <> 5 and vits.id_ITS <> 6 and vits.id_ITS <> 7)
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and vic.per_edad between (15+($P{numero}*5)) and (19+($P{numFin}*5))
+  $P!{genero}
+  $P!{add_idun_sql}
+  ) as otras
+
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and vic.per_edad between (15+($P{numero}*5)) and (19+($P{numFin}*5))
+  $P!{genero}
+  $P!{add_idun_sql}
+limit 1]]>
+	</queryString>
+	<field name="vih" class="java.lang.Long"/>
+	<field name="sifilis" class="java.lang.Long"/>
+	<field name="gonorrea" class="java.lang.Long"/>
+	<field name="hepatitis" class="java.lang.Long"/>
+	<field name="condiloma" class="java.lang.Long"/>
+	<field name="clamidia" class="java.lang.Long"/>
+	<field name="herpes" class="java.lang.Long"/>
+	<field name="otras" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement uuid="f9da42cc-07ed-415c-ad75-d279cdeab315" x="91" y="0" width="92" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vih}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a0fe282e-0bf2-401f-bdd7-714cf8cc10bf" x="183" y="0" width="91" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sifilis}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a8b58204-4ca2-4144-b9b5-c5e4dfdbcd4d" x="274" y="0" width="91" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{gonorrea}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="19d5ab6c-be76-4bde-8526-33afb3eabea1" x="365" y="0" width="91" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{hepatitis}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a8a4c089-efad-4790-a793-2ff8c28d8e59" x="456" y="0" width="91" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{condiloma}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="eeca6e6e-b974-4d7d-aeef-f36148214139" x="547" y="0" width="91" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{clamidia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="859b7b68-04f3-4980-b337-fd6acc07ba36" x="638" y="0" width="91" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{herpes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b157a30d-5eb8-446f-b097-cd940f571602" x="0" y="0" width="91" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[(15+($P{numero}*5))+" - "+(19+($P{numFin}*5))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="97812751-0e31-40f1-9b3f-db333e98e5f7" x="729" y="0" width="91" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{otras}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

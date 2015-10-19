@@ -1,0 +1,2186 @@
+<div id="logo_vih"><img src="../img/logo_vih.jpg" width="150" height="131" alt="s" /></div>
+<div class="Content" align="left">
+<div id="dialogFormTipoFormulario" title="Seleccione tipo de formulario" align="center">
+<form id="formTipoFormulario" action="" method="">
+<fieldset style="width:400px; text-align: left">
+<legend>Tipo de Formulario</legend>
+<div align="left">
+<table>
+<tr>
+<td><label>Formulario ITS para mujer TS:&nbsp;&nbsp;</label></td>
+<td align="center">
+<a href="javascript:validarTipoTS();" class="ui-state-default ui-corner-all ui-button"
+ onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+&nbsp;&nbsp;Mujer&nbsp;&nbsp;
+</a>
+</td>
+</tr>
+<tr><td colspan="2"></td></tr>
+<tr>
+<td><label>Formulario ITS para hombres HSH y TRANS:&nbsp;&nbsp;</label></td>
+<td align="center">
+<a href="javascript:validarTipoHSH();" class="ui-state-default ui-corner-all ui-button"
+ onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+Hombre
+</a>
+</td>
+</tr>
+</table>
+</div>
+</fieldset>
+</form>
+</div>
+<div id="dialog-form" title="B&uacute;squeda de Personas" align="center">
+<form id="formDialog" action="" method="">
+<div class="ui-state-error ui-corner-all" id="pErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px; width: 50%">
+<span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+<div id="pDetalle" style="margin-top: 0px; margin-bottom: 0px;"></div>
+</div>
+<fieldset style="width:740px; text-align: left">
+<legend>Filtro</legend>
+<div align="left">
+<table>
+<tr id="notFoundFilter">
+<td colspan="4" align="right">
+<a href="javascript:useSearched();" class="" title="Usar criterios de b&uacute;squeda para ingreso de nuevo individuo" style="text-decoration: none; font-weight:bold; display: none" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Usar estos datos</a>
+</td>
+</tr>
+<tr>
+<td><label>No. Identificador:</label></td>
+<td><input type="text" name="popid" id="id" value="" class="" style="width: 150px; text-align:center;" maxlength="45"/></td>
+</tr>
+<tr>
+<td><label>Nombres:</label></td>
+<td><input type="text" name="popn1" id="n" value="" class="" style="width: 250px; text-transform: uppercase;" maxlength="45"/></td>
+<td><label>Apellidos:</label></td>
+<td><input type="text" name="popp1" id="p" value="" class="" style="width: 250px; text-transform: uppercase;" maxlength="45"/></td>
+</tr>
+<tr>
+<td colspan="2" valign="bottom">
+<label >Edad:</label>
+<select id="drpPopTipo" name="poptipoE" onChange="validarEdadPop();">
+<option value="0">Tipo</option>
+<option value="1">D&iacute;as</option>
+<option value="2">Meses</option>
+<option value="3">A&ntilde;os</option>
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desde: <input type="text" id="ed" name="popEdesde" style="width: 40px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);" onChange="validarEdadPop();"/>
+Hasta: <input type="text" id="ed2" name="popEhasta" style="width: 40px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);" onChange="validarEdadPop();"/>
+</td><td colspan="2" valign="bottom">
+<!--<label >Sexo:</label>
+<select id="drpsexoP" name="popSexo">
+<option value="0">Seleccionar</option>
+<option value="M">Hombre</option>
+<option value="F">Mujer</option>
+</select>-->
+</td>
+</tr>
+<tr><td>&nbsp;</td></tr>
+<tr>
+<td colspan="2" align="right">
+<a href="javascript:validarPopupP();" class="ui-state-default ui-corner-all ui-button"
+ onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+Filtrar
+</a>
+</td>
+<tdcolspan="2"align="right">
+<table>
+<tr>
+<td>
+<div>
+<a href="javascript:nuevo();" class="" style="text-decoration: none; font-weight:bold; display: none" title="Ingresar nuevo individuo"onmouseover="RollOver(this)" onmouseout="RollOut(this)">Nuevo</a>
+</div>
+</td>
+<td>&nbsp;</td>
+<td>
+<div>
+<a href="javascript:clearSearch();" class="" style="text-decoration: none; font-weight:bold;" title="Borrar criterios de b&uacute;squeda" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Borrar filtro</a>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+</fieldset>
+</form>
+<br/>
+<div id="resultadosBusqueda" align="center"></div>
+</div>
+<form id="frmContenido" class="niceform" action="{urlprefix}vicits/formulario.php" method="POST" onsubmit="return validarVicIts();">
+<table width="100%">
+<tr>
+<td>
+<div id="formLabel"><h2>Formulario de la Vigilancia Centinela de las ITS - VICITS</h2></div>
+</td>
+<td align="right">
+<div style="color: #A4BC2B;">
+Regresar
+<a href="index.php" class="" style="text-decoration: none; font-weight:bold;">
+<img title="Regresar" border=0 src="../img/back.png"></a>
+</div>
+</td>
+</tr>
+</table>
+<div id="ErrorGuardar" class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; display:{disError}; margin-top: 5px;">
+<span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+<label>{mensajeErrorGeneral}</label><br/>
+</div>
+<div class="ui-state-highlight ui-corner-all"
+ style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;" align="left">
+<span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+<label>{desInfo}</label>
+</div><div class="ui-state-error ui-corner-all" id="dSummaryErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px;">
+<span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+<label>Los datos no se pueden guardar debido a lo siguiente:</label>
+<p id="pSummaryErrors" style="margin-top: 0px; margin-bottom: 0px;"></p>
+</div>
+<div id="tabs" class="">
+<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"> 
+<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#divIndividuo">Individuo</a></li>
+<li class="ui-state-default ui-corner-top"><a href="#divAntecedentes">Antecedentes</a></li>
+<li class="ui-state-default ui-corner-top"><a href="#divParteA">Parte A</a></li>
+<li class="ui-state-default ui-corner-top"><a href="#divParteB">Parte B</a></li>
+</ul><div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divIndividuo" >
+<fieldset class="ui-widget ui-widget-content ui-corner-all">
+<legend>Individuo</legend>
+<input name="data[individuo][id_individuo]" type="hidden" id="id_individuo" value="{valID}" />
+<table border="0" cellpadding="2" cellspacing="2" align="center" style="width:800px;">
+<tr style="display:{displayBuscarBorrar}">
+<td colspan="3">
+<a href="javascript:buscar();" class="ui-state-default ui-corner-all ui-button"
+ onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+Buscar
+</a>
+</td>
+<td align="right">
+<a onmouseout="RollOut(this)" title="Borrar datos del individuo" onmouseover="RollOver(this)" style="text-decoration: none; font-weight: bold;" class="" href="javascript:borrarIndividuo();">Borrar Individuo</a>
+</td>
+</tr>
+<tr>
+<td><label >Tipo Identificador:<span class="mandatory">*</span></label></td>
+<td>
+<select id="drpTipoId" name="data[individuo][tipoId]" style="width:250px" {valReadOnly}>
+<option value="0">Seleccione...</option>
+<!-- BEGIN blkTipoId -->
+<option value="{valTipoId}" {selTipoId}>{opcTipoId}</option>
+<!-- END blkTipoId -->
+</select>
+<input type="hidden" id="tipoId" name="data[loaded][tipoId]" value="{valTipoId}" />
+</td>
+<td><label >No. Identificador:<span class="mandatory">*</span></label></td>
+<td><input type="text" id="no_identificador" name="data[individuo][identificador]" value="{valIdentificador}" style="width: 250px; text-align:center;" maxlength="45" {valReadOnly}/></td>
+</tr>
+<tr>
+<td id="soloHombre1" colspan="4"><label style="display:{soloHombre}">Nombre con identidad de g&eacute;nero:</label>&nbsp;&nbsp;&nbsp;&nbsp; 
+<input style="display:{soloHombre}; width: 560px; text-align:center; text-transform: uppercase;" type="text" id="nombre_identitdad" name="data[individuo][nombre_identitdad]" value="{valNombreIdentidad}" maxlength="100"></td>
+</tr>
+<tr>
+<td><label >1er. Nombre:<span class="mandatory">*</span></label></td>
+<td><input type="text" id="primer_nombre" name="data[individuo][primer_nombre]" style="width: 250px; text-transform: uppercase;" value="{valPrimerNombre}" maxlength="45"/></td>
+<td><label >2do. Nombre:</label></td>
+<td><input type="text" id="segundo_nombre" name="data[individuo][segundo_nombre]" style="width: 250px; text-transform: uppercase;" value="{valSegundoNombre}" maxlength="45"/></td>
+</tr>
+<tr>
+<td><label >1er. Apellido:<span class="mandatory">*</span></label></td>
+<td><input type="text" id="primer_apellido" name="data[individuo][primer_apellido]" value="{valPrimerApellido}" style="width: 250px; text-transform: uppercase;" maxlength="75"/></td>
+<td><label >2do. Apellido:</label></td>
+<td><input type="text" id="segundo_apellido" name="data[individuo][segundo_apellido]" value="{valSegundoApellido}" style="width: 250px; text-transform: uppercase;" maxlength="75"/></td>
+</tr>
+<tr>
+<td><label >Nacionalidad:<span class="mandatory">*</span></label></td>
+<td >
+<select id="drpPaisIndividuo" name="data[individuo][pais]" style="width:250px" >
+<option value="0">Seleccione...</option>
+<!-- BEGIN blkPaisIndividuo -->
+<option value="{valPaisIndividuo}" {selPaisIndividuo}>{opcPaisIndividuo}</option>
+<!-- END blkPaisIndividuo -->
+</select>
+<input type="hidden" id="idPais" name="data[loaded][idPais]" value="{valIdPais}" />
+</td>
+<td colspan="2">&nbsp;</td>
+</tr>
+<tr id="divPolitica1">
+<td ><label >Provincia:<span class="mandatory">*</span></label></td>
+<td >
+<select id="drpProIndividuo" name="data[individuo][provincia]" style="width:250px" onchange="setRegionCascada()">
+<option value="0">Seleccione...</option>
+<!-- BEGIN blkProIndividuo -->
+<option value="{valProIndividuo}" {selProIndividuo}>{opcProIndividuo}</option>
+<!-- END blkProIndividuo -->
+</select>
+<input type="hidden" id="idPro" name="data[loaded][idPro]" value="{valIdPro}" />
+</td>
+<td ><label >Regi&oacute;n:<span class="mandatory">*</span></label></td>
+<td >
+<select id="drpRegIndividuo" name="data[individuo][region]" style="width:250px" onchange="setDistritoCascada()">
+<option value="0">Seleccione...</option>
+<!-- BEGIN blkRegIndividuo -->
+<option value="{valRegIndividuo}" {selRegIndividuo}>{opcRegIndividuo}</option>
+<!-- END blkRegIndividuo -->
+</select>
+<input type="hidden" id="idReg" name="data[loaded][idReg]" value="{valIdReg}" />
+</td>
+</tr>
+<tr id="divPolitica2">
+<td ><label >Distrito:<span class="mandatory">*</span></label></td>
+<td >
+<select id="drpDisIndividuo" name="data[individuo][distrito]" style="width:250px" onchange="setCorregimientoCascada()">
+<option value="0">Seleccione...</option>
+<!-- BEGIN blkDisIndividuo -->
+<option value="{valDisIndividuo}" {selDisIndividuo}>{opcDisIndividuo}</option>
+<!-- END blkDisIndividuo -->
+</select>
+<input type="hidden" id="idDis" name="data[loaded][idDis]" value="{valIdDis}" />
+</td>
+<td id="divPolitica7"><label >Corregimiento:<span class="mandatory">*</span></label></td>
+<td id="divPolitica8">
+<select id="drpCorIndividuo" name="data[individuo][corregimiento]" style="width:250px">
+<option value="0">Seleccione...</option>
+<!-- BEGIN blkCorIndividuo -->
+<option value="{valCorIndividuo}" {selCorIndividuo}>{opcCorIndividuo}</option>
+<!-- END blkCorIndividuo -->
+</select>
+<input type="hidden" id="idCor" name="data[loaded][idCor]" value="{valIdCor}" />
+</td>
+</tr>
+<tr id="divPolitica3">
+<td ><label >Pto de referencia:</label></td>
+<td colspan="3">
+<input type="text" id="lugar_poblado" name="data[individuo][lugar_poblado]" value="{valLugarPoblado}" style="width:350px;" maxlength="150"/>&nbsp;&nbsp; 
+</td>
+</tr><tr>
+<td><label >Fecha de nacimiento:</label></td>
+<td>
+<input type="text" id="fecha_nacimiento" name="data[individuo][fecha_nacimiento]" value="{valFechaNacimiento}" style="width: 135px;" maxlength="10" onchange="calcularEdad();"/>
+<span class="ui-datepicker-append"> dd/mm/aaaa</span>
+</td>
+<td colspan="2">
+<label >Edad:<span class="mandatory">*</span></label>&nbsp;&nbsp;
+<select id="drptipo_edad" name="data[individuo][tipo_edad]">
+<option value="1" {selDias}>D&iacute;as</option>
+<option value="2" {selMeses}>Meses</option>
+<option value="3" {selAnios}>A&ntilde;os</option>
+</select>
+<input type="text" id="edad" name="data[individuo][edad]" value="{valEdad}" style="width: 50px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);" onBlur="validarEdad();"/>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<label >Sexo:<span class="mandatory">*</span></label>&nbsp;&nbsp;
+<select id="drpsexo" name="data[individuo][sexo]" onchange="sexoCambio();" >
+<option value="0">Seleccione...</option>
+<option value="M" {selSexoM}>Hombre</option>
+<option value="F" {selSexoF}>Mujer</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><label >Identidad de Genero:</label></td>
+<td >
+<select id="drpGenero" name="data[individuo][genero]" style="width:250px">
+<option value="0">Seleccione...</option>
+<!-- BEGIN blkGenero -->
+<option value="{valGenero}" {selGenero}>{opcGenero}</option>
+<!-- END blkGenero -->
+</select></td>
+<td><label >Etnia:</label></td>
+<td >
+<select id="drpEtnia" name="data[individuo][etnia]" style="width:250px">
+<option value="0">Seleccione...</option>
+<!-- BEGIN blkEtnia -->
+<option value="{valEtnia}" {selEtnia}>{opcEtnia}</option>
+<!-- END blkEtnia -->
+</select>
+</td></tr>
+<tr>
+<td><label >Escolaridad:<span class="mandatory">*</span></label></td>
+<td >
+<select id="drpEscolaridad" name="data[individuo][escolaridad]" style="width:250px">
+<option value="0">Seleccione...</option>
+<option value="1" {selEscolaridad1}>Primaria Completa</option>
+<option value="2" {selEscolaridad2}>Primaria Incompleta</option>
+<option value="3" {selEscolaridad3}>Secundaria Completa</option>
+<option value="4" {selEscolaridad4}>Secundaria Incompleta</option>
+<option value="5" {selEscolaridad5}>Universidad Completa</option>
+<option value="6" {selEscolaridad6}>Universidad Incompleta</option>
+<option value="7" {selEscolaridad7}>Vocacional</option>
+<option value="8" {selEscolaridad9}>No especificada</option>
+<option value="9" {selEscolaridad8}>Ninguna</option>
+</select>
+</td>
+<td><label >Estado Civil:<span class="mandatory">*</span></label></td>
+<td >
+<select id="drpEstadoCivil" name="data[individuo][estado_civil]" style="width:250px">
+<option value="0">Seleccione...</option>
+<option value="1" {selEstado1}>Soltero(a)</option>
+<option value="2" {selEstado2}>Casado(a)</option>
+<option value="3" {selEstado3}>Unido(a)</option>
+<option value="4" {selEstado4}>Divorciado(a)</option>
+<option value="4" {selEstado5}>Viudo(a)</option>
+<option value="5" {selEstado6}>No especificado</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><label >Sabe leer:<span class="mandatory">*</span></label></td>
+<td colspan="3" >
+<select id="drpSabeLeer" name="data[antecedentes][sabeLeer]">
+<option value="0">Sel...</option>
+<option value="1" {selLeeSi}>Si</option>
+<option value="2" {selLeeNo}>No</option>
+<option value="3" {selLeeDesc}>Desc</option>
+</select>
+</td>
+</tr>
+</table>
+</fieldset>
+</div>
+<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divAntecedentes" >
+<fieldset class="ui-widget ui-widget-content ui-corner-all">
+<legend>Antecedentes</legend>
+<table border="0" cellpadding="2" cellspacing="2" align="center" style="width:800px;">
+<tr>
+<td>
+<table border="0" cellpadding="2" cellspacing="2" align="left" style="width:400px;">
+<tr>
+<td colspan="2"><label ><strong>Antecedentes de abuso sexual</strong></label></td>
+</tr>
+<tr>
+<td style="width:250px;">
+<label >Ha sufrido abuso sexual alguna vez en la vida:<span class="mandatory">*</span>&nbsp;&nbsp;</label>
+</td>
+<td>
+<select id="drpAbusoSexual" name="data[antecedentes][abusoSexual]" onchange="abusoSexual()">
+<option value="0">Sel...</option>
+<option value="1" {selASSi}>Si</option>
+<option value="2" {selASNo}>No</option>
+<option value="3" {selASDesc}>Desc</option>
+</select>
+</td>
+</tr>
+<tr>
+<td id="AbusoSexual1"  colspan="2">
+<label >A que edad:</label>
+<input type="text" id="edad_AS" name="data[antecedentes][edad_AS]" value="{valEdadAS}" style="width: 50px; text-align:center;" maxlength="2" onKeyPress="return numbersonly(event, false);"/>
+</td>
+</tr>
+<tr>
+<td id="AbusoSexual2" >
+<label >Abuso en los ultimos 12 meses:<span class="mandatory">*</span>&nbsp;&nbsp;</label>
+</td>
+<td id="AbusoSexual3">
+<select id="drpAbusoSexual12" name="data[antecedentes][abusoSexual12]" >
+<option value="0">Sel...</option>
+<option value="1" {selAS12Si}>Si</option>
+<option value="2" {selAS12No}>No</option>
+<option value="3" {selAS12Desc}>Desc</option>
+</select>
+</td>    
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td colspan="2"><label ><strong>Antecedentes de relaciones sexuales</strong></label></td>
+</tr>
+<tr>
+<td style="width:250px;"><label >Edad de inicio de relaciones sexuales:</label></td>
+<td><input type="text" id="vida_sexual" name="data[antecedentes][vida_sexual]" value="{valInicioSexual}" style="width: 50px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);"/></td>
+</tr>
+<tr>
+<td ><label >Alguna vez ha ejercido como TS:<span class="mandatory">*</span></label></td>
+<td>
+<select id="drpTrabajoSexual" name="data[antecedentes][TS]" onchange="ejercioTS()">
+<option value="0">Sel...</option>
+<option value="1" {selTSSi}>Si</option>
+<option value="2" {selTSNo}>No</option>
+<option value="3" {selTSDesc}>Desc</option>
+</select>
+</td>
+</tr>
+<tr>
+<td colspan="2" id="divTS1">
+<label >Actualmente ejerce trabajo sexual:<span class="mandatory">*</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<select id="drpActualTrabajoSexual" name="data[antecedentes][actual_TS]" onchange="actualTS()">
+<option value="0">Sel...</option>
+<option value="1" {selActualTSSi}>Si</option>
+<option value="2" {selActualTSNo}>No</option>
+<option value="3" {selActualTSDesc}>Desc</option>
+</select>
+</td>
+</tr>
+<tr>
+<td colspan="2" id="divTS2">
+<label >Hace cu&aacute;nto tiempo trabaja como TS:<span class="mandatory">*</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<select id="drpTSTiempo" name="data[antecedentes][tiempo_TS]" onchange="tiempoTS()">
+<option value="0">Sel...</option>
+<option value="1" {selTiempoTS1}>Menos de 1 mes</option>
+<option value="2" {selTiempoTS2}>de 1 a 6 meses</option>
+<option value="3" {selTiempoTS3}>de 7 a 12 meses</option>
+<option value="4" {selTiempoTS4}>M&aacute;s de un a&ntilde;o</option>
+</select>
+<div id="divTS3">
+    <label style="Display:{TSmas}">Cuantos a&ntilde;os:&nbsp;</label>
+<input type="text" id="cuanto_TS" name="data[antecedentes][cuanto_TS]" value="{valCuantoTS}" style="width: 50px; text-align:center;" maxlength="2" onKeyPress="return numbersonly(event, false);"/>
+</div>
+</td>
+</tr>
+<tr>
+<td colspan="2" id="divTS4">
+<label >En el &uacute;ltimo a&ntilde;o realiz&oacute; TS en otro pa&iacute;s:<span class="mandatory">*</span></label>&nbsp;&nbsp;&nbsp;&nbsp;
+<select id="drpTSOtroPais" name="data[antecedentes][otroPais_TS]" onchange="otroPaisTS()">
+<option value="0">Sel...</option>
+<option value="1" {selOtroPaisTSSi}>Si</option>
+<option value="2" {selOtroPaisTSNo}>No</option>
+<option value="3" {selOtroPaisTSDesc}>Desc</option>
+</select>
+</td>
+</tr>
+<tr>
+<td colspan="2" id="divTS5">
+<label >Que Pa&iacute;s fue:<span class="mandatory">*</span></label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<select id="drpPaisTS" name="data[antecedentes][pais_TS]" style="width:250px" onchange="setPais();">
+<option value="0">Seleccione...</option>
+<!-- BEGIN blkPaisTS -->
+<option value="{valPaisTS}" {selPaisTS}>{opcPaisTS}</option>
+<!-- END blkPaisTS -->
+</select>
+<input type="hidden" id="idPaisTS" name="data[loaded][idPaisTS]" value="{valIdPaisTS}" />
+</td>
+</tr>
+<tr>
+<td ><label >Ha tenido relaciones sexuales con:<span class="mandatory">*</span></label></td>
+<td>
+<select id="drpRelacionSexual" name="data[antecedentes][relacionSexual]">
+<option value="0">Sel...</option>
+<option value="1" {selRelSexual1}>Hombres</option>
+<option value="2" {selRelSexual2}>Mujeres</option>
+<option value="3" {selRelSexual3}>Ambos</option>
+<option value="4" {selRelSexual4}>Desconoce</option>
+</select>
+</td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+<td colspan="2"><label ><strong>Antecedentes de ITS</strong></label></td>
+</tr>
+<tr>
+<td style="width:250px;"><label >En los &uacute;ltimos 12 meses tuvo una ITS:<span class="mandatory">*</span></label></td>
+<td >
+<select id="drpItsUltimo" name="data[antecedentes][itsUltimo]" onchange="cualITS()">
+<option value="0">Sel...</option>
+<option value="1" {selItsUltimoSi}>Si</option>
+<option value="2" {selItsUltimoNo}>No</option>
+<option value="3" {selItsUltimoDesc}>Desc</option>
+</select>
+</td>
+</tr>
+<tr id="divCualITS">
+<td>
+<label>ITS: </label>
+<select id="drpITS" style="width:200px">
+<option value="0">Seleccione...</option>
+<!-- BEGIN blkITS -->
+<option value="{valITS}" {selITS}>{opcITS}</option>
+<!-- END blkITS -->
+</select>
+</td>
+<td >
+<a id="anadir" href="javascript:relacionarITS();" class="ui-state-default ui-corner-all ui-button" title="A&ntilde;adir ITS"
+ onmouseover="RollOver(this)" onmouseout="RollOut(this)">A&ntilde;adir</a>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="width:400px;"><div id="divRelITS"></div></td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr id="divTS6">
+<td colspan="2"><label ><strong>Antecedentes de Lugar de trabajo para TS</strong></label></td>
+</tr>
+<tr id="divTS7">
+<td><label>Nombre del lugar de TS:</label></td>
+<td><input type="text" id="nombreLugarTS" name="data[antecedentes][nombreLugar_TS]" value="{valNombreLugarTS}" style="width: 150px;"/></td>
+</tr>
+<tr id="divTS8">
+<td><label>Tipo de lugar de TS:</label><span class="mandatory">*</span></td>
+<td>
+<select id="drpTipoLugarTS" name="data[antecedentes][tipoLugar_TS]">
+<option value="0">Sel...</option>
+<option value="1" {selTipoTS1}>Night Club</option>
+<option value="2" {selTipoTS2}>Centro privado</option>
+<option value="3" {selTipoTS3}>Burdel</option>
+<option value="4" {selTipoTS4}>Sala de masaje</option>
+<option value="5" {selTipoTS5}>Calle</option>
+<option value="6" {selTipoTS6}>Otro</option>
+<option value="7" {selTipoTS7}>Desc</option>
+</select>
+</td>
+</tr>
+</table>
+</td>
+<td>
+<table border="0" cellpadding="2" cellspacing="2" align="center" style="width:400px;">
+<tr>
+<td colspan="2"><label ><strong>Antecedentes de VIH</strong></label></td>
+</tr>
+<tr>
+<td colspan="2">
+<label >Tiene diagn&oacute;stico de VIH:<span class="mandatory">*</span>&nbsp;&nbsp;</label>
+<select id="drpVIH" name="data[antecedentes][vih]" onchange="diagVIH()">
+<option value="0">Sel...</option>
+<option value="1" {selVIHSi}>Si</option>
+<option value="2" {selVIHNo}>No</option>
+<option value="3" {selVIHDesc}>Desc</option>
+</select>
+</td>
+</tr>
+<tr>
+<td colspan="2" id="divFechaVIH">
+<label >Fecha diagn&oacute;stico:</label>&nbsp;&nbsp;
+<input type="text" id="fechaVih" name="data[antecedentes][fecha_vih]" value="{valFechaDiagVih}" style="width: 100px;" maxlength="10" />
+</td>
+</tr>
+<tr>
+<td colspan="2" id="divPreVIH">
+<label >Recibi&oacute; consejer&iacute;a VIH <strong>pre</strong> prueba:</label><span class="mandatory">*</span>&nbsp;&nbsp;
+<select id="drpPreVIH" name="data[antecedentes][pre_vih]" onchange="diagVIH()">
+<option value="0">Sel...</option>
+<option value="1" {selPreVIHSi}>Si</option>
+<option value="2" {selPreVIHNo}>No</option>
+<option value="3" {selPreVIHDesc}>Desc</option>
+</select>
+</td>
+</tr>
+<tr>
+<td colspan="2" id="divPosVIH">
+<label >Recibi&oacute; consejer&iacute;a VIH <strong>pos</strong> prueba:</label><span class="mandatory">*</span>&nbsp;&nbsp;
+<select id="drpPosVIH" name="data[antecedentes][pos_vih]" onchange="diagVIH()">
+<option value="0">Sel...</option>
+<option value="1" {selPosVIHSi}>Si</option>
+<option value="2" {selPosVIHNo}>No</option>
+<option value="3" {selPosVIHDesc}>Desc</option>
+</select>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<label >Ha sido referido a cl&iacute;nica TARV:<span class="mandatory">*</span>&nbsp;&nbsp;</label>
+<select id="drpTARV" name="data[antecedentes][tarv]" onchange="clinicaTarv()">
+<option value="0">Sel...</option>
+<option value="1" {selTARVSi}>Si</option>
+<option value="2" {selTARVNo}>No</option>
+<option value="3" {selTARVDesc}>Desc</option>
+</select>
+</td>
+</tr>
+<tr>
+<td colspan="2" id="divClinica">
+<label>Cual: </label>
+<select id="drpClinicaTarv" name="data[antecedentes][clinica_tarv]" style="width:300px">
+<option value="0">Seleccione...</option>
+<!-- BEGIN blkClinica -->
+<option value="{valClinica}" {selClinica}>{opcClinica}</option>
+<!-- END blkClinica -->
+</select>
+</td>    
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr>
+    <td colspan="2"><label ><strong>Ant. de h&aacute;bitos de consumo de drogas y alcohol</strong></label></td>
+</tr>
+<tr>
+<td style="width:300px;"><label >En los &uacute;ltimos 30 d&iacute;as, consumi&oacute; bebidas alcoh&oacute;licas:<span class="mandatory">*</span></label></td>
+<td>
+<select id="drpConsumoAlcohol" name="data[antecedentes][consumoAlcohol]" onchange="consumioAlcohol()">
+<option value="0">Sel...</option>
+<option value="1" {selConsumoAlcoholSi}>Si</option>
+<option value="2" {selConsumoAlcoholNo}>No</option>
+<option value="3" {selConsumoAlcoholDesc}>Desc</option>
+</select>
+</td>
+</tr>
+<tr id="divFrecuenciaAlcohol">
+<td><label>En la &uacute;ltima semana con que frecuencia ingiri&oacute; cerveza o bebidas alcoh&oacute;licas:<span class="mandatory">*</span></label></td>
+<td>
+<select id="drpFrecuenciaAlcohol" name="data[antecedentes][frecuenciaAlcohol]">
+<option value="0">Sel...</option>
+<option value="1" {selFrecAlcohol1}>Un d&iacute;a</option>
+<option value="2" {selFrecAlcohol2}>2-3 d&iacute;as</option>
+<option value="3" {selFrecAlcohol3}>4-5 d&iacute;as</option>
+<option value="4" {selFrecAlcohol4}>6-7 d&iacute;as</option>
+<option value="5" {selFrecAlcohol5}>No consumio</option>
+<option value="6" {selFrecAlcoholDesc}>Desconocido</option>
+</select>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<label>Ha utilizado alguna de estas drogas</label>&nbsp;
+<label>En los &uacute;ltimos</label>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<select id="drpDrogas" style="width:200px">
+<option value="0">Seleccione...</option>
+<!-- BEGIN blkDrogas -->
+<option value="{valDrogas}" {selDrogas}>{opcDrogas}</option>
+<!-- END blkDrogas -->
+</select>&nbsp;&nbsp;&nbsp;
+<select id="drpTiempo">
+<option value="0">Sel...</option>
+<option value="2">30 d&iacute;as</option>
+<option value="1">12 meses</option>
+</select>&nbsp;&nbsp;
+<a id="anadir" href="javascript:relacionarDrogas();" class="ui-state-default ui-corner-all ui-button" title="A&ntilde;adir ITS"
+ onmouseover="RollOver(this)" onmouseout="RollOut(this)">A&ntilde;adir</a>
+</td>
+</tr>
+<tr><td colspan="2"><div id="divRelDrogas"></div></td></tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr id="soloMujer1">
+<td colspan="2"><label ><strong>Antecedentes de anticonceptivos</strong></label></td>
+</tr>
+<tr id="soloMujer2">
+<td style="width:300px;"><label >En los &uacute;ltimos 3 meses us&oacute; alg&uacute;n m&eacute;todo anticonceptivo:<span class="mandatory">*</span></label></td>
+<td>
+<select id="drpAnticonceptivo" name="data[antecedentes][anticonceptivo]" onchange="usoAnticonceptivo()">
+<option value="0">Sel...</option>
+<option value="1" {selAnticonceptivoSi}>Si</option>
+<option value="2" {selAnticonceptivoNo}>No</option>
+<option value="3" {selAnticonceptivoDesc}>Desc</option>
+</select>
+</td>
+</tr>
+<tr id="soloMujer3">
+<td colspan="2"><label>Marque 1 o m&aacute;s posibles respuestas:</label></td>
+</tr>
+<tr id="soloMujer4">
+<td colspan="2">
+<input type="checkbox" id="checkDiu" name="data[antecedentes][diu]" {valCheckDiu}>&nbsp;<label>DIU&nbsp;</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="checkbox" id="checkPildora" name="data[antecedentes][pildora]" {valCheckPildora}>&nbsp;<label>P&iacute;ldora</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="checkbox" id="checkEsteril" name="data[antecedentes][esteril]" {valCheckEsteril}>&nbsp;<label>Esterilizaci&oacute;n </label>&nbsp;
+</td>
+</tr>
+<tr id="soloMujer5">
+<td colspan="2">
+<input type="checkbox" id="checkCondon" name="data[antecedentes][condon]" {valCheckCondon}>&nbsp;<label>Cond&oacute;n</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="checkbox" id="checkInyeccion" name="data[antecedentes][inyeccion]" {valCheckInyeccion}>&nbsp;<label>Inyecci&oacute;n</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="checkbox" id="checkOtro" name="data[antecedentes][otro]" {valCheckOtro} onchange="nombreOtroAnticonceptivo()">&nbsp;<label>Otro</label>&nbsp;
+<input type="text" id="otroAnticonceptivo" name="data[antecedentes][otro_anti]" value="{valOntroAnti}" style="width: 100px;" />
+</td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr id="soloMujer6">
+<td colspan="2"><label ><strong>Antecedentes Gineco - Obstetricos</strong></label></td>
+</tr>
+<tr id="soloMujer7">
+<td colspan="2">
+<label>1. Menarquia </label>&nbsp;&nbsp;
+<input type="text" id="ginecoMenarquia" name="data[antecedentes][ginecoMenarquia]" value="{valGinecoMenarquia}" style="width: 40px; text-align:center;" maxlength="2" onKeyPress="return numbersonly(event, false);"/>&nbsp;a&ntilde;os&nbsp;&nbsp;&nbsp;
+<label>2. No. Abortos: </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" id="ginecoAbortos" name="data[antecedentes][ginecoAbortos]" value="{valGinecoAbortos}" style="width: 40px; text-align:center;" maxlength="2" onchange="totalEmbarazo()" onKeyPress="return numbersonly(event, false);"/>
+</td>
+</tr>
+<tr id="soloMujer8">
+<td colspan="2">
+<label>3. Hijos nacidos vivos: </label>
+<input type="text" id="ginecoVivos" name="data[antecedentes][ginecoVivos]" value="{valGinecoVivos}" style="width: 40px; text-align:center;" maxlength="2" onchange="totalEmbarazo()" onKeyPress="return numbersonly(event, false);"/>&nbsp;
+<label>4. Hijos nacidos muertos: </label>
+<input type="text" id="ginecoMuertos" name="data[antecedentes][ginecoMuertos]" value="{valGinecoMuertos}" style="width: 40px; text-align:center;" maxlength="2" onchange="totalEmbarazo()" onKeyPress="return numbersonly(event, false);"/>
+</td>
+</tr>
+<tr id="soloMujer9">
+<td colspan="2">
+<label>5. Total embarazos: </label>&nbsp;&nbsp;&nbsp;
+<input type="text" id="ginecoEmbarazos" name="data[antecedentes][ginecoEmbarazos]" value="{valGinecoEmbarazos}" style="width: 40px; text-align:center;" />
+</td>
+</tr></table>
+</td>
+</tr>
+</table></fieldset>
+</div><div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divParteA" >
+<fieldset class="ui-widget ui-widget-content ui-corner-all">
+<legend>S&iacute;ntomas y signos</legend>
+<table border='0' width='90%' align='center'>
+<tr>
+<td>
+<label>Motivo de consulta:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpMotivoConsulta' name="data[sintomas][antec_motivo_consulta]" style='width:400px'>
+<option value='0' {drpMotivoConsultaSel}>Seleccione...</option>
+<option value='1' {drpMotivoConsultaNuevo}>Nuevo</option>
+<option value='2' {drpMotivoConsultaMolestias}>Molestias/S&iacute;ntomas</option>
+<option value='3' {drpMotivoConsultaTrimestral}>Control Trimestral</option>
+<option value='4' {drpMotivoConsultaSemestral}>Control Semestral</option>
+</select>
+</td>
+<td colspan="3"></td>
+</tr>
+<tr>
+<td><label>S&iacute;ntoma:</label></td>
+<td>
+<select id='drpSintomas' style='width:400px'>
+<option value='0' >Seleccione...</option>
+</select>
+</td>
+<td><label>D&iacute;as:</label></td>
+<td>
+<input type='text' id='diasSintoma' style='width:150px' maxlength='3' onKeyPress='return numbersonly(event, false);'/>
+</td>
+<td>
+<a id='anadirSintoma' href='javascript:relacionarTabla("tablaSintomasSignos");' class='ui-state-default ui-corner-all ui-button' title='A&ntilde;adir'
+ onmouseover='RollOver(this)' onmouseout='RollOut(this)'>A&ntilde;adir
+</a>
+</td>
+</tr>
+<tr>
+<td colspan="5">
+<br/>
+<div id="tablaSintomasSignos"></div>
+</td>
+</tr>
+</table></fieldset>
+<br/>
+<fieldset class="ui-widget ui-widget-content ui-corner-all">
+<legend>Otros Datos</legend>
+<table border='0' width='90%' align='center'>
+<tr>
+<td width="320px">
+<label>&iquest;Recibi&oacute; alg&uacute;n antibi&oacute;tico en las &uacute;ltimas 2 semanas?:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpAntibiotico' name="data[otros_datos][otro_antibiotico]" style='width:200px' onchange="mostrarAntibiotico()">
+<option value='-1' {drpAntibioticoSel}>Seleccione...</option>
+<option value='1' {drpAntibioticoSi}>Si</option>
+<option value='2' {drpAntibioticoNo}>No</option>
+<option value='0' {drpAntibioticoNoSabe}>No Sabe</option>
+</select>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<div id="mostrarAntibiotico" style="display:{mostrarAntibiotico}">
+<table border='0' width='100%' align='center'>
+<tr>
+<td><label>Antibi&oacute;tico(s):</label></td>
+<td>
+<input type="text" id="antibiotico" style="width: 135px;"/>
+</td>
+<td><label>Motivo:</label></td>
+<td>
+<input type="text" id="motivo_antibiotico" style="width: 135px;"/>
+</td>
+<td><label>Fecha &uacute;ltima dosis:</label></td>
+<td>
+<input type="text" id="fecha_ult_dosis" style="width: 135px;" maxlength="10"/>
+</td>
+<td>
+<a id='anadirAntibiotico' href='javascript:relacionarTabla("tablaAntibioticos");' class='ui-state-default ui-corner-all ui-button' title='A&ntilde;adir'
+ onmouseover='RollOver(this)' onmouseout='RollOut(this)'>A&ntilde;adir
+</a>
+</td>
+</tr>
+<tr>
+<td colspan="7">
+<br/>
+<div id="tablaAntibioticos"></div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<div id="mostrarOtrosDatosTS" style="display:{mostrarOtrosDatosTS}">
+<table border='0' width='100%' align='center'>
+<tr>
+<td width="320px">
+<label>&iquest;Us&oacute; &oacute;vulos vaginales en los &uacute;ltimos 30 d&iacute;as?:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpOvulosVaginales' name="data[otros_datos][otro_ovulos_vagina]" style='width:200px'>
+<option value='-1' {drpOvulosVaginalesSel}>Seleccione...</option>
+<option value='1' {drpOvulosVaginalesSi}>Si</option>
+<option value='2' {drpOvulosVaginalesNo}>No</option>
+</select>
+</td>
+</tr>
+<tr>
+<td width="320px">
+<label>&iquest;Us&oacute; duchas vaginales en los &uacute;ltimos 30 d&iacute;as?:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpDuchasVaginales' name="data[otros_datos][otro_ducha_vagina]" style='width:200px'>
+<option value='-1' {drpDuchasVaginalesSel}>Seleccione...</option>
+<<option value='1' {drpDuchasVaginalesSi}>Si</option>
+<option value='2' {drpDuchasVaginalesNo}>No</option>
+</select>
+</td>
+</tr>
+<tr>
+<td width="320px">
+<label>Fecha de &uacute;ltima citolog&iacute;a:</label>
+</td>
+<td>
+<input type="text" id="otro_fecha_citologia" value="{otroFechaCitologia}" name="data[otros_datos][otro_fecha_citologia]" style="width: 135px;" maxlength="10"/>
+</td>
+</tr>
+<tr>
+<td width="320px">
+<label>Resultado de &uacute;ltima citolog&iacute;a:</label>
+</td>
+<td>
+<input type="text" id="otro_citologia_resultado" value="{otroResultadoCitologia}" name="data[otros_datos][otro_citologia_resultado]" style="width: 470px;" maxlength="100"/>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</fieldset>
+<br/>
+<fieldset class="ui-widget ui-widget-content ui-corner-all">
+<legend>Datos sobre uso de Condon</legend>
+<table border='0' width='90%' align='center'>
+<tr id="relacionesSexualesOtroHombre">
+<td width="280px">
+<label>&iquest;Ha tenido relaciones sexuales anales con otros hombres diferentes de su pareja en los &uacute;ltimos 6 meses?:<span class="mandatory">*</span></label>
+</td>
+<td width="80px">
+<select id='drpRelacionAnalOtro' name="data[condon][condon_rel_anal_otro]">
+<option value='-1' {drpRelacionAnalOtroSel}>Sel...</option>
+<option value='1' {drpRelacionAnalOtroSi}>Si</option>
+<option value='2' {drpRelacionAnalOtroNo}>No</option>
+</select>
+</td>
+<td colspan="2">
+</td>
+</tr>
+<tr>
+<td width="280px">
+<label>&iquest;En los &uacute;ltimos 30 d&iacute;as tuvo relaciones <span id="labelRelacionSexual"></span>?:<span class="mandatory">*</span></label>
+</td>
+<td width="80px">
+<select id='drpRelacionesSexual' name="data[condon][condon_rel_sexual]">
+<option value='-1' {drpRelacionesSexualSel}>Sel...</option>
+<option value='1' {drpRelacionesSexualSi}>Si</option>
+<option value='2' {drpRelacionesSexualNo}>No</option>
+</select>
+</td>
+<td colspan="2">
+</td>
+</tr>
+<tr>
+<td>
+<label>&iquest;En los &uacute;ltimos 30 d&iacute;as ha tenido relaciones anales?:<span class="mandatory">*</span></label>
+</td>
+<td width="80px">
+<select id='drpRelacionesAnales' name="data[condon][condon_rel_anal]" onchange="setRelacionesAnales();">
+<option value='-1' {drpRelacionesAnalesSel}>Sel...</option>
+<option value='1' {drpRelacionesAnalesSi}>Si</option>
+<option value='2' {drpRelacionesAnalesNo}>No</option>
+</select>
+</td>
+<td width="120px">
+<label id="labelTipoRelacionesAnales">Tipo de relaci&oacute;n anal:<span class="mandatory">*</span></label>
+</td>
+<td width="140px">
+<select id='drpTipoRelacionesAnales' name="data[condon][condon_tipo_rel_anal]">
+<option value='-1' {drpTipoRelacionesAnalesSel}>Sel...</option>
+<option value='1' {drpTipoRelacionesAnalesPenetra}>Penetra</option>
+<option value='2' {drpTipoRelacionesAnalesPenetrado}>Es penetrado</option>
+<option value='3' {drpTipoRelacionesAnalesAmbos}>Ambos</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>
+<label>&iquest;En los &uacute;ltimos 30 d&iacute;as ha tenido practicado sexo oral?:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpSexoOral' name="data[condon][condon_sexo_oral]">
+<option value='-1' {drpSexoOralSel}>Sel...</option>
+<option value='1' {drpSexoOralSi}>Si</option>
+<option value='2' {drpSexoOralNo}>No</option>
+</select>
+</td>
+<td colspan="2">
+</td>
+</tr>
+<tr>
+<td>
+<label>&iquest;En su &uacute;ltima relaci&oacute;n sexual utiliz&oacute; cond&oacute;n?:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpUltRelCondon' name="data[condon][condon_ult_rel_uso_condon]">
+<option value='-1' {drpUltRelCondonSel}>Sel...</option>
+<option value='1' {drpUltRelCondonSi}>Si</option>
+<option value='2' {drpUltRelCondonNo}>No</option>
+</select>
+</td>
+<td colspan="2">
+</td>
+</tr>
+</table>
+<br/>
+<table border='0' width='90%' align='center'>
+<tr>
+<td width="350px">
+<label>&iquest;Tiene pareja ESTABLE o FIJA<span id="labelEstableHombre"></span>?:<span class="mandatory">*</span></label>
+</td>
+<td colspan="3">
+<select id='drpHombreFija' name="data[condon][par_hombre_fija]" style="width:80px" onchange="setHombreFija();">
+<option value='-1' {drpHombreFijaSel}>Sel...</option>
+<option value='1' {drpHombreFijaSi}>Si</option>
+<option value='2' {drpHombreFijaNo}>No</option>
+</select>
+</td>
+</tr>
+<tr id="hombreFijaOpciones">
+<td>
+<label>- &iquest;Utiliz&oacute; cond&oacute;n en los &uacute;ltimos 30 d&iacute;as?:<span class="mandatory">*</span></label>
+</td>
+<td width="100px">
+<select id='drpHombreFijaUsoCondon' name="data[condon][par_hombre_fija_uso_condon]" style="width:80px">
+<option value='-1' {drpHombreFijaUsoCondonSel}>Sel...</option>
+<option value='1' {drpHombreFijaUsoCondonNunca}>Nunca</option>
+<option value='2' {drpHombreFijaUsoCondonAVeces}>A veces</option>
+<option value='3' {drpHombreFijaUsoCondonSiempre}>Siempre</option>
+</select>
+</td>
+<td width="180px">
+<label>La &uacute;ltima vez&iquest;us&oacute; cond&oacute;n?:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpHombreFijaUltUsoCondon' name="data[condon][par_hombre_fija_ult_usu_condon]" style="width:80px">
+<option value='-1' {drpHombreFijaUltUsoCondonSel}>Sel...</option>
+<option value='1' {drpHombreFijaUltUsoCondonSi}>Si</option>
+<option value='2' {drpHombreFijaUltUsoCondonNo}>No</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>
+<label>&iquest;Tiene pareja Casual<span id="labelCasualHombre"></span>?:<span class="mandatory">*</span></label>
+</td>
+<td colspan="3">
+<select id='drpHombreCasual' name="data[condon][par_hombre_casual]" style="width:80px" onchange="setHombreCasual();">
+<option value='-1' {drpHombreCasualSel}>Sel...</option>
+<option value='1' {drpHombreCasualSi}>Si</option>
+<option value='2' {drpHombreCasualNo}>No</option>
+</select>
+</td>
+</tr>
+<tr id="hombreCasualOpciones">
+<td>
+<label>- &iquest;Utiliz&oacute; cond&oacute;n en los &uacute;ltimos 30 d&iacute;as?:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpHombreCasualUsoCondon' name="data[condon][par_hombre_casual_uso_condon]" style="width:80px">
+<option value='-1' {drpHombreCasualUsoCondonSel}>Sel...</option>
+<option value='1' {drpHombreCasualUsoCondonNunca}>Nunca</option>
+<option value='2' {drpHombreCasualUsoCondonAVeces}>A veces</option>
+<option value='3' {drpHombreCasualUsoCondonSiempre}>Siempre</option>
+</select>
+</td>
+<td>
+<label>La &uacute;ltima vez&iquest;us&oacute; cond&oacute;n?:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpHombreCasualUltUsoCondon' name="data[condon][par_hombre_casual_ult_usu_condon]" style="width:80px">
+<option value='-1' {drpHombreCasualUltUsoCondonSel}>Sel...</option>
+<option value='1' {drpHombreCasualUltUsoCondonSi}>Si</option>
+<option value='2' {drpHombreCasualUltUsoCondonNo}>No</option>
+</select>
+</td>
+</tr><tr id="mujerFija">
+<td>
+<label>&iquest;Tiene pareja ESTABLE o FIJA <b>Mujer</b>?:<span class="mandatory">*</span></label>
+</td>
+<td colspan="3">
+<select id='drpMujerFija' name="data[condon][par_mujer_fija]" style="width:80px" onchange="setMujerFija();">
+<option value='-1' {drpMujerFijaSel}>Sel...</option>
+<option value='1' {drpMujerFijaSi}>Si</option>
+<option value='2' {drpMujerFijaNo}>No</option>
+</select>
+</td>
+</tr>
+<tr id="mujerFijaOpciones">
+<td>
+<label>- &iquest;Utiliz&oacute; cond&oacute;n en los &uacute;ltimos 30 d&iacute;as?:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpMujerFijaUsoCondon' name="data[condon][par_mujer_fija_uso_condon]" style="width:80px">
+<option value='-1' {drpMujerFijaUsoCondonSel}>Sel...</option>
+<option value='1' {drpMujerFijaUsoCondonNunca}>Nunca</option>
+<option value='2' {drpMujerFijaUsoCondonAVeces}>A veces</option>
+<option value='3' {drpMujerFijaUsoCondonSiempre}>Siempre</option>
+</select>
+</td>
+<td>
+<label>La &uacute;ltima vez&iquest;us&oacute; cond&oacute;n?:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpMujerFijaUltUsoCondon' name="data[condon][par_mujer_fija_ult_usu_condon]" style="width:80px">
+<option value='-1' {drpMujerFijaUltUsoCondonSel}>Sel...</option>
+<option value='1' {drpMujerFijaUltUsoCondonSi}>Si</option>
+<option value='2' {drpMujerFijaUltUsoCondonNo}>No</option>
+</select>
+</td>
+</tr>
+<tr id="mujerCasual">
+<td>
+<label>&iquest;Tiene pareja Casual <b>Mujer</b>?:<span class="mandatory">*</span></label>
+</td>
+<td colspan="3">
+<select id='drpMujerCasual' name="data[condon][par_mujer_casual]" style="width:80px" onchange="setMujerCasual();">
+<option value='-1' {drpMujerCasualSel}>Sel...</option>
+<option value='1' {drpMujerCasualSi}>Si</option>
+<option value='2' {drpMujerCasualNo}>No</option>
+</select>
+</td>
+</tr>
+<tr id="mujerCasualOpciones">
+<td>
+<label>- &iquest;Utiliz&oacute; cond&oacute;n en los &uacute;ltimos 30 d&iacute;as?:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpMujerCasualUsoCondon' name="data[condon][par_mujer_casual_uso_condon]" style="width:80px">
+<option value='-1' {drpMujerCasualUsoCondonSel}>Sel...</option>
+<option value='1' {drpMujerCasualUsoCondonNunca}>Nunca</option>
+<option value='2' {drpMujerCasualUsoCondonAVeces}>A veces</option>
+<option value='3' {drpMujerCasualUsoCondonSiempre}>Siempre</option>
+</select>
+</td>
+<td>
+<label>La &uacute;ltima vez&iquest;us&oacute; cond&oacute;n?:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpMujerCasualUltUsoCondon' name="data[condon][par_mujer_casual_ult_usu_condon]" style="width:80px"
+<option value='-1' {drpMujerCasualUltUsoCondonSel}>Sel...</option>
+<option value='1' {drpMujerCasualUltUsoCondonSi}>Si</option>
+<option value='2' {drpMujerCasualUltUsoCondonNo}>No</option>
+</select>
+</td>
+</tr>
+</table>
+<br/>
+<table border='0' width='90%' align='center'>
+<tr>
+<td width="350px">
+<label>&iquest;N&uacute;mero de CLIENTES en la &uacute;ltima quincena?:</label>
+</td>
+<td>
+<input type="text" id="clienteQuincena" value="{ts_cliente_quincena}" name="data[condon][ts_cliente_quincena]" style="width: 70px;" maxlength="3" onKeyPress="return numbersonly(event, false);"/>
+</td>
+<td>
+<label>&iquest;N&uacute;mero de CLIENTES en la &uacute;ltima semana?:</label>
+</td>
+<td>
+<input type="text" id="clienteSemana" value="{ts_cliente_semana}" name="data[condon][ts_cliente_semana]" style="width: 70px;" maxlength="3" onKeyPress="return numbersonly(event, false);"/>
+</td>
+</tr>
+<tr>
+<td>
+<label>&iquest;Con sus clientes utiliz&oacute; cond&oacute;n en los &uacute;ltimos 30 d&iacute;as?:</label>
+</td>
+<td>
+<select id='drpClienteUsoCondon' name="data[condon][ts_uso_condon]" style="width:70px">
+<option value='-1' {drpClienteUsoCondonSel}>Sel...</option>
+<option value='1' {drpClienteUsoCondonNunca}>Nunca</option>
+<option value='2' {drpClienteUsoCondonAVeces}>A veces</option>
+<option value='3' {drpClienteUsoCondonSiempre}>Siempre</option>
+</select>
+</td>
+<td>
+<label>La &uacute;ltima vez con un cliente &iquest;us&oacute; cond&oacute;n?:</label>
+</td>
+<td>
+<select id='drpClienteUltUsoCondon' name="data[condon][ts_ultimo_usu_condon]" style="width:70px">
+<option value='-1' {drpClienteUltUsoCondonSel}>Sel...</option>
+<option value='1' {drpClienteUltUsoCondonSi}>Si</option>
+<option value='2' {drpClienteUltUsoCondonNo}>No</option>
+</select>
+</td>
+</tr></table>
+</fieldset>
+<br/>
+<fieldset class="ui-widget ui-widget-content ui-corner-all">
+<legend>Examen General</legend>
+<table border='0' width='90%' align='center'>
+<tr>
+<td width="150px">
+<label>Examen general:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaGeneral' name="data[examen_general][exa_realizado]" style="width:100px" onchange="setExamenGeneral();">
+<option value='-1' {drpExaGeneralSel}>Sel...</option>
+<option value='1' {drpExaGeneralSi}>Realizado</option>
+<option value='2' {drpExaGeneralNo}>No Realizado</option>
+</select>
+</td>
+</tr>
+</table>
+<div id="examenGeneralRealizado">
+<table border='0' width='90%' align='center'>
+<tr>
+<td width="150px">
+<label>Temperatura oral:<span class="mandatory">*</span></label>
+</td>
+<td width="110px">
+<input type="text" value="{exa_temperatura}" id="exaTemperatura" name="data[examen_general][exa_temperatura]" style="width: 70px;" maxlength="2" onKeyPress="return numbersonly(event, false);"/>
+<span> C</span>
+</td>
+<td width="150px">
+<label>Peso:<span class="mandatory">*</span></label>
+<input type="text" value="{exa_libras}" id="exaLibras" name="data[examen_general][exa_libras]" style="width: 70px;" maxlength="3" onKeyPress="return numbersonly(event, false);"/>
+<span> lbs</span>
+</td>
+<td width="150px">
+<label>P/A:<span class="mandatory">*</span></label>
+<input type="text" value="{exa_PA}" id="exaPA" name="data[examen_general][exa_PA]" style="width: 70px;" maxlength="10"/>
+<span> mmHg</span>
+</td>
+<td></td>
+</tr>
+<tr>
+<td width="100px">
+<label>Ganglios:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaGanglio' name="data[examen_general][exa_ganglio]" style="width:100px" onchange="setExamenGeneral();">
+<option value='-1' {drpExaGanglioSel}>Sel...</option>
+<option value='1' {drpExaGanglioNormal}>Normal</option>
+<option value='2' {drpExaGanglioAnormal}>Anormal</option>
+<option value='3' {drpExaGanglioNoSabe}>No sabe</option>
+</select>
+</td>
+<td colspan="4">
+<div id="opcGanglio">
+<table border="0">
+<tr>
+<td width="150px">
+<label>Adenomegalia:<span class="mandatory">*</span></label>&nbsp;
+</td>
+</tr>
+<tr>
+<td width="150px"> 
+<input type="checkbox" id="exaGanglioCuello" name="data[examen_general][exa_ganglio_cuello]" {exaGanglioCuello} />
+<label>Cuello</label>
+</td> 
+<td width="100px"> 
+<input type="checkbox" id="exaGanglioAxilar" name="data[examen_general][exa_ganglio_axilar]" {exaGanglioAxilar} />
+<label>Axilar</label>
+</td>
+<td width="150px"> 
+<input type="checkbox" id="exaGanglioInguinal" name="data[examen_general][exa_ganglio_inguinal]" {exaGanglioInguinal} /> 
+<label>Inguinal</label>
+</td>
+</tr>
+</table>
+</div> 
+</td>
+</tr>
+<tr>
+<td width="100px">
+<label>Rash:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaRash' name="data[examen_general][exa_rash]" style="width:100px" onchange="setExamenGeneral();">
+<option value='-1' {drpExaRashSel}>Sel...</option>
+<option value='1' {drpExaRashAusencia}>Ausencia</option>
+<option value='2' {drpExaRashPresencia}>Presencia</option>
+<option value='3' {drpExaRashNoSabe}>No sabe</option>
+</select>
+</td>
+<td colspan="4">
+<div id="opcRash">
+<table border="0">
+<tr>
+<td width="150px">
+<select id='drpExaRashOpcion' name="data[examen_general][exa_rash_opcion]" style="width:150px" >
+<option value='-1' {drpExaRashOpcSel}>Sel...</option>
+<option value='1' {drpExaRashOpcGen}>Generalizada</option>
+<option value='2' {drpExaRashOpcLoc}>Localizada</option>
+<option value='3' {drpExaRashOpcNoSabe}>No sabe</option>
+</select>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr>
+<td width="100px">
+<label>Boca:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaBoca' name="data[examen_general][exa_boca]" style="width:100px" onchange="setExamenGeneral();">
+<option value='-1' {drpExaBocaSel}>Sel...</option>
+<option value='1' {drpExaBocaNormal}>Normal</option>
+<option value='2' {drpExaBocaAnormal}>Anormal</option>
+<option value='3' {drpExaBocaNoSabe}>No sabe</option>
+</select>
+</td>
+<td colspan="4">
+<div id="opcBoca">
+<table border="0">
+<tr>
+<td width="150px">
+<input type="checkbox" id="exaBocaMonilia" name="data[examen_general][exa_boca_monilia]" {exaBocaMonilia} />    
+<label>Monilia</label>
+</td>
+<td width="100px">
+<input type="checkbox" id="exaBocaUlcera" name="data[examen_general][exa_boca_ulcera]" {exaBocaUlcera} />
+<label>&Uacute;lcera</label>
+</td>
+<td width="150px">
+<input type="checkbox" id="exaBocaAmigdalas" name="data[examen_general][exa_boca_amigdalas]" {exaBocaAmigdalas} /> 
+<label>Secreci&oacute;n amigdalas</label>
+</td>
+</tr>
+<tr>
+<td> 
+<input type="checkbox" id="exaBocaIrritacionFaringea" name="data[examen_general][exa_boca_irritacion_faringea]" {exaBocaIrritacionFaringea} />     
+<label>Irritaci&oacute;n faringea</label>
+</td>
+<td>
+<input type="checkbox" id="exaBocaOtro" name="data[examen_general][exa_boca_otro]" {exaBocaOtro} />    
+<label>Otro</label>
+</td>
+<td></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr id="mostrarExaPene">
+<td width="100px">
+<label>Pene:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaPene' name="data[examen_general][exa_pene]" style="width:100px" onchange="setExamenGeneral();">
+<option value='-1' {drpExaPeneSel}>Sel...</option>
+<option value='1' {drpExaPeneNormal}>Normal</option>
+<option value='2' {drpExaPeneAnormal}>Anormal</option>
+<option value='3' {drpExaPeneNoSabe}>No sabe</option>
+</select>
+</td>
+<td colspan="4">
+<div id="opcPene">
+<table border="0">
+<tr>
+<td width="150px">
+<input type="checkbox" id="exaPeneUlcera" name="data[examen_general][exa_pene_ulcera]" {exaPeneUlcera} />
+<label>&Uacute;lcera</label>
+</td>
+<td width="100px">
+<input type="checkbox" id="exaPeneVerruga" name="data[examen_general][exa_pene_verruga]" {exaPeneVerruga} />    
+<label>Verruga</label>
+</td>
+</tr>
+<tr>
+<td>
+<input type="checkbox" id="exaPeneAmpolla" name="data[examen_general][exa_pene_ampolla]" {exaPeneAmpolla} />
+<label>Ampolla o Ves&iacute;cula</label>
+</td>
+<td>
+<input type="checkbox" id="exaPeneOtro" name="data[examen_general][exa_pene_otro]" {exaPeneOtro} />
+<label>Otros</label>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr id="mostrarExaTesticulo">
+<td width="100px">
+<label>Test&iacute;culo:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaTesticulo' name="data[examen_general][exa_testiculo]" style="width:100px" onchange="setExamenGeneral();">
+<option value='-1' {drpExaTesticuloSel}>Sel...</option>
+<option value='1' {drpExaTesticuloNormal}>Normal</option>
+<option value='2' {drpExaTesticuloAnormal}>Anormal</option>
+<option value='3' {drpExaTesticuloNoSabe}>No sabe</option>
+</select>
+</td>
+<td colspan="4">
+<div id="opcTesticulo">
+<table border="0">
+<tr>
+<td width="150px">
+<input type="checkbox" id="exaTesticuloUlcera" name="data[examen_general][exa_testiculo_ulcera]" {exaTesticuloUlcera} />
+<label>&Uacute;lcera</label>
+</td> 
+<td width="100px">
+<input type="checkbox" id="exaTesticuloVerruga" name="data[examen_general][exa_testiculo_verruga]" {exaTesticuloVerruga} />
+<label>Verruga</label>
+</td>
+</tr>
+<tr>
+<td>
+<input type="checkbox" id="exaTesticuloAmpolla" name="data[examen_general][exa_testiculo_ampolla]" {exaTesticuloAmpolla} />    
+<label>Ampolla o Ves&iacute;cula</label>
+</td>
+<td>
+<input type="checkbox" id="exaTesticuloOtro" name="data[examen_general][exa_testiculo_otro]" {exaTesticuloOtro} />
+<label>Otros</label>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr id="mostrarExaAbdomen">
+<td width="100px">
+<label>Abdomen<br/>(dolor a la palpaci&oacute;n):<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaAbdomen' name="data[examen_general][exa_abdomen]" style="width:100px" onchange="setExamenGeneral();">
+<option value='-1' {drpExaAbdomenSel}>Sel...</option>
+<option value='1' {drpExaAbdomenNormal}>Normal</option>
+<option value='2' {drpExaAbdomenAnormal}>Anormal</option>
+<option value='3' {drpExaAbdomenNoSabe}>No sabe</option>
+</select>
+</td>
+<td colspan="4">
+<div id="opcAbdomen">
+<table border="0">
+<tr>
+<td width="150px">
+<input type="checkbox" id="exaAbdomenFosaIzq" name="data[examen_general][exa_abdomen_fosa_izq]" {exaAbdomenFosaIzq} />    
+<label>Fosa il&iacute;aca izquierda</label>
+</td>
+<td width="100px">
+<input type="checkbox" id="exaAbdomenHipogastrico" name="data[examen_general][exa_abdomen_hipogastrico]" {exaAbdomenHipogastrico} />    
+<label>Hipogastrio</label>
+</td>
+</tr>
+<tr>
+<td width="150px">
+<input type="checkbox" id="exaAbdomenFosaDer" name="data[examen_general][exa_abdomen_fosa_der]" {exaAbdomenFosaDer} />
+<label>Fosa il&iacute;aca derecha</label>
+</td>
+<td></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr id="mostrarExaVulva">
+<td width="100px">
+<label>Vulva:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaVulva' name="data[examen_general][exa_vulva]" style="width:100px" onchange="setExamenGeneral();">
+<option value='-1' {drpExaVulvaSel}>Sel...</option>
+<option value='1' {drpExaVulvaNormal}>Normal</option>
+<option value='2' {drpExaVulvaAnormal}>Anormal</option>
+<option value='3' {drpExaVulvaNoSabe}>No sabe</option>
+</select>
+</td>
+<td colspan="4">
+<div id="opcVulva">
+<table border="0">
+<tr>
+<td width="150px">
+<input type="checkbox" id="exaVulvaUlcera" name="data[examen_general][exa_vulva_ulcera]" {exaVulvaUlcera} />
+<label>&Uacute;lcera</label>
+</td>
+<td width="100px">
+<input type="checkbox" id="exaVulvaVerruga" name="data[examen_general][exa_vulva_verruga]" {exaVulvaVerruga} />
+<label>Verruga</label>
+</td>
+</tr>
+<tr>
+<td>
+<input type="checkbox" id="exaVulvaVesicula" name="data[examen_general][exa_vulva_vesicula]" {exaVulvaVesicula} />    
+<label>Ves&iacute;cula</label>
+</td>
+<td>
+<input type="checkbox" id="exaVulvaOtro" name="data[examen_general][exa_vulva_otro]" {exaVulvaOtro} />    
+<label>Otros</label>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr>
+<td width="100px">
+<label>Meato uretral:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaMeato' name="data[examen_general][exa_meato]" style="width:100px" onchange="setExamenGeneral();">
+<option value='-1' {drpExaMeatoSel}>Sel...</option>
+<option value='1' {drpExaMeatoNormal}>Normal</option>
+<option value='2' {drpExaMeatoAnormal}>Anormal</option>
+<option value='3' {drpExaMeatoNoSabe}>No sabe</option>
+</select>
+</td>
+<td colspan="4">
+<div id="opcMeato">
+<table border="0">
+<tr>
+<td width="150px">
+<input type="checkbox" id="exaMeatoHiperemia" name="data[examen_general][exa_meato_hiperemia]" {exaMeatoHiperemia} />    
+<label>Hiperemia</label>
+</td>
+<td width="100px">
+<input type="checkbox" id="exaMeatoSecrecion" name="data[examen_general][exa_meato_secrecion]" {exaMeatoSecrecion} />    
+<label>Secreci&oacute;n</label>
+</td>
+<td width="150px">
+<input type="checkbox" id="exaMeatoVerruga" name="data[examen_general][exa_meato_verruga]" {exaMeatoVerruga} />    
+<label>Verruga</label>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr>
+<td width="100px">
+<label>Ano:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaAno' name="data[examen_general][exa_ano]" style="width:100px" onchange="setExamenGeneral();">
+<option value='-1' {drpExaAnoSel}>Sel...</option>
+<option value='1' {drpExaAnoNormal}>Normal</option>
+<option value='2' {drpExaAnoAnormal}>Anormal</option>
+<option value='3' {drpExaAnoNoSabe}>No sabe</option>
+</select>
+</td>
+<td colspan="4">
+<div id="opcAno">
+<table border="0">
+<tr>
+<td width="150px">
+<input type="checkbox" id="exaAnoUlcera" name="data[examen_general][exa_ano_ulcera]" {exaAnoUlcera} />
+<label>&Uacute;lcera</label>
+</td> 
+<td width="100px">
+<input type="checkbox" id="exaAnoVerruga" name="data[examen_general][exa_ano_verruga]" {exaAnoVerruga} />    
+<label>Verruga</label>
+</td>
+<td width="100px">
+<input type="checkbox" id="exaAnoSecrecion" name="data[examen_general][exa_ano_secrecion]" {exaAnoSecrecion} />    
+<label>Secreci&oacute;n</label>
+</td>
+</tr>
+<tr>
+<td>
+<input type="checkbox" id="exaAnoVesicula" name="data[examen_general][exa_ano_vesicula]" {exaAnoVesicula} />    
+<label>Ves&iacute;cula</label>
+</td>
+<td>
+<input type="checkbox" id="exaAnoOtro" name="data[examen_general][exa_ano_otro]" {exaAnoOtro} />    
+<label>Otros</label>
+</td>
+<td></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div></fieldset>
+<div id="mostrarExamenEspeculoTS" style="display:{mostrarExamenEspeculoTS}">
+<br/>
+<fieldset class="ui-widget ui-widget-content ui-corner-all">
+<legend>Examen con Especulo</legend>
+<table border='0' width='90%' align='center'>
+<tr>
+<td width="150px">
+<label>Examen con especulo:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaEspeculo' name="data[examen_especulo][exa_especulo_realizado]" style="width:100px" onchange="setExamenEspeculo();">
+<option value='-1' {drpExaEspeculoSel}>Sel...</option>
+<option value='1' {drpExaEspeculoSi}>Realizado</option>
+<option value='2' {drpExaEspeculoNo}>No Realizado</option>
+</select>
+</td>
+</tr>
+</table>
+<div id="examenEspeculoRealizado">
+<table border='0' width='90%' align='center'>
+<tr>
+<td width="150px">
+<label>Vagina:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaVagina' name="data[examen_especulo][exa_vagina]" style="width:100px" onchange="setExamenEspeculo();">
+<option value='-1' {drpExaVaginaSel}>Sel...</option>
+<option value='1' {drpExaVaginaNormal}>Normal</option>
+<option value='2' {drpExaVaginaAnormal}>Anormal</option>
+<option value='3' {drpExaVaginaNoSabe}>No sabe</option>
+</select>
+</td>
+<td>
+<div id="opcVagina">
+<table border="0">
+<tr>
+<td width="100px">
+<input type="checkbox" id="exaVaginaUlcera" name="data[examen_especulo][exa_vagina_ulcera]" {exaVaginaUlcera} />
+<label>&Uacute;lcera</label>
+</td>
+<td width="100px">
+<input type="checkbox" id="exaVaginaHiperemia" name="data[examen_especulo][exa_vagina_hiperamia]" {exaVaginaHiperemia} />
+<label>Hiperemia</label>
+</td>
+<td width="200px">
+<input type="checkbox" id="exaVaginaMenstruacion" name="data[examen_especulo][exa_vagina_menstruacion]" {exaVaginaMenstruacion} /> 
+<label>Menstruaci&oacute;n presente</label>
+</td>
+</tr>
+<tr>
+<td> 
+<input type="checkbox" id="exaVaginaAtrofia" name="data[examen_especulo][exa_vagina_atrofia]" {exaVaginaAtrofia} /> 
+<label>Atrofia</label>
+</td>
+<td>
+<input type="checkbox" id="exaVaginaOtro" name="data[examen_especulo][exa_vagina_otro]" {exaVaginaOtro} />
+<label>Otro</label>
+</td>
+<td></td><td></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr>
+<td width="150px">
+<label>Flujo:<span class="mandatory">*</span></label>
+</td>
+<td colspan="2">
+<select id='drpExaFlujo' name="data[examen_especulo][exa_flujo]" style="width:100px" onchange="setExamenEspeculo();">
+<option value='-1' {drpExaFlujoSel}>Sel...</option>
+<option value='1' {drpExaFlujoSi}>Si</option>
+<option value='2' {drpExaFlujoNo}>No</option>
+<option value='3' {drpExaFlujoNoSabe}>No sabe</option>
+</select>
+</td>
+</tr>
+<tr>
+<td colspan="3">
+<div id="mostrarExamenFlujo">
+<table border="0">
+<tr>
+<td width="150px">
+<label>- Cantidad:<span class="mandatory">*</span></label>
+</td>
+<td width="120px">
+<select id='drpExaFlujoCantidad' name="data[examen_especulo][exa_flujo_cantidad]" style="width:100px" onchange="setExamenEspeculo();">
+<option value='-1' {drpExaFlujoCantidadSel}>Sel...</option>
+<option value='1' {drpExaFlujoCantidadNormal}>Normal</option>
+<option value='2' {drpExaFlujoCantidadAnormal}>Anormal</option>
+<option value='3' {drpExaFlujoCantidadNoSabe}>No sabe</option>
+</select>
+</td>
+<td width="50px">
+<label>Color:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaFlujoColor' name="data[examen_especulo][exa_flujo_color]" style="width:100px" onchange="setExamenEspeculo();">
+<option value='-1' {drpExaFlujoSel}>Sel...</option>
+<option value='1' {drpExaFlujoColorBlanco}>Blanco</option>
+<option value='2' {drpExaFlujoColorVerdeAmarillo}>Verde/Amarillo</option>
+<option value='3' {drpExaFlujoColorAmarillo}>Amarillo</option>
+<option value='4' {drpExaFlujoColorCafe}>Caf&eacute;</option>
+<option value='5' {drpExaFlujoColorNoSabe}>No sabe</option>
+</select>
+</td>
+</tr><tr>
+<td width="150px">
+<label>- Aspecto:<span class="mandatory">*</span></label>
+</td>
+<td colspan="3">
+<table border="0">
+<tr>
+<td width="122px">
+<input type="checkbox" id="exaFlujoAspectoSanguinolento" name="data[examen_especulo][exa_flujo_asp_sanguinolento]" {exaFlujoAspectoSanguinolento} />
+<label>Sanguinolento</label>
+</td>
+<td width="100px">
+<input type="checkbox" id="exaFlujoAspectoGrumoso" name="data[examen_especulo][exa_flujo_asp_grumoso]" {exaFlujoAspectoGrumoso} />
+<label>Grumoso</label>
+</td>
+<td width="100px"> 
+<input type="checkbox" id="exaFlujoAspectoEspumoso" name="data[examen_especulo][exa_flujo_asp_espumoso]" {exaFlujoAspectoEspumoso} /> 
+<label>Espumoso</label>
+</td>
+<td width="100px"> 
+<input type="checkbox" id="exaFlujoAspectoMucoso" name="data[examen_especulo][exa_flujo_asp_mucoso]" {exaFlujoAspectoMucoso} />
+<label>Mucoso</label>
+</td>
+<td width="150px"> 
+<input type="checkbox" id="exaFlujoAspectoOlor" name="data[examen_especulo][exa_flujo_olor]" {exaFlujoAspectoOlor} />
+<label>Olor f&eacute;tido</label>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr><tr>
+<td width="150px">
+<label>Cervix:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaCervix' name="data[examen_especulo][exa_cervix]" style="width:100px" onchange="setExamenEspeculo();">
+<option value='-1' {drpExaCervixSel}>Sel...</option>
+<option value='1' {drpExaCervixNormal}>Normal</option>
+<option value='2' {drpExaCervixAnormal}>Anormal</option>
+<option value='3' {drpExaCervixAusencia}>Ausencia</option>
+<option value='4' {drpExaCervixNoSabe}>No sabe</option>
+</select>
+</td>
+<td>
+<div id="opcCervix">
+<table border="0">
+<tr>
+<td width="100px">
+<input type="checkbox" id="exaCervixUlcera" name="data[examen_especulo][exa_cervix_ulcera]" {exaCervixUlcera} />
+<label>&Uacute;lcera</label>
+</td>
+<td width="100px">
+<input type="checkbox" id="exaCervixHiperemia" name="data[examen_especulo][exa_cervix_hiperamia]" {exaCervixHiperemia} />
+<label>Hiperemia</label>
+</td>
+<td width="100px">
+<input type="checkbox" id="exaCervixFriable" name="data[examen_especulo][exa_cervix_friable]" {exaCervixFriable} /> 
+<label>Friable</label>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>
+<input type="checkbox" id="exaCervixTumor" name="data[examen_especulo][exa_cervix_tumor]" {exaCervixTumor} />
+<label>Tumor</label>
+</td>
+<td colspan="3" width="300px">
+<input type="checkbox" id="exaCervixPus" name="data[examen_especulo][exa_cervix_pus]" {exaCervixPus} />
+<label>Pus en OCE (Orificio Cervical Externo)</label>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</fieldset>
+</div> 
+<div id="mostrarExamenBimanualTS" style="display:{mostrarExamenBimanualTS}">
+<br/>
+<fieldset class="ui-widget ui-widget-content ui-corner-all">
+<legend>Examen Bimanual</legend>
+<table border='0' width='90%' align='center'>
+<tr>
+<td width="150px">
+<label>Examen bimanual:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaBimanual' name="data[examen_bimanual][exa_bimanual_realizado]" style="width:100px" onchange="setExamenBimanual();">
+<option value='-1' {drpExaBimanualSel}>Sel...</option>
+<option value='1' {drpExaBimanualSi}>Realizado</option>
+<option value='2' {drpExaBimanualNo}>No Realizado</option>
+</select>
+</td>
+</tr>
+</table><div id="examenBimanualRealizado">
+<table border='0' width='90%' align='center'>
+<tr>
+<td width="150px">
+<label>Anexos:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaBiAnexo' name="data[examen_bimanual][exa_bi_anexo]" style="width:140px" onchange="setExamenBimanual();">
+<option value='-1' {drpExaBiAnexoSel}>Sel...</option>
+<option value='1' {drpExaBiAnexoNormal}>Normal</option>
+<option value='2' {drpExaBiAnexoAnormal}>Anormal</option>
+<option value='3' {drpExaBiAnexoNoSabe}>No sabe</option>
+</select>
+</td>
+<td>
+<div id="opcBiAnexo">
+<table border="0" width="100%">
+<tr>
+<td>
+<label>Sangrado anormal:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaBiAnexoSangrado' name="data[examen_bimanual][exa_bi_anexo_sangrado]" style="width:100px">
+<option value='-1' {drpExaAnexoSangradoSel}>Sel...</option>
+<option value='1' {drpExaAnexoSangradoNormal}>Normal</option>
+<option value='2' {drpExaAnexoSangradoAnormal}>Anormal</option>
+<option value='3' {drpExaAnexoSangradoNoSabe}>No sabe</option>
+</select>
+</td>
+<td>
+<label>Dolor:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaBiAnexoDolor' name="data[examen_bimanual][exa_bi_anexo_dolor]" style="width:100px">
+<option value='-1' {drpExaBiAnexoDolorSel}>Sel...</option>
+<option value='1' {drpExaBiAnexoDolorDerecho}>Derecho</option>
+<option value='2' {drpExaBiAnexoDolorIzquierdo}>Izquierdo</option>
+<option value='3' {drpExaBiAnexoDolorNoSabe}>No sabe</option>
+</select>
+</td>
+<td>
+<label>Tumor:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpExaBiAnexoTumor' name="data[examen_bimanual][exa_bi_anexo_tumor]" style="width:100px">
+<option value='-1' {drpExaBiAnexoTumorSel}>Sel...</option>
+<option value='1' {drpExaBiAnexoTumorDerecho}>Derecho</option>
+<option value='2' {drpExaBiAnexoTumorIzquierdo}>Izquierdo</option>
+<option value='3' {drpExaBiAnexoTumorNoSabe}>No sabe</option>
+</select>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr>
+<td width="150px">
+<label>Hipogastrio:<span class="mandatory">*</span></label>
+</td>
+<td colspan="2">
+<select id='drpExaBiHipogastrico' name="data[examen_bimanual][exa_bi_hipogastrico]" style="width:140px">
+<option value='-1' {drpExaBiHipogastricoSel}>Sel...</option>
+<option value='1' {drpExaBiHipogastricoNormal}>Normal</option>
+<option value='2' {drpExaBiHipogastricoDolor}>Dolor a la palpaci&oacute;n</option>
+<option value='3' {drpExaBiHipogastricoNoSabe}>No sabe</option>
+</select>
+</td>
+</tr>
+<tr>
+<td width="150px">
+<label>Cervix:<span class="mandatory">*</span></label>
+</td>
+<td width="100px">
+<select id='drpExaBiCervix' name="data[examen_bimanual][exa_bi_cervix]" style="width:140px" onchange="setExamenBimanual();">
+<option value='-1' {drpExaBiCervixSel}>Sel...</option>
+<option value='1' {drpExaBiCervixNormal}>Normal</option>
+<option value='2' {drpExaBiCervixAnormal}>Anormal</option>
+<option value='3' {drpExaBiCervixNoSabe}>No sabe</option>
+</select>
+</td>
+<td>
+<div id="opcBiCervix">
+<table border="0">
+<tr>
+<td width="90px">
+<input type="checkbox" id="exaBiCervixAusente" name="data[examen_bimanual][exa_bi_cervix_ausente]" {exaBiCervixAusente} />
+<label>Ausente</label>
+</td>
+<td width="150px">
+<input type="checkbox" id="exaBiCervixDolor" name="data[examen_bimanual][exa_bi_cervix_dolor]" {exaBiCervixDolor} /> 
+<label>Dolor con movimiento</label>
+</td> 
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr>
+<td width="150px">
+<label>Utero:<span class="mandatory">*</span></label>
+</td>
+<td width="100px">
+<select id='drpExaBiUtero' name="data[examen_bimanual][exa_bi_utero]" style="width:140px" onchange="setExamenBimanual();">
+<option value='-1' {drpExaBiUteroSel}>Sel...</option>
+<option value='1' {drpExaBiUteroNormal}>Normal</option>
+<option value='2' {drpExaBiUteroAnormal}>Anormal</option>
+<option value='3' {drpExaBiUteroNoSabe}>No sabe</option>
+</select>
+</td>
+<td>
+<div id="opcBiUtero">
+<table border="0">
+<tr>
+<td>
+<select id='drpExaBiUteroAnormal' name="data[examen_bimanual][exa_bi_utero_anormal]" style="width:160px">
+<option value='-1' {drpExaBiUteroAnormalSel}>Sel...</option>
+<option value='1' {drpExaBiUteroAnormalAusente}>Ausente</option>
+<option value='2' {drpExaBiUteroAnormalAumentado}>Aumentado de volumen</option>
+<option value='3' {drpExaBiUteroAnormalNoSabe}>No sabe</option>
+</select>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</fieldset>
+</div>
+</div> <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divParteB" >
+<fieldset class="ui-widget ui-widget-content ui-corner-all">
+<table border='0' width='90%' align='center'>
+<tr>
+<td width="190px">
+<label>Usuario Sano:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpUsuarioSano' name="data[muestras_laboratorio][usuario_sano]" style="width:100px">
+<option value='-1' {drpUsuarioSanoSel}>Sel...</option>
+<option value='1' {drpUsuarioSanoSi}>Si</option>
+<option value='2' {drpUsuarioSanoNo}>No</option>
+</select>
+</td>
+<td width="150px">
+<label>&iquest;Tomo muestra?<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpMuestrasLabTomo' name="data[muestras_laboratorio][muestra_ninguna]" style="width:100px" onchange="setMuestrasLaboratorio();">
+<option value='-1' {drpMuestrasTomoSel}>Sel...</option>
+<option value='1' {drpMuestrasTomoSi}>Si</option>
+<option value='2' {drpMuestrasTomoNo}>No</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>
+<div id="fechaMenstruacionLabel"><label>Fecha &uacute;ltima menstruaci&oacute;n:</label></div>
+</td>
+<td width="130px">
+<div id="fechaMenstruacionInput"><input type="text" id="fecha_menstruacion" name="data[muestras_laboratorio][fecha_menstruacion]" value="{valFechaMenstruacion}" style="width: 100px;" maxlength="10"/></div>
+</td>
+<td>
+<div id="tipoMuestraLabel"><label>Tipo de muestras:<span class="mandatory">*</span></label></div>
+</td>
+<td>
+<div id="opcTipoMuestrasHSH">
+<table border="0">
+<tr>
+<td width="100px">
+<input type="checkbox" id="muestraSangreHSH" name="data[muestras_laboratorio][muestra_sangre_hsh]" {muestraSangreHSH} />    
+<label>Sangre</label>
+</td>
+<td width="150px">
+<input type="checkbox" id="muestraUlcera" name="data[muestras_laboratorio][muestra_ulcera]" {muestraUlcera} />
+<label>Secreci&oacute;n Uretral</label>
+</td>
+</tr>
+<tr>
+<td>
+<input type="checkbox" id="muestraSecrecionUretral" name="data[muestras_laboratorio][muestra_secrecion_uretral]" {muestraSecrecionUretral} />    
+<label>&Uacute;lcera</label>
+</td>
+<td>
+<input type="checkbox" id="muestraSecrecionAnal" name="data[muestras_laboratorio][muestra_secrecion_anal]" {muestraSecrecionAnal} />    
+<label>Secreci&oacute;n anal</label>
+</td>
+</tr>
+</table>
+</div>
+<div id="opcTipoMuestrasTS">
+<table border="0">
+<tr>
+<td width="100px">
+<input type="checkbox" id="muestraSangreTS" name="data[muestras_laboratorio][muestra_sangre_ts]" {muestraSangreTS} />    
+<label>Sangre</label>
+</td>
+<td colspan="2">
+<input type="checkbox" id="muestraFlujoVaginal" name="data[muestras_laboratorio][muestra_flujo_vaginal]" {muestraFlujoVaginal} />    
+<label>Flujo vaginal</label>
+</td>
+</tr>
+<tr>
+<td>
+<input type="checkbox" id="muestraEndocervix" name="data[muestras_laboratorio][muestra_endocervix]" {muestraEndocervix} />    
+<label>Endocervix</label>
+</td>
+<td width="100px">
+<input type="checkbox" id="muestraCitologia" name="data[muestras_laboratorio][muestra_citologia]" {muestraCitologia} />    
+<label>Citolog&iacute;a</label>
+</td>
+<td width="100px">
+<input type="checkbox" id="muestraUlceraTS" name="data[muestras_laboratorio][muestra_ulcera_ts]" {muestraUlceraTS} />    
+<label>&Uacute;lcera</label>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+<div id="embarazadaLabel"><label>Embarazada:<span class="mandatory">*</span></label></div>
+</td>
+<td colspan="3">
+<select id='drpEmbarazo' name="data[muestras_laboratorio][embarazo]" style="width:100px" onchange="setMuestrasLaboratorio()">
+<option value='-1' {drpEmbarazoSel}>Sel...</option>
+<option value='1' {drpEmbarazoSi}>Si</option>
+<option value='2' {drpEmbarazoNo}>No</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>
+<div id="semanasLabel"><label>No. de semanas:<span class="mandatory">*</span></label></div>
+</td>
+<td colspan="3">
+<input type="text" value="{embarazo_semanas}" id="embarazo_semanas" name="data[muestras_laboratorio][embarazo_semanas]" style="width: 100px;" maxlength="2" onKeyPress="return numbersonly(event, false);" onchange="setMuestrasLaboratorio()"/>
+</td>
+</tr>
+</table>
+</fieldset>
+<br/>
+<fieldset class="ui-widget ui-widget-content ui-corner-all">
+<legend>Diagn&oacute;stico y tratamiento supervisado</legend>
+<table border='0' width='90%' align='center'>
+<tr>
+<td>
+Diagn&oacute;stico Sindr&oacute;mico
+</td>
+<td>
+Diagn&oacute;stico Etiol&oacute;gico
+</td>
+<td>
+Tratamiento supervisado
+</td>
+<td></td>
+</tr>
+<tr>
+<td>
+<select id='drpDxSindromico' style='width:210px' onchange="setDxTotal()">
+<option value='0' >Seleccione...</option>
+</select>
+</td>
+<td>
+<select id='drpDxEtiologico' style='width:180px'>
+<option value='0' >Seleccione...</option>
+</select>
+</td>
+<td>
+<select id='drpTxSupervisado' style='width:300px'>
+<option value='0' >Seleccione...</option>
+</select>
+</td>
+<td>
+<a id='anadirDiagnosticoTratamiento' href='javascript:relacionarTabla("tablaDiagnosticoTratamiento");' class='ui-state-default ui-corner-all ui-button' title='A&ntilde;adir'
+ onmouseover='RollOver(this)' onmouseout='RollOut(this)'>A&ntilde;adir
+</a>
+</td>
+</tr>
+<tr>
+<td colspan="4">
+<br/>
+<div id="tablaDiagnosticoTratamiento"></div>
+</td>
+</tr>
+</table>
+<div id="otroTratamientoTS">
+<table border='0' width='90%' align='center'>
+<tr>
+<td width="125px">
+<label>Otro tratamiento:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpOtroTratamiento' name="data[diagnostico_tratamiento][otro_tratamiento]" style="width:100px" onchange="setDiagnosticoTratamiento();">
+<option value='-1' {drpOtroTratamientoSel}>Sel...</option>
+<option value='1' {drpOtroTratamientoSi}>Si</option>
+<option value='2' {drpOtroTratamientoNo}>No</option>
+<option value='3' {drpOtroTratamientoNoSabe}>No sabe</option>
+</select>
+</td>
+<td>
+<div id="opcOtroTratamientoTS">
+<table border="0">
+<tr>
+<td>
+<input type="checkbox" id="txSulfato" name="data[diagnostico_tratamiento][tx_sulfato]" {txSulfato} />
+<label>Sulfato ferroso</label>
+</td>
+<td>
+<input type="checkbox" id="txAcidoFolico" name="data[diagnostico_tratamiento][tx_acido_folico]" {txAcidoFolico} />    
+<label>Acido Folico</label>
+</td>
+</tr>
+<tr>
+<td>
+<input type="checkbox" id="txPrenatales" name="data[diagnostico_tratamiento][tx_prenatales]" {txPrenatales} />    
+<label>Prenatales</label>
+</td>
+<td>
+<input type="checkbox" id="txToxoide" name="data[diagnostico_tratamiento][tx_toxoide]" {txToxoide} />    
+<label>Toxoide de T&eacute;tano</label>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<table border='0' width='90%' align='center'>
+<tr>
+<td colspan="3">
+<label>Ha recibido una intervenci&oacute;n de cambio de comportamiento en los &uacute;ltimos 12 meses:<span class="mandatory">*</span></label>
+</td>
+<td>
+<select id='drpDiagIntervencion' name="data[diagnostico_tratamiento][intervencion]" style="width:100px">
+<option value='-1' {drpDiagIntervencionSel}>Sel...</option>
+<option value='1' {drpDiagIntervencionSi}>Si</option>
+<option value='2' {drpDiagIntervencionNo}>No</option>
+<option value='3' {drpDiagIntervencionNoSabe}>No sabe</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>
+<label>Otro diagn&oacute;stico:</label>
+</td>
+<td >
+<input type="text" id="diag_otro" value="{diag_otro}" name="data[diagnostico_tratamiento][diag_otro]" style="width: 270px;" maxlength="100"/>
+</td>
+<td>
+<label>Otro medicamento:</label>
+</td>
+<td >
+<input type="text" id="diag_otro_medicamento" value="{diag_otro_medicamento}" name="data[diagnostico_tratamiento][diag_otro_medicamento]" style="width: 270px;" maxlength="100"/>
+</td>
+</tr>
+</table>
+</fieldset>
+<br/>
+<fieldset class="ui-widget ui-widget-content ui-corner-all">
+<legend>Notificaci&oacute;n</legend>
+<table border='0' width='90%' align='center'>
+<tr>
+<td>
+<label>Referencia de pareja/contactos para tratamiento:</label>
+</td>
+<td>
+<select id='drpDxRefPareja' name="data[notificacion][noti_referencia_pareja]" style="width:100px">
+<option value='-1' {drpDxRefParejaSel}>Sel...</option>
+<option value='1' {drpDxRefParejaSi}>Si</option>
+<option value='2' {drpDxRefParejaNo}>No</option>
+<option value='3' {drpDxRefParejaNoSabe}>No sabe</option>
+</select>
+</td>
+<td>
+<label>Preservativos entregados:</label>
+<select id='drpDxPreservativos' name="data[notificacion][noti_preservativos]" onchange="entregoPreservativos()">
+<option value='-1' {drpDxPreservativosSel}>Sel...</option>
+<option value='1' {drpDxPreservativosSi}>Si</option>
+<option value='2' {drpDxPreservativosNo}>No</option>
+<option value='3' {drpDxPreservativosNoSabe}>No sabe</option>
+</select>
+</td>
+<td id="preservativos">
+<label>Cuantos entrego:</label>
+<input type="text" id="noti_preservativos_cuantos" value="{noti_preservativos_cuantos}" name="data[notificacion][noti_preservativos_cuantos]" style="width: 30px;" maxlength="3"/>    
+</td>
+</tr>
+<tr>
+<td>
+<label>Medicamento 1:</label>
+</td>
+<td colspan="3">
+<input type="text" id="noti_medicamento1" value="{noti_medicamento1}" name="data[notificacion][noti_medicamento1]" style="width: 600px;" maxlength="100"/>
+</td>
+</tr>
+<tr>
+<td>
+<label>Medicamento 2:</label>
+</td>
+<td colspan="3">
+<input type="text" id="noti_medicamento2" value="{noti_medicamento2}" name="data[notificacion][noti_medicamento2]" style="width: 600px;" maxlength="100"/>
+</td>
+</tr>
+<tr>
+<td>
+<label>Medicamento 3:</label>
+</td>
+<td colspan="3">
+<input type="text" id="noti_medicamento3" value="{noti_medicamento3}" name="data[notificacion][noti_medicamento3]" style="width: 600px;" maxlength="100"/>
+</td>
+</tr>
+<tr>
+<td colspan="4">
+&nbsp;
+</td>
+</tr>
+<tr>
+<td>
+<label>Instalaci&oacute;n de salud:<span class="mandatory">*</span></label>
+</td>
+<td colspan="3">
+<input type="text" id="noti_unidad_notificadora" value="{noti_unidad_notificadora}" name="data[notificacion][noti_unidad_notificadora]" style="width: 600px;" maxlength="100"/>
+<input type="hidden" name="data[notificacion][noti_id_un]" id="noti_id_un" value="{noti_id_un}" />
+</td>
+</tr>
+<tr>    
+<td>
+<label>Nombre del m&eacute;dico que lleno el formulario:</label>
+</td>
+<td colspan="2">
+<input type="text" id="noti_nombre_medico" value="{noti_nombre_medico}" name="data[notificacion][noti_nombre_medico]" style="width: 320px;" maxlength="100"/>
+</td>
+<td>
+<label>Fecha de consulta:<span class="mandatory">*</span></label>
+<input type="text" id="noti_fecha_consulta" value="{noti_fecha_consulta}" name="data[notificacion][fecha_consulta]"  style="width: 100px;" maxlength="12"/>
+</td>
+</tr>
+<tr>    
+<td>
+<label>Nombre quien lleno el formulario:</label>
+</td>
+<td colspan="2">
+<input type="text" id="noti_nombre_registra" value="{noti_nombre_registra}" name="data[notificacion][nombre_registra]"  style="width: 320px;" maxlength="100"/>
+</td>
+<td>
+<label>Fecha llenado formulario:</label>
+<input type="text" id="noti_fecha_form_vicits" value="{noti_fecha_form_vicits}" name="data[notificacion][fecha_form_vicits]"  style="width: 100px;" maxlength="12"/>
+</td>
+</tr>
+</table>
+</fieldset>
+<br/>
+</div><div align="right">
+<table>
+<tr><td>
+<div style="margin-right:15px">
+<a id="next" href="javascript:siguienteTab();" class="ui-state-default ui-corner-all ui-button"
+ onmouseover="RollOver(this)" onmouseout="RollOut(this)">Siguiente
+</a>&nbsp;
+</div>
+</td></tr>
+</table>
+<br/>
+<label style=" font-weight:normal; padding-right: 17px">
+Los campos marcados con <strong><span class="mandatory">*</span></strong> son obligatorios.
+</label>
+</div>
+</div>
+<table align="center">
+<tr>
+<td>
+<div style="margin-top:10px">
+    <br/>
+<input type="hidden" name="action" id="action" value="{action}" />
+<input type="hidden" name="data[formulario][idVicItsForm]" id="idVicItsForm" value="{valIdVicItsForm}" />
+<input name="data[its][globalITSRelacionados]" type="hidden" id="globalITSRelacionados" value="{valITSRelacionados}" />
+<input name="data[drogas][globalDrogasRelacionadas]" type="hidden" id="globalDrogasRelacionadas" value="{valDrogasRelacionadas}" />
+<input name="data[sintomas][globalSintomasSignosRelacionados]" type="hidden" id="globalSintomasSignosRelacionados" value="{valSintomasSignosRelacionados}" />
+<input name="data[otros_datos][globalAntibioticosRelacionados]" type="hidden" id="globalAntibioticosRelacionados" value="{valAntibioticosRelacionados}" />
+<input name="data[diagnostico_tratamiento][globalDiagnosticosTratamientoRelacionados]" type="hidden" id="globalDiagnosticosTratamientoRelacionados" value="{valDiagnosticosTratamientoRelacionados}" />{botonGuardar}
+{botonCancelar}
+</div>
+</td>
+</tr>
+</table>
+</form>
+</div>

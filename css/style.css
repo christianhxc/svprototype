@@ -1,0 +1,58 @@
+ul#css3menu,ul#css3menu ul{
+	margin:0;list-style:none;padding:0;background-color:#dedede;border-width:1px;border-style:solid;border-color:#5f5f5f;-moz-border-radius:0px;-webkit-border-radius:0px;border-radius:0px;}
+ul#css3menu ul{
+	display:none;position:absolute;left:-1px;top:98%;-moz-box-shadow:3.5px 4px 5px #000000;-webkit-box-shadow:3.5px 4px 5px #000000;box-shadow:3.5px 4px 5px #000000;padding:0 10px 10px;background-color:#eaffff;border-radius:0px;-moz-border-radius:0px;-webkit-border-radius:0px;border-color:#d4d4d4;}
+ul#css3menu li:hover>*{
+	display:block;}
+ul#css3menu li:hover{
+	position:relative;}
+ul#css3menu ul ul{
+	position:absolute;left:98%;top:-2px;}
+ul#css3menu{
+	display:block;
+	font-size:0;
+	position:fixed;
+	z-index:1000;
+	top:142px;
+	list-style: none;
+	padding: 0;
+	margin-left: 343px;
+	width: 990px;
+        background-image: url(../img/ui-bg_gloss-wave_55_5c9ccc_500x100.png)
+
+}
+ul#css3menu li{
+	display:block;white-space:nowrap;font-size:0;float:left;}
+ul#css3menu>li,ul#css3menu li{
+	margin:0;}
+ul#css3menu a:active, ul#css3menu a:focus{
+	outline-style:none;}
+ul#css3menu a{
+	display:block;vertical-align:middle;text-align:left;text-decoration:none;font:bold 14px Trebuchet MS,sans-serif;color:#000000;text-shadow:#FFF 0 0 1px;cursor:pointer;padding:10px;background-color:#66a0cf;background-image:url("../img/mainbk.png");background-position:0 0;border-width:0 0 0 1px;border-style:solid;border-color:#C0C0C0;}
+ul#css3menu ul li{
+	float:none;margin:10px 0 0;}
+ul#css3menu ul a{
+	text-align:left;padding:4px;background-color:#eaffff;background-image:none;border-width:0;font:14px Arial;color:#000;text-decoration:none;}
+ul#css3menu li:hover>a{
+	background-color:#40b7da;border-color:#C0C0C0;border-style:solid;font:bold 14px Trebuchet MS,sans-serif;color:#000000;text-decoration:none;text-shadow:#FFF 0 0 1px;background-image:url("../img/mainbk.png");background-position:0 100%;}
+ul#css3menu img{
+	border:none;vertical-align:middle;margin-right:20px;width:16px;height:16px;}
+ul#css3menu ul img{
+	width:16px;height:16px;}
+ul#css3menu img.over{
+	display:none;}
+ul#css3menu li:hover > a img.def{
+	display:none;}
+ul#css3menu li:hover > a img.over{
+	display:inline;}
+ul#css3menu span{
+	display:block;overflow:visible;background-position:right center;background-repeat:no-repeat;padding-right:0px;}
+ul#css3menu ul span{
+	background-image:url("../img/arrowsub.png");padding-right:28px;}
+ul#css3menu ul li:hover>a{
+	background-color:#bffaff;background-image:none;font:14px Arial;color:#000a76;text-decoration:none;}
+ul#css3menu li.topfirst>a{
+	border-radius:0px 0 0 0px;-moz-border-radius:0px 0 0 0px;-webkit-border-radius:0px 0 0 0px;}
+ul#css3menu li.toplast>a{
+	border-radius:0 0px 0px 0;-moz-border-radius:0 0px 0px 0;-webkit-border-radius:0 0px 0px 0;}
+ 

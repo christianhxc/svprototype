@@ -1,0 +1,233 @@
+<br/>
+<br/>
+<div class="Content" align="left">
+    <form id="formBuscar" class="niceform" action="{urlprefix}tb/index.php" method="POST">
+        <table width="100%">
+            <tr>
+                <td>
+                    <h2>P&aacute;gina inicial Tuberculosis(Programaci&oacute;n) </h2>
+                </td>
+                <td align="right">
+                    <div style="color: #A4BC2B;">
+                        Lista de casos
+                        <a href="index.php" class="" style="text-decoration: none; font-weight:bold;" title="Ingresar nuevo formulario de tuberculosis">
+                            <img width="30px" height="30px" title="Nuevo formulario" border=0 src="../img/add_small.png"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="ui-state-highlight ui-corner-all"
+             style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;" align="left">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{desInfo}</label>
+        </div>
+        <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+        </div>
+        <div class="ui-state-error ui-corner-all" id="validacionesDiv" style="padding-bottom: 5px; margin-bottom: 6px; margin-top: 5px;display:none">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>Imposible realizar b&uacute;squeda:</label>
+            <p id="validaciones" style="margin-top: 0px; margin-bottom: 0px;"></p>
+        </div>
+        <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+        </div>
+        <div class="ui-state-error ui-corner-all" id="pErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px; width: 50%">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <div id="pDetalle" style="margin-top: 0px; margin-bottom: 0px;"></div>
+        </div>
+        <fieldset class="ui-widget ui-widget-content ui-corner-all">
+            <div align="center">
+                <table align="left">
+                        <tr>
+                            <td><label >Provincia:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpProIndividuo" name="data[individuo][provincia]" style="width:250px" onchange="setRegionCascada(); ">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkProPagInicio -->
+                                    <option value="{valPagInicio}" >{opcPagInicio}</option>
+                                    <!-- END blkProPagInicio -->
+                                </select>
+                            </td>
+                            <td><label >Regi&oacute;n:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpRegIndividuo" name="data[individuo][region]" style="width:250px" onchange="setDistritoCascada(); ">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkRegIndividuo -->
+                                    <option value="{valRegIndividuo}" {selRegIndividuo}>{opcRegIndividuo}</option>
+                                    <!-- END blkRegIndividuo -->
+                                </select>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label >Distrito:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpDisIndividuo" name="data[individuo][distrito]" style="width:250px" onchange="setCorregimientoCascada(); ">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkDisIndividuo -->
+                                    <option value="{valDisIndividuo}" {selDisIndividuo}>{opcDisIndividuo}</option>
+                                    <!-- END blkDisIndividuo -->
+                                </select>
+                                <input type="hidden" id="idDis" name="data[loaded][idDis]" value="{valIdDis}" />
+                            </td>
+                            <td><label >Corregimiento:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpCorIndividuo" name="data[individuo][corregimiento]" style="width:250px" >
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkCorIndividuo -->
+                                    <option value="{valCorIndividuo}" {selCorIndividuo}>{opcCorIndividuo}</option>
+                                    <!-- END blkCorIndividuo -->
+                                </select>
+                                <input type="hidden" id="idCor" name="data[loaded][idCor]" value="{valIdCor}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label >Instituci&oacute;n de salud: <span class="mandatory">*</span></label></td>
+                            <td colspan="2">
+                                <input type="text" id="notificacion_unidad" style="width:100%" value="{valNotificacionUnidad}" disabled/>
+                                <input type="hidden" name="data[notificacion][id_un]" id="notificacion_id_un" value="{valNotificacionIdUn}" />
+                            </td>
+                        </tr>
+                        <tr><td>A&ntilde;o de evaluaci&oacute;n: </td>
+                            <td colspan="2">
+                                <select id="anio" >
+                                        <option selected value="">------------</option>
+                                        <option value="2014">2014</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                    </select>
+                            </td>
+                            
+                        </tr>
+                        <tr><td colspan="3"> 1. Total de Consultas M&eacute;dicas a mayores de 15 a&ntilde;os en el a&ntilde;o antepasado: </td>
+                            <td><input class="ac_input"  id="total_consultas_antepasado" style="width: 50px;" type="text" >
+                                  <input  id="porc_sint_resp_pro" value="3" type="hidden" > 
+                                  <a class="ui-state-default ui-corner-all ui-button" onmouseout="RollOut(this)" onmouseover="RollOver(this)" href="javascript:sintomaticos_respiratorios();">Calcular</a>
+                            </td>
+                            
+                        </tr>
+
+                </table>
+                <br/>
+                  <br />
+		  <br />
+                <br/>
+                  <br />
+		  <br />
+                  <br />
+		  <br />
+		  3% de A: Sintom&aacute;ticos Respiratorios programados 
+		  <br />
+		  SINTOM&Aacute;TICOS RESPIRATORIOS:<br />
+
+			<table border="1" cellpadding="0" cellspacing="0" align="center">
+				<tr bgcolor="#6699FF">
+					<th width="80px;" align="center">Trimestre</th>
+					<th width="90px;" align="center">Programados</th>
+					<th width="80px;" align="center">Captados</th>
+					<th>Porcentaje de SR identificados</th>
+				
+				</tr>
+				<tr align="center">
+					<td>1</td>
+                                        <td> <div id="sint_prog_1"></div></td>
+					<td></td>
+					<td></td>
+				
+				</tr>
+				<tr align="center">
+					<td>2</td>
+					<td><div id="sint_prog_2"></div></td>
+					<td></td>
+					<td></td>
+				
+				</tr>
+				<tr align="center">
+					<td>3</td>
+					<td><div id="sint_prog_3"></div></td>
+					<td></td>
+					<td></td>
+				
+				</tr>
+				<tr align="center">
+					<td>4</td>
+					<td><div id="sint_prog_4"></div></td>
+					<td></td>
+					<td></td>
+				
+				</tr>
+				<tr >
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td align="right"><div style="background-color:green;">M&iacute;nimo aceptable: 85%</div></td>
+				
+				</tr>				
+			</table>
+			
+		  <br /><br />
+                  5% de los S.R. Programados ser&aacute;n BK+
+                  <input  id="porc_sint_resp_pro_bk_pl" value="5" type="hidden" >
+		  <br />
+		  CASOS NUEVOS BK POSITIVOS:<br />
+
+			<table border="1" cellpadding="0" cellspacing="0" align="center">
+				<tr bgcolor="#6699FF" >
+					<th width="80px;" align="center" >Trimestre</th>
+					<th width="90px;" align="center">Programados</th>
+					<th width="80px;" align="center">Positivos</th>
+					<th>Porcentaje Casos Nuevos BK+ Detectados</th>
+				
+				</tr>
+				<tr align="center">
+					<td>1</td>
+					<td><div id="caso_nuevo_bk_1"></div></td>
+					<td></td>
+					<td></td>
+				
+				</tr>
+				<tr align="center">
+					<td>2</td>
+					<td><div id="caso_nuevo_bk_2"></div></td>
+					<td></td>
+					<td></td>
+				
+				</tr>
+				<tr align="center">
+					<td >3</td>
+					<td><div id="caso_nuevo_bk_3"></div></td>
+					<td></td>
+					<td></td>
+				
+				</tr>
+				<tr align="center">
+					<td >4</td>
+					<td><div id="caso_nuevo_bk_4"></div></td>
+					<td></td>
+					<td></td>
+				
+				</tr>
+				<tr >
+					<td colspan="4" align="right">M&iacute;nimo aceptable: 78%</td>
+				
+				</tr>				
+			</table>
+                  
+			<br />
+			<br />
+                        <a class="ui-state-default ui-corner-all ui-button" onmouseout="RollOut(this)" onmouseover="RollOver(this)" href="javascript:sintomaticos_respiratorios();">Guardar datos</a>
+                        <!-- 2. Total de fallecimientos por TB del a&ntilde;o anterior <input class="ac_input"  id="total_fallecimiento_ant" style="width: 50px;" type="text" >. -->
+		
+            </div>
+        </fieldset>
+    </form>
+    <br/>
+
+</div>

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>sisvig</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+body {
+	background-image: url(images/body2.jpg);
+	background-repeat: repeat-x;
+}
+</style>
+</head>
+
+<body>
+	<div id="top_all2">
+  		<center><img src="images/banner.jpg" width="892" height="165" alt="sisvig"/></center>
+		<div class="container_24"> </div>
+          </div>
+  
+<div class ="contenedor2">
+
+		<div class = "cuadrologueo">
+			<div> llamado al logueo </div>
+				<div class="datos_ingreso">información de ingreso <h6>descripción forma de ingreso</h6></div>
+                </div>
+				
+				
+<div class = "cuadrofondo"></div>
+
+</div>
+
+<div class="foot">
+  <div class="centro" style="left: 2px; top: 1298px;">
+    <h5> © 2011 Programa de influenza </h5></div>
+  		</div>
+
+
+</body>
+</html>

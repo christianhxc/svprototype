@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vih_consolidado" language="groovy" pageWidth="1130" pageHeight="1300" columnWidth="1090" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec3e211c-a37a-423c-985b-1c0df0117168">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="69e2b695-e4b2-4013-99c7-63b8f3d94a5d"/>
+	<parameter name="filtro" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="lugar" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="condicion" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+anio_caso as anio,
+sum(menor_uno_m) as menor_uno_m,
+sum(uno_cuatro_m) as uno_cuatro_m,
+sum(cinco_nueve_m) as cinco_nueve_m,
+sum(diez_catorce_m) as diez_catorce_m,
+sum(quince_diecinueve_m) as quince_diecinueve_m,
+sum(veinte_veinticuatro_m) as veinte_veinticuatro_m,
+sum(veinticinco_veintinueve_m) as veinticinco_veintinueve_m,
+sum(treinta_treitaycuatro_m) as treinta_treitaycuatro_m,
+sum(treintaycinco_treintaynueve_m) as treintaycinco_treintaynueve_m,
+sum(cuarenta_cuarentaycuatro_m) as cuarenta_cuarentaycuatro_m,
+sum(cuarentaycinco_cuarentaynueve_m) as cuarentaycinco_cuarentaynueve_m,
+sum(cincuenta_cincuentaycinco_m) as cincuenta_cincuentaycinco_m,
+sum(cincuentaycinco_cincuentaynueve_m) as cincuentaycinco_cincuentaynueve_m,
+sum(sesenta_sesentaycuantro_m) as sesenta_sesentaycuantro_m,
+sum(mas_sesentaycinco_m) as mas_sesentaycinco_m,
+sum(menor_uno_f) as menor_uno_f,
+sum(uno_cuatro_f) as uno_cuatro_f,
+sum(cinco_nueve_f) as cinco_nueve_f,
+sum(diez_catorce_f) as diez_catorce_f,
+sum(quince_diecinueve_f) as quince_diecinueve_f,
+sum(veinte_veinticuatro_f) as veinte_veinticuatro_f,
+sum(veinticinco_veintinueve_f) as veinticinco_veintinueve_f,
+sum(treinta_treitaycuatro_f) as treinta_treitaycuatro_f,
+sum(treintaycinco_treintaynueve_f) as treintaycinco_treintaynueve_f,
+sum(cuarenta_cuarentaycuatro_f) as cuarenta_cuarentaycuatro_f,
+sum(cuarentaycinco_cuarentaynueve_f) as cuarentaycinco_cuarentaynueve_f,
+sum(cincuenta_cincuentaycinco_f) as cincuenta_cincuentaycinco_f,
+sum(cincuentaycinco_cincuentaynueve_f) as cincuentaycinco_cincuentaynueve_f,
+sum(sesenta_sesentaycuantro_f) as sesenta_sesentaycuantro_f,
+sum(mas_sesentaycinco_f) as mas_sesentaycinco_f
+FROM view_vih_matriz
+where 1 $P!{filtro}
+group by anio_caso]]>
+	</queryString>
+	<field name="anio" class="java.lang.Integer"/>
+	<field name="menor_uno_m" class="java.lang.Long"/>
+	<field name="uno_cuatro_m" class="java.lang.Long"/>
+	<field name="cinco_nueve_m" class="java.lang.Long"/>
+	<field name="diez_catorce_m" class="java.lang.Long"/>
+	<field name="quince_diecinueve_m" class="java.lang.Long"/>
+	<field name="veinte_veinticuatro_m" class="java.lang.Long"/>
+	<field name="veinticinco_veintinueve_m" class="java.lang.Long"/>
+	<field name="treinta_treitaycuatro_m" class="java.lang.Long"/>
+	<field name="treintaycinco_treintaynueve_m" class="java.lang.Long"/>
+	<field name="cuarenta_cuarentaycuatro_m" class="java.lang.Long"/>
+	<field name="cuarentaycinco_cuarentaynueve_m" class="java.lang.Long"/>
+	<field name="cincuenta_cincuentaycinco_m" class="java.lang.Long"/>
+	<field name="cincuentaycinco_cincuentaynueve_m" class="java.lang.Long"/>
+	<field name="sesenta_sesentaycuantro_m" class="java.lang.Long"/>
+	<field name="mas_sesentaycinco_m" class="java.lang.Long"/>
+	<field name="menor_uno_f" class="java.lang.Long"/>
+	<field name="uno_cuatro_f" class="java.lang.Long"/>
+	<field name="cinco_nueve_f" class="java.lang.Long"/>
+	<field name="diez_catorce_f" class="java.lang.Long"/>
+	<field name="quince_diecinueve_f" class="java.lang.Long"/>
+	<field name="veinte_veinticuatro_f" class="java.lang.Long"/>
+	<field name="veinticinco_veintinueve_f" class="java.lang.Long"/>
+	<field name="treinta_treitaycuatro_f" class="java.lang.Long"/>
+	<field name="treintaycinco_treintaynueve_f" class="java.lang.Long"/>
+	<field name="cuarenta_cuarentaycuatro_f" class="java.lang.Long"/>
+	<field name="cuarentaycinco_cuarentaynueve_f" class="java.lang.Long"/>
+	<field name="cincuenta_cincuentaycinco_f" class="java.lang.Long"/>
+	<field name="cincuentaycinco_cincuentaynueve_f" class="java.lang.Long"/>
+	<field name="sesenta_sesentaycuantro_f" class="java.lang.Long"/>
+	<field name="mas_sesentaycinco_f" class="java.lang.Long"/>
+	<variable name="totalM" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{menor_uno_m}+$F{uno_cuatro_m}+$F{cinco_nueve_m}+$F{diez_catorce_m}+$F{quince_diecinueve_m}+$F{veinte_veinticuatro_m}+$F{veinticinco_veintinueve_m}+$F{treinta_treitaycuatro_m}+$F{treintaycinco_treintaynueve_m}+$F{cuarenta_cuarentaycuatro_m}+$F{cuarentaycinco_cuarentaynueve_m}+$F{cincuenta_cincuentaycinco_m}+$F{cincuentaycinco_cincuentaynueve_m}+$F{sesenta_sesentaycuantro_m}+$F{mas_sesentaycinco_m}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="totalF" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{menor_uno_f}+$F{uno_cuatro_f}+$F{cinco_nueve_f}+$F{diez_catorce_f}+$F{quince_diecinueve_f}+$F{veinte_veinticuatro_f}+$F{veinticinco_veintinueve_f}+$F{treinta_treitaycuatro_f}+$F{treintaycinco_treintaynueve_f}+$F{cuarenta_cuarentaycuatro_f}+$F{cuarentaycinco_cuarentaynueve_f}+$F{cincuenta_cincuentaycinco_f}+$F{cincuentaycinco_cincuentaynueve_f}+$F{sesenta_sesentaycuantro_f}+$F{mas_sesentaycinco_f}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="138" splitType="Stretch">
+			<textField pattern="d/M/yyyy">
+				<reportElement uuid="742644d7-4eed-40cd-af64-68928065041e" x="230" y="80" width="219" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3368aa93-1549-494e-8d8b-a7a2a319d77b" x="0" y="40" width="1090" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[GENERADO DESDE EL SISTEMA DE VIGILANCIA EN SALUD PÚBLICA - SISVIG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="00ac9428-cf83-475c-93c8-16d7e8c272ee" x="0" y="80" width="230" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Fecha de generación del reporte:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="c35c0c02-7fb4-4a32-b32e-62b89bed9e7b" x="0" y="100" width="1090" height="38"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lugar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2cf60cfb-20bc-4aed-8752-e2738554dd3d" x="0" y="0" width="1090" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPUBLICA DE PANAMÁ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4ae420e9-7ff5-4de6-ae60-602b96e2f101" x="0" y="20" width="1090" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MINISTERIO DE SALUD - CAJA DE SEGURO SOCIAL - INSTITUCIONES DE SALUD PRIVADAS]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="eae6fef8-d166-4e2b-b2c3-6bbe562468a6" x="0" y="60" width="1090" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Informe del formulario VIH/SIDA para el caso de:  "+$P{condicion}+" por grupos de edad, sexo y año"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ea6a66a9-6ee0-4f5d-b0f3-2d2a464aed85" style="table_TH" x="63" y="0" width="62" height="36" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="69582f56-3d54-4c7e-863e-8b97472cfd05" style="table_TH" x="255" y="18" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[1 - 4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="094772a5-e36c-463d-ba3a-3dd72ac231d4" style="table_TH" x="375" y="18" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[10-14]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2e22e067-2b00-4e00-8bd9-c128432b43af" style="table_TH" x="435" y="18" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[15-19]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4dd00559-98f2-484b-a28c-2ea0908ccb0d" style="table_TH" x="495" y="18" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[20-24]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8ebe32ae-5fb3-4166-9423-1dfb267b4a54" style="table_TH" x="975" y="18" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[60-64]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1f5b820b-9776-4290-89fa-cf91e417888d" style="table_TH" x="1035" y="18" width="55" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[> 65]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e0088a64-8af5-40cf-b0ca-1155476a8365" style="table_TH" x="0" y="0" width="63" height="36" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Años]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b831d724-deac-417d-ad32-80bc4153cfd7" style="table_TH" x="125" y="0" width="70" height="36" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Totales]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7759ba4a-5fd0-4c70-ba1c-9e5800d5649f" style="table_TH" x="195" y="18" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[< 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="22567c16-7c0b-419b-b18d-ed8ccc3030cb" style="table_TH" x="195" y="0" width="895" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Grupos de Edad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="74e58d35-c588-4cda-aeda-3391bef24651" style="table_TH" x="315" y="18" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[5 - 9]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4608bd9d-acfb-41bd-9bf9-b3223132d0f2" style="table_TH" x="555" y="18" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[25-29]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fe45e0f1-c6cb-4754-9df4-46aae44b7354" style="table_TH" x="855" y="18" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[50-54]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5efd1958-1bb2-4993-baf6-b10b0e52cfff" style="table_TH" x="915" y="18" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[55-59]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="58129777-6e2b-4220-98b5-57cc87e0d7d9" style="table_TH" x="615" y="18" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[30-34]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d641b72d-fb73-4886-8955-42a20355a00d" style="table_TH" x="675" y="18" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[35-39]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c4855401-92a7-46bf-bdcf-6169d352da5d" style="table_TH" x="735" y="18" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[40-44]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0d9d7040-699c-4536-99e1-cc1fe9678cc4" style="table_TH" x="795" y="18" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[45-49]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="48" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="fc0927f5-7d66-4ce3-806d-bcd401e1b2f0" style="table_TD" stretchType="RelativeToTallestObject" x="975" y="0" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sesenta_sesentaycuantro_m}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="bad3e8be-05f8-467f-a798-c4d72b02da94" style="table_TD" stretchType="RelativeToTallestObject" x="975" y="16" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sesenta_sesentaycuantro_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="5b83892d-16de-404b-9398-d20b84bc8f2a" style="table_TD" stretchType="RelativeToTallestObject" x="1035" y="16" width="55" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{mas_sesentaycinco_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="6517536d-867d-42db-9ab5-8094deb3a87b" style="table_TD" stretchType="RelativeToTallestObject" x="495" y="32" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{veinte_veinticuatro_m}+$F{veinte_veinticuatro_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="85cb925b-a696-4ada-8445-feb713ce2676" style="table_TD" stretchType="RelativeToTallestObject" x="255" y="32" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{uno_cuatro_m}+$F{uno_cuatro_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="ee7d7234-20d2-4602-8850-75c35c80b126" style="table_TD" stretchType="RelativeToTallestObject" x="495" y="0" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{veinte_veinticuatro_m}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d3c92b15-9ecb-46aa-9503-3a68f7648342" style="table_TD" stretchType="RelativeToTallestObject" x="375" y="0" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{diez_catorce_m}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="fd42002b-8255-4c02-a938-2c0b02baa1e8" style="table_TD" stretchType="RelativeToTallestObject" x="435" y="0" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{quince_diecinueve_m}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="3b14e52f-0f2d-4c8e-a374-704b7503c0fb" style="table_TD" stretchType="RelativeToTallestObject" x="125" y="16" width="70" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalF}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="bdf9041a-eada-4ad7-9d66-13d1b882b51b" style="table_TD" stretchType="RelativeToTallestObject" x="975" y="32" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sesenta_sesentaycuantro_m}+$F{sesenta_sesentaycuantro_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="deca13b6-4466-46f9-89c6-7755acf71e24" style="table_TD" stretchType="RelativeToTallestObject" x="195" y="16" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{menor_uno_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="36381a93-eec1-4cd2-8059-21e506c85efc" style="table_TD" stretchType="RelativeToTallestObject" x="375" y="32" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{diez_catorce_m}+$F{diez_catorce_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="3b6320fc-018d-4cd1-8af5-3cbc67ab5435" style="table_TD" stretchType="RelativeToTallestObject" x="255" y="16" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{uno_cuatro_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="ba5a48ff-4ff8-472f-a826-4d50de42fa7d" style="table_TD" stretchType="RelativeToTallestObject" x="915" y="32" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cincuentaycinco_cincuentaynueve_m}+$F{cincuentaycinco_cincuentaynueve_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="b325e4d4-b264-4132-8bb0-20d5e91433a8" style="table_TD" stretchType="RelativeToTallestObject" x="1035" y="32" width="55" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{mas_sesentaycinco_m}+$F{mas_sesentaycinco_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="f2b0f1cd-8979-4348-a742-0e89beaa526b" style="table_TD" stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="0" y="0" width="63" height="48" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{anio}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="75553c2e-8570-4145-9354-1d8865c9fbdc" style="table_TD" stretchType="RelativeToTallestObject" x="495" y="16" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{veinte_veinticuatro_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="cb082612-c28d-4b78-8e64-ff94c85ca2e7" style="table_TD" stretchType="RelativeToTallestObject" x="855" y="32" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cincuenta_cincuentaycinco_m}+$F{cincuenta_cincuentaycinco_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="be0cbbdd-8cd5-4d67-ab31-9d05c4bddca5" style="table_TD" stretchType="RelativeToTallestObject" x="1035" y="0" width="55" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{mas_sesentaycinco_m}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="65828369-1bee-481c-936e-2a7e6587e1bc" style="table_TD" stretchType="RelativeToTallestObject" x="255" y="0" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{uno_cuatro_m}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="7cb6291d-5ea4-43db-9b3c-af2b9a724247" style="table_TD" stretchType="RelativeToTallestObject" x="125" y="32" width="70" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalM}+$V{totalF}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="65e7b29c-7b8e-4107-9bbc-0886c54ada06" style="table_TD" x="63" y="0" width="62" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Hombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e19bb6e8-ff81-4d58-9458-b90639a863ee" style="table_TH" x="63" y="32" width="62" height="16" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="ee27f05d-0522-4d66-aa30-aa1bfb7d0f03" style="table_TD" stretchType="RelativeToTallestObject" x="315" y="32" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cinco_nueve_m}+$F{cinco_nueve_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="033ffb5b-be27-4020-a741-1572ef3128a9" style="table_TD" stretchType="RelativeToTallestObject" x="555" y="16" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{veinticinco_veintinueve_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="0de729a3-07cb-4fa5-aeed-89270b846d90" style="table_TD" stretchType="RelativeToTallestObject" x="315" y="0" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cinco_nueve_m}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d6ebf7e3-103e-4526-bb60-530bb0c8a1ca" style="table_TD" x="63" y="16" width="62" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Mujer]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="0f674d10-d654-443e-b10e-55d277fa533d" style="table_TD" stretchType="RelativeToTallestObject" x="315" y="16" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cinco_nueve_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="a49f059d-8333-47ad-bae5-3bfe5e513a2c" style="table_TD" stretchType="RelativeToTallestObject" x="555" y="0" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{veinticinco_veintinueve_m}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="3ed81cf3-b62b-4004-bae1-46c3d042c71e" style="table_TD" stretchType="RelativeToTallestObject" x="435" y="32" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{quince_diecinueve_m}+$F{quince_diecinueve_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="cc227d2d-5543-4f73-8ff5-9aef175d916b" style="table_TD" stretchType="RelativeToTallestObject" x="855" y="0" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cincuenta_cincuentaycinco_m}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="ab28585e-b695-491c-9b81-20a6e4cda275" style="table_TD" stretchType="RelativeToTallestObject" x="915" y="16" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cincuentaycinco_cincuentaynueve_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="0903ef9d-6a49-4905-9ab3-21ecb410ec6b" style="table_TD" stretchType="RelativeToTallestObject" x="375" y="16" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{diez_catorce_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="d3a12a5b-0b83-4a3c-9edf-9d74330aa1e9" style="table_TD" stretchType="RelativeToTallestObject" x="435" y="16" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{quince_diecinueve_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="c1dbb757-09c0-44a1-9dae-e7be5aee2de7" style="table_TD" stretchType="RelativeToTallestObject" x="855" y="16" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cincuenta_cincuentaycinco_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="71136274-098c-4563-85bb-eb2a8f5d2255" style="table_TD" stretchType="RelativeToTallestObject" x="555" y="32" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{veinticinco_veintinueve_m}+$F{veinticinco_veintinueve_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="3cbbfbbe-efe1-4e74-854b-a5b283cffe6b" style="table_TD" stretchType="RelativeToTallestObject" x="195" y="32" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{menor_uno_m}+$F{menor_uno_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="887761c1-6851-4708-9163-48a3eb8a0fbd" style="table_TD" stretchType="RelativeToTallestObject" x="125" y="0" width="70" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalM}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="78fe4081-75eb-4739-8727-e3757ece7032" style="table_TD" stretchType="RelativeToTallestObject" x="195" y="0" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{menor_uno_m}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="46bec60c-f6c1-4fee-8a89-2d663d11ab60" style="table_TD" stretchType="RelativeToTallestObject" x="915" y="0" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cincuentaycinco_cincuentaynueve_m}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="08dc6ee3-ab0e-463b-b89c-7e00f827bb6d" style="table_TD" stretchType="RelativeToTallestObject" x="615" y="16" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{treinta_treitaycuatro_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="36d01b18-5b83-412a-9e2e-adc8d11ec39d" style="table_TD" stretchType="RelativeToTallestObject" x="615" y="32" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{treinta_treitaycuatro_m}+$F{treinta_treitaycuatro_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="7b85576f-a15f-4db0-9689-9a6abacab52e" style="table_TD" stretchType="RelativeToTallestObject" x="615" y="0" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{treinta_treitaycuatro_m}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="b25b0473-bd83-488b-acb7-d794f29a98d7" style="table_TD" stretchType="RelativeToTallestObject" x="675" y="16" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{treintaycinco_treintaynueve_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="fc96315f-95aa-425f-ad4b-027fa4346314" style="table_TD" stretchType="RelativeToTallestObject" x="675" y="32" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{treintaycinco_treintaynueve_m}+$F{treintaycinco_treintaynueve_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="52aba304-1cde-4af1-a9f7-5b72e2ca72b2" style="table_TD" stretchType="RelativeToTallestObject" x="675" y="0" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{treintaycinco_treintaynueve_m}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="2f42a11d-9328-49cd-ae92-86b155e2c824" style="table_TD" stretchType="RelativeToTallestObject" x="735" y="16" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cuarenta_cuarentaycuatro_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="4639bc20-73ad-447a-b491-faf8286d60f4" style="table_TD" stretchType="RelativeToTallestObject" x="735" y="32" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cuarenta_cuarentaycuatro_m}+$F{cuarenta_cuarentaycuatro_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="0df29374-e69a-4601-99de-d341d5ffe66b" style="table_TD" stretchType="RelativeToTallestObject" x="735" y="0" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cuarenta_cuarentaycuatro_m}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="fbdb8adf-1b02-4294-b4cf-470550dd354e" style="table_TD" stretchType="RelativeToTallestObject" x="795" y="16" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cuarentaycinco_cuarentaynueve_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="1c7f7ec2-8da7-429b-b923-43ce8589aec5" style="table_TD" stretchType="RelativeToTallestObject" x="795" y="32" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cuarentaycinco_cuarentaynueve_m}+$F{cuarentaycinco_cuarentaynueve_f}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="b53070cb-560c-4dd3-afa0-d34d2ddc23d0" style="table_TD" stretchType="RelativeToTallestObject" x="795" y="0" width="60" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cuarentaycinco_cuarentaynueve_m}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

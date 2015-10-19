@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="consolidado_consumo_alcohol_sexo" pageWidth="275" pageHeight="802" columnWidth="275" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c3970dbc-03c9-4624-a559-74d38ed59380">
+	<property name="ireport.zoom" value="1.9487171000000014"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ntotal_trans" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ntotal_hsh" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="alcohol" class="java.lang.Integer"/>
+	<parameter name="ntotal_ts" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaIni" class="java.lang.String"/>
+	<parameter name="fechaFin" class="java.lang.String"/>
+	<parameter name="diaAlcohol" class="java.lang.Integer"/>
+	<parameter name="idUn" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="add_idun_sql" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[($P{idUn} != null ) ? " and vic.id_un = "+$P{idUn} : ""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+where vic.antec_consumo_alcohol = $P{alcohol}
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  $P!{add_idun_sql}
+  ) as total,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vic.antec_consumo_alcohol = $P{alcohol} and vic.antec_consumo_alcohol_semana = $P{diaAlcohol}
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = 'F'
+  $P!{add_idun_sql}
+  ) as ts_n,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vic.antec_consumo_alcohol = $P{alcohol} and vic.antec_consumo_alcohol_semana = $P{diaAlcohol}
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = 'M'
+  and (per.id_genero <> 3 and per.id_genero <> 4 and per.id_genero <> 5)
+  $P!{add_idun_sql}
+  ) as hsh_n,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vic.antec_consumo_alcohol = $P{alcohol} and vic.antec_consumo_alcohol_semana = $P{diaAlcohol}
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = 'M'
+  and (per.id_genero = 3 or per.id_genero = 4 or per.id_genero = 5)
+  $P!{add_idun_sql}
+  ) as trans_n
+
+from vicits_form vic
+where vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+$P!{add_idun_sql}
+limit 1]]>
+	</queryString>
+	<field name="total" class="java.lang.Long"/>
+	<field name="ts_n" class="java.lang.Long"/>
+	<field name="hsh_n" class="java.lang.Long"/>
+	<field name="trans_n" class="java.lang.Long"/>
+	<variable name="total" class="java.lang.Long">
+		<variableExpression><![CDATA[$F{ts_n}+$F{hsh_n}+$F{trans_n}]]></variableExpression>
+	</variable>
+	<variable name="por_ts" class="java.lang.Long">
+		<variableExpression><![CDATA[($P{ntotal_ts}!=0)?
+$F{ts_n}/$P{ntotal_ts}
+:0]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement uuid="3955cd51-93ff-4917-8475-fba793e5d690" x="0" y="0" width="46" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ts_n}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="97cacfc4-e8c3-4711-8c06-1f117783664b" x="92" y="0" width="46" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{hsh_n}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="5941f2e0-e98c-4038-ac2f-dbafa56941f5" x="138" y="0" width="46" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{ntotal_hsh}>0 ?
+($F{hsh_n}.doubleValue()/$P{ntotal_hsh}.doubleValue())*100
+:0]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d9a4ca77-d97f-41f4-bf19-7f8b4cda5a8b" x="184" y="0" width="46" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{trans_n}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="18c77cd2-3356-4c9e-9307-dcb56b6da4df" x="230" y="0" width="45" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{ntotal_trans}>0 ?
+($F{trans_n}.doubleValue()/$P{ntotal_trans}.doubleValue())*100
+:0]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="4334c7d6-b67c-4a58-a198-0faa97ab1aac" x="46" y="0" width="46" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{ntotal_ts}>0 ?
+($F{ts_n}.doubleValue()/$P{ntotal_ts}.doubleValue())*100
+:0]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

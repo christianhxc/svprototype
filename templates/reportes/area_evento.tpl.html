@@ -1,0 +1,182 @@
+<div class="Content" align="left">
+        <form id="formBuscar" action="{urlprefix}reportes/area_evento.php" method="POST">
+            <h1> Reporte por &Aacute;rea de Salud y Evento</h1>
+
+                <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+                </div>
+                <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+                </div>
+                    <div id="filtroIndividuo" >
+                        <table><tr style="height: 0.95em"><td></td></tr></table>
+                            <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                            <legend>FILTRO</legend>
+                                    <table border="0" cellpadding="2" cellspacing="2" align="">
+                                            <tr>
+                                                <td>
+                                                        <label style="color:#000000; font-weight:normal;">Nombres:</label>
+                                                </td>
+                                                <td>
+                                                        <input type="text" id="nombres" name="search[nombres]" style="width: 288px; text-align:center; text-transform: uppercase;" value="{n}" maxlength="45"/>
+                                                </td>
+                                                <td>
+                                                        <label style="color:#000000; font-weight:normal;">&nbsp;&nbsp;Apellidos:</label>
+                                                </td>
+                                                <td>
+                                                        <input type="text" id="apellidos" name="search[apellidos]" value="{a}" style="width: 288px; text-align:center; text-transform: uppercase;" maxlength="75"/>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <a href="javascript:borrarFiltro();" class="" style="text-decoration: none; font-weight: bold;" onmouseover="RollOver(this)" title="Borrar filtro" onmouseout="RollOut(this)">Borrar Filtro</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                    <td>
+                                                            <label style="color:#000000; font-weight:normal;">&Aacute;rea de An&aacute;lisis:<span class="mandatory">*</span></label>
+                                                    </td>
+                                                    <td>
+                                                            <select id="area" name="search[area]" style="width:290px">
+                                                            <option value="0">Seleccione...</option>
+                                                            <!-- BEGIN blkAreas -->
+                                                                <option value="{valAreas}" {selAreas}>{opcAreas}</option>
+                                                            <!-- END blkAreas -->
+                                                            </select>
+                                                    </td>
+                                                    <td>
+                                                        <label style="color:#000000; font-weight:normal;">&nbsp;&nbsp;Evento:<span class="mandatory">*</span></label>
+                                                    </td>
+                                                    <td>
+                                                            <select id="evento" name="search[evento]" style="width:290px">
+                                                                <option value="0">Seleccione...</option>
+                                                                <!-- BEGIN blkEventos -->
+                                                                <option value="{valEventos}" {selEventos}>{opcEventos}</option>
+                                                                <!-- END blkEventos -->
+                                                            </select>
+                                                    </td>
+                                            </tr>
+                                            <tr>
+                                                    <td>
+                                                        <label style="color:#000000; font-weight:normal;">Departamento:</label>
+                                                    </td>
+                                                    <td>
+                                                        <select id="dep" name="search[dep]" style="width:290px" onchange="javascript:getMunicipios();">
+                                                                <option value="0">Todos</option>
+                                                                <!-- BEGIN blkDepartamento -->
+                                                                <option value="{valDep}" {selDep}>{opcDep}</option>
+                                                                <!-- END blkDepartamento -->
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <label style="color:#000000; font-weight:normal;">Municipio:</label>
+                                                    </td>
+                                                    <td>
+                                                        <select id="mun" name="search[mun]" style="width:290px" onchange="javascript:getEstablecimiento();">
+                                                                <option value="0">Todos</option>
+                                                                <!-- BEGIN blkMunicipio -->
+                                                                <option value="{valMun}"{selMun}>{opcMun}</option>
+                                                                <!-- END blkMunicipio -->
+                                                        </select>
+                                                    </td>
+                                                    
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                  <label  style="color:#000; font-weight:normal">Establecimiento:</label>
+                                                </td>
+                                                <td>
+                                                    <select id="est" name="search[est]" style="width:290px" >
+                                                        <option value="0">Todos</option>
+                                                        <!-- BEGIN blkServicioMuestra -->
+                                                        <option value="{valEstablecimiento}" {selEstablecimiento}>{opcEstablecimiento}</option>
+                                                        <!-- END blkServicioMuestra -->
+                                                   </select>
+                                                   <input type="hidden" id="tipo_establecimiento" name="search[tipo]" value="{idts}" />
+                                                   <input type="hidden" id="centro" name="search[centro]" value="{centro}" />
+                                                </td>
+                                                <td>
+                                                        <label style="color:#000000; font-weight:normal;">&nbsp;&nbsp;Otro:</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="otro" name="search[otro]" style="width: 288px; text-align:center; text-transform: uppercase;" value="{o}" maxlength="45" onblur="javascript:otroLugar();"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <br/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                    <td>
+                                                            <label style="color:#000000; font-weight:normal;">Resultado Final:</label>
+                                                    </td>
+                                                    <td>
+                                                        <select id="resultado" name="search[resultado]" style="width:290px">
+                                                        <option value="0">Todos</option>
+                                                        <!-- BEGIN blkResultados -->
+                                                            <option value="{valResultado}" {selResultado}>{opcResultado}</option>
+                                                        <!-- END blkResultados -->
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <label style="color:#000000; font-weight:normal;">&nbsp;&nbsp;Estado:</label>
+                                                    </td>
+                                                    <td>
+                                                            <select id="estado" name="search[estado]" style="width:155px">
+                                                                <option value="0" {es1}>Todos</option>
+                                                                <option value="1" {es2}>Pendiente</option>
+                                                                <option value="2" {es3}>Concluido</option>
+                                                            </select>
+                                                    </td>
+                                            </tr>
+                                            <tr>
+                                                    <td>
+                                                            <label style="color:#000000; font-weight:normal;">C&oacute;digo Global:</label>
+                                                    </td>
+                                                    <td>
+                                                            <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">DESDE:</label>
+                                                            <input type="text" id="codigo_global_desde" name="search[global_desde]" style="width: 90px; text-align:center;" value="{gd}" maxlength="7" onKeyPress="return numbersonly(event, false);"/>
+                                                            <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HASTA:</label>
+                                                            <input type="text" id="codigo_global_hasta" name="search[global_hasta]" style="width: 90px; text-align:center;" value="{gh}" maxlength="7" onKeyPress="return numbersonly(event, false);"/>
+                                                    </td>
+                                                    <td>
+                                                            <label style="color:#000000; font-weight:normal;">&nbsp;&nbsp;Correlativo:</label>
+                                                    </td>
+                                                    <td>
+                                                            <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">DESDE:</label>
+                                                            <input type="text" id="codigo_correlativo_desde" name="search[correlativo_desde]" style="width: 90px; text-align:center;" value="{cd}" maxlength="7" onKeyPress="return numbersonly(event, false);"/>
+                                                            <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HASTA:</label>
+                                                            <input type="text" id="codigo_correlativo_hasta" name="search[correlativo_hasta]" style="width: 90px; text-align:center;" value="{ch}" maxlength="7" onKeyPress="return numbersonly(event, false);"/>
+                                                    </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="1">
+                                                    <label style="color:#000000; font-weight:normal">Fecha Conclusi&oacute;n:</label>
+                                                </td>
+                                                <td colspan="1">
+                                                            <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">DESDE:</label>
+                                                            <input type="text" id="fecha_toma_desde" name="search[con_desde]" value="{td}" style="width: 90px; text-align:center;" maxlength="10"/>
+                                                            <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">HASTA:</label>
+                                                            <input type="text" id="fecha_toma_hasta" name="search[con_hasta]" value="{th}" style="width: 90px; text-align:center;" maxlength="10"/>
+                                                </td>
+                                                <td colspan="2">
+                                                    <div id="tipoDocumento" style="display: {mostrarTipo}">
+                                                        &nbsp;&nbsp;PDF: <input type="radio" id ="pdf" name="file" onclick="pdf_xls()" checked value="1">
+                                                        &nbsp;
+                                                        Excel: <input type="radio" id ="xls" name="file" onclick="xls_pdf()" value ="2">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                    </table><br/>
+                            </fieldset>
+                    </div>
+                <table align="center">
+                    <tr>
+                        <td>
+                            {botonGenerar}&nbsp;
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+        </form>
+</div>

@@ -1,0 +1,270 @@
+                <fieldset id="field_sin_prueba" class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Paciente sin prueba de VIH previa</legend>
+                    <table dalign="center" border="0" cellpadding="2" cellspacing="2" id="alert_VIH">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <font color="red"> Usted selecciono la opci&oacute;n de "No" en la pregunta "Se solicit&oacute; la prueba VIH". 
+                                    Debe conocerse el estado de VIH de todo enfermo con Tuberculosis.  <input id="dummyVIH"  value="{valDummy}"  type="hidden">
+                                    </font>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>  
+                    <table dalign="center" border="0" cellpadding="2" cellspacing="2">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label>Se solicit&oacute; la prueba VIH:</label>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <select id="drpsolicitud_VIH" name="data[VIH][solicitud_VIH]" >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1" {selSolicitud_VIH1}>Si</option>
+                                        <option value="0" {selSolicitud_VIH0}>No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <td><label>Paciente acept&oacute;  hacerse la prueba:</label>
+                                </td>
+                                <td><select id="drpacepto_VIH" name="data[VIH][acepto_VIH]" >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1" {selAcepto_VIH1}>Si</option>
+                                        <option value="0" {selAcepto_VIH0}>No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Prueba VIH realizada:</label>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <select id="drprealizada_VIH" name="data[VIH][realizada_VIH]" >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1" {selRealizada_VIH1}>Si</option>
+                                        <option value="0" {selRealizada_VIH0}>No</option>
+                                    </select> &nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td id="labelFechaTomaMuestraVIH"><label>Fecha toma muestra:</label></td>
+                                <td ID="inputFechaTomaMuestraVIH">
+                                    <input id="fecha_muestra_VIH" name="data[VIH][fecha_muestra_VIH]" value="{valFechaMuestraVIH}" style="width: 100px;" maxlength="10"  type="text">
+                                    <span class="ui-datepicker-append"> dd/mm/aaaa</span>
+                                </td>
+                                    
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Resultado prueba VIH:</label>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <select id="drpres_VIH" name="data[VIH][res_VIH]" >
+                                        <option selected value="">Seleccione...</option>
+                                        <option value="1" {selRes_VIH1}>Positivo</option>
+                                        <option value="0" {selRes_VIH0}>Negativo</option>
+                                    </select> &nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <label>Asesor&iacute;a post prueba VIH:</label>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <select id="drpaseso_VIH" name="data[VIH][aseso_VIH]" >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1" {selAseso_VIH1}>Si</option>
+                                        <option value="0" {selAseso_VIH0}>No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Terapia cotrimoxazol:</label>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <select id="drpcotrimoxazol" name="data[VIH][cotrimoxazol]" >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1" {selCotri_VIH1}>Si</option>
+                                        <option value="0" {selCotri_VIH0}>No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <td id="label_cotrimo_VIH"><label>Fecha inicio terapia cotrimoxazol:</label></td>
+                                <td id="input_cotrimo_VIH">
+                                    <input id="fecha_cotrimoxazol" name="data[VIH][fecha_cotrimoxazol]" value="{valFechaCotri}" style="width: 100px;" maxlength="10"  type="text">
+                                    <span class="ui-datepicker-append"> dd/mm/aaaa</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Referido a TARV:</label>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <select id="drpTARV" name="data[VIH][ref_TARV]" >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1" {selTARV_VIH1}>Si</option>
+                                        <option value="0" {selTARV_VIH0}>No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <td id="label_TARV_ref_VIH"><label>Fecha de referencia a TARV:</label></td>
+                                <td id="input_TARV_ref_VIH">
+                                    <input id="fecha_TARV" name="data[VIH][fecha_ref_TARV]" value="{valFechaRefTARV}" style="width: 100px;" maxlength="10"  type="text">
+                                    <span class="ui-datepicker-append"> dd/mm/aaaa</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Inici&oacute; TARV:</label>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <select id="drpinicio_TARV" name="data[VIH][inicio_TARV]" >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1" {selIniTARV_VIH1}>Si</option>
+                                        <option value="0" {selIniTARV_VIH0}>No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <td id="label_TARV_ini_VIH"><label>Fecha inicio TARV:</label></td>
+                                <td id="input_TARV_ini_VIH">
+                                    <input id="fecha_inicio_TARV" name="data[VIH][fecha_inicio_TARV]" value="{valFechaIniTARV}" style="width: 100px;" maxlength="10"  type="text">
+                                    <span class="ui-datepicker-append"> dd/mm/aaaa</span>
+                                </td>
+                            </tr>
+                            <tr id="tr_lug_adm_TARV">
+                                <td>
+                                    <label>Lugar de administraci&oacute;n de la TARV</label>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <input id="lug_adm_TARV"  name="data[VIH][lug_adm_TARV]" style="width: 240px;" maxlength="10"  type="text">&nbsp;&nbsp;
+                                    <input id="id_lug_adm_TARV" type="hidden" name="data[VIH][id_lug_adm_TARV]" value="{valLugadmTARV}" >
+                                </td>
+                                <!-- td><label>Esquema ARV:</label></td>
+                                <td>
+                                    <select id="drpesq_TARV" name="data[VIH][esq_ARV]" >
+                                        <option selected value="">------------</option>
+                                        <option value="1">Preferente</option>
+                                        <option value="2">2da. l&iacute;nea</option>
+                                        <option value="3">3ra. l&iacute;nea</option>
+                                    </select>&nbsp;&nbsp;
+                                </td -->
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <div style="font-size:9px;"><spam style="color:red;">TARV:</spam> Terapia antirretroviral</div>
+                </fieldset>
+                <fieldset id="field_prueba" class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Paciente con prueba de VIH previa</legend>
+                    <table dalign="center" border="0" cellpadding="2" cellspacing="2">
+                        <tbody>
+                            
+                            <tr>
+                                <td><label>Fecha de prueba:</label></td>
+                                <td>
+                                    <input id="fecha_prueba_VIH_con" name="data[VIH][fecha_prueba_VIH]" value="{valFechaPruebaVIH}" style="width: 100px;" maxlength="10"  type="text">
+                                    <span class="ui-datepicker-append"> dd/mm/aaaa</span>
+                                </td>
+                                <td>
+                                    <label>Resultado de VIH prev&iacute;a:</label>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <select id="drpres_previa_VIH_con" name="data[VIH][res_previa_VIH]" >
+                                        <option selected value="">Seleccione...</option>
+                                        <option value="1" {selResPrevia_VIH1}>Positivo</option>
+                                        <option value="0" {selResPrevia_VIH0}>Negativo</option>
+                                    </select> &nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Asesor&iacute;a post prueba VIH prev&iacute;a:</label>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <select id="drpaseso_VIH_con" name="data[VIH][aseso_VIH]" >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1" {selAseso2_VIH1}>Si</option>
+                                        <option value="0" {selAseso2_VIH0}>No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Terapia cotrimoxazol:</label>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <select id="drpcotrimoxazol_con" name="data[VIH][cotrimoxazol]" >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1" {selCotri2_VIH1}>Si</option>
+                                        <option value="0" {selCotri2_VIH0}>No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <td id="label_cotrimo_VIH_con"><label>Fecha inicio terapia cotrimoxazol:</label></td>
+                                <td id="input_cotrimo_VIH_con">
+                                    <input id="fecha_cotrimoxazol2_con" name="data[VIH][fecha_cotrimoxazol]" value="{valFechaCotri2}" style="width: 100px;" maxlength="10"  type="text">
+                                    <span class="ui-datepicker-append"> dd/mm/aaaa</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Actualmente en TARV:</label>&nbsp;&nbsp;
+                                </td>
+                                <td><select id="drpact_TARV_con" name="data[VIH][act_TARV]" >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1" {selActTARV_VIH1}>Si</option>
+                                        <option value="0" {selActTARV_VIH0}>No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <td id="label_TARV_ini_VIH_con"><label>Fecha de inicio TARV:</label></td>
+                                <td id="input_TARV_ini_VIH_con">
+                                    <input id="fecha_inicio_TARV2_con" name="data[VIH][fecha_inicio_TARV]" value="{valFechaIniTARV2}" style="width: 100px;" maxlength="10"  type="text">
+                                    <span class="ui-datepicker-append"> dd/mm/aaaa</span>
+                                </td>
+                            </tr>
+                            <tr id="tr_lug_adm_TARV_con">
+                                <td>
+                                    <label>Lugar de administraci&oacute;n de la TARV</label>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <input id="lug_adm_TAV_con" name="data[VIH][lug_adm_TARV]" style="width: 240px;" maxlength="10"  type="text">&nbsp;&nbsp;
+                                    <input id="lug_adm_TAV_con_id" name="data[VIH][id_lug_adm_TARV]" value="{valLugadmTARV2}"  type="hidden">
+                                </td>
+                                <!-- td><label>Esquema ARV:</label></td>
+                                <td>
+                                    <select id="drpesq_ARV_con" name="data[VIH][esq_ARV]" >
+                                        <option selected value="">------------</option>
+                                        <option value="1">Preferente</option>
+                                        <option value="2">2da. l&iacute;nea</option>
+                                        <option value="3">3ra. l&iacute;nea</option>
+                                    </select>&nbsp;&nbsp;
+                                </td -->
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Antecedente terapia isoniacida:</label>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <select id="drpisoniacida_con" name="data[VIH][isoniacida]" >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1" {selIsoniacida_VIH1}>Si</option>
+                                        <option value="0" {selIsoniacida_VIH0}>No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <div style="font-size:9px;"><spam style="color:red;">TARV:</spam> Terapia antirretroviral</div>
+                </fieldset>
+                <fieldset id="field_prueba_no" class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>VIH</legend>
+                    <div>
+                        Para habilitar esta pesta&ntilde;a necesita responder a la secci&oacute;n "Condici&oacute;n de VIH (al momento del diagn&oacute;stico de TB)" en la pesta&ntilde;a de "Clasifica."
+                    </div>
+                    
+                </fieldset>

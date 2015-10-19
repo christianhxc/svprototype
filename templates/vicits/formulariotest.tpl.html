@@ -1,0 +1,1580 @@
+<div class="Content" align="left">
+    <div id="dialogFormTipoFormulario" title="Seleccione tipo de formulario" align="center">
+        <form id="formTipoFormulario" action="" method="">
+            <fieldset style="width:400px; text-align: left">
+                <legend>Tipo de Formulario</legend>
+                <div align="left">
+                    <table>
+                        <tr>
+                            <td><label>Formulario ITS para mujer TS:&nbsp;&nbsp;</label></td>
+                            <td align="center">
+                                <a href="javascript:validarTipoTS();" class="ui-state-default ui-corner-all ui-button"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                    &nbsp;&nbsp;Mujer&nbsp;&nbsp;
+                                </a>
+                            </td>
+                        </tr>
+                        <tr><td colspan="2"></td></tr>
+                        <tr>
+                            <td><label>Formulario ITS para hombres HSH y TRANS:&nbsp;&nbsp;</label></td>
+                            <td align="center">
+                                <a href="javascript:validarTipoHSH();" class="ui-state-default ui-corner-all ui-button"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                    Hombre
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div id="dialog-form" title="B&uacute;squeda de Personas" align="center">
+        <form id="formDialog" action="" method="">
+            <div class="ui-state-error ui-corner-all" id="pErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px; width: 50%">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <div id="pDetalle" style="margin-top: 0px; margin-bottom: 0px;"></div>
+            </div>
+            <fieldset style="width:740px; text-align: left">
+                <legend>Filtro</legend>
+                <div align="left">
+                    <table>
+                        <tr id="notFoundFilter">
+                            <td colspan="4" align="right">
+                                <a href="javascript:useSearched();" class="" title="Usar criterios de b&uacute;squeda para ingreso de nuevo individuo" style="text-decoration: none; font-weight:bold; display: none" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Usar estos datos</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>No. Identificador:</label></td>
+                            <td><input type="text" name="popid" id="id" value="" class="" style="width: 150px; text-align:center;" maxlength="45"/></td>
+                        </tr>
+                        <tr>
+                            <td><label>Nombres:</label></td>
+                            <td><input type="text" name="popn1" id="n" value="" class="" style="width: 250px; text-transform: uppercase;" maxlength="45"/></td>
+                            <td><label>Apellidos:</label></td>
+                            <td><input type="text" name="popp1" id="p" value="" class="" style="width: 250px; text-transform: uppercase;" maxlength="45"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" valign="bottom">
+                                <label >Edad:</label>
+                                <select id="drpPopTipo" name="poptipoE" onChange="validarEdadPop();">
+                                    <option value="0">Tipo</option>
+                                    <option value="1">D&iacute;as</option>
+                                    <option value="2">Meses</option>
+                                    <option value="3">A&ntilde;os</option>
+                                </select>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desde: <input type="text" id="ed" name="popEdesde" style="width: 40px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);" onChange="validarEdadPop();"/>
+                                Hasta: <input type="text" id="ed2" name="popEhasta" style="width: 40px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);" onChange="validarEdadPop();"/>
+                            </td>
+
+                            <td colspan="2" valign="bottom">
+                            </td>
+                        </tr>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr>
+                            <td colspan="2" align="right">
+                                <a href="javascript:validarPopupP();" class="ui-state-default ui-corner-all ui-button"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                    Filtrar
+                                </a>
+                            </td>
+                            <td  colspan="2"align="right">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <a href="javascript:nuevo();" class="" style="text-decoration: none; font-weight:bold; display: none" title="Ingresar nuevo individuo"onmouseover="RollOver(this)" onmouseout="RollOut(this)">Nuevo</a>
+                                            </div>
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <div>
+                                                <a href="javascript:clearSearch();" class="" style="text-decoration: none; font-weight:bold;" title="Borrar criterios de b&uacute;squeda" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Borrar filtro</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+        </form>
+        <br/>
+        <div id="resultadosBusqueda" align="center"></div>
+    </div>
+
+
+    <form id="frmContenido" class="niceform" action="{urlprefix}vicits/formulario.php" method="POST" onsubmit="return validarVicIts();">
+        <table width="100%">
+            <tr>
+                <td>
+                    <div id="formLabel"><h2>Formulario de la Vigilancia Centinela de las ITS - VICITS</h2></div>
+                </td>
+                <td align="right">
+                    <div style="color: #A4BC2B;">
+                        Regresar
+                        <a href="index.php" class="" style="text-decoration: none; font-weight:bold;">
+                            <img title="Regresar" border=0 src="../img/back.png"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div id="ErrorGuardar" class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; display:{disError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{mensajeErrorGeneral}</label><br/>
+        </div>
+        <div class="ui-state-highlight ui-corner-all"
+             style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;" align="left">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{desInfo}</label>
+        </div>
+
+        <div class="ui-state-error ui-corner-all" id="dSummaryErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>Los datos no se pueden guardar debido a lo siguiente:</label>
+            <p id="pSummaryErrors" style="margin-top: 0px; margin-bottom: 0px;"></p>
+        </div>
+        <div id="tabs" class="">
+            <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"> 
+                <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#divIndividuo">Individuo</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#divAntecedentes">Antecedentes</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#divParteA">Parte A</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#divParteB">Parte B</a></li>
+            </ul>
+
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divIndividuo" >
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Individuo</legend>
+                    <input name="data[individuo][id_individuo]" type="hidden" id="id_individuo" value="{valID}" />
+                    <table border="0" cellpadding="2" cellspacing="2" align="center" style="width:800px;">
+                        <tr>
+                            <td colspan="3">
+                                <a href="javascript:buscar();" class="ui-state-default ui-corner-all ui-button"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                    Buscar
+                                </a>
+                            </td>
+                            <td align="right">
+                                <a onmouseout="RollOut(this)" title="Borrar datos del individuo" onmouseover="RollOver(this)" style="text-decoration: none; font-weight: bold;" class="" href="javascript:borrarIndividuo();">Borrar Individuo</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label >Tipo Identificador:<span class="mandatory">*</span></label></td>
+                            <td>
+                                <select id="drpTipoId" name="data[individuo][tipoId]" style="width:250px" {valReadOnly}>
+                                        <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkTipoId -->
+                                    <option value="{valTipoId}" {selTipoId}>{opcTipoId}</option>
+                                    <!-- END blkTipoId -->
+                                </select>
+                                <input type="hidden" id="tipoId" name="data[loaded][tipoId]" value="{valTipoId}" />
+                            </td>
+                            <td><label >No. Identificador:<span class="mandatory">*</span></label></td>
+                            <td><input type="text" id="no_identificador" name="data[individuo][identificador]" value="{valIdentificador}" style="width: 250px; text-align:center;" maxlength="45" {valReadOnly}/></td>
+                        </tr>
+                        <tr>
+                            <td><label >1er. Nombre:<span class="mandatory">*</span></label></td>
+                            <td><input type="text" id="primer_nombre" name="data[individuo][primer_nombre]" style="width: 250px; text-transform: uppercase;" value="{valPrimerNombre}" maxlength="45"/></td>
+                            <td><label >2do. Nombre:</label></td>
+                            <td><input type="text" id="segundo_nombre" name="data[individuo][segundo_nombre]" style="width: 250px; text-transform: uppercase;" value="{valSegundoNombre}" maxlength="45"/></td>
+                        </tr>
+                        <tr>
+                            <td><label >1er. Apellido:<span class="mandatory">*</span></label></td>
+                            <td><input type="text" id="primer_apellido" name="data[individuo][primer_apellido]" value="{valPrimerApellido}" style="width: 250px; text-transform: uppercase;" maxlength="75"/></td>
+                            <td><label >2do. Apellido:</label></td>
+                            <td><input type="text" id="segundo_apellido" name="data[individuo][segundo_apellido]" value="{valSegundoApellido}" style="width: 250px; text-transform: uppercase;" maxlength="75"/></td>
+                        </tr>
+                        <tr>
+                            <td><label >Pa&iacute;s:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpPaisIndividuo" name="data[individuo][pais]" style="width:250px" onchange="setPais();">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkPaisIndividuo -->
+                                    <option value="{valPaisIndividuo}" {selPaisIndividuo}>{opcPaisIndividuo}</option>
+                                    <!-- END blkPaisIndividuo -->
+                                </select>
+                                <input type="hidden" id="idPais" name="data[loaded][idPais]" value="{valIdPais}" />
+                            </td>
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr id="divPolitica1">
+                            <td ><label >Provincia:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpProIndividuo" name="data[individuo][provincia]" style="width:250px" onchange="setRegionCascada()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkProIndividuo -->
+                                    <option value="{valProIndividuo}" {selProIndividuo}>{opcProIndividuo}</option>
+                                    <!-- END blkProIndividuo -->
+                                </select>
+                                <input type="hidden" id="idPro" name="data[loaded][idPro]" value="{valIdPro}" />
+                            </td>
+                            <td ><label >Regi&oacute;n:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpRegIndividuo" name="data[individuo][region]" style="width:250px" onchange="setDistritoCascada()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkRegIndividuo -->
+                                    <option value="{valRegIndividuo}" {selRegIndividuo}>{opcRegIndividuo}</option>
+                                    <!-- END blkRegIndividuo -->
+                                </select>
+                                <input type="hidden" id="idReg" name="data[loaded][idReg]" value="{valIdReg}" />
+                            </td>
+                        </tr>
+                        <tr id="divPolitica2">
+                            <td ><label >Distrito:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpDisIndividuo" name="data[individuo][distrito]" style="width:250px" onchange="setCorregimientoCascada()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkDisIndividuo -->
+                                    <option value="{valDisIndividuo}" {selDisIndividuo}>{opcDisIndividuo}</option>
+                                    <!-- END blkDisIndividuo -->
+                                </select>
+                                <input type="hidden" id="idDis" name="data[loaded][idDis]" value="{valIdDis}" />
+                            </td>
+                            <td id="divPolitica7"><label >Corregimiento:<span class="mandatory">*</span></label></td>
+                            <td id="divPolitica8">
+                                <select id="drpCorIndividuo" name="data[individuo][corregimiento]" style="width:250px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkCorIndividuo -->
+                                    <option value="{valCorIndividuo}" {selCorIndividuo}>{opcCorIndividuo}</option>
+                                    <!-- END blkCorIndividuo -->
+                                </select>
+                                <input type="hidden" id="idCor" name="data[loaded][idCor]" value="{valIdCor}" />
+                            </td>
+                        </tr>
+                        <tr id="divPolitica3">
+                            <td ><label >Lugar poblado:</label></td>
+                            <td colspan="3">
+                                <input type="text" id="lugar_poblado" name="data[individuo][lugar_poblado]" value="{valLugarPoblado}" style="width:350px;" maxlength="150"/>&nbsp;&nbsp;                       
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><label >Fecha de nacimiento:</label></td>
+                            <td>
+                                <input type="text" id="fecha_nacimiento" name="data[individuo][fecha_nacimiento]" value="{valFechaNacimiento}" style="width: 135px;" maxlength="10" onchange="calcularEdad();"/>
+                                <span class="ui-datepicker-append"> dd/mm/aaaa</span>
+                            </td>
+                            <td colspan="2">
+                                <label >Edad:<span class="mandatory">*</span></label>&nbsp;&nbsp;
+                                <select id="drptipo_edad" name="data[individuo][tipo_edad]">
+                                    <option value="1" {selDias}>D&iacute;as</option>
+                                    <option value="2" {selMeses}>Meses</option>
+                                    <option value="3" {selAnios}>A&ntilde;os</option>
+                                </select>
+                                <input type="text" id="edad" name="data[individuo][edad]" value="{valEdad}" style="width: 50px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);" onBlur="validarEdad();"/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <label >Sexo:<span class="mandatory">*</span></label>&nbsp;&nbsp;
+                                <select id="drpsexo" name="data[individuo][sexo]" onchange="sexoCambio();" >
+                                    <option value="0">Seleccione...</option>
+                                    <option value="M" {selSexoM}>Hombre</option>
+                                    <option value="F" {selSexoF}>Mujer</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label >Identidad de Genero:</label></td>
+                            <td >
+                                <select id="drpGenero" name="data[individuo][genero]" style="width:250px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkGenero -->
+                                    <option value="{valGenero}" {selGenero}>{opcGenero}</option>
+                                    <!-- END blkGenero -->
+                                </select>
+
+                            </td>
+                            <td><label >Etnia:</label></td>
+                            <td >
+                                <select id="drpEtnia" name="data[individuo][etnia]" style="width:250px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkEtnia -->
+                                    <option value="{valEtnia}" {selEtnia}>{opcEtnia}</option>
+                                    <!-- END blkEtnia -->
+                                </select>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td><label >Escolaridad:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpEscolaridad" name="data[individuo][escolaridad]" style="width:250px">
+                                    <option value="0">Seleccione...</option>
+                                    <option value="1" {selEscolaridad1}>Primaria Completa</option>
+                                    <option value="2" {selEscolaridad2}>Primaria Incompleta</option>
+                                    <option value="3" {selEscolaridad3}>Secundaria Completa</option>
+                                    <option value="4" {selEscolaridad4}>Secundaria Incompleta</option>
+                                    <option value="5" {selEscolaridad5}>Universidad Completa</option>
+                                    <option value="6" {selEscolaridad6}>Universidad Incompleta</option>
+                                    <option value="7" {selEscolaridad7}>Vocacional</option>
+                                    <option value="8" {selEscolaridad9}>No especificada</option>
+                                    <option value="9" {selEscolaridad8}>Ninguna</option>
+                                </select>
+                            </td>
+                            <td><label >Estado Civil:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpEstadoCivil" name="data[individuo][estado_civil]" style="width:250px">
+                                    <option value="0">Seleccione...</option>
+                                    <option value="1" {selEstado1}>Soltero(a)</option>
+                                    <option value="2" {selEstado2}>Casado(a)</option>
+                                    <option value="3" {selEstado3}>Unido(a)</option>
+                                    <option value="4" {selEstado4}>Divorciado(a)</option>
+                                    <option value="4" {selEstado5}>Viudo(a)</option>
+                                    <option value="5" {selEstado6}>No especificado</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label >Sabe leer:<span class="mandatory">*</span></label></td>
+                            <td colspan="3" >
+                                <select id="drpSabeLeer" name="data[antecedentes][sabeLeer]">
+                                    <option value="0">Sel...</option>
+                                    <option value="1" {selLeeSi}>Si</option>
+                                    <option value="2" {selLeeNo}>No</option>
+                                    <option value="3" {selLeeDesc}>Desc</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>           <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divParteA" >
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>S&iacute;ntomas y signos</legend>
+                    <table border='0' width='90%' align='center'>
+                        <tr>
+                            <td> <label>Motivo de consulta:<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+
+                                
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </fieldset>
+                <br/>
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Otros Datos</legend>
+                    <table border='0' width='90%' align='center'>
+                        <tr>
+                            <td width="320px">
+                                <label>&iquest;Recibi&oacute; alg&uacute;n antibi&oacute;tico en las &uacute;ltimas 2 semanas?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <select id='drpAntibiotico' name="data[otros_datos][otro_antibiotico]" style='width:200px' onchange="mostrarAntibiotico()">
+                                    <option value='-1' {drpAntibioticoSel}>Seleccione...</option>
+                                    <option value='1' {drpAntibioticoSi}>Si</option>
+                                    <option value='2' {drpAntibioticoNo}>No</option>
+                                    <option value='0' {drpAntibioticoNoSabe}>No Sabe</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div id="mostrarAntibiotico" style="display:{mostrarAntibiotico}">
+                                    <table border='0' width='100%' align='center'>
+                                        <tr>
+                                            <td><label>Antibi&oacute;tico(s):</label></td>
+                                            <td>
+                                                <input type="text" id="antibiotico" style="width: 135px;"/>
+                                            </td>
+                                            <td><label>Motivo:</label></td>
+                                            <td>
+                                                <input type="text" id="motivo_antibiotico" style="width: 135px;"/>
+                                            </td>
+                                            <td><label>Fecha &uacute;ltima dosis:</label></td>
+                                            <td>
+                                                <input type="text" id="fecha_ult_dosis" style="width: 135px;" maxlength="10"/>
+                                            </td>
+                                            <td>
+                                                <a id='anadirAntibiotico' href='javascript:relacionarTabla("tablaAntibioticos");' class='ui-state-default ui-corner-all ui-button' title='A&ntilde;adir'
+                                                   onmouseover='RollOver(this)' onmouseout='RollOut(this)'>A&ntilde;adir
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="7">
+                                                <br/>
+                                                <div id="tablaAntibioticos"></div>
+                                            </td>
+                                        </tr>    
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div id="mostrarOtrosDatosTS" style="display:{mostrarOtrosDatosTS}">
+                                    <table border='0' width='100%' align='center'>
+                                        <tr>
+                                            <td width="320px">
+                                                <label>&iquest;Us&oacute; &oacute;vulos vaginales en los &uacute;ltimos 30 d&iacute;as?:<span class="mandatory">*</span></label>
+                                            </td>
+                                            <td>
+                                                <select id='drpOvulosVaginales' name="data[otros_datos][otro_ovulos_vagina]" style='width:200px'>
+                                                    <option value='-1' {drpOvulosVaginalesSel}>Seleccione...</option>
+                                                    <option value='1' {drpOvulosVaginalesSi}>Si</option>
+                                                    <option value='2' {drpOvulosVaginalesNo}>No</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="320px">
+                                                <label>&iquest;Us&oacute; &oacute;vulos vaginales en los &uacute;ltimos 30 d&iacute;as?:<span class="mandatory">*</span></label>
+                                            </td>
+                                            <td>
+                                                <select id='drpDuchasVaginales' name="data[otros_datos][otro_ducha_vagina]" style='width:200px'>
+                                                    <option value='-1' {drpDuchasVaginalesSel}>Seleccione...</option>
+                                                    <<option value='1' {drpDuchasVaginalesSi}>Si</option>
+                                                    <option value='2' {drpDuchasVaginalesNo}>No</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="320px">
+                                                <label>Fecha de &uacute;ltima citolog&iacute;a:<span class="mandatory">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" id="otro_fecha_citologia" value="{otroFechaCitologia}" name="data[otros_datos][otro_fecha_citologia]" style="width: 135px;" maxlength="10"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="320px">
+                                                <label>Resultado de &uacute;ltima citolog&iacute;a:<span class="mandatory">*</span></label>
+                                            </td>
+                                            <td>
+                                                <input type="text" id="otro_citologia_resultado" value="{otroResultadoCitologia}" name="data[otros_datos][otro_citologia_resultado]" style="width: 470px;" maxlength="100"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <br/>
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Datos sobre uso de Condon</legend>
+                    <table border='0' width='90%' align='center'>
+                        <tr id="relacionesSexualesOtroHombre">
+                            <td width="280px">
+                                <label>&iquest;Ha tenido relaciones sexuales anales con otros hombres diferentes de su pareja en los &uacute;ltimos 6 meses?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td width="80px">
+                                <select id='drpRelacionAnalOtro' name="data[condon][condon_rel_anal_otro]">
+                                    <option value='-1' {drpRelacionesSexualSel}>Sel...</option>
+                                    <option value='1' {drpRelacionesSexualSi}>Si</option>
+                                    <option value='2' {drpRelacionesSexualNo}>No</option>
+                                </select>
+                            </td>
+                            <td colspan="2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="280px">
+                                <label>&iquest;En los &uacute;ltimos 30 d&iacute;as tuvo relaciones <span id="labelRelacionSexual"></span>?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td width="80px">
+                                <select id='drpRelacionesSexual' name="data[condon][condon_rel_sexual]">
+                                    <option value='-1' {drpRelacionesSexualSel}>Sel...</option>
+                                    <option value='1' {drpRelacionesSexualSi}>Si</option>
+                                    <option value='2' {drpRelacionesSexualNo}>No</option>
+                                </select>
+                            </td>
+                            <td colspan="2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>&iquest;En los &uacute;ltimos 30 d&iacute;as ha tenido relaciones anales?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td width="80px">
+                                <select id='drpRelacionesAnales' name="data[condon][condon_rel_anal]" onchange="setRelacionesAnales();">
+                                    <option value='-1' {drpRelacionesAnalesSel}>Sel...</option>
+                                    <option value='1' {drpRelacionesAnalesSi}>Si</option>
+                                    <option value='2' {drpRelacionesAnalesNo}>No</option>
+                                </select>
+                            </td>
+                            <td width="120px">
+                                <label id="labelTipoRelacionesAnales">Tipo de relaci&oacute;n anal:<span class="mandatory">*</span></label>
+                            </td>
+                            <td width="140px">
+                                <select id='drpTipoRelacionesAnales' name="data[condon][condon_tipo_rel_anal]">
+                                    <option value='-1' {drpTipoRelacionesAnalesSel}>Sel...</option>
+                                    <option value='1' {drpTipoRelacionesAnalesPenetra}>Penetra</option>
+                                    <option value='2' {drpTipoRelacionesAnalesPenetrado}>Es penetrado</option>
+                                    <option value='3' {drpTipoRelacionesAnalesAmbos}>Ambos</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>&iquest;En los &uacute;ltimos 30 d&iacute;as ha tenido practicado sexo oral?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <select id='drpSexoOral' name="data[condon][condon_sexo_oral]">
+                                    <option value='-1' {drpSexoOralSel}>Sel...</option>
+                                    <option value='1' {drpSexoOralSi}>Si</option>
+                                    <option value='2' {drpSexoOralNo}>No</option>
+                                </select>
+                            </td>
+                            <td colspan="2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>&iquest;En su &uacute;ltima relaci&oacute;n sexual utiliz&oacute; cond&oacute;n?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <select id='drpUltRelCondon' name="data[condon][condon_ult_rel_uso_condon]">
+                                    <option value='-1' {drpUltRelCondonSel}>Sel...</option>
+                                    <option value='1' {drpUltRelCondonSi}>Si</option>
+                                    <option value='2' {drpUltRelCondonNo}>No</option>
+                                </select>
+                            </td>
+                            <td colspan="2">
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table border='0' width='90%' align='center'>
+                        <tr>
+                            <td width="350px">
+                                <label>&iquest;Tiene pareja ESTABLE o FIJA<span id="labelEstableHombre"></span>?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td colspan="3">
+                                <select id='drpHombreFija' name="data[condon][par_hombre_fija]" style="width:80px" onchange="setHombreFija();">
+                                    <option value='-1' {drpHombreFijaSel}>Sel...</option>
+                                    <option value='1' {drpHombreFijaSi}>Si</option>
+                                    <option value='2' {drpHombreFijaNo}>No</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr id="hombreFijaOpciones">
+                            <td>
+                                <label>- &iquest;Utiliz&oacute; cond&oacute;n en los &uacute;ltimos 30 d&iacute;as?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td width="100px">
+                                <select id='drpHombreFijaUsoCondon' name="data[condon][par_hombre_fija_uso_condon]" style="width:80px">
+                                    <option value='-1' {drpHombreFijaUsoCondonSel}>Sel...</option>
+                                    <option value='1' {drpHombreFijaUsoCondonNunca}>Nunca</option>
+                                    <option value='2' {drpHombreFijaUsoCondonAVeces}>A veces</option>
+                                    <option value='3' {drpHombreFijaUsoCondonSiempre}>Siempre</option>
+                                </select>
+                            </td>
+                            <td width="180px">
+                                <label>La &uacute;ltima vez  &iquest;us&oacute; cond&oacute;n?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <select id='drpHombreFijaUltUsoCondon' name="data[condon][par_hombre_fija_ult_usu_condon]" style="width:80px">
+                                    <option value='-1' {drpHombreFijaUltUsoCondonSel}>Sel...</option>
+                                    <option value='1' {drpHombreFijaUltUsoCondonSi}>Si</option>
+                                    <option value='2' {drpHombreFijaUltUsoCondonNo}>No</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>&iquest;Tiene pareja Casual<span id="labelCasualHombre"></span>?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td colspan="3">
+                                <select id='drpHombreCasual' name="data[condon][par_hombre_casual]" style="width:80px" onchange="setHombreCasual();">
+                                    <option value='-1' {drpHombreCasualSel}>Sel...</option>
+                                    <option value='1' {drpHombreCasualSi}>Si</option>
+                                    <option value='2' {drpHombreCasualNo}>No</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr id="hombreCasualOpciones">
+                            <td>
+                                <label>- &iquest;Utiliz&oacute; cond&oacute;n en los &uacute;ltimos 30 d&iacute;as?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <select id='drpHombreCasualUsoCondon' name="data[condon][par_hombre_casual_uso_condon]" style="width:80px">
+                                    <option value='-1' {drpHombreCasualUsoCondonSel}>Sel...</option>
+                                    <option value='1' {drpHombreCasualUsoCondonNunca}>Nunca</option>
+                                    <option value='2' {drpHombreCasualUsoCondonAVeces}>A veces</option>
+                                    <option value='3' {drpHombreCasualUsoCondonSiempre}>Siempre</option>
+                                </select>
+                            </td>
+                            <td>
+                                <label>La &uacute;ltima vez  &iquest;us&oacute; cond&oacute;n?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <select id='drpHombreCasualUltUsoCondon' name="data[condon][par_hombre_casual_ult_usu_condon]" style="width:80px">
+                                    <option value='-1' {drpHombreCasualUltUsoCondonSel}>Sel...</option>
+                                    <option value='1' {drpHombreCasualUltUsoCondonSi}>Si</option>
+                                    <option value='2' {drpHombreCasualUltUsoCondonNo}>No</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr id="mujerFija">
+                            <td>
+                                <label>&iquest;Tiene pareja ESTABLE o FIJA <b>Mujer</b>?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td colspan="3">
+                                <select id='drpMujerFija' name="data[condon][par_mujer_fija]" style="width:80px" onchange="setMujerFija();">
+                                    <option value='-1' {drpMujerFijaSel}>Sel...</option>
+                                    <option value='1' {drpMujerFijaSi}>Si</option>
+                                    <option value='2' {drpMujerFijaNo}>No</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr id="mujerFijaOpciones">
+                            <td>
+                                <label>- &iquest;Utiliz&oacute; cond&oacute;n en los &uacute;ltimos 30 d&iacute;as?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <select id='drpMujerFijaUsoCondon' name="data[condon][par_mujer_fija_uso_condon]" style="width:80px">
+                                    <option value='-1' {drpMujerFijaUsoCondonSel}>Sel...</option>
+                                    <option value='1' {drpMujerFijaUsoCondonNunca}>Nunca</option>
+                                    <option value='2' {drpMujerFijaUsoCondonAVeces}>A veces</option>
+                                    <option value='3' {drpMujerFijaUsoCondonSiempre}>Siempre</option>
+                                </select>
+                            </td>
+                            <td>
+                                <label>La &uacute;ltima vez  &iquest;us&oacute; cond&oacute;n?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <select id='drpMujerFijaUltUsoCondon' name="data[condon][par_mujer_fija_ult_usu_condon]" style="width:80px">
+                                    <option value='-1' {drpMujerFijaUltUsoCondonSel}>Sel...</option>
+                                    <option value='1' {drpMujerFijaUltUsoCondonSi}>Si</option>
+                                    <option value='2' {drpMujerFijaUltUsoCondonNo}>No</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr id="mujerCasual">
+                            <td>
+                                <label>&iquest;Tiene pareja Casual <b>Mujer</b>?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td colspan="3">
+                                <select id='drpMujerCasual' name="data[condon][par_mujer_casual]" style="width:80px" onchange="setMujerCasual();">
+                                    <option value='-1' {drpMujerCasualSel}>Sel...</option>
+                                    <option value='1' {drpMujerCasualSi}>Si</option>
+                                    <option value='2' {drpMujerCasualNo}>No</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr id="mujerCasualOpciones">
+                            <td>
+                                <label>- &iquest;Utiliz&oacute; cond&oacute;n en los &uacute;ltimos 30 d&iacute;as?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <select id='drpMujerCasualUsoCondon' name="data[condon][par_mujer_casual_uso_condon]" style="width:80px">
+                                    <option value='-1' {drpMujerCasualUsoCondonSel}>Sel...</option>
+                                    <option value='1' {drpMujerCasualUsoCondonNunca}>Nunca</option>
+                                    <option value='2' {drpMujerCasualUsoCondonAVeces}>A veces</option>
+                                    <option value='3' {drpMujerCasualUsoCondonSiempre}>Siempre</option>
+                                </select>
+                            </td>
+                            <td>
+                                <label>La &uacute;ltima vez  &iquest;us&oacute; cond&oacute;n?:<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <select id='drpMujerCasualUltUsoCondon' name="data[condon][par_mujer_casual_ult_usu_condon]" style="width:80px"
+                                        <option value='-1' {drpMujerCasualUltUsoCondonSel}>Sel...</option>
+                                    <option value='1' {drpMujerCasualUltUsoCondonSi}>Si</option>
+                                    <option value='2' {drpMujerCasualUltUsoCondonNo}>No</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table border='0' width='90%' align='center'>
+                        <tr>
+                            <td width="350px">
+                                <label>&iquest;N&uacute;mero de CLIENTES en la &uacute;ltima quincena?:</label>
+                            </td>
+                            <td>
+                                <input type="text" id="clienteQuincena" name="data[condon][ts_cliente_quincena]" style="width: 70px;" maxlength="3" onKeyPress="return numbersonly(event, false);"/>
+                            </td>
+                            <td>
+                                <label>&iquest;N&uacute;mero de CLIENTES en la &uacute;ltima semana?:</label>
+                            </td>
+                            <td>
+                                <input type="text" id="clienteSemana" name="data[condon][ts_cliente_semana]" style="width: 70px;" maxlength="3" onKeyPress="return numbersonly(event, false);"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>&iquest;Con sus clientes utiliz&oacute; cond&oacute;n en los &uacute;ltimos 30 d&iacute;as?:</label>
+                            </td>
+                            <td>
+                                <select id='drpClienteUsoCondon' name="data[condon][ts_uso_condon]" style="width:70px">
+                                    <option value='-1' {drpMujerCasualUsoCondonSel}>Sel...</option>
+                                    <option value='1' {drpMujerCasualUsoCondonNunca}>Nunca</option>
+                                    <option value='2' {drpMujerCasualUsoCondonAVeces}>A veces</option>
+                                    <option value='3' {drpMujerCasualUsoCondonSiempre}>Siempre</option>
+                                </select>
+                            </td>
+                            <td>
+                                <label>La &uacute;ltima vez con un cliente &iquest;us&oacute; cond&oacute;n?:</label>
+                            </td>
+                            <td>
+                                <select id='drpClienteUltUsoCondon' name="data[condon][ts_ultimo_usu_condon]" style="width:70px"
+                                        <option value='-1' {drpMujerCasualUltUsoCondonSel}>Sel...</option>
+                                    <option value='1' {drpMujerCasualUltUsoCondonSi}>Si</option>
+                                    <option value='2' {drpMujerCasualUltUsoCondonNo}>No</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                    </table>
+                </fieldset>
+                <br/>
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Examen General</legend>
+                    <table border='0' width='90%' align='center'>
+                        <tr>
+                            <td width="150px">
+                                <label>Examen general:<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <select id='drpExaGeneral' name="data[examen_general][exa_realizado]" style="width:100px" onchange="setExamenGeneral();">
+                                    <option value='-1' {drpExaGeneralSel}>Sel...</option>
+                                    <option value='1' {drpExaGeneralSi}>Realizado</option>
+                                    <option value='2' {drpExaGeneralNo}>No Realizado</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="examenGeneralRealizado">
+                        <table border='0' width='90%' align='center'>
+                            <tr>
+                                <td width="150px">
+                                    <label>Temperatura oral:<span class="mandatory">*</span></label>
+                                </td>
+                                <td width="110px">
+                                    <input type="text" id="exaTemperatura" name="data[examen_general][exa_temperatura]" style="width: 70px;" maxlength="2" onKeyPress="return numbersonly(event, false);"/>
+                                    <span> C</span>
+                                </td>
+                                <td width="100px">
+                                    <label>Peso:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <input type="text" id="exaLibras" name="data[examen_general][exa_libras]" style="width: 70px;" maxlength="3" onKeyPress="return numbersonly(event, false);"/>
+                                    <span> lbs</span>
+                                </td>
+                                <td width="70px">
+                                    <label>P/A:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <input type="text" id="exaPA" name="data[examen_general][exa_PA]" style="width: 70px;" maxlength="10"/>
+                                    <span> mmHg</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="100px">
+                                    <label>Ganglios:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <select id='drpExaGanglio' name="data[examen_general][exa_ganglio]" style="width:100px" onchange="setExamenGeneral();">
+                                        <option value='-1' {drpExaGanglioSel}>Sel...</option>
+                                        <option value='1' {drpExaGanglioNormal}>Normal</option>
+                                        <option value='2' {drpExaGanglioAnormal}>Anormal</option>
+                                    </select>
+                                </td>
+                                <td colspan="4">
+                                    <div id="opcGanglio">
+                                        <table border="0">
+                                            <tr>
+                                                <td width="120px">
+                                                    <label>Adenomegalia:<span class="mandatory">*</span></label>&nbsp;
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="120px">   
+                                                    <label>Cuello</label>
+                                                </td> 
+                                                <td width="40px"> 
+                                                    <input type="checkbox" id="exaGanglioCuello" name="data[examen_general][exa_ganglio_cuello]" {exaGanglioCuello} />
+                                                </td>
+                                                <td width="70px"> 
+                                                    <label>Axilar</label>
+                                                </td>
+                                                <td width="40px"> 
+                                                    <input type="checkbox" id="exaGanglioAxilar" name="data[examen_general][exa_ganglio_axilar]" {exaGanglioAxilar} />
+                                                </td>  
+                                                <td width="125px"> 
+                                                    <label>Inguinal</label>
+                                                </td>
+                                                <td width="40px"> 
+                                                    <input type="checkbox" id="exaGanglioInguinal" name="data[examen_general][exa_ganglio_inguinal]" {exaGanglioInguinal} />       
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="100px">
+                                    <label>Rash:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <select id='drpExaRash' name="data[examen_general][exa_rash]" style="width:100px">
+                                        <option value='-1' {drpExaRashSel}>Sel...</option>
+                                        <option value='1' {drpExaRashAusencia}>Ausencia</option>
+                                        <option value='2' {drpExaRashPresencia}>Presencia</option>
+                                    </select>
+                                </td>
+                                <td colspan="4">
+                                    <table border="0">
+                                        <tr>
+                                            <td width="120px">
+                                                <label>Generalizada</label>
+                                            </td>
+                                            <td width="40px">
+                                                <input type="checkbox" id="exaRashGeneral" name="data[examen_general][exa_rash_general]" {exaRashGeneral} />
+                                            </td>
+                                            <td width="70px">
+                                                <label>Localizada</label>
+                                            </td>
+                                            <td width="40">
+                                                <input type="checkbox" id="exaRashLocal" name="data[examen_general][exa_rash_local]" {exaRashLocal} />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="100px">
+                                    <label>Boca:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <select id='drpExaBoca' name="data[examen_general][exa_boca]" style="width:100px" onchange="setExamenGeneral();">
+                                        <option value='-1' {drpExaBocaSel}>Sel...</option>
+                                        <option value='1' {drpExaBocaNormal}>Normal</option>
+                                        <option value='2' {drpExaBocaAnormal}>Anormal</option>
+                                    </select>
+                                </td>
+                                <td colspan="4">
+                                    <div id="opcBoca">
+                                        <table border="0">
+                                            <tr>
+                                                <td width="120px">
+                                                    <label>Monilia</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaBocaMonilia" name="data[examen_general][exa_boca_monilia]" {exaBocaMonilia} />
+                                                </td>
+                                                <td width="70px">
+                                                    <label>&Uacute;lcera</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaBocaUlcera" name="data[examen_general][exa_boca_ulcera]" {exaBocaUlcera} />
+                                                </td>
+                                                <td width="125px">
+                                                    <label>Secreci&oacute;n amigdalas</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaBocaAmigdalas" name="data[examen_general][exa_boca_amigdalas]" {exaBocaAmigdalas} />       
+                                                </td>   
+                                            </tr>
+                                            <tr>
+                                                <td> 
+                                                    <label>Irritaci&oacute;n faringea</label>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" id="exaBocaIrritacionFaringea" name="data[examen_general][exa_boca_irritacion_faringea]" {exaBocaIrritacionFaringea} />       
+                                                </td> 
+                                                <td>
+                                                    <label>Otro</label>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" id="exaBocaOtro" name="data[examen_general][exa_boca_otro]" {exaBocaOtro} />
+                                                </td>
+                                                <td></td><td></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr id="mostrarExaPene">
+                                <td width="100px">
+                                    <label>Pene:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <select id='drpExaPene' name="data[examen_general][exa_pene]" style="width:100px" onchange="setExamenGeneral();">
+                                        <option value='-1' {drpExaPeneSel}>Sel...</option>
+                                        <option value='1' {drpExaPeneNormal}>Normal</option>
+                                        <option value='2' {drpExaPeneAnormal}>Anormal</option>
+                                    </select>
+                                </td>
+                                <td colspan="4">
+                                    <div id="opcPene">
+                                        <table border="0">
+                                            <tr>
+                                                <td width="120px">
+                                                    <label>&Uacute;lcera</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaPeneUlcera" name="data[examen_general][exa_pene_ulcera]" {exaPeneUlcera} />
+                                                </td>       
+                                                <td width="70px">
+                                                    <label>Verruga</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaPeneVerruga" name="data[examen_general][exa_pene_verruga]" {exaPeneVerruga} />
+                                                </td>    
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label>Ampolla o Ves&iacute;cula</label>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" id="exaPeneAmpolla" name="data[examen_general][exa_pene_ampolla]" {exaPeneAmpolla} />
+                                                </td>
+                                                <td>
+                                                    <label>Otros</label>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" id="exaPeneOtro" name="data[examen_general][exa_pene_otro]" {exaPeneOtro} />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr id="mostrarExaTesticulo">
+                                <td width="100px">
+                                    <label>Test&iacute;culo:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <select id='drpExaTesticulo' name="data[examen_general][exa_testiculo]" style="width:100px" onchange="setExamenGeneral();">
+                                        <option value='-1' {drpExaTesticuloSel}>Sel...</option>
+                                        <option value='1' {drpExaTesticuloNormal}>Normal</option>
+                                        <option value='2' {drpExaTesticuloAnormal}>Anormal</option>
+                                    </select>
+                                </td>
+                                <td colspan="4">
+                                    <div id="opcTesticulo">
+                                        <table border="0">
+                                            <tr>
+                                                <td width="120px">
+                                                    <label>&Uacute;lcera</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaTesticuloUlcera" name="data[examen_general][exa_testiculo_ulcera]" {exaTesticuloUlcera} />
+                                                </td>       
+                                                <td width="70px">
+                                                    <label>Verruga</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaTesticuloVerruga" name="data[examen_general][exa_testiculo_verruga]" {exaTesticuloVerruga} />
+                                                </td>    
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label>Ampolla o Ves&iacute;cula</label>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" id="exaTesticuloAmpolla" name="data[examen_general][exa_testiculo_ampolla]" {exaTesticuloAmpolla} />
+                                                </td>
+                                                <td>
+                                                    <label>Otros</label>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" id="exaTesticuloOtro" name="data[examen_general][exa_testiculo_otro]" {exaTesticuloOtro} />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr id="mostrarExaAbdomen">
+                                <td width="100px">
+                                    <label>Abdomen<br/>(dolor a la palpaci&oacute;n):<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <select id='drpExaAbdomen' name="data[examen_general][exa_abdomen]" style="width:100px" onchange="setExamenGeneral();">
+                                        <option value='-1' {drpExaAbdomenSel}>Sel...</option>
+                                        <option value='1' {drpExaAbdomenNormal}>Normal</option>
+                                        <option value='2' {drpExaAbdomenAnormal}>Anormal</option>
+                                    </select>
+                                </td>
+                                <td colspan="4">
+                                    <div id="opcAbdomen">
+                                        <table border="0">
+                                            <tr>
+                                                <td width="120px">
+                                                    <label>Fosa il&iacute;aca izquierda</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaAbdomenFosaIzq" name="data[examen_general][exa_abdomen_fosa_izq]" {exaAbdomenFosaIzq} />
+                                                </td>       
+                                                <td width="70px">
+                                                    <label>Hipogastrio</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaAbdomenHipogastrico" name="data[examen_general][exa_abdomen_hipogastrico]" {exaAbdomenHipogastrico} />
+                                                </td> 
+                                            </tr>
+                                            <tr>
+                                                <td width="120px">
+                                                    <label>Fosa il&iacute;aca derecha</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaAbdomenFosaDer" name="data[examen_general][exa_abdomen_fosa_der]" {exaAbdomenFosaDer} />
+                                                </td> 
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr id="mostrarExaVulva">
+                                <td width="100px">
+                                    <label>Vulva:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <select id='drpExaVulva' name="data[examen_general][exa_vulva]" style="width:100px" onchange="setExamenGeneral();">
+                                        <option value='-1' {drpExaVulvaSel}>Sel...</option>
+                                        <option value='1' {drpExaVulvaNormal}>Normal</option>
+                                        <option value='2' {drpExaVulvaAnormal}>Anormal</option>
+                                    </select>
+                                </td>
+                                <td colspan="4">
+                                    <div id="opcVulva">
+                                        <table border="0">
+                                            <tr>
+                                                <td width="120px">
+                                                    <label>&Uacute;lcera</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaVulvaUlcera" name="data[examen_general][exa_vulva_ulcera]" {exaVulvaUlcera} />
+                                                </td>       
+                                                <td width="70px">
+                                                    <label>Verruga</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaVulvaVerruga" name="data[examen_general][exa_vulva_verruga]" {exaVulvaVerruga} />
+                                                </td>    
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label>Ves&iacute;cula</label>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" id="exaVulvaVesicula" name="data[examen_general][exa_vulva_vesicula]" {exaVulvaVesicula} />
+                                                </td>
+                                                <td>
+                                                    <label>Otros</label>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" id="exaVulvaOtro" name="data[examen_general][exa_vulva_otro]" {exaVulvaOtro} />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="100px">
+                                    <label>Meato uretral:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <select id='drpExaMeato' name="data[examen_general][exa_meato]" style="width:100px" onchange="setExamenGeneral();">
+                                        <option value='-1' {drpExaMeatoSel}>Sel...</option>
+                                        <option value='1' {drpExaMeatoNormal}>Normal</option>
+                                        <option value='2' {drpExaMeatoAnormal}>Anormal</option>
+                                    </select>
+                                </td>
+                                <td colspan="4">
+                                    <div id="opcMeato">
+                                        <table border="0">
+                                            <tr>
+                                                <td width="120px">
+                                                    <label>Hiperemia</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaMeatoHiperemia" name="data[examen_general][exa_meato_hiperemia]" {exaMeatoHiperemia} />
+                                                </td>       
+                                                <td width="70px">
+                                                    <label>Secreci&oacute;n</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaMeatoSecrecion" name="data[examen_general][exa_meato_secrecion]" {exaMeatoSecrecion} />
+                                                </td>   
+                                                <td width="130px">
+                                                    <label>Verruga</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaMeatoVerruga" name="data[examen_general][exa_meato_verruga]" {exaMeatoVerruga} />
+                                                </td> 
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="100px">
+                                    <label>Ano:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <select id='drpExaAno' name="data[examen_general][exa_ano]" style="width:100px" onchange="setExamenGeneral();">
+                                        <option value='-1' {drpExaAnoSel}>Sel...</option>
+                                        <option value='1' {drpExaAnoNormal}>Normal</option>
+                                        <option value='2' {drpExaAnoAnormal}>Anormal</option>
+                                    </select>
+                                </td>
+                                <td colspan="4">
+                                    <div id="opcAno">
+                                        <table border="0">
+                                            <tr>
+                                                <td width="120px">
+                                                    <label>&Uacute;lcera</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaAnoUlcera" name="data[examen_general][exa_ano_ulcera]" {exaAnoUlcera} />
+                                                </td>       
+                                                <td width="70px">
+                                                    <label>Verruga</label>
+                                                </td>
+                                                <td width="40px">
+                                                    <input type="checkbox" id="exaAnoVerruga" name="data[examen_general][exa_ano_verruga]" {exaAnoVerruga} />
+                                                </td>    
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label>Ves&iacute;cula</label>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" id="exaAnoSecrecion" name="data[examen_general][exa_ano_secrecion]" {exaAnoSecrecion} />
+                                                </td>
+                                                <td>
+                                                    <label>Otros</label>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" id="exaAnoOtro" name="data[examen_general][exa_ano_otro]" {exaAnoOtro} />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </fieldset>
+                <div id="mostrarExamenEspeculoTS" style="display:{mostrarExamenEspeculoTS}">
+                    <br/>
+                    <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                        <legend>Examen con Especulo</legend>
+                        <table border='0' width='90%' align='center'>
+                            <tr>
+                                <td width="150px">
+                                    <label>Examen con especulo:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <select id='drpExaEspeculo' name="data[examen_especulo][exa_especulo_realizado]" style="width:100px" onchange="setExamenEspeculo();">
+                                        <option value='-1' {drpExaEspeculoSel}>Sel...</option>
+                                        <option value='1' {drpExaEspeculoSi}>Realizado</option>
+                                        <option value='2' {drpExaEspeculoNo}>No Realizado</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <div id="examenEspeculoRealizado">
+                            <table border='0' width='90%' align='center'>
+                                <tr>
+                                    <td width="150px">
+                                        <label>Vagina:<span class="mandatory">*</span></label>
+                                    </td>
+                                    <td>
+                                        <select id='drpExaVagina' name="data[examen_especulo][exa_vagina]" style="width:100px" onchange="setExamenEspeculo();">
+                                            <option value='-1' {drpExaVaginaSel}>Sel...</option>
+                                            <option value='1' {drpExaVaginaNormal}>Normal</option>
+                                            <option value='2' {drpExaVaginaAnormal}>Anormal</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div id="opcVagina">
+                                            <table border="0">
+                                                <tr>
+                                                    <td width="120px">
+                                                        <label>&Uacute;lcera</label>
+                                                    </td>
+                                                    <td width="40px">
+                                                        <input type="checkbox" id="exaVaginaUlcera" name="data[examen_especulo][exa_vagina_ulcera]" {exaVaginaUlcera} />
+                                                    </td>
+                                                    <td width="70px">
+                                                        <label>Hiperemia</label>
+                                                    </td>
+                                                    <td width="40px">
+                                                        <input type="checkbox" id="exaVaginaHiperemia" name="data[examen_especulo][exa_vagina_hiperamia]" {exaVaginaHiperemia} />
+                                                    </td>
+                                                    <td width="125px">
+                                                        <label>Menstruaci&oacute;n presente</label>
+                                                    </td>
+                                                    <td width="40px">
+                                                        <input type="checkbox" id="exaVaginaMenstruacion" name="data[examen_especulo][exa_vagina_menstruacion]" {exaVaginaMenstruacion} />       
+                                                    </td>   
+                                                </tr>
+                                                <tr>
+                                                    <td> 
+                                                        <label>Atrofia</label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" id="exaVaginaAtrofia" name="data[examen_especulo][exa_vagina_atrofia]" {exaVaginaAtrofia} />       
+                                                    </td> 
+                                                    <td>
+                                                        <label>Otro</label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" id="exaVaginaOtro" name="data[examen_especulo][exa_vagina_otro]" {exaVaginaOtro} />
+                                                    </td>
+                                                    <td></td><td></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="150px">
+                                        <label>Flujo:<span class="mandatory">*</span></label>
+                                    </td>
+                                    <td colspan="2">
+                                        <select id='drpExaFlujo' name="data[examen_especulo][exa_flujo]" style="width:100px" onchange="setExamenEspeculo();">
+                                            <option value='-1' {drpExaFlujoSel}>Sel...</option>
+                                            <option value='1' {drpExaFlujoSi}>Si</option>
+                                            <option value='2' {drpExaFlujoNo}>No</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <div id="mostrarExamenFlujo">
+                                            <table border="0">
+                                                <tr>
+                                                    <td width="150px">
+                                                        <label>Cantidad:<span class="mandatory">*</span></label>
+                                                    </td>
+                                                    <td width="120px">
+                                                        <select id='drpExaFlujoCantidad' name="data[examen_especulo][exa_flujo_cantidad]" style="width:100px" onchange="setExamenEspeculo();">
+                                                            <option value='-1' {drpExaFlujoCantidadSel}>Sel...</option>
+                                                            <option value='1' {drpExaFlujoCantidadNormal}>Normal</option>
+                                                            <option value='2' {drpExaFlujoCantidadAnormal}>Anormal</option>
+                                                        </select>
+                                                    </td>
+                                                    <td width="50px">
+                                                        <label>Color:<span class="mandatory">*</span></label>
+                                                    </td>
+                                                    <td>
+                                                        <select id='drpExaFlujoColor' name="data[examen_especulo][exa_flujo_color]" style="width:100px" onchange="setExamenEspeculo();">
+                                                            <option value='-1' {drpExaFlujoSel}>Sel...</option>
+                                                            <option value='1' {drpExaFlujoColorBlanco}>Blanco</option>
+                                                            <option value='2' {drpExaFlujoColorVerdeAmarillo}>Verde/Amarillo</option>
+                                                            <option value='3' {drpExaFlujoColorAmarillo}>Amarillo</option>
+                                                            <option value='4' {drpExaFlujoColorCafe}>Caf&eacute;</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td width="150px">
+                                                        <label>Aspecto:<span class="mandatory">*</span></label>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <table border="0">
+                                                            <tr>
+                                                                <td width="120px">
+                                                                    <label>Sanguinolento</label>
+                                                                </td>
+                                                                <td width="40px">
+                                                                    <input type="checkbox" id="exaFlujoAspectoSanguinolento" name="data[examen_especulo][exa_flujo_asp_sanguinolento]" {exaFlujoAspectoSanguinolento} />
+                                                                </td>
+                                                                <td width="70px">
+                                                                    <label>Grumoso</label>
+                                                                </td>
+                                                                <td width="40px">
+                                                                    <input type="checkbox" id="exaFlujoAspectoGrumoso" name="data[examen_especulo][exa_flujo_asp_grumoso]" {exaFlujoAspectoGrumoso} />
+                                                                </td> 
+                                                                <td width="70px"> 
+                                                                    <label>Espumoso</label>
+                                                                </td>
+                                                                <td width="40px">
+                                                                    <input type="checkbox" id="exaFlujoAspectoEspumoso" name="data[examen_especulo][exa_flujo_asp_espumoso]" {exaFlujoAspectoEspumoso} />       
+                                                                </td> 
+                                                                <td width="125px"> 
+                                                                    <label>Mucoso</label>
+                                                                </td>
+                                                                <td width="40px">
+                                                                    <input type="checkbox" id="exaFlujoAspectoMucoso" name="data[examen_especulo][exa_flujo_asp_mucoso]" {exaFlujoAspectoMucoso} />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="150px">
+                                        <label>Cervix:<span class="mandatory">*</span></label>
+                                    </td>
+                                    <td>
+                                        <select id='drpExaCervix' name="data[examen_especulo][exa_cervix]" style="width:100px" onchange="setExamenEspeculo();">
+                                            <option value='-1' {drpExaCervixSel}>Sel...</option>
+                                            <option value='1' {drpExaCervixNormal}>Normal</option>
+                                            <option value='2' {drpExaCervixAnormal}>Anormal</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div id="opcCervix">
+                                            <table border="0">
+                                                <tr>
+                                                    <td width="120px">
+                                                        <label>&Uacute;lcera</label>
+                                                    </td>
+                                                    <td width="40px">
+                                                        <input type="checkbox" id="exaCervixUlcera" name="data[examen_especulo][exa_cervix_ulcera]" {exaCervixUlcera} />
+                                                    </td>
+                                                    <td width="70px">
+                                                        <label>Hiperemia</label>
+                                                    </td>
+                                                    <td width="40px">
+                                                        <input type="checkbox" id="exaCervixHiperemia" name="data[examen_especulo][exa_cervix_hiperamia]" {exaCervixHiperemia} />
+                                                    </td>
+                                                    <td width="125px">
+                                                        <label>Friable</label>
+                                                    </td>
+                                                    <td width="40px">
+                                                        <input type="checkbox" id="exaCervixFriable" name="data[examen_especulo][exa_cervix_friable]" {exaCervixFriable} />       
+                                                    </td>   
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label>Pus en OCE</label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" id="exaCervixPus" name="data[examen_especulo][exa_cervix_pus]" {exaCervixPus} />
+                                                    </td>
+                                                    <td>
+                                                        <label>Tumor</label>
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" id="exaCervixTumor" name="data[examen_especulo][exa_cervix_tumor]" {exaCervixTumor} />
+                                                    </td>
+                                                    <td></td><td></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </fieldset>
+                </div>   
+                <div id="mostrarExamenBimanualTS" style="display:{mostrarExamenBimanualTS}">  
+                    <br/>
+                    <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                        <legend>Examen Bimanual</legend>
+                        <table border='0' width='90%' align='center'>
+                            <tr>
+                                <td width="150px">
+                                    <label>Examen bimanual:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <select id='drpExaBimanual' name="data[examen_especulo][exa_bimanual_realizado]" style="width:100px" onchange="setExamenBimanual();">
+                                        <option value='-1' {drpExaBimanualSel}>Sel...</option>
+                                        <option value='1' {drpExaBimanualSi}>Realizado</option>
+                                        <option value='2' {drpExaBimanualNo}>No Realizado</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div id="examenBimanualRealizado">
+                            <table border='0' width='90%' align='center'>
+                                <tr>
+                                    <td width="150px">
+                                        <label>Anexos:<span class="mandatory">*</span></label>
+                                    </td>
+                                    <td>
+                                        <select id='drpExaBiAnexo' name="data[examen_bimanual][exa_bi_anexo]" style="width:140px" onchange="setExamenBimanual();">
+                                            <option value='-1' {drpExaBiAnexoSel}>Sel...</option>
+                                            <option value='1' {drpExaBiAnexoNormal}>Normal</option>
+                                            <option value='2' {drpExaBiAnexoAnormal}>Anormal</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div id="opcBiAnexo">
+                                            <table border="0" width="100%">
+                                                <tr>
+                                                    <td>
+                                                        <label>Sangrado anormal:<span class="mandatory">*</span></label>
+                                                    </td>
+                                                    <td>
+                                                        <select id='drpExaBiAnexoSangrado' name="data[examen_bimanual][exa_bi_anexo_sangrado]" style="width:100px">
+                                                            <option value='-1' {drpExaAnexoSangradoSel}>Sel...</option>
+                                                            <option value='1' {drpExaAnexoSangradoNormal}>Normal</option>
+                                                            <option value='2' {drpExaAnexoSangradoAnormal}>Anormal</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <label>Dolor:<span class="mandatory">*</span></label>
+                                                    </td>
+                                                    <td>
+                                                        <select id='drpExaBiAnexoDolor' name="data[examen_bimanual][exa_bi_anexo_dolor]" style="width:100px">
+                                                            <option value='-1' {drpExaBiAnexoDolorSel}>Sel...</option>
+                                                            <option value='1' {drpExaBiAnexoDolorDerecho}>Derecho</option>
+                                                            <option value='2' {drpExaBiAnexoDolorIzquierdo}>Izquierdo</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <label>Tumor:<span class="mandatory">*</span></label>
+                                                    </td>
+                                                    <td>
+                                                        <select id='drpExaBiAnexoTumor' name="data[examen_bimanual][exa_bi_anexo_tumor]" style="width:100px">
+                                                            <option value='-1' {drpExaBiAnexoDolorSel}>Sel...</option>
+                                                            <option value='1' {drpExaBiAnexoDolorDerecho}>Derecho</option>
+                                                            <option value='2' {drpExaBiAnexoDolorIzquierdo}>Izquierdo</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="150px">
+                                        <label>Hipogastrio:<span class="mandatory">*</span></label>
+                                    </td>
+                                    <td colspan="2">
+                                        <select id='drpExaBiHipogastrico' name="data[examen_bimanual][exa_bi_hipogastrico]" style="width:140px">
+                                            <option value='-1' {drpExaBiHipogastricoSel}>Sel...</option>
+                                            <option value='1' {drpExaBiHipogastricoNormal}>Normal</option>
+                                            <option value='2' {drpExaBiHipogastricoDolor}>Dolor a la palpaci&oacute;n</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="150px">
+                                        <label>Cervix:<span class="mandatory">*</span></label>
+                                    </td>
+                                    <td width="100px">
+                                        <select id='drpExaBiCervix' name="data[examen_bimanual][exa_bi_cervix]" style="width:140px" onchange="setExamenBimanual();">
+                                            <option value='-1' {drpExaBiCervixSel}>Sel...</option>
+                                            <option value='1' {drpExaBiCervixNormal}>Normal</option>
+                                            <option value='2' {drpExaBiCervixAnormal}>Anormal</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div id="opcBiCervix">
+                                            <table border="0">
+                                                <tr>
+                                                    <td>
+                                                        <select id='drpExaBiCervixAnormal' name="data[examen_bimanual][exa_bi_cervix_anormal]" style="width:160px">
+                                                            <option value='-1' {drpExaBiCervixAnormalSel}>Sel...</option>
+                                                            <option value='1' {drpExaBiCervixAnormalAusente}>Ausente</option>
+                                                            <option value='2' {drpExaBiCervixAnormalDolor}>Dolor con movimiento</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="150px">
+                                        <label>Utero:<span class="mandatory">*</span></label>
+                                    </td>
+                                    <td width="100px">
+                                        <select id='drpExaBiUtero' name="data[examen_bimanual][exa_bi_utero]" style="width:140px" onchange="setExamenBimanual();">
+                                            <option value='-1' {drpExaBiUteroSel}>Sel...</option>
+                                            <option value='1' {drpExaBiUteroNormal}>Normal</option>
+                                            <option value='2' {drpExaBiUteroAnormal}>Anormal</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div id="opcBiUtero">
+                                            <table border="0">
+                                                <tr>
+                                                    <td>
+                                                        <select id='drpExaBiUteroAnormal' name="data[examen_bimanual][exa_bi_utero_anormal]" style="width:160px">
+                                                            <option value='-1' {drpExaBiUteroAnormalSel}>Sel...</option>
+                                                            <option value='1' {drpExaBiUteroAnormalAusente}>Ausente</option>
+                                                            <option value='2' {drpExaBiUteroAnormalAumentado}>Aumentado de volumen</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>   
+
+
+
+            <div align="right">
+                <table>
+                    <tr><td>
+                            <div style="margin-right:15px">
+                                <a id="next" href="javascript:siguienteTab();" class="ui-state-default ui-corner-all ui-button"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">Siguiente
+                                </a>&nbsp;
+                            </div>
+                        </td></tr>
+                </table>
+                <br/>
+                <label style=" font-weight:normal; padding-right: 17px">
+                    Los campos marcados con <strong><span class="mandatory">*</span></strong> son obligatorios.
+                </label>
+            </div>
+        </div>
+        <table align="center">
+            <tr>
+                <td>
+                    <div style="margin-top:10px">
+                        <input type="hidden" name="action" id="action" value="{action}" />
+                        <input type="hidden" name="data[formulario][idVihForm]" id="idVihForm" value="{valIdVihForm}" />
+                        <input name="data[its][globalITSRelacionados]" type="hidden" id="globalITSRelacionados" value="{valITSRelacionados}" />
+                        <input name="data[drogas][globalDrogasRelacionadas]" type="hidden" id="globalDrogasRelacionadas" value="{valDrogasRelacionadas}" />
+                        <input name="data[sintomas][globalSintomasSignosRelacionados]" type="hidden" id="globalSintomasSignosRelacionados" value="{valSintomasSignosRelacionados}" />
+                        <input name="data[otros_datos][globalAntibioticosRelacionados]" type="hidden" id="globalAntibioticosRelacionados" value="{valAntibioticosRelacionados}" />
+                        <input name="data[diagnostico_tratamiento][globalDiagnosticosTratamientoRelacionados]" type="hidden" id="globalDiagnosticosTratamientoRelacionados" value="{valDiagnosticosTratamientoRelacionados}" />
+
+                        {botonGuardar}
+                        {botonCancelar}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

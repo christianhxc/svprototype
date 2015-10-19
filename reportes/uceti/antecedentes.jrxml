@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="antecedentes" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="filtro" class="java.lang.String">
+		<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from cat_antecendente_vacunal
+where status = '1' and $P!{filtro}
+order by id_cat_antecendente_vacunal asc]]>
+	</queryString>
+	<field name="id_cat_antecendente_vacunal" class="java.lang.Integer"/>
+	<field name="nombre_antecendente_vacunal" class="java.lang.String"/>
+	<field name="status" class="java.lang.Integer"/>
+	<variable name="id_cat_antecendente_vacunal_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{id_cat_antecendente_vacunal}]]></variableExpression>
+	</variable>
+	<variable name="id_cat_antecendente_vacunal_2" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{id_cat_antecendente_vacunal}]]></variableExpression>
+	</variable>
+	<group name="id_cat_antecendente_vacunal">
+		<groupExpression><![CDATA[$F{id_cat_antecendente_vacunal}]]></groupExpression>
+	</group>
+	<group name="nombre_antecendente_vacunal">
+		<groupExpression><![CDATA[$F{nombre_antecendente_vacunal}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="33" forecolor="#006600"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte Antecedentes Vacunales]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="8" width="100" height="20" forecolor="#FFFFFF" backcolor="#006600"/>
+				<box leftPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Id antecedente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="100" y="8" width="120" height="20" forecolor="#FFFFFF" backcolor="#006600"/>
+				<box leftPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre Antecedente]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="0" width="120" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre_antecendente_vacunal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<box leftPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{id_cat_antecendente_vacunal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="34">
+			<staticText>
+				<reportElement x="0" y="14" width="100" height="20"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Total Antecedentes:]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="100" y="14" width="120" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{id_cat_antecendente_vacunal_2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

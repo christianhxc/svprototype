@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="exportacion_excel_sub_sintomas" pageWidth="214" pageHeight="802" columnWidth="214" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="b123d676-4c1c-4225-917c-0e392345feaf">
+	<property name="ireport.zoom" value="2.5937424601000028"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_vicits_form" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[select csin.nombre_signo_sintoma, sin.dias
+from vicits_sintoma sin
+inner join cat_signo_sintoma csin ON csin.id_signo_sintoma = sin.id_signo_sintoma
+where sin.id_vicits_form = $P{id_vicits_form}]]>
+	</queryString>
+	<field name="nombre_signo_sintoma" class="java.lang.String"/>
+	<field name="dias" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="f7f22001-e2de-4eca-a458-cb95e8051d8a" stretchType="RelativeToBandHeight" x="0" y="0" width="170" height="15"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_signo_sintoma}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="9fd527c7-5166-44ac-83b2-617b8f142bd7" stretchType="RelativeToBandHeight" x="170" y="0" width="44" height="15"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dias}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

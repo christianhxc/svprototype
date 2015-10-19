@@ -1,0 +1,77 @@
+<br/>
+<br/>
+<div class="Content" align="left">
+        <table width="100%">
+            <tr>
+                <td>
+                    <h2>Formulario de Tuberculosis</h2>
+                </td>
+                <td align="right">
+                    <div style="color: #A4BC2B;">
+                        Nuevo Formulario
+                        <a href="formulario.php" class="" style="text-decoration: none; font-weight:bold;" title="Ingresar nuevo formulario de tuberculosis">
+                            <img width="30px" height="30px" title="Nuevo formulario" border=0 src="../img/add_small.png"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="ui-state-highlight ui-corner-all"
+             style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;" align="left">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{desInfo}</label>
+        </div>
+        <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+        </div>
+        <div class="ui-state-error ui-corner-all" id="validacionesDiv" style="padding-bottom: 5px; margin-bottom: 6px; margin-top: 5px;display:none">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>Imposible realizar b&uacute;squeda:</label>
+            <p id="validaciones" style="margin-top: 0px; margin-bottom: 0px;"></p>
+        </div>
+        <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+        </div>
+        <div class="ui-state-error ui-corner-all" id="pErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px; width: 50%">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <div id="pDetalle" style="margin-top: 0px; margin-bottom: 0px;"></div>
+        </div>
+        <fieldset class="ui-widget ui-widget-content ui-corner-all">
+            <div align="left">
+                <form id="formBuscar" class="niceform" action="{urlprefix}tb/index.php" method="POST">
+                    <table border="0" width="100%">
+                        <tr>
+                            <td width="15%">
+                                <label>Ingrese una palabra:</label>
+                            </td>
+                            <td width="18%">
+                                <input type="text" name="filtro" id="filtro" value="" class="" style="width: 150px;" maxlength="45"/>
+                            </td>
+
+                            <td width="7%">
+                                <a href="javascript:busquedatb();" class="ui-state-default ui-corner-all ui-button"
+                                onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                    Buscar
+                                </a>
+                            </td>
+                            <td width="100%"></td>
+                        </tr>
+                        <tr>
+
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <label>Si quiere traer todo el listado dejar en blanco el filtro y presionar buscar.</label> 
+                            </td>
+
+                        </tr>
+
+                    </table>
+                </form>
+            </div>
+        </fieldset>
+    
+    <br/>
+    <div id="resultadosBusqueda" align="center"></div>
+</div>

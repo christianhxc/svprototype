@@ -1,0 +1,65 @@
+﻿ul.topnav {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	float: left;
+	width: 990px;
+	background: #222;
+	background:url(../img/fondo.gif) repeat-x;
+}
+ul.topnav li {
+	float: left;
+	margin: 0;
+	padding: 0 15px 0 21px;
+	position: relative; /*--Declare X and Y axis base for sub navigation--*/
+	background: url(../img/divisor.gif) no-repeat right top;
+}
+ul.topnav li a, ul.topnav li img{
+	padding: 10px 5px;
+	color: #053160;
+	display: block;
+	text-decoration: none;
+	float: left;
+	font-weight: bold;
+}
+ul.topnav li a:hover{
+	/*background: url(menu/divisor.gif) no-repeat center top;*/
+	color:#FFFFFF;
+}
+ul.topnav li span { /*--Drop down trigger styles--*/
+	width: 17px;
+	height: 35px;
+	float: left;
+	background: url(menu/subnav_btn.gif) no-repeat center top;
+}
+ul.topnav li span.subhover {background-position: center bottom; cursor: pointer;} /*--Hover effect for trigger--*/
+ul.topnav li ul.subnav {
+	list-style: none;
+	position: absolute; /*--Important - Keeps subnav from affecting main navigation flow--*/
+	left: 0; top: 35px;
+	background: #AAB6C2;
+	margin: 0; padding: 0;
+	display: none;
+	float: left;
+	width: 170px;
+	z-index:1;
+}
+ul.topnav li ul.subnav li{
+	margin: 0; padding: 0;
+	padding-left: 5px;
+	margin-left: 10px;
+	clear: both;
+	width: 170px;
+	background: url(menu/flechita.png) #AAB6C2 no-repeat left center;
+}
+html ul.topnav li ul.subnav li a {
+	float: left;
+	width: 145px;
+	/*background: #AAB6C2 no-repeat 10px center;*/
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+html ul.topnav li ul.subnav li a:hover { /*--Hover effect for subnav links--*/
+	/*background: #222 url(menu/dropdown_linkbg.gif) no-repeat 10px center;*/
+}

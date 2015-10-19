@@ -1,0 +1,63 @@
+<div class="Content" align="left">
+    <form id="formBuscar" action="{urlprefix}reportes/vih/exportableExvelVih.php" method="POST">
+        <h1> Exportaci&oacute;n de los casos acumulados de VIH/SIDA a Excel por a&ntilde;o, regiones de salud, sexo, y condici&oacute;n del paciente</h1>
+
+        <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+        </div>
+        <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+        </div>
+        <div id="filtro" >
+            <table><tr style="height: 0.95em"><td></td></tr></table>
+            <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                <legend>FILTROS</legend>
+                <table border="0" cellpadding="2" cellspacing="2" align="center">
+                    <tr>
+                        <td colspan="4" align="right">
+                            <a onmouseout="RollOut(this)" title="Borrar filtro" onmouseover="RollOver(this)" style="text-decoration: none; font-weight: bold;" class="ui-state-default ui-corner-all ui-button" href="javascript:borrarFiltro();">Borrar Filtro</a>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td><label >Caso:</label></td>
+                        <td >
+                            <select id="drpCaso" name="search[caso]" style="width:250px">
+                                <option value="0">Todos</option>
+                                <option value="1" {selCaso1}>VIH</option>
+                                <option value="2" {selCaso2}>SIDA</option>
+                            </select>
+                        </td>
+                        <td><label >Condici&oacute;n paciente:</label></td>
+                        <td >
+                            <select id="drpCondicion" name="search[condicion]" style="width:250px">
+                                <option value="0">Todos</option>
+                                <option value="1" {selCondicion1}>Vivo</option>
+                                <option value="2" {selCondicion2}>Muerto</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <label >A&ntilde;o inicial: </label>
+                            <input type="text" id="anio_ini" style="width: 80px;" maxlength="4" onKeyPress="return numbersonly(event, false);" value="{valAnioIni}"/>
+                            <label > al A&ntilde;o final: </label>
+                            <input type="text" id="anio_fin" style="width: 80px;" maxlength="4" onKeyPress="return numbersonly(event, false);" value="{valAnioFin}"/>
+                        </td>
+                    </tr>
+                    <tr><td colspan="4" style="text-align:right;"><label>** Si se quiere traer todos los a&ntilde;os se deja en blanco lo campos de a&ntildeo</label></td></tr>
+                </table><br/>
+            </fieldset>
+        </div>
+        <table align="center">
+            <tr>
+                <td>
+                    {botonGenerar} &nbsp;
+                </td>
+            </tr>
+        </table>
+        <br/>
+    </form>
+</div>

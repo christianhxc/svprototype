@@ -1,0 +1,69 @@
+<div class="Content" align="center">
+    <div id="container">
+        <div class="ui-state-error ui-corner-all"
+            style="padding-bottom:5px; margin-bottom:6px;display:{disError}; margin-top:5px;" align="left">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>No se pudo iniciar sesi&oacute;n en el sistema debido a:</label><br>
+            <label>{desError}</label>
+        </div>
+
+        <div class="ui-state-highlight ui-corner-all"
+            style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;" align="left">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>Solicitud procesada</label>
+            <p>{desInfo}</p>
+        </div>
+        
+        <div class="cuadrologueo">
+            <div id="log">
+                <h6>Iniciar Sesi&oacute;n</h6>
+                <form id="frmLogin" method="post" action="login.php">
+                    <table align="center">
+                        <tr>
+                            <td style="padding-bottom: 6px">
+                            <label>Usuario:</label>
+                            </td>
+                            <td style="padding-bottom: 6px">
+                                <input type="text" name="txtUsuario" maxlength="50">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            <label>Clave:</label>
+                            </td>
+                            <td>
+                                <input type="password" name="txtClave" maxlength="25">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <br/>
+                                <a class="ui-state-default ui-corner-all ui-button" onclick="$('#frmLogin').submit();"
+                                   onmouseover="RollOver(this)" style ="cursor: pointer"onmouseout="RollOut(this)">
+                                    Iniciar Sesi&oacute;n
+                                </a><br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <a href="recuperarclave.php">Olvid&eacute; mi clave</a> | <a href="recuperarusuario.php">Olvid&eacute; mi usuario</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="datos_ingreso">
+                                Informaci&oacute;n de ingreso <h6>Ingrese el usuario y clave que se le enviaron a su correo personal.</h6>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div id="sld">
+            <div id="slider">
+                    <div id="gallery">
+                        <img src="{urlprefix}img/login/imagen.jpg" width="400" height="235" alt="3" />
+                    </div><!-- /gallery -->
+            </div><!-- /slider -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,450 @@
+<div class="Content" align="left">
+        <form id="formPruebas" action="{urlprefix}analista/pruebasMuestra.php?a=G&m={valId}" method="POST">
+                <h1> Asignaci&oacute;n de pruebas </h1>
+
+                <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <label id="agregarError"></label>
+                        <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+                </div>
+                <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+                </div>
+                <input type="hidden" name="estadoMuestra" id="estadoMuestra" value="{estadoMuestra}"/>
+                <input type="hidden" name="p" id="p" value="{pruebasAsignadas}"/>
+                        <div id="filtroIndividuo" >
+                            <table>
+                                <tr style="height: 0.95em"><td></td></tr>
+                            </table>
+                                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                                <legend>DATOS DE LA MUESTRA</legend>
+                                <table border="0" cellpadding="1" cellspacing="2" width="60%" align="center" style="">
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <strong>DATOS GENERALES</strong>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="28%">
+                                                            <input type="hidden" name="idMuestra" id="idMuestra" value="{valId}"/>
+                                                            <label style="color:#000000; font-weight:normal;">C&oacute;digo Global:</label>
+                                                        </td>
+                                                        <td width="24%">
+                                                            <label style="color:#000000; font-weight:normal;">{valGlobal}</label>
+                                                        </td>
+                                                        <td width="25%">
+                                                            <label style="color:#000000; font-weight:normal;">C&oacute;digo Correlativo:</label>
+                                                        </td>
+                                                        <td width="23%">
+                                                            <label style="color:#000000; font-weight:normal;">{valCorrelativo}</label>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td width="28%">
+                                                            <label style="color:#000000; font-weight:normal;">Inicio de S&iacute;ntomas:</label>
+                                                        </td>
+                                                        <td width="24%">
+                                                            <label style="color:#000000; font-weight:normal;">{valFechaInicio}</label>
+                                                        </td>
+                                                        <td width="25%">
+                                                            <label style="color:#000000; font-weight:normal;">Fecha de Toma:</label>
+                                                        </td>
+                                                        <td width="23%">
+                                                            <label style="color:#000000; font-weight:normal;">{valFechaToma}</label>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td colspan="1" width="28%">
+                                                            <label style="color:#000000; font-weight:normal;">Fecha de Recepci&oacute;n:</label>
+                                                        </td>
+                                                        <td colspan="3" width="72%">
+                                                            <label style="color:#000000; font-weight:normal;">{valFechaRecepcion}</label>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td >
+                                                            <strong>Nombre/Identificador:  </strong>
+                                                        </td>
+                                                        <td colspan="3">{nombre}</td>
+                                                </tr>
+                                                <tr>
+                                                        <td >Num. Identificaci&oacute;n:  </td>
+                                                        <td >{valIdentificador}</td>
+                                                        <td >Edad:  </td>
+                                                        <td >{valEdad}</td>
+                                                </tr>
+                                                <tr style="display: {rowPropiedades}">
+                                                    <td colspan="4">
+                                                            <label style="color:#000000; font-weight:normal;">Propiedades adicionales:</label>
+                                                            <label style="color:#000000; font-weight:normal;">{propiedades}</label>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4"><br/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="28%" colspan="1">
+                                                        <label style="color:#000000; font-weight:normal;">&Aacute;rea de an&aacute;lisis:</label>
+                                                    </td>
+                                                    <td width="72%" colspan="3">
+                                                        <label style="color:#000000; font-weight:normal;">{valArea}</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="28%">
+                                                        <label style="color:#000000; font-weight:normal;">Evento:</label>
+                                                    </td>
+                                                    <td  colspan="3" width="72">
+                                                        <label style="color:#000000; font-weight:normal;">{valEvento}</label>
+                                                        <input type="hidden" id="idEvento" name="idEvento" value="{valIdEvento}"/>
+                                                        <input type="hidden" id="idEventoTipoMuestra" name="idEventoTipoMuestra" value="{valIdEventoTipo}"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="28%">
+                                                        <label style="color:#000000; font-weight:normal;">Tipo de muestra: </label>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <label style="color:#000000; font-weight:normal;">{valTipo}</label>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display: {mostrarTendencia}">
+                                                    <td colspan="1" width="28%">
+                                                            <label style="color:#000000; font-weight:normal;">Tendencia:</label>
+                                                    </td>
+                                                    <td colspan="3">
+                                                            <label><strong>{valorTendencia}</strong></label>
+                                                    </td>
+                                                </tr>
+                                                <tr style="display: {mostrarCondicion}">
+                                                    <td colspan="4">
+                                                            <label style="color:#000000; font-weight:normal;">Condici&oacute;n del individuo:</label>
+                                                            <label><strong>{valorCondicion}</strong></label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" >
+                                                        {procedencia}&nbsp;
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        Comentarios Adicionales:
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                 <td colspan="4" align="center">
+                                                        <textarea cols="65" rows="3" readonly style="text-align: left; text-align: left">{comentarios}</textarea>
+                                                    </td>
+                                                </tr>
+                                        </table>
+                                <br/>
+                                <table border="0" width="50%" style="margin-left: 25%">
+                                                <tr>
+                                                    <td width="30%">
+                                                            <label style="color:#000000; font-weight:normal;">Estado de la muestra:<span class="mandatory" style="display: {mostrarEstado}">*</span></label>
+                                                    </td>
+                                                    <td>
+                                                            <label><strong>{valorEstado}</strong></label>
+                                                            <select id="estado" name="data[estado]" style="width:100%; display: {mostrarEstado}">
+                                                            <option value="0">Seleccione...</option>
+                                                            <!-- BEGIN blkEstado -->
+                                                                <option value="{valEstado}" {selEstado}>{opcEstado}</option>
+                                                            <!-- END blkEstado -->
+                                                            </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <label style="color:#000000; font-weight:normal;">Motivo de no procesamiento:<span class="mandatory" style="display: {mostrarMotivo}">*</span></label>
+
+                                                            <label><strong>{valorMotivo}</strong></label>
+                                                            <select id="motivo" name="data[motivo]" style="width:89%; display: {mostrarMotivo}">
+                                                            <option value="0">Seleccione...</option>
+                                                            <!-- BEGIN blkMotivo -->
+                                                                <option value="{valMotivo}" {selMotivo}>{opcMotivo}</option>
+                                                            <!-- END blkMotivo -->
+                                                            </select>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                <div align="center"><h3>{estadoMuestraAnalisis}</h3></div>
+                                
+                                </fieldset><br/>
+                                <fieldset class="ui-widget ui-widget-content ui-corner-all" style="display: {mostrarAsignar}">
+                            <legend>ASIGNAR PRUEBAS</legend>
+                            <table border="0" cellpadding="2" cellspacing="2" width="auto" align="center" style="">
+                                <tr>
+                                    <td>
+                                        <label style="color:#000000; font-weight:normal;">Prueba:<span class="mandatory">*</span></label>
+                                    </td>
+                                    <td>
+                                            <select id="prueba" name="data[prueba]" style="width:400px">
+                                            <option value="0">Seleccione...</option>
+                                            <!-- BEGIN blkPruebas -->
+                                                <option value="{valPrueba}" {selPrueba}>{opcPrueba}</option>
+                                            <!-- END blkPruebas -->
+                                            </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="color:#000000; font-weight:normal;">Resultado:<span class="mandatory">*</span></label>
+                                    </td>
+                                    <td>
+                                            <select id="resultado" name="data[resultado]" style="width:400px">
+                                            <option value="0">Seleccione...</option>
+                                            <!-- BEGIN blkResultados -->
+                                                <option value="{valResultado}" {selResultado}>{opcResultado}</option>
+                                            <!-- END blkResultados -->
+                                            </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label style="color:#000000; font-weight:normal;">Fecha:<span class="mandatory">*</span></label>
+                                    </td>
+                                    <td>
+                                        <input type="text" id="fecha" name="data[fecha]" value="{fecha}" style="width: 150px; text-align:center;" maxlength="10"/>
+                                        <input type="hidden" id="conteo" value="{conteo}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="">
+                                        <label style="color:#000000; font-weight:normal;">Comentarios:</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="center">
+                                        <textarea name="data[comentario]" id="comentario" cols="54" rows="3"></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                <table align="center">
+                    <tr>
+                        <td>
+                        <div id="btnAgregar" style="margin-top:10px">
+                            <a href="javascript:agregarPrueba();" class="ui-state-default ui-corner-all ui-button"
+                                onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                <span class="ui-icon ui-icon-plusthick"></span> Agregar
+                            </a>
+                        </div>
+                        <div id="btnEditar" style="margin-top:10px">
+                            <a href="javascript:guardarEditar();" class="ui-state-default ui-corner-all ui-button"
+                                onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                <span class="ui-icon ui-icon-disk"></span> Guardar
+                            </a>&nbsp;&nbsp;
+                            <a href="javascript:borrarPruebaCargada();" class="ui-state-default ui-corner-all ui-button"
+                                onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                <span class="ui-icon ui-icon-cancel"></span> Cancelar
+                            </a>
+                        </div>
+                        </td>
+                    </tr>
+                </table><br/>
+                </fieldset><br/>
+                </div><br/>
+                <input type="hidden" id="filas" name="filas" value=""/>
+                <h3>PRUEBAS REALIZADAS</h3>
+                <table id="pruebas" class="dxgvControl_PlasticBlue" rules="all" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse;">
+                    <tbody>
+                    <tr id="0">
+                        <th class="dxgvHeader_PlasticBlue" width="29%">Prueba</th>
+                        <th class="dxgvHeader_PlasticBlue" width="25%">Resultado</th>
+                        <th class="dxgvHeader_PlasticBlue" width="10%">Fecha</th>
+                        <th class="dxgvHeader_PlasticBlue" width="30%">Comentarios</th>
+                        <th class="dxgvHeader_PlasticBlue" width="3%">&nbsp;</th>
+                        <th class="dxgvHeader_PlasticBlue" width="3%">&nbsp;</th>
+                    </tr>
+
+                    <!-- BEGIN blkNoEntradas -->
+                    <tr class="dxgvDataRow_PlasticBlue" id="np">
+                        <td colspan="6" align="center">
+                            Muestra sin pruebas asignadas.
+                        </td>
+                    </tr>
+                    <!-- END blkNoEntradas -->
+
+                    <!-- BEGIN blkEntradas -->
+                    <tr class="dxgvDataRow_PlasticBlue" id="{idPrueba}">
+                        <td class="dxgv" id="{idColPrueba}">{pruebaFila}<input id="ip{i}" type="hidden" value="{p}"/></td>
+                        <td class="dxgv" id="{idColResultado}">{resultadoFila}<input id="ir{i}"type="hidden" value="{r}"/></td>
+                        <td class="dxgv" width="8%" id="{idColFecha}">{fechaFila}</td>
+                        <td class="dxgv" width="30%" id="{idColComentario}">{comentarioFila}</td>
+                        
+                        <!-- BEGIN blkOpcionBorrar -->
+                        <td align="center" style="width: 26px;">
+                            {linkBorrar}
+                        </td>
+                        <!-- END blkOpcionBorrar -->
+                        <!-- BEGIN blkOpcionEditar -->
+                        <td align="center" style="width: 26px;">
+                            {linkEditar}
+                        </td>
+                        <!-- END blkOpcionEditar -->
+                    </tr>
+                    <!-- END blkEntradas -->
+                    </tbody>
+                </table>
+                <input type="hidden" id="tablaPruebasError" name ="tablaPruebasError" value=""/>
+                <br/>
+
+                <table align="center">
+                    <tr>
+                        <td>
+                            <input type="hidden" id="finalizado" name="finalizado" value="{estadoFinalizado}"/>
+                            <input type="hidden" id="f" name="f" value="{flag}"/>
+                            <div style="margin-top:10px; display: {mostrarGuardar}">
+                                <a href="javascript:validarGuardarCambios();" class="ui-state-default ui-corner-all ui-button" title="Guardar pruebas &uacute;nicamente"
+                                    onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                    <span class="ui-icon ui-icon-disk"></span> Guardar Pruebas
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <br/>
+
+                <div id="conclusion">
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>
+                        CONCLUSI&Oacute;N
+                    </legend>
+                    
+                    <table border="0" align="center" style="display: {mostrarTabla}">
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal;">Resultado Final:</label>                               
+                            </td>
+                            <td colspan="2">
+                                <label style="color:#000000; font-weight:bold;">{valorResultadoFinal}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal;">Resultado Espec&iacute;fico No.1:</label>
+                            </td>
+                            <td>
+                                <label style="color:#000000; font-weight:bold;">{valorTipo1}</label>
+                            </td>
+                            <td>
+                                <label style="color:#000000; font-weight:bold;">{valorSubtipo1}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="180px">
+                                <label style="color:#000000; font-weight:normal;">Resultado Espec&iacute;fico No.2:</label>
+                            </td>
+                            <td>
+                                <label style="color:#000000; font-weight:bold;">{valorTipo2}</label>
+                            </td>
+                            <td>
+                                <label style="color:#000000; font-weight:bold;">{valorSubtipo2}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Comentarios:
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <textarea id="commments" cols="65" rows="2" {disabledComentariosFinales}>{valorComentariosFinales}</textarea>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table align="center" style="display: {mostrarTabla2}">
+                    <tr>
+                        <td>
+                            <label style="color:#000000; font-weight:normal;">Resultado Final:<span class="mandatory" style="display: {mostrarResultadoFinal}">*</span></label>
+                        </td>
+                        <td colspan="2">
+                                <select id="resultadoFinal" name="data[conclusion][resultadoFinal]" style="width:225px; display: {mostrarResultadoFinal}">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkResultadoFinal -->
+                                    <option value="{valResultadoFinal}" {selResultadoFinal}>{opcResultadoFinal}</option>
+                                <!-- END blkResultadoFinal -->
+                                </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label style="color:#000000; font-weight:normal;">Resultado Espec&iacute;fico No.1:</label>
+                        </td>
+                        <td>
+                                <select id="tipo1" name="data[conclusion][tipo1]" style="width:225px; display: {mostrarTipo1}">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkTipo1 -->
+                                    <option value="{valTipo1}" {selTipo1}>{opcTipo1}</option>
+                                <!-- END blkTipo1 -->
+                                </select>
+                        </td>
+                        <td>
+                                <select id="subtipo1" name="data[conclusion][subtipo1]" style="width:225px; display: {mostrarSubtipo1}">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkSubtipo1 -->
+                                    <option value="{valSubtipo1}" {selSubtipo1}>{opcSubtipo1}</option>
+                                <!-- END blkSubtipo1 -->
+                                </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label style="color:#000000; font-weight:normal;">Resultado Espec&iacute;fico No.2:</label>
+                        </td>
+                        <td>
+                                <select id="tipo2" name="data[conclusion][tipo2]" style="width:225px; display: {mostrarTipo2}">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkTipo2 -->
+                                    <option value="{valTipo2}" {selTipo2}>{opcTipo2}</option>
+                                <!-- END blkTipo2 -->
+                                </select>
+                        </td>
+                        <td>
+                                <select id="subtipo2" name="data[conclusion][subtipo2]" style="width:225px; display: {mostrarSubtipo2}">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkSubtipo2 -->
+                                    <option value="{valSubtipo2}" {selSubtipo2}>{opcSubtipo2}</option>
+                                <!-- END blkSubtipo2 -->
+                                </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <label style="color:#000000; font-weight:normal;">Comentarios:</label><br/>
+                        </td>
+                        <td colspan="2">
+                            <textarea name="data[conclusion][comentario]" id="comentarioFinal" cols="65" rows="2" {disabledComentariosFinales}>{valorComentariosFinales}</textarea>
+                        </td>
+                    </tr>
+                </table>
+                </fieldset>
+                </div><br/>
+
+                <table align="center">
+                    <tr>
+                        <td>
+                        <div id="final" style="margin-top:10px; display: {mostrarFin}">
+                            <a href="javascript:validarGuardarCambiosFin();" class="ui-state-default ui-corner-all ui-button" title="Guardar pruebas y concluir an&aacute;lisis"
+                                onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                <span class="ui-icon ui-icon-flag"></span> Finalizar An&aacute;lisis
+                            </a>
+                        </div>
+                        </td>
+                        <td>
+                        <div style="margin-top:10px">
+                            <a href="{urlprefix}analista/" class="ui-state-default ui-corner-all ui-button" title=""
+                                onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                <span class="ui-icon ui-icon-cancel"></span> {textoCancelar}
+                            </a>
+                        </div>
+                        </td>
+                    </tr>
+                </table>
+                <br/><br/>
+        </form>
+</div>

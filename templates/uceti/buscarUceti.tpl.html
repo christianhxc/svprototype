@@ -1,0 +1,106 @@
+<br/>
+<br/>
+<div class="Content" align="left">
+    <form id="formBuscar" class="niceform" action="{urlprefix}uceti/index.php" method="POST">
+        <table width="100%">
+            <tr>
+                <td>
+                    <h2>Formulario de Influenza </h2>
+                </td>
+                <td align="right">
+                    <div style="color: #A4BC2B;">
+                        Nuevo Formulario
+                        <a href="formulario.php" class="" style="text-decoration: none; font-weight:bold;" title="Ingresar nuevo formulario de influenza">
+                            <img width="30px" height="30px" title="Nuevo formulario" border=0 src="../img/add_small.png"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="ui-state-highlight ui-corner-all"
+             style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;" align="left">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{desInfo}</label>
+        </div>
+        <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+        </div>
+        <div class="ui-state-error ui-corner-all" id="validacionesDiv" style="padding-bottom: 5px; margin-bottom: 6px; margin-top: 5px;display:none">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>Imposible realizar b&uacute;squeda:</label>
+            <p id="validaciones" style="margin-top: 0px; margin-bottom: 0px;"></p>
+        </div>
+        <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+        </div>
+        <div class="ui-state-error ui-corner-all" id="pErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px; width: 50%">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <div id="pDetalle" style="margin-top: 0px; margin-bottom: 0px;"></div>
+        </div>
+        <fieldset class="ui-widget ui-widget-content ui-corner-all">
+            <div align="left">
+                <table border="0" width="100%">
+                    <tr>
+                        <td width="15%">
+                            <label>Ingrese una palabra:</label>
+                        </td>
+                        <td width="18%">
+                            <input type="text" name="filtro" id="filtro" value="" class="" style="width: 150px;" maxlength="45"/>
+                        </td>
+                        <td width="7%">
+                            <label>Formularios:</label>
+                        </td>
+                        <td width="18%">
+                            <select id="drpUceti" style="width: 150px;" name="popUceti" style="width:250px">
+                                <option value="-1">Todos</option>
+                                <option value='0'>Pendientes</option>
+                                <option value="1">Finalizados</option>
+                            </select>
+                        </td>
+                        <td width="15%">
+                            <label>Muestras Lab. Silab:</label>
+                        </td>
+                        <td width="18%">
+                            <select id="drpSilab" style="width: 150px;" name="popSilab" style="width:250px">
+                                <option value="-1">Todas</option>
+                                <option value='0'>Pendientes</option>
+                                <option value="1">Confirmadas</option>
+                            </select>
+                        </td>
+                        <td width="7%">
+                            <a href="javascript:busquedaUceti();" class="ui-state-default ui-corner-all ui-button"
+                               onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                Buscar
+                            </a>
+                        </td>
+                        <td width="100%"></td>
+                    </tr>
+                    <tr>
+                        <td width="15%">
+                            <label>Hospital:</label>
+                        </td>
+                        <td colspan="5">
+                            <select id="drpHospital" style="width: 200px;" name="popHospital" onchange="change_un()" >
+                                <option value="-1">Todos</option>
+                                <option value="1">Hospital Luis Chicho Fabrega</option>
+                                <option value="2">Hospital Jos&eacute; Domingo de Obaldia</option>
+                                <option value="3">Hospital del Ni&ntilde;o</option>
+                                <option value="5">Hospital del Nivel Nacional</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <label>Si quiere traer todo el listado dejar en blanco el filtro, colocar en Formularios y Muestras Lab. Silab la opci&oacute;n Todas y presionar buscar.</label> 
+                        </td>
+
+                    </tr>
+
+                </table>
+            </div>
+        </fieldset>
+    </form>
+    <br/>
+    <div id="resultadosBusqueda" align="center"></div>
+</div>

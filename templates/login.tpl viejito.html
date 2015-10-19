@@ -1,0 +1,58 @@
+<div class="Content" align="center">
+    <br/>
+    <h3 style="text-align: left; padding-left: 1em">Por favor ingrese su nombre de usuario y contrase&ntilde;a.
+    </h3>
+    <br/>
+        <div align="left" class="ui-state-error ui-corner-all" id="dSummaryErrors" style=" width: 50%; padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px;">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <label id="labelError">Imposible ingresar al sistema:</label>
+                <p id="pSummaryErrors" style="margin-top: 0px; margin-bottom: 0px;"></p>
+        </div>
+        <div align="left" class="ui-state-error ui-corner-all" id="lSummaryErrors" style="width: 50%; padding-bottom: 5px; margin-bottom: 6px; margin-top: 5px; {valHide}">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <label id="logError">{errorIngreso}</label>
+        </div>
+    <br/>
+
+    <fieldset class="ui-widget ui-widget-content2 ui-corner-all" style="width:420px; ">
+        <legend>
+                Iniciar Sesi&oacute;n
+        </legend>
+        <img alt="" src="img/iconos/munecoini.png" align="right" /><br/>
+        <form id="formContenido" onsubmit="" method="post" action=""><br/><br/>
+            <table>
+                <tr>
+                    <td>
+                        <label>Usuario:</label><span class="mandatory">*</span>
+
+                    </td>
+                    <td>
+                        <input type="text" name="login[usuario]" id="usuario" value="{valNombreUsuario}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Password:</label><span class="mandatory">*</span>
+                    </td>
+                    <td>
+                        <input type="password" name="login[password]" id="password" value="{valPassword}"/>
+                    </td>
+                </tr>            
+            </table>
+            <table align="center">
+                <tr>
+                    <td>
+                    <br/>
+                    <div style="margin-top:10px">
+                        <input type="hidden" name="action" value="{action}" />
+                        <a href="javascript:validarLogin();" class="ui-state-default ui-corner-all ui-button"
+                            onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                            <span class="ui-icon ui-icon-radio-on"></span>Ingresar
+                        </a>&nbsp;
+                    </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+</div>

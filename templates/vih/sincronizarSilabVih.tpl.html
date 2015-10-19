@@ -1,0 +1,48 @@
+<br/>
+<br/>
+<div class="Content" align="left">
+    <form id="formBuscar" class="niceform" action="{urlprefix}vih/index.php" method="POST">
+        <table width="100%">
+            <tr>
+                <td>
+                    <h2>Formulario para la sincronizaci&oacute;n de casos entre SISVIG y SILAB</h2>
+                </td>
+            </tr>
+        </table>
+        <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+        </div>
+        <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+        </div>
+        <fieldset class="ui-widget ui-widget-content ui-corner-all">
+            <div align="center">
+                <table border="0" width="70%">
+                    <tr>
+                        <td><label>1. Cargar los datos desde SILAB a SISVIG:</label></td>
+                        <td style="width:250px; text-align: center;">{botonTraerDatos}</td>
+                    </tr>
+                    <tr>
+                        <td><label>2. Despu&eacute;s de tener los datos cargados se debe:</label></td>
+                        <td style="width:250px; text-align: center;">{botonSincronizar}</td>
+                    </tr>
+                    <tr>
+                        <td><label>3. Despu&eacute;s de sincronizar los datos cargados de la mestras se debe: Sincronizar </label></td>
+                        <td style="width:250px; text-align: center;">{botonFactor}</td>
+                    </tr>
+                    <tr><td colspan="2"><br/></td></tr>
+                    <tr>
+                        <td colspan="2">
+                            <label>Por favor solo dar clic una vez en el boton cargar datos y esperar a que carguen todos los datos, este proceso puede tardar unos minutos.</label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+    </form>
+    <br/>
+    <div id="resultadosSincronizar" align="center"></div>
+    
+</div>

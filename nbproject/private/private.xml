@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1">
+        <file>
+            <url>libs/dal/analista/dalAnalista.php</url>
+            <line>1128</line>
+        </file>
+        <file>
+            <url>libs/dal/ventanilla/dalIngreso.php</url>
+            <line>69</line>
+            <line>94</line>
+            <line>199</line>
+            <line>244</line>
+            <line>316</line>
+            <line>402</line>
+            <line>1461</line>
+        </file>
+        <file>
+            <url>libs/helper/helperMuestra.php</url>
+            <line>5</line>
+            <line>16</line>
+            <line>24</line>
+            <line>28</line>
+            <line>180</line>
+        </file>
+        <file>
+            <url>ventanilla/ingreso.php</url>
+            <line>68</line>
+            <line>69</line>
+            <line>70</line>
+        </file>
+        <file>
+            <url>libs/helper/helperUceti.php</url>
+            <line>7</line>
+        </file>
+        <file>
+            <url>libs/reporteEnvio.php</url>
+            <line>16</line>
+        </file>
+        <file>
+            <url>libs/pages/ingresoVentanillaPage.php</url>
+            <line>180</line>
+            <line>579</line>
+        </file>
+        <file>
+            <url>libs/pages/pruebasMuestraPage.php</url>
+            <line>16</line>
+        </file>
+    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0">
+        <file>
+            <url>libs/dal/ventanilla/dalIngreso.php</url>
+            <bookmark id="0">
+                <name/>
+                <line>69</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>94</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>199</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>244</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>316</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>402</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1461</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>libs/helper/helperUceti.php</url>
+            <bookmark id="0">
+                <name/>
+                <line>7</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>libs/helper/helperMuestra.php</url>
+            <bookmark id="0">
+                <name/>
+                <line>5</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>16</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>24</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>28</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>180</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>libs/pages/pruebasMuestraPage.php</url>
+            <bookmark id="0">
+                <name/>
+                <line>16</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>libs/dal/analista/dalAnalista.php</url>
+            <bookmark id="0">
+                <name/>
+                <line>1128</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>libs/reporteEnvio.php</url>
+            <bookmark id="0">
+                <name/>
+                <line>16</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>ventanilla/ingreso.php</url>
+            <bookmark id="0">
+                <name/>
+                <line>68</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>69</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>70</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>libs/pages/ingresoVentanillaPage.php</url>
+            <bookmark id="0">
+                <name/>
+                <line>180</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>579</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group/>
+    </open-files>
+</project-private>

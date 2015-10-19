@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="morbilidad" pageWidth="910" pageHeight="842" columnWidth="870" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b2310514-92fe-48b9-ac23-fa543d737957">
+	<property name="ireport.zoom" value="1.6105100000000017"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaFin" class="java.lang.String"/>
+	<parameter name="fechaIni" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["http://localhost/sisvig2/reportes/vicits/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idUn" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="nombreUn" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select id_reporte
+from cat_reporte]]>
+	</queryString>
+	<field name="id_reporte" class="java.lang.Integer"/>
+	<variable name="genero_hsh" class="java.lang.String">
+		<variableExpression><![CDATA[" and per.sexo = 'M' and (per.id_genero <> 3 and per.id_genero <> 4 and per.id_genero <> 5) "]]></variableExpression>
+	</variable>
+	<variable name="genero_ts" class="java.lang.String">
+		<variableExpression><![CDATA[" and per.sexo = 'F' "]]></variableExpression>
+	</variable>
+	<variable name="genero_trans" class="java.lang.String">
+		<variableExpression><![CDATA[" and per.sexo = 'M' and (per.id_genero = 3 or per.id_genero = 4 or per.id_genero = 5) "]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5cf585e5-890c-4712-aba5-8310805753eb" x="439" y="34" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="44f4aa29-df2b-4063-ba2b-cae2eb5f2690" x="256" y="34" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[De:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1bf75e8a-c1cb-4828-b400-65e0cf2e49c7" x="0" y="0" width="870" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Resumen de ITS las clínicas amigables, según edad y sexo]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ac05a810-6ee4-4d49-bbde-c9f464274c23" x="298" y="34" width="141" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaIni}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="732a9dc9-d6be-4ec9-b395-5546cf27a8af" x="481" y="34" width="141" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f673f2b9-fe0e-414f-9805-f22008da2824" x="0" y="54" width="870" height="20"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreUn}!=null ?
+"Instalación de salud: "+$P{nombreUn} : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e9e343fa-14e4-4dcd-84b8-5a4bd2f2a057" mode="Transparent" x="324" y="0" width="91" height="33" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sifilis]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="216c8d95-58be-4dcc-82c4-5274e91909f1" mode="Transparent" x="688" y="0" width="91" height="33" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clamidia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="75fbabc7-73b1-44f2-8c58-9b98f0bacd43" mode="Transparent" x="415" y="0" width="91" height="33" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Herpes Genital]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4dc2a2d1-a9ed-4ca6-8843-4a90f7249d61" mode="Transparent" x="233" y="0" width="91" height="33" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gonorrea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="83f28ee5-00bc-486e-bf29-a78a7e40dd03" mode="Transparent" x="50" y="0" width="91" height="33" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rango Edad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0924c171-9a7c-461e-a519-a31d2f74cd1d" mode="Transparent" x="597" y="0" width="91" height="33" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Condilomatosis]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="63a96029-ddf8-43b5-8ae2-c132b9757568" mode="Transparent" x="779" y="0" width="91" height="33" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Otra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ae13a7dc-d59c-4e9e-bac0-9c80fb3ecfa2" mode="Transparent" x="141" y="0" width="92" height="33" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VIH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="84670203-a4b3-46c2-8f42-67149482af7b" mode="Transparent" x="506" y="0" width="91" height="33" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hepatitis B]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2927d83d-0936-459c-8404-bfcc91b81cdc" mode="Transparent" x="0" y="0" width="50" height="33" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="360" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="a2e6fe64-23cd-4f49-9f98-87eac471df25" stretchType="RelativeToBandHeight" mode="Transparent" x="0" y="0" width="50" height="120" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TS]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="a7f3e8b1-cd03-4e6c-8fd1-dd3008bb7942" x="50" y="0" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[0]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_ts}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[0]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="ce4ceb38-24f8-490b-86b6-ee6a5a654543" x="50" y="15" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[1]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_ts}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[1]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="91d86866-99d2-4f32-94d0-d15d2a1e63ec" x="50" y="30" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[3]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_ts}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[2]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="c64c1fed-7801-4249-9eb5-5b66d35eac31" x="50" y="45" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[5]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_ts}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[4]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="784235ea-5a93-4bf2-bcad-52d9bcae200d" x="50" y="60" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[7]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_ts}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[6]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="c4d925ad-50ae-461f-8e0c-f64c3de35236" x="50" y="75" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[9]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_ts}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[8]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="98506c2c-173f-4f74-b1ee-2f37a48f86ab" x="50" y="90" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[100]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_ts}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[10]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="a7abc8b2-8082-40f3-a53e-bfe231fb96d3" stretchType="RelativeToBandHeight" mode="Transparent" x="0" y="120" width="50" height="120" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HSH]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="f1c56fb4-94a0-4c52-a409-b4ff23831a5e" x="50" y="120" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[0]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_hsh}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[0]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="70ac89f4-a75c-4382-830f-e19a156af6fb" x="50" y="135" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[1]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_hsh}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[1]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="a72e3379-0bb5-4b35-815b-36f2c198600e" x="50" y="150" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[3]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_hsh}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[2]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="48c211c1-1942-4dc4-9265-a88f792be584" x="50" y="165" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[5]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_hsh}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[4]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="23a8bbcf-52ef-41ee-8718-e2bb9de906da" x="50" y="180" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[7]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_hsh}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[6]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="14cb1719-74e6-457a-8855-845aa3e79aad" x="50" y="195" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[9]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_hsh}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[8]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="be51d92c-7b28-465a-9ced-606a424901aa" x="50" y="210" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[100]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_hsh}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[10]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="09ce7858-00f7-4ed9-ab7c-2390fcfa6eed" stretchType="RelativeToBandHeight" mode="Transparent" x="0" y="240" width="50" height="120" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TRANS]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="2461e941-d466-4926-9dc9-69f650af0c69" x="50" y="240" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[0]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_trans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[0]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="01726be6-bbdb-4296-95c5-a73bef0b548f" x="50" y="255" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[1]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_trans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[1]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="40f35a31-7416-4321-9f02-33cdea3674ae" x="50" y="285" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[5]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_trans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[4]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="60307380-045f-4424-8d68-4e6583a7bd1f" x="50" y="270" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[3]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_trans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[2]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="2c8dc32d-9bb6-4dbe-ac97-fa53b44c4944" x="50" y="300" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[7]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_trans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[6]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="b88c6a2c-b196-4d6a-bcb2-c478a77d5d90" x="50" y="315" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[9]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_trans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[8]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="01006a8b-a7e1-456b-b635-db445c2115f0" x="50" y="330" width="820" height="15"/>
+				<subreportParameter name="numFin">
+					<subreportParameterExpression><![CDATA[100]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_trans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[10]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_grupo_edad.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="4e4ea40f-3363-4442-9671-ed1e371c857f" x="50" y="105" width="820" height="15"/>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_ts}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_totales.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="6c308b76-aea6-4cc1-980a-2651aa5fe26c" x="50" y="225" width="820" height="15"/>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_hsh}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_totales.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="42508fe4-bb38-463b-8f2f-010b5affd9ae" x="50" y="345" width="820" height="15"/>
+				<subreportParameter name="genero">
+					<subreportParameterExpression><![CDATA[$V{genero_trans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "morbilidad_sub_totales.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

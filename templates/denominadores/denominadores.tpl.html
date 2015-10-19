@@ -1,0 +1,496 @@
+<div class="Content" >
+    <div id="container">
+        <div id="content">
+            
+            <form action="" method="post" class="niceform" id="frmContenido" onsubmit="return validarFicha();">
+
+                <div class="ui-state-error ui-corner-all"
+                    style="padding-bottom:5px; margin-bottom:6px;display:{disError}; margin-top:5px;">
+                    <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                    <label>Ocurrio un error al momento de guardar los datos.</label><br>
+                    <label>Por favor verifique de nuevo o reporte el problema al departamento tecnico.</label><br>
+                </div>
+
+                <div class="ui-state-error ui-corner-all" id="dSummaryErrors"
+                    style="padding-bottom:5px; margin-bottom:6px;display:none; margin-top:5px;">
+                    <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                    <label>Los datos no se pueden guardar debido a los siguientes errores</label>
+                    <p id="pSummaryErrors" style="margin-top:0px; margin-bottom:0px;"></p>
+                </div>
+                
+                <div id="pnlContenido" class="JQueryDiv">
+                  <div id="divDenominadores">
+                    <fieldset>
+                        <legend>Denominadores</legend>
+                            <input type="hidden" name="data[encabezado][id_denominador]" id="id_denominador" value="{id_denominador}"/>
+                            <table border="0" cellpadding="2" cellspacing="2">
+                              <tr>
+                                <td  width="170">
+                                    <strong>
+                                    <label>Semana epidemiol&oacute;gica <span class="mandatory">*</span></label>
+                                    </strong>
+                                 </td>
+                                 <td>
+                                    <input maxlength="2" name="data[encabezado][semana]" id="semana_epidemiologica" value="{valSemanaEpi}" />
+                                    <strong>Año: <span class="mandatory">*</span> </strong>
+                                    <input maxlength="4" name="data[encabezado][anio]" id="anio_epidemiologico" value="{valAnioEpi}" />
+                                 </td>
+                              </tr>
+                            <tr>
+                                <td width="170">
+                                        <strong><label >Unidad notificadora:<span class="mandatory">*</span></label> </strong>
+                                </td>
+                                 <td>
+                                    <input type="text" id="nombre_un" style="width: 500px;" value="{valUnidad}"/>
+                                    <input type="hidden" name="data[encabezado][id_un]" id="id_un" value="{valIdUn}" />
+                                </td>
+                            </tr>
+                              <tr>
+                                <td width="170"><strong>Fecha de notificaci&oacute;n <span class="mandatory">*</span></strong></td>
+                                <td><input name="data[encabezado][fecha_notificacion]" type="text" id="fecha_notificacion" style="width:80px"
+                                    value="{fecha_notificacion}" maxlength="10"  /></td>
+                              </tr>
+                              <tr>
+                                <td width="170"><strong>Responsable <span class="mandatory">*</span></strong></td>
+                                <td><input type="text" name="data[encabezado][responsable]" id="responsable" size="32" maxlength="45" value="{responsable}" /></td>
+                              </tr>
+                              </table>
+                    </fieldset><br />
+                    <fieldset>
+                        <legend>Grupo Edad</legend>
+                            <table id="tGrupoEdad" border="1" cellpadding="1" cellspacing="1" width="788px">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="div_size">Grupo Edad</div>
+                                        </th>
+                                        <th colspan="3" class="dark_td" align="center">
+                                            Hospitalizaciones Totales
+                                        </th>
+                                        <th colspan="3"  align="center">
+                                            Hospitalizaciones IRAG
+                                        </th>                                        
+                                        <th colspan="3" class="dark_td" align="center">
+                                            UCI Totales
+                                        </th>
+                                        <th colspan="3" align="center">
+                                            UCI IRAG
+                                        </th>                                        
+                                        <th colspan="3" class="dark_td" align="center">
+                                            Defunciones Totales
+                                        </th>
+                                        <th colspan="3" align="center">
+                                            Defunciones IRAG
+                                        </th>                                        
+                                    </tr>
+                                    <tr>
+                                        <th class="th_size">
+                                        </th>
+                                        <th>
+                                            M
+                                        </th>
+                                        <th>
+                                            F
+                                        </th>
+                                        <th>
+                                            Total
+                                        </th>
+                                        <th>
+                                            M
+                                        </th>
+                                        <th>
+                                            F
+                                        </th>
+                                        <th>
+                                            Total
+                                        </th>
+                                        <th>
+                                            M
+                                        </th>
+                                        <th>
+                                            F
+                                        </th>
+                                        <th>
+                                            Total
+                                        </th>
+                                        <th>
+                                            M
+                                        </th>
+                                        <th>
+                                            F
+                                        </th>
+                                        <th>
+                                            Total
+                                        </th>
+                                        <th>
+                                            M
+                                        </th>
+                                        <th>
+                                            F
+                                        </th>
+                                        <th>
+                                            Total
+                                        </th>
+                                        <th>
+                                            M
+                                        </th>
+                                        <th>
+                                            F
+                                        </th>
+                                        <th>
+                                            Total
+                                        </th>                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="1">
+                                        <input type="hidden" name="data[detalle][1][id_detalle]" value="{id_detalle_1}" />
+                                        <th class="th_size">0-5 meses</th>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_m_grupo_1" class="hospital_row" name="data[detalle][1][hospital][0]" tabindex="8" value="{hm1}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_f_grupo_1" class="hospital_row" name="data[detalle][1][hospital][1]" tabindex="9" value="{hf1}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totalhosp_grupo_1" class="hospital_row" disabled="disabled" tabindex="10"></td>
+                                        <td><input maxlength="10" id="hosp_m_irag_grupo_1" class="hospital_row" name="data[detalle][1][hospital_irag][0]" tabindex="8" value="{hm_irag1}"></td>
+                                        <td><input maxlength="10" id="hosp_f_irag_grupo_1" class="hospital_row" name="data[detalle][1][hospital_irag][1]" tabindex="9" value="{hf_irag1}"></td>
+                                        <td><input maxlength="10" id="totalhosp_irag_grupo_1" class="hospital_row"  disabled="disabled" tabindex="10"></td>                                        
+                                        <td class="dark_td"><input  maxlength="10" id="uci_m_grupo_1" class="uci_row" name="data[detalle][1][uci][0]" tabindex="11" value="{um1}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="uci_f_grupo_1" class="uci_row" name="data[detalle][1][uci][1]" tabindex="12" value="{uf1}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaluci_grupo_1" class="uci_row" disabled="disabled" tabindex="13"></td>
+                                        <td><input  maxlength="10" id="uci_m_irag_grupo_1" class="uci_row" name="data[detalle][1][uci_irag][0]" tabindex="11" value="{um_irag1}"></td>
+                                        <td><input  maxlength="10" id="uci_f_irag_grupo_1" class="uci_row" name="data[detalle][1][uci_irag][1]" tabindex="12" value="{uf_irag1}"></td>
+                                        <td><input  maxlength="10" id="totaluci_irag_grupo_1" class="uci_row" disabled="disabled" tabindex="13"></td>                                        
+                                        <td class="dark_td"><input maxlength="10" id="defunc_m_grupo_1" class="defuncion_row" name="data[detalle][1][defuncion][0]" tabindex="14" value="{dm1}"></td>
+                                        <td class="dark_td"><input maxlength="10" id="defunc_f_grupo_1" class="defuncion_row" name="data[detalle][1][defuncion][1]" tabindex="15" value="{df1}"></td>
+                                        <td class="dark_td"><input maxlength="10" id="totaldefunc_grupo_1" class="defuncion_row"  disabled="disabled" tabindex="16"></td>
+                                        <td><input maxlength="10" id="defunc_m_irag_grupo_1" class="defuncion_row" name="data[detalle][1][defuncion_irag][0]" tabindex="14" value="{dm_irag1}"></td>
+                                        <td><input maxlength="10" id="defunc_f_irag_grupo_1" class="defuncion_row" name="data[detalle][1][defuncion_irag][1]" tabindex="15" value="{df_irag1}"></td>
+                                        <td><input maxlength="10" id="totaldefunc_irag_grupo_1" class="defuncion_row"  disabled="disabled" tabindex="16"></td>                                        
+                                    </tr>
+
+                                    <tr id="2">
+                                        <input type="hidden" name="data[detalle][2][id_detalle]" value="{id_detalle_2}" />
+                                        <th>6-11 meses</th>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_m_grupo_2" class="hospital_row" name="data[detalle][2][hospital][0]" tabindex="17" value="{hm2}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_f_grupo_2" class="hospital_row" name="data[detalle][2][hospital][1]" tabindex="18" value="{hf2}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totalhosp_grupo_2" class="hospital_row" disabled="disabled" tabindex="19"></td>
+                                        <td><input maxlength="10" id="hosp_m_irag_grupo_2" class="hospital_row" name="data[detalle][2][hospital_irag][0]" tabindex="17" value="{hm_irag2}"></td>
+                                        <td><input maxlength="10" id="hosp_f_irag_grupo_2" class="hospital_row" name="data[detalle][2][hospital_irag][1]" tabindex="18" value="{hf_irag2}"></td>
+                                        <td><input maxlength="10" id="totalhosp_irag_grupo_2" class="hospital_row" disabled="disabled" tabindex="19"></td> 
+                                        <td class="dark_td"> <input  maxlength="10" id="uci_m_grupo_2" class="uci_row" name="data[detalle][2][uci][0]" tabindex="20" value="{um2}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="uci_f_grupo_2" class="uci_row" name="data[detalle][2][uci][1]" tabindex="21" value="{uf2}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaluci_grupo_2" class="uci_row" disabled="disabled" tabindex="22"></td>
+                                        <td><input  maxlength="10" id="uci_m_irag_grupo_2" class="uci_row" name="data[detalle][2][uci_irag][0]" tabindex="20" value="{um_irag2}"></td>
+                                        <td><input  maxlength="10" id="uci_f_irag_grupo_2" class="uci_row" name="data[detalle][2][uci_irag][1]" tabindex="21" value="{uf_irag2}"></td>
+                                        <td><input  maxlength="10" id="totaluci_irag_grupo_2" class="uci_row" disabled="disabled" tabindex="22"></td>                                         
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_m_grupo_2" class="defuncion_row" name="data[detalle][2][defuncion][0]" tabindex="23" value="{dm2}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_f_grupo_2" class="defuncion_row" name="data[detalle][2][defuncion][1]" tabindex="24" value="{dm3}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaldefunc_grupo_2" class="defuncion_row"  disabled="disabled" tabindex="25"></td>
+                                        <td><input maxlength="10" id="defunc_m_irag_grupo_2" class="defuncion_row" name="data[detalle][2][defuncion_irag][0]" tabindex="26" value="{dm_irag2}"></td>
+                                        <td><input maxlength="10" id="defunc_f_irag_grupo_2" class="defuncion_row" name="data[detalle][2][defuncion_irag][1]" tabindex="27" value="{df_irag2}"></td>
+                                        <td><input maxlength="10" id="totaldefunc_irag_grupo_2" class="defuncion_row"  disabled="disabled" tabindex="28"></td>                                         
+                                    </tr>
+
+                                    <tr id="3">
+                                        <input type="hidden" name="data[detalle][3][id_detalle]" value="{id_detalle_3}" />
+                                        <th>12-23 meses</th>
+                                        <td  class="dark_td"><input  maxlength="10" id="hosp_m_grupo_3" class="hospital_row" name="data[detalle][3][hospital][0]" tabindex="26" value="{hm3}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_f_grupo_3" class="hospital_row" name="data[detalle][3][hospital][1]" tabindex="27" value="{hf3}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totalhosp_grupo_3" class="hospital_row" disabled="disabled" tabindex="28"></td>
+                                        <td><input maxlength="10" id="hosp_m_irag_grupo_3" class="hospital_row" name="data[detalle][3][hospital_irag][0]" tabindex="8" value="{hm_irag3}"></td>
+                                        <td><input maxlength="10" id="hosp_f_irag_grupo_3" class="hospital_row" name="data[detalle][3][hospital_irag][1]" tabindex="9" value="{hf_irag3}"></td>
+                                        <td><input maxlength="10" id="totalhosp_irag_grupo_3" class="hospital_row"  disabled="disabled" tabindex="10"></td>                                         
+                                        <td class="dark_td"><input  maxlength="10" id="uci_m_grupo_3" class="uci_row" name="data[detalle][3][uci][0]" tabindex="29" value="{um3}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="uci_f_grupo_3" class="uci_row" name="data[detalle][3][uci][1]" tabindex="30" value="{uf3}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaluci_grupo_3" class="uci_row" disabled="disabled" tabindex="31"></td>
+                                        <td><input  maxlength="10" id="uci_m_irag_grupo_3" class="uci_row" name="data[detalle][3][uci_irag][0]" tabindex="11" value="{um_irag3}"></td>
+                                        <td><input  maxlength="10" id="uci_f_irag_grupo_3" class="uci_row" name="data[detalle][3][uci_irag][1]" tabindex="12" value="{uf_irag3}"></td>
+                                        <td><input  maxlength="10" id="totaluci_irag_grupo_3" class="uci_row" disabled="disabled" tabindex="13"></td>                                        
+                                        <td class="dark_td"><input maxlength="10" id="defunc_m_grupo_3" class="defuncion_row" name="data[detalle][3][defuncion][0]" tabindex="32" value="{dm3}"></td>
+                                        <td class="dark_td"><input maxlength="10" id="defunc_f_grupo_3" class="defuncion_row" name="data[detalle][3][defuncion][1]" tabindex="33" value="{df3}"></td>
+                                        <td class="dark_td"><input maxlength="10" id="totaldefunc_grupo_3" class="defuncion_row"  disabled="disabled" tabindex="34"></td>
+                                        <td><input maxlength="10" id="defunc_m_irag_grupo_3" class="defuncion_row" name="data[detalle][3][defuncion_irag][0]" tabindex="14" value="{dm_irag3}"></td>
+                                        <td><input maxlength="10" id="defunc_f_irag_grupo_3" class="defuncion_row" name="data[detalle][3][defuncion_irag][1]" tabindex="15" value="{df_irag3}"></td>
+                                        <td><input maxlength="10" id="totaldefunc_irag_grupo_3"  class="defuncion_row" disabled="disabled" tabindex="16"></td>                                         
+                                    </tr>
+
+                                    <tr id="4">
+                                        <input type="hidden" name="data[detalle][4][id_detalle]" value="{id_detalle_4}" />
+                                        <th>2 - 4 a&ntilde;os</th>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_m_grupo_4" class="hospital_row" name="data[detalle][4][hospital][0]" tabindex="35" value="{hm4}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_f_grupo_4" class="hospital_row" name="data[detalle][4][hospital][1]" tabindex="36" value="{hf4}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totalhosp_grupo_4" class="hospital_row" disabled="disabled" tabindex="37"></td>
+                                        <td><input maxlength="10" id="hosp_m_irag_grupo_4" class="hospital_row" name="data[detalle][4][hospital_irag][0]" tabindex="8" value="{hm_irag4}"></td>
+                                        <td><input maxlength="10" id="hosp_f_irag_grupo_4" class="hospital_row" name="data[detalle][4][hospital_irag][1]" tabindex="9" value="{hf_irag4}"></td>
+                                        <td><input maxlength="10" id="totalhosp_irag_grupo_4" class="hospital_row" disabled="disabled" tabindex="10"></td>                                         
+                                        <td class="dark_td"><input  maxlength="10" id="uci_m_grupo_4" class="uci_row" name="data[detalle][4][uci][0]" tabindex="38" value="{um4}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="uci_f_grupo_4" class="uci_row" name="data[detalle][4][uci][1]" tabindex="39" value="{uf4}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaluci_grupo_4" class="uci_row"  disabled="disabled" tabindex="40"></td>
+                                        <td><input  maxlength="10" id="uci_m_irag_grupo_4" class="uci_row" name="data[detalle][4][uci_irag][0]" tabindex="11" value="{um_irag4}"></td>
+                                        <td><input  maxlength="10" id="uci_f_irag_grupo_4" class="uci_row" name="data[detalle][4][uci_irag][1]" tabindex="12" value="{uf_irag4}"></td>
+                                        <td><input  maxlength="10" id="totaluci_irag_grupo_4" class="uci_row" disabled="disabled" tabindex="13"></td>                                        
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_m_grupo_4" class="defuncion_row" name="data[detalle][4][defuncion][0]" tabindex="41" value="{dm4}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_f_grupo_4" class="defuncion_row" name="data[detalle][4][defuncion][1]" tabindex="42" value="{df4}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaldefunc_grupo_4" class="defuncion_row"  disabled="disabled" tabindex="43"></td>
+                                        <td><input maxlength="10" id="defunc_m_irag_grupo_4" class="defuncion_row" name="data[detalle][4][defuncion_irag][0]" tabindex="14" value="{dm_irag4}"></td>
+                                        <td><input maxlength="10" id="defunc_f_irag_grupo_4" class="defuncion_row" name="data[detalle][4][defuncion_irag][1]" tabindex="15" value="{df_irag4}"></td>
+                                        <td><input maxlength="10" id="totaldefunc_irag_grupo_4" class="defuncion_row"  disabled="disabled" tabindex="16"></td>                                         
+                                    </tr>
+
+                                    <tr id="5">
+                                        <input type="hidden" name="data[detalle][5][id_detalle]" value="{id_detalle_5}" />
+                                        <th>5 - 9 a&ntilde;os</th>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_m_grupo_5" class="hospital_row" name="data[detalle][5][hospital][0]" tabindex="44" value="{hm5}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_f_grupo_5" class="hospital_row" name="data[detalle][5][hospital][1]" tabindex="45" value="{hf5}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totalhosp_grupo_5"  class="hospital_row" disabled="disabled" tabindex="46"></td>
+                                        <td><input maxlength="10" id="hosp_m_irag_grupo_5" class="hospital_row" name="data[detalle][5][hospital_irag][0]" tabindex="8" value="{hm_irag5}"></td>
+                                        <td><input maxlength="10" id="hosp_f_irag_grupo_5" class="hospital_row" name="data[detalle][5][hospital_irag][1]" tabindex="9" value="{hf_irag5}"></td>
+                                        <td><input maxlength="10" id="totalhosp_irag_grupo_5" class="hospital_row" disabled="disabled" tabindex="10"></td>                                         
+                                        <td class="dark_td"><input  maxlength="10" id="uci_m_grupo_5" class="uci_row" name="data[detalle][5][uci][0]" tabindex="47" value="{um5}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="uci_f_grupo_5" class="uci_row" name="data[detalle][5][uci][1]" tabindex="48" value="{uf5}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaluci_grupo_5" class="uci_row"  disabled="disabled" tabindex="49"></td>
+                                        <td><input  maxlength="10" id="uci_m_irag_grupo_5" class="uci_row" name="data[detalle][5][uci_irag][0]" tabindex="11" value="{um_irag5}"></td>
+                                        <td><input  maxlength="10" id="uci_f_irag_grupo_5" class="uci_row" name="data[detalle][5][uci_irag][1]" tabindex="12" value="{uf_irag5}"></td>
+                                        <td><input  maxlength="10" id="totaluci_irag_grupo_5" class="uci_row" disabled="disabled" tabindex="13"></td>                                        
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_m_grupo_5" class="defuncion_row" name="data[detalle][5][defuncion][0]" tabindex="50" value="{dm5}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_f_grupo_5" class="defuncion_row" name="data[detalle][5][defuncion][1]" tabindex="51" value="{df5}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaldefunc_grupo_5" class="defuncion_row"  disabled="disabled" tabindex="52"></td>
+                                        <td><input maxlength="10" id="defunc_m_irag_grupo_5" class="defuncion_row" name="data[detalle][5][defuncion_irag][0]" tabindex="14" value="{dm_irag5}"></td>
+                                        <td><input maxlength="10" id="defunc_f_irag_grupo_5" class="defuncion_row" name="data[detalle][5][defuncion_irag][1]" tabindex="15" value="{df_irag5}"></td>
+                                        <td><input maxlength="10" id="totaldefunc_irag_grupo_5" class="defuncion_row"  disabled="disabled" tabindex="16"></td>                                         
+                                    </tr>
+
+                                    <tr id="6">
+                                        <input type="hidden" name="data[detalle][6][id_detalle]" value="{id_detalle_6}" />
+                                        <th>10 - 14 a&ntilde;os</th>
+                                        <td class="dark_td"><input maxlength="10" id="hosp_m_grupo_6" class="hospital_row" name="data[detalle][6][hospital][0]" tabindex="53" value="{hm6}"></td>
+                                        <td class="dark_td"><input maxlength="10" id="hosp_f_grupo_6" class="hospital_row" name="data[detalle][6][hospital][1]" tabindex="54" value="{hf6}"></td>
+                                        <td class="dark_td"><input maxlength="10" id="totalhosp_grupo_6" class="hospital_row" disabled="disabled" tabindex="55"></td>
+                                        <td><input maxlength="10" id="hosp_m_irag_grupo_6" class="hospital_row" name="data[detalle][6][hospital_irag][0]" tabindex="8" value="{hm_irag6}"></td>
+                                        <td><input maxlength="10" id="hosp_f_irag_grupo_6" class="hospital_row" name="data[detalle][6][hospital_irag][1]" tabindex="9" value="{hf_irag6}"></td>
+                                        <td><input maxlength="10" id="totalhosp_irag_grupo_6" class="hospital_row" disabled="disabled" tabindex="10"></td>                                                                                 
+                                        <td class="dark_td"><input  maxlength="10" id="uci_m_grupo_6" class="uci_row" name="data[detalle][6][uci][0]" tabindex="56" value="{um6}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="uci_f_grupo_6" class="uci_row" name="data[detalle][6][uci][1]" tabindex="57" value="{uf6}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaluci_grupo_6" class="uci_row"  disabled="disabled" tabindex="58"></td>
+                                        <td><input  maxlength="10" id="uci_m_irag_grupo_6" class="uci_row" name="data[detalle][6][uci_irag][0]" tabindex="11" value="{um_irag6}"></td>
+                                        <td><input  maxlength="10" id="uci_f_irag_grupo_6" class="uci_row" name="data[detalle][6][uci_irag][1]" tabindex="12" value="{uf_irag6}"></td>
+                                        <td><input  maxlength="10" id="totaluci_irag_grupo_6" class="uci_row" disabled="disabled" tabindex="13"></td>                                        
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_m_grupo_6" class="defuncion_row" name="data[detalle][6][defuncion][0]" tabindex="59" value="{dm6}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_f_grupo_6" class="defuncion_row" name="data[detalle][6][defuncion][1]" tabindex="60" value="{df6}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaldefunc_grupo_6" class="defuncion_row"  disabled="disabled" tabindex="61"></td>
+                                        <td><input maxlength="10" id="defunc_m_irag_grupo_6" class="defuncion_row" name="data[detalle][6][defuncion_irag][0]" tabindex="14" value="{dm_irag6}"></td>
+                                        <td><input maxlength="10" id="defunc_f_irag_grupo_6" class="defuncion_row" name="data[detalle][6][defuncion_irag][1]" tabindex="15" value="{df_irag6}"></td>
+                                        <td><input maxlength="10" id="totaldefunc_irag_grupo_6" class="defuncion_row"  disabled="disabled" tabindex="16"></td>                                         
+                                    </tr>
+
+                                    <tr id="7">
+                                        <input type="hidden" name="data[detalle][7][id_detalle]" value="{id_detalle_7}" />
+                                        <th>15 - 19 a&ntilde;os</th>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_m_grupo_7" class="hospital_row" name="data[detalle][7][hospital][0]" tabindex="62" value="{hm7}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_f_grupo_7" class="hospital_row" name="data[detalle][7][hospital][1]" tabindex="63" value="{hf7}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totalhosp_grupo_7" class="hospital_row" disabled="disabled" tabindex="64"></td>
+                                        <td><input maxlength="10" id="hosp_m_irag_grupo_7" class="hospital_row" name="data[detalle][7][hospital_irag][0]" tabindex="8" value="{hm_irag7}"></td>
+                                        <td><input maxlength="10" id="hosp_f_irag_grupo_7" class="hospital_row" name="data[detalle][7][hospital_irag][1]" tabindex="9" value="{hf_irag7}"></td>
+                                        <td><input maxlength="10" id="totalhosp_irag_grupo_7" class="hospital_row" disabled="disabled" tabindex="10"></td>                                         
+                                        
+                                        <td class="dark_td"><input  maxlength="10" id="uci_m_grupo_7" class="uci_row" name="data[detalle][7][uci][0]" tabindex="65" value="{um7}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="uci_f_grupo_7" class="uci_row" name="data[detalle][7][uci][1]" tabindex="66" value="{uf7}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaluci_grupo_7" class="uci_row"  disabled="disabled" tabindex="67"></td>
+                                        <td><input  maxlength="10" id="uci_m_irag_grupo_7" class="uci_row" name="data[detalle][7][uci_irag][0]" tabindex="11" value="{um_irag7}"></td>
+                                        <td><input  maxlength="10" id="uci_f_irag_grupo_7" class="uci_row" name="data[detalle][7][uci_irag][1]" tabindex="12" value="{uf_irag7}"></td>
+                                        <td><input  maxlength="10" id="totaluci_irag_grupo_7" class="uci_row" disabled="disabled" tabindex="13"></td>                                        
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_m_grupo_7" class="defuncion_row" name="data[detalle][7][defuncion][0]" tabindex="68" value="{dm7}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_f_grupo_7" class="defuncion_row" name="data[detalle][7][defuncion][1]" tabindex="69" value="{df7}"></td>
+                                        <td class="dark_td"><input maxlength="10" id="totaldefunc_grupo_7" class="defuncion_row"  disabled="disabled" tabindex="70"></td>
+                                        <td><input maxlength="10" id="defunc_m_irag_grupo_7" class="defuncion_row" name="data[detalle][7][defuncion_irag][0]" tabindex="14" value="{dm_irag7}"></td>
+                                        <td><input maxlength="10" id="defunc_f_irag_grupo_7" class="defuncion_row" name="data[detalle][7][defuncion_irag][1]" tabindex="15" value="{df_irag7}"></td>
+                                        <td><input maxlength="10" id="totaldefunc_irag_grupo_7" class="defuncion_row"  disabled="disabled" tabindex="16"></td>                                         
+                                    </tr>
+
+                                    <tr id="8">
+                                        <input type="hidden" name="data[detalle][8][id_detalle]" value="{id_detalle_8}" />
+                                        <th>20 - 24 a&ntilde;os</th>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_m_grupo_8" class="hospital_row" name="data[detalle][8][hospital][0]" tabindex="71" value="{hm8}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_f_grupo_8" class="hospital_row" name="data[detalle][8][hospital][1]" tabindex="72" value="{hf8}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totalhosp_grupo_8" class="hospital_row" disabled="disabled" tabindex="73"></td>
+                                        <td><input maxlength="10" id="hosp_m_irag_grupo_8" class="hospital_row" name="data[detalle][8][hospital_irag][0]" tabindex="8" value="{hm_irag8}"></td>
+                                        <td><input maxlength="10" id="hosp_f_irag_grupo_8" class="hospital_row" name="data[detalle][8][hospital_irag][1]" tabindex="9" value="{hf_irag8}"></td>
+                                        <td><input maxlength="10" id="totalhosp_irag_grupo_8" class="hospital_row" disabled="disabled" tabindex="10"></td>                                         
+                                        
+                                        <td class="dark_td"><input  maxlength="10" id="uci_m_grupo_8" class="uci_row" name="data[detalle][8][uci][0]" tabindex="74" value="{um8}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="uci_f_grupo_8" class="uci_row" name="data[detalle][8][uci][1]" tabindex="75" value="{uf8}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaluci_grupo_8" class="uci_row"  disabled="disabled" tabindex="76"></td>
+                                        <td><input  maxlength="10" id="uci_m_irag_grupo_8" class="uci_row" name="data[detalle][8][uci_irag][0]" tabindex="11" value="{um_irag8}"></td>
+                                        <td><input  maxlength="10" id="uci_f_irag_grupo_8" class="uci_row" name="data[detalle][8][uci_irag][1]" tabindex="12" value="{uf_irag8}"></td>
+                                        <td><input  maxlength="10" id="totaluci_irag_grupo_8" class="uci_row" disabled="disabled" tabindex="13"></td>                                        
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_m_grupo_8" class="defuncion_row" name="data[detalle][8][defuncion][0]" tabindex="77" value="{dm8}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_f_grupo_8" class="defuncion_row" name="data[detalle][8][defuncion][1]" tabindex="78" value="{df8}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaldefunc_grupo_8" class="defuncion_row"  disabled="disabled" tabindex="79"></td>
+                                        <td><input maxlength="10" id="defunc_m_irag_grupo_8" class="defuncion_row" name="data[detalle][8][defuncion_irag][0]" tabindex="14" value="{dm_irag8}"></td>
+                                        <td><input maxlength="10" id="defunc_f_irag_grupo_8" class="defuncion_row" name="data[detalle][8][defuncion_irag][1]" tabindex="15" value="{df_irag8}"></td>
+                                        <td><input maxlength="10" id="totaldefunc_irag_grupo_8"  class="defuncion_row" disabled="disabled" tabindex="16"></td>                                         
+                                    </tr>
+
+                                    <tr id="9">
+                                        <input type="hidden" name="data[detalle][9][id_detalle]" value="{id_detalle_9}" />
+                                        <th>25 - 39 a&ntilde;os</th>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_m_grupo_9" class="hospital_row" name="data[detalle][9][hospital][0]" tabindex="80" value="{um9}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_f_grupo_9" class="hospital_row" name="data[detalle][9][hospital][1]" tabindex="81" value="{uf9}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totalhosp_grupo_9" class="hospital_row" disabled="disabled" tabindex="82"></td>
+                                        <td><input maxlength="10" id="hosp_m_irag_grupo_9" class="hospital_row" name="data[detalle][9][hospital_irag][0]" tabindex="8" value="{hm_irag9}"></td>
+                                        <td><input maxlength="10" id="hosp_f_irag_grupo_9" class="hospital_row" name="data[detalle][9][hospital_irag][1]" tabindex="9" value="{hf_irag9}"></td>
+                                        <td><input maxlength="10" id="totalhosp_irag_grupo_9" class="hospital_row" disabled="disabled" tabindex="10"></td>                                         
+                                        
+                                        <td class="dark_td"><input  maxlength="10" id="uci_m_grupo_9" class="uci_row" name="data[detalle][9][uci][0]" tabindex="83" value="{um9}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="uci_f_grupo_9" class="uci_row" name="data[detalle][9][uci][1]" tabindex="84" value="{uf9}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaluci_grupo_9" class="uci_row"  disabled="disabled" tabindex="85"></td>
+                                        <td><input  maxlength="10" id="uci_m_irag_grupo_9" class="uci_row" name="data[detalle][9][uci_irag][0]" tabindex="11" value="{um_irag9}"></td>
+                                        <td><input  maxlength="10" id="uci_f_irag_grupo_9" class="uci_row" name="data[detalle][9][uci_irag][1]" tabindex="12" value="{uf_irag9}"></td>
+                                        <td><input  maxlength="10" id="totaluci_irag_grupo_9" class="uci_row" disabled="disabled" tabindex="13"></td>                                        
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_m_grupo_9" class="defuncion_row" name="data[detalle][9][defuncion][0]" tabindex="86" value="{dm9}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_f_grupo_9" class="defuncion_row" name="data[detalle][9][defuncion][1]" tabindex="87" value="{df9}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaldefunc_grupo_9" class="defuncion_row"  disabled="disabled" tabindex="88"></td>
+                                        <td><input maxlength="10" id="defunc_m_irag_grupo_9" class="defuncion_row" name="data[detalle][9][defuncion_irag][0]" tabindex="14" value="{dm_irag9}"></td>
+                                        <td><input maxlength="10" id="defunc_f_irag_grupo_9" class="defuncion_row" name="data[detalle][9][defuncion_irag][1]" tabindex="15" value="{df_irag9}"></td>
+                                        <td><input maxlength="10" id="totaldefunc_irag_grupo_9" class="defuncion_row"  disabled="disabled" tabindex="16"></td>                                         
+                                    </tr>
+
+                                    <tr id="10">
+                                        <input type="hidden" name="data[detalle][10][id_detalle]" value="{id_detalle_10}" />
+                                        <th>40 - 49 a&ntilde;os</th>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_m_grupo_10" class="hospital_row" name="data[detalle][10][hospital][0]" tabindex="89" value="{hm10}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_f_grupo_10" class="hospital_row" name="data[detalle][10][hospital][1]" tabindex="90" value="{hf10}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totalhosp_grupo_10" class="hospital_row" disabled="disabled" tabindex="91"></td>
+                                        <td><input maxlength="10" id="hosp_m_irag_grupo_10" class="hospital_row" name="data[detalle][10][hospital_irag][0]" tabindex="8" value="{hm_irag10}"></td>
+                                        <td><input maxlength="10" id="hosp_f_irag_grupo_10" class="hospital_row" name="data[detalle][10][hospital_irag][1]" tabindex="9" value="{hf_irag10}"></td>
+                                        <td><input maxlength="10" id="totalhosp_irag_grupo_10" class="hospital_row" disabled="disabled" tabindex="10"></td>                                         
+                                        
+                                        <td class="dark_td"><input  maxlength="10" id="uci_m_grupo_10" class="uci_row" name="data[detalle][10][uci][0]" tabindex="92" value="{um10}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="uci_f_grupo_10" class="uci_row" name="data[detalle][10][uci][1]" tabindex="93" value="{uf10}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaluci_grupo_10" class="uci_row"  disabled="disabled" tabindex="94"></td>
+                                        <td><input  maxlength="10" id="uci_m_irag_grupo_10" class="uci_row" name="data[detalle][10][uci_irag][0]" tabindex="11" value="{um_irag10}"></td>
+                                        <td><input  maxlength="10" id="uci_f_irag_grupo_10" class="uci_row" name="data[detalle][10][uci_irag][1]" tabindex="12" value="{uf_irag10}"></td>
+                                        <td><input  maxlength="10" id="totaluci_irag_grupo_10" class="uci_row" disabled="disabled" tabindex="13"></td>                                        
+                                        <td class="dark_td"><input maxlength="10" id="defunc_m_grupo_10" class="defuncion_row" name="data[detalle][10][defuncion][0]" tabindex="95" value="{dm10}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_f_grupo_10" class="defuncion_row" name="data[detalle][10][defuncion][1]" tabindex="96" value="{df10}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaldefunc_grupo_10" class="defuncion_row"  disabled="disabled" tabindex="97"></td>
+                                        <td><input maxlength="10" id="defunc_m_irag_grupo_10" class="defuncion_row" name="data[detalle][10][defuncion_irag][0]" tabindex="14" value="{dm_irag10}"></td>
+                                        <td><input maxlength="10" id="defunc_f_irag_grupo_10" class="defuncion_row" name="data[detalle][10][defuncion_irag][1]" tabindex="15" value="{df_irag10}"></td>
+                                        <td><input maxlength="10" id="totaldefunc_irag_grupo_10" class="defuncion_row"  disabled="disabled" tabindex="16"></td>                                         
+                                    </tr>
+
+                                    <tr id="11">
+                                        <input type="hidden" name="data[detalle][11][id_detalle]" value="{id_detalle_11}" />
+                                        <th>50 - 59 a&ntilde;os</th>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_m_grupo_11" class="hospital_row" name="data[detalle][11][hospital][0]" tabindex="98" value="{hm11}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_f_grupo_11" class="hospital_row" name="data[detalle][11][hospital][1]" tabindex="99" value="{hf11}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totalhosp_grupo_11" class="hospital_row" disabled="disabled" tabindex="100"></td>
+                                        <td><input maxlength="10" id="hosp_m_irag_grupo_11" class="hospital_row" name="data[detalle][11][hospital_irag][0]" tabindex="8" value="{hm_irag11}"></td>
+                                        <td><input maxlength="10" id="hosp_f_irag_grupo_11" class="hospital_row" name="data[detalle][11][hospital_irag][1]" tabindex="9" value="{hf_irag11}"></td>
+                                        <td><input maxlength="10" id="totalhosp_irag_grupo_11" class="hospital_row" disabled="disabled" tabindex="10"></td>                                         
+                                        
+                                        <td class="dark_td"><input  maxlength="10" id="uci_m_grupo_11" class="uci_row" name="data[detalle][11][uci][0]" tabindex="101" value="{um11}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="uci_f_grupo_11" class="uci_row" name="data[detalle][11][uci][1]" tabindex="102" value="{uf11}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaluci_grupo_11"  class="uci_row" disabled="disabled" tabindex="103"></td>
+                                        <td><input  maxlength="10" id="uci_m_irag_grupo_11" class="uci_row" name="data[detalle][11][uci_irag][0]" tabindex="11" value="{um_irag11}"></td>
+                                        <td><input  maxlength="10" id="uci_f_irag_grupo_11" class="uci_row" name="data[detalle][11][uci_irag][1]" tabindex="12" value="{uf_irag11}"></td>
+                                        <td><input  maxlength="10" id="totaluci_irag_grupo_11" class="uci_row" disabled="disabled" tabindex="13"></td>                                        
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_m_grupo_11" class="defuncion_row" name="data[detalle][11][defuncion][0]" tabindex="104" value="{dm11}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_f_grupo_11" class="defuncion_row" name="data[detalle][11][defuncion][1]" tabindex="105" value="{df11}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaldefunc_grupo_11" class="defuncion_row"  disabled="disabled" tabindex="106"></td>
+                                        <td><input maxlength="10" id="defunc_m_irag_grupo_11" class="defuncion_row" name="data[detalle][11][defuncion_irag][0]" tabindex="14" value="{dm_irag11}"></td>
+                                        <td><input maxlength="10" id="defunc_f_irag_grupo_11" class="defuncion_row" name="data[detalle][11][defuncion_irag][1]" tabindex="15" value="{df_irag11}"></td>
+                                        <td><input maxlength="10" id="totaldefunc_irag_grupo_11" class="defuncion_row"  disabled="disabled" tabindex="16"></td>                                         
+                                    </tr>
+
+                                    <tr id="12">
+                                        <input type="hidden" name="data[detalle][12][id_detalle]" value="{id_detalle_12}" />
+                                        <th>60 - 64 a&ntilde;os</th>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_m_grupo_12" class="hospital_row" name="data[detalle][12][hospital][0]" tabindex="107" value="{hm12}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_f_grupo_12" class="hospital_row" name="data[detalle][12][hospital][1]" tabindex="108" value="{hf12}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totalhosp_grupo_12" class="hospital_row" disabled="disabled" tabindex="109"></td>
+                                        <td><input maxlength="10" id="hosp_m_irag_grupo_12" class="hospital_row" name="data[detalle][12][hospital_irag][0]" tabindex="8" value="{hm_irag12}"></td>
+                                        <td><input maxlength="10" id="hosp_f_irag_grupo_12" class="hospital_row" name="data[detalle][12][hospital_irag][1]" tabindex="9" value="{hf_irag12}"></td>
+                                        <td><input maxlength="10" id="totalhosp_irag_grupo_12" class="hospital_row" disabled="disabled" tabindex="10"></td>                                         
+                                        
+                                        <td class="dark_td"><input  maxlength="10" id="uci_m_grupo_12" class="uci_row" name="data[detalle][12][uci][0]" tabindex="110" value="{um12}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="uci_f_grupo_12" class="uci_row" name="data[detalle][12][uci][1]" tabindex="111" value="{uf12}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaluci_grupo_12" class="uci_row"  disabled="disabled" tabindex="112"></td>
+                                        <td><input  maxlength="10" id="uci_m_irag_grupo_12" class="uci_row" name="data[detalle][12][uci_irag][0]" tabindex="11" value="{um_irag12}"></td>
+                                        <td><input  maxlength="10" id="uci_f_irag_grupo_12" class="uci_row" name="data[detalle][12][uci_irag][1]" tabindex="12" value="{uf_irag12}"></td>
+                                        <td><input  maxlength="10" id="totaluci_irag_grupo_12" class="uci_row" disabled="disabled" tabindex="13"></td>                                        
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_m_grupo_12" class="defuncion_row" name="data[detalle][12][defuncion][0]" tabindex="113" value="{dm12}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_f_grupo_12" class="defuncion_row" name="data[detalle][12][defuncion][1]" tabindex="114" value="{df12}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaldefunc_grupo_12" class="defuncion_row"  disabled="disabled" tabindex="115"></td>
+                                        <td><input maxlength="10" id="defunc_m_irag_grupo_12" class="defuncion_row" name="data[detalle][12][defuncion_irag][0]" tabindex="14" value="{dm_irag12}"></td>
+                                        <td><input maxlength="10" id="defunc_f_irag_grupo_12" class="defuncion_row" name="data[detalle][12][defuncion_irag][1]" tabindex="15" value="{df_irag12}"></td>
+                                        <td><input maxlength="10" id="totaldefunc_irag_grupo_12" class="defuncion_row"  disabled="disabled" tabindex="16"></td>                                         
+                                    </tr>
+
+                                    <tr id="13">
+                                        <input type="hidden" name="data[detalle][13][id_detalle]" value="{id_detalle_13}" />
+                                        <th>> de 65 a&ntilde;os</th>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_m_grupo_13" class="hospital_row" name="data[detalle][13][hospital][0]" tabindex="116" value="{hm13}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="hosp_f_grupo_13" class="hospital_row" name="data[detalle][13][hospital][1]" tabindex="117" value="{hf13}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totalhosp_grupo_13" class="hospital_row" disabled="disabled" tabindex="118"></td>
+                                        <td><input maxlength="10" id="hosp_m_irag_grupo_13" class="hospital_row" name="data[detalle][13][hospital_irag][0]" tabindex="8" value="{hm_irag13}"></td>
+                                        <td><input maxlength="10" id="hosp_f_irag_grupo_13" class="hospital_row" name="data[detalle][13][hospital_irag][1]" tabindex="9" value="{hf_irag13}"></td>
+                                        <td><input maxlength="10" id="totalhosp_irag_grupo_13" class="hospital_row" disabled="disabled" tabindex="10"></td>                                         
+                                        
+                                        <td class="dark_td"><input  maxlength="10" id="uci_m_grupo_13" class="uci_row" name="data[detalle][13][uci][0]" tabindex="119" value="{um13}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="uci_f_grupo_13" class="uci_row" name="data[detalle][13][uci][1]" tabindex="120" value="{uf13}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="totaluci_grupo_13" class="uci_row"  disabled="disabled" tabindex="121"></td>
+                                        <td><input  maxlength="10" id="uci_m_irag_grupo_13" class="uci_row" name="data[detalle][13][uci_irag][0]" tabindex="11" value="{um_irag13}"></td>
+                                        <td><input  maxlength="10" id="uci_f_irag_grupo_13" class="uci_row" name="data[detalle][13][uci_irag][1]" tabindex="12" value="{uf_irag13}"></td>
+                                        <td><input  maxlength="10" id="totaluci_irag_grupo_13" class="uci_row" disabled="disabled" tabindex="13"></td>                                        
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_m_grupo_13" class="defuncion_row" name="data[detalle][13][defuncion][0]" tabindex="122" value="{dm13}"></td>
+                                        <td class="dark_td"><input  maxlength="10" id="defunc_f_grupo_13" class="defuncion_row" name="data[detalle][13][defuncion][1]" tabindex="123" value="{df13}"></td>
+                                        <td class="dark_td"><input maxlength="10" id="totaldefunc_grupo_13" class="defuncion_row"  disabled="disabled" tabindex="124"></td>
+                                        <td><input maxlength="10" id="defunc_m_irag_grupo_13" class="defuncion_row" name="data[detalle][13][defuncion_irag][0]" tabindex="14" value="{dm_irag13}"></td>
+                                        <td><input maxlength="10" id="defunc_f_irag_grupo_13" class="defuncion_row" name="data[detalle][13][defuncion_irag][1]" tabindex="15" value="{df_irag13}"></td>
+                                        <td><input maxlength="10" id="totaldefunc_irag_grupo_13" class="defuncion_row"  disabled="disabled" tabindex="16"></td>                                         
+                                    </tr>
+                                
+                                    <tr>
+                                        <th>Total</th>
+                                        <td><input id="totalhospm" maxlength="10" class="hospital_row" disabled="disabled"></td>
+                                        <td><input id="totalhospf" maxlength="10" class="hospital_row" disabled="disabled"></td>
+                                        <td><input id="totalhospmf" maxlength="10" class="hospital_row" disabled="disabled"></td>
+                                        <td><input id="totalhospm_irag" maxlength="10" class="hospital_row" disabled="disabled"></td>
+                                        <td><input id="totalhospf_irag" maxlength="10" class="hospital_row" disabled="disabled"></td>
+                                        <td><input id="totalhospmf_irag" maxlength="10" class="hospital_row" disabled="disabled"></td>                                        
+                                        <td><input id="totalucim" maxlength="10" class="uci_row" disabled="disabled"></td>
+                                        <td><input id="totalucif" maxlength="10" class="uci_row" disabled="disabled"></td>
+                                        <td><input id="totalucimf" maxlength="10" class="uci_row" disabled="disabled"></td>
+                                        <td><input id="totalucim_irag" maxlength="10" class="uci_row" disabled="disabled"></td>
+                                        <td><input id="totalucif_irag" maxlength="10" class="uci_row" disabled="disabled"></td>
+                                        <td><input id="totalucimf_irag" maxlength="10" class="uci_row" disabled="disabled"></td>                                        
+                                        <td><input id="totaldefuncm" maxlength="10" class="defuncion_row" disabled="disabled"></td>
+                                        <td><input id="totaldefuncf" maxlength="10" class="defuncion_row" disabled="disabled"></td>
+                                        <td><input id="totaldefuncmf" maxlength="10" class="defuncion_row" disabled="disabled"></td>
+                                        <td><input id="totaldefuncm_irag" maxlength="10" class="defuncion_row" disabled="disabled"></td>
+                                        <td><input id="totaldefuncf_irag" maxlength="10" class="defuncion_row" disabled="disabled"></td>
+                                        <td><input id="totaldefuncmf_irag" maxlength="10" class="defuncion_row" disabled="disabled"></td>                                        
+                                    </tr>
+                                </tbody>
+                              
+                              </table>
+                    </fieldset><br />
+                  </div>
+                </div>
+                <div align="right">Los campos marcados con <strong><span class="mandatory">*</span></strong> son obligatorios</div>
+                <div style="margin-top:10px">
+                    <input type="hidden" name="id" value="{id}" />
+                    <input type="hidden" name="action" value="{action}" />
+                    <a href="javascript:validarFicha();" class="ui-state-default ui-corner-all ui-button"
+                        onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                        Guardar
+                    </a>&nbsp;
+                    <a href="index.php" class="ui-state-default ui-corner-all ui-button"
+                        onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                         Cancelar
+                    </a>
+                </div>
+            </form>
+            <input type="hidden" id="fecha_server" name="fecha_server" value="{fecha_server}" />
+         </div>
+    </div>
+</div>

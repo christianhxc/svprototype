@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="exportacion_excel_sub_tratamiento" pageWidth="841" pageHeight="802" columnWidth="841" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0f5fda62-fa5f-445f-842c-1ad0b4ede391">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_vicits_form" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[select tra.id_diag_sindromico, sin.nombre_diag_sindromico, tra.id_diag_etiologico, eti.nombre_diag_etiologico, tra.id_tratamiento, ctra.nombre_tratamiento
+FROM vicits_tratamiento tra
+inner join cat_diag_etiologico eti on eti.id_diag_sindromico = tra.id_diag_sindromico
+inner join cat_diag_sindromico sin on sin.id_diag_sindromico = tra.id_diag_sindromico
+inner join cat_tratamiento ctra on ctra.id_tratamiento = tra.id_tratamiento
+where tra.id_vicits_form = $P{id_vicits_form}]]>
+	</queryString>
+	<field name="id_diag_sindromico" class="java.lang.Integer"/>
+	<field name="nombre_diag_sindromico" class="java.lang.String"/>
+	<field name="id_diag_etiologico" class="java.lang.Integer"/>
+	<field name="nombre_diag_etiologico" class="java.lang.String"/>
+	<field name="id_tratamiento" class="java.lang.Integer"/>
+	<field name="nombre_tratamiento" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="d955b73e-d0d5-413c-823f-5785c82faf44" stretchType="RelativeToBandHeight" x="0" y="0" width="101" height="15"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_diag_sindromico}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="c328c4fa-407c-4f6b-9ad9-51eea20374c1" stretchType="RelativeToBandHeight" x="101" y="0" width="169" height="15"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_diag_sindromico}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="75728de1-3804-4d80-8af8-a58c0a2fe8d5" stretchType="RelativeToBandHeight" x="270" y="0" width="101" height="15"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_diag_etiologico}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="210e27cd-38da-4907-92fd-74062fef4bd4" stretchType="RelativeToBandHeight" x="371" y="0" width="169" height="15"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_diag_etiologico}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="3c640db5-33c6-45ba-a668-463892adfa3f" stretchType="RelativeToBandHeight" x="540" y="0" width="73" height="15"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_tratamiento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="3b7dc07a-473b-463b-b08d-4a14e4dec4ef" stretchType="RelativeToBandHeight" x="613" y="0" width="228" height="15"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_tratamiento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="consolidado_consumo_droga_30dias" pageWidth="580" pageHeight="842" columnWidth="540" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dcd35d5d-1f3e-42fa-8171-c3eb7383e1d1">
+	<property name="ireport.zoom" value="1.4641000000000013"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#5F9EA0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFFDFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFFEFF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="fechaIni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="consumoMeses" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[" and dro.fecha_consumo <> 1 "]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idUn" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="add_idun_sql" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[($P{idUn} != null ) ? " and vic.id_un = "+$P{idUn} : ""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nombreUn" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+dro.id_droga, droga.nombre_droga, T2.total,
+case when T3.total is null then 0 else T3.total end as droga_ts,
+case when T4.total is null then 0 else T4.total end as droga_hsh,
+case when T5.total is null then 0 else T5.total end as droga_trans,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+left join vicits_droga dro on vic.id_vicits_form = dro.id_vicits_form
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where  vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = 'F'
+  $P!{add_idun_sql}
+  ) as ntotal_ts,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+left join vicits_droga dro on vic.id_vicits_form = dro.id_vicits_form
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = 'M'
+  and (per.id_genero <> 3 and per.id_genero <> 4 and per.id_genero <> 5)
+  $P!{add_idun_sql}
+  ) as ntotal_hsh,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+left join vicits_droga dro on vic.id_vicits_form = dro.id_vicits_form
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = 'M'
+  and (per.id_genero = 3 or per.id_genero = 4 or per.id_genero = 5)
+  $P!{add_idun_sql}
+  ) as ntotal_trans
+
+from vicits_droga dro
+  inner join vicits_form vic on vic.id_vicits_form = dro.id_vicits_form
+    and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+    $P!{consumoMeses}
+    $P!{add_idun_sql}
+
+  inner join cat_droga droga on dro.id_droga = droga.id_droga
+  left join (
+    select COUNT(vic.id_vicits_form ) as total, dro.id_droga
+    from vicits_form vic
+    inner join vicits_droga dro on vic.id_vicits_form = dro.id_vicits_form
+    where vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+    $P!{consumoMeses}
+    $P!{add_idun_sql}
+    group by dro.id_droga
+  ) T2 on T2.id_droga = dro.id_droga
+
+  left join(
+    select COUNT(vic.id_vicits_form ) as total, dro.id_droga
+    from vicits_form vic
+    inner join vicits_droga dro on vic.id_vicits_form = dro.id_vicits_form
+    inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+    where vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+    and per.sexo = 'F'
+    $P!{consumoMeses}
+    $P!{add_idun_sql}
+    group by dro.id_droga
+  ) T3 on T3.id_droga = dro.id_droga
+
+  left join (
+    select COUNT(vic.id_vicits_form ) as total, dro.id_droga
+    from vicits_form vic
+    inner join vicits_droga dro on vic.id_vicits_form = dro.id_vicits_form
+    inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+    where vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+    and per.sexo = 'M'
+    and (per.id_genero <> 3 and per.id_genero <> 4 and per.id_genero <> 5)
+    $P!{consumoMeses}
+    $P!{add_idun_sql}
+    group by dro.id_droga
+  ) T4 on T4.id_droga = dro.id_droga
+
+  left join (
+    select COUNT(vic.id_vicits_form ) as total, dro.id_droga
+    from vicits_form vic
+    inner join vicits_droga dro on vic.id_vicits_form = dro.id_vicits_form
+    inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+    where vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+    and per.sexo = 'M'
+    and (per.id_genero = 3 or per.id_genero = 4 or per.id_genero = 5)
+    $P!{consumoMeses}
+    $P!{add_idun_sql}
+    group by dro.id_droga
+  ) T5 on T5.id_droga = dro.id_droga
+
+  group by dro.id_droga]]>
+	</queryString>
+	<field name="id_droga" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Identificador unico de la droga]]></fieldDescription>
+	</field>
+	<field name="nombre_droga" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre de la droga]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="droga_ts" class="java.lang.Long"/>
+	<field name="droga_hsh" class="java.lang.Long"/>
+	<field name="droga_trans" class="java.lang.Long"/>
+	<field name="ntotal_ts" class="java.lang.Long"/>
+	<field name="ntotal_hsh" class="java.lang.Long"/>
+	<field name="ntotal_trans" class="java.lang.Long"/>
+	<variable name="porcentaje_ts" class="java.lang.Long">
+		<variableExpression><![CDATA[new BigDecimal((($F{ntotal_ts}!=0)? $F{droga_ts}/$F{ntotal_ts} : 0)*100).setScale(1, RoundingMode.HALF_EVEN).doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="porcentaje_hsh" class="java.lang.Long">
+		<variableExpression><![CDATA[new BigDecimal((($F{ntotal_hsh}!=0)? $F{droga_hsh}/$F{ntotal_hsh} : 0)*100).setScale(1, RoundingMode.HALF_EVEN).doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="porcentaje_trans" class="java.lang.Long">
+		<variableExpression><![CDATA[new BigDecimal((($F{ntotal_trans}!=0)? $F{droga_trans}/$F{ntotal_trans} : 0)*100).setScale(1, RoundingMode.HALF_EVEN).doubleValue()]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="74" splitType="Stretch">
+			<textField>
+				<reportElement uuid="07b87a6a-bc15-4da9-9732-892122ec1ace" x="314" y="34" width="141" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="fe09306e-b1f9-4cc4-a28d-ffb261b7b8cc" x="0" y="0" width="540" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consolidado consumo de droga en los últimos 30 días]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="e93d21f4-22a7-467a-b378-3c6a717c6f62" x="131" y="34" width="141" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaIni}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="23f2cf0c-e2a4-49e9-ae75-0ff9b4b2d46c" x="89" y="34" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[De:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1ea4bc72-08c0-4558-8296-2855da5e36bc" x="272" y="34" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f74bdf29-3a72-481c-89a5-5600d30861c5" x="0" y="54" width="540" height="20"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreUn}!=null ?
+"Instalación de salud: "+$P{nombreUn} : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30">
+			<staticText>
+				<reportElement uuid="ad04cfad-cbc6-463c-ba33-2ccf1c1c8eb7" x="420" y="15" width="60" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[n]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="96481a75-86ef-49c5-9036-e4e19cabf09b" x="300" y="15" width="60" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[n]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="432e0da9-20cf-4201-a7b9-af988d0114b0" x="240" y="15" width="60" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="936d4925-7a6d-4810-be6d-f943371aff53" x="0" y="0" width="180" height="30"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DROGA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bb2dfbd1-6b8b-41a1-9ac8-51558a3c3ba4" x="480" y="15" width="60" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5e1fa5cf-bf2c-43e7-ac7e-30d316da1ffd" x="180" y="15" width="60" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[n]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="037314d5-e67f-486d-8dbd-3c6e2515e731" x="180" y="0" width="120" height="15"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TS N:"+$F{ntotal_ts}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="53201698-2769-4827-a3e3-dfad26da4998" x="300" y="0" width="120" height="15"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["HSH N:"+$F{ntotal_hsh}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="96b31131-946e-4f1c-9588-9109008dd10e" x="420" y="0" width="120" height="15"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TRANS N:"+$F{ntotal_trans}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b3590381-5194-466b-b9d0-f74e7d0805f9" x="360" y="15" width="60" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15">
+			<textField>
+				<reportElement uuid="054418f2-a674-4538-b14b-cd9b988f27e6" x="0" y="0" width="180" height="15"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_droga}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9545586f-77d3-4345-8057-bc65a1f2d72e" x="180" y="0" width="60" height="15"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{droga_ts}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a27716df-08bd-4960-9afd-baad5e8bea5f" x="300" y="0" width="60" height="15"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{droga_hsh}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b8f85502-79f2-4fc4-aeca-1e1f8e00fa77" x="420" y="0" width="60" height="15"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{droga_trans}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="390bba01-adc9-40a7-a6fe-9b6eb62bc0d6" x="240" y="0" width="60" height="15"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ntotal_ts}>0 ?
+($F{droga_ts}.doubleValue()/$F{ntotal_ts}.doubleValue())*100
+:0]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="aa74c664-75a3-42b8-a1f5-2fbbe9a9fb04" x="360" y="0" width="60" height="15"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ntotal_hsh}>0 ?
+($F{droga_hsh}.doubleValue()/$F{ntotal_hsh}.doubleValue())*100
+:0]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="64d6dbfe-b103-4e19-8d6f-5da1927cbd02" x="480" y="0" width="60" height="15"/>
+				<box leftPadding="0" rightPadding="3">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ntotal_trans}>0 ?
+($F{droga_trans}.doubleValue()/$F{ntotal_trans}.doubleValue())*100
+:0]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

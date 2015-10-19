@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="consolidado_poblacion_sub_totales" pageWidth="920" pageHeight="802" columnWidth="920" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9090f8d8-6e64-4aea-9d57-58fac8d8cbbe">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="154"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaIni" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sexo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="add_sexo_sql" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idUn" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="add_idun_sql" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[($P{idUn} != null ) ? " and vic.id_un = "+$P{idUn} : ""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="add_idun_lab_sql" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[($P{idUn} != null ) ? " and lab.id_un = "+$P{idUn} : ""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where (vic.par_hombre_fija = 1 or vic.par_mujer_fija = 1)
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = $P{sexo}
+  $P!{add_sexo_sql}
+  $P!{add_idun_sql}
+  ) as estable_totalN,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where (vic.par_hombre_fija = 1 or vic.par_mujer_fija = 1)
+  and (vic.par_hombre_fija_ult_usu_condon = 1 or vic.par_mujer_fija_ult_usu_condon = 1)
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = $P{sexo}
+  $P!{add_sexo_sql}
+  $P!{add_idun_sql}
+  ) as estable_n,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where (vic.par_hombre_casual = 1 or vic.par_mujer_casual = 1)
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = $P{sexo}
+  $P!{add_sexo_sql}
+  $P!{add_idun_sql}
+  ) as casual_totalN,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where (vic.par_hombre_casual = 1 or vic.par_mujer_casual = 1)
+  and (vic.par_hombre_casual_ult_usu_condon = 1 or vic.par_mujer_casual_ult_usu_condon = 1)
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = $P{sexo}
+  $P!{add_sexo_sql}
+  $P!{add_idun_sql}
+  ) as casual_n,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where (vic.ts_cliente_quincena > 0 or vic.ts_cliente_semana >0)
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = $P{sexo}
+  $P!{add_sexo_sql}
+  $P!{add_idun_sql}
+  ) as clientes_totalN,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where (vic.ts_cliente_quincena > 0 or vic.ts_cliente_semana >0)
+  and vic.ts_ultimo_usu_condon = 1
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = $P{sexo}
+  $P!{add_sexo_sql}
+  $P!{add_idun_sql}
+  ) as clientes_n,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+left join vicits_laboratorio lab on lab.id_tipo_identidad = per.tipo_identificacion AND lab.numero_identificacion = per.numero_identificacion
+where (vic.antec_vih = 1 or lab.resultados_vih = 1)
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = $P{sexo}
+  $P!{add_sexo_sql}
+  $P!{add_idun_sql}
+  ) as total_vih,
+
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+left join vicits_its its on its.id_vicits_form = vic.id_vicits_form
+left join vicits_laboratorio lab on lab.id_tipo_identidad = per.tipo_identificacion AND lab.numero_identificacion = per.numero_identificacion
+where (its.id_ITS = 1 or lab.resultados_vdrl = 1)
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = $P{sexo}
+  $P!{add_sexo_sql}
+  $P!{add_idun_sql}
+  ) as total_sifilis,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+left join vicits_its its on its.id_vicits_form = vic.id_vicits_form
+left join vicits_laboratorio lab on lab.id_tipo_identidad = per.tipo_identificacion AND lab.numero_identificacion = per.numero_identificacion
+where (its.id_ITS = 6 or lab.resultado_poliformos = 3 or lab.resultado_poliformos = 4)
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = $P{sexo}
+  $P!{add_sexo_sql}
+  $P!{add_idun_sql}
+  ) as total_vaginosis,
+
+(select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+left join vicits_its its on its.id_vicits_form = vic.id_vicits_form
+left join vicits_laboratorio lab on lab.id_tipo_identidad = per.tipo_identificacion AND lab.numero_identificacion = per.numero_identificacion
+where (its.id_ITS = 3 or lab.resultados_diplocco = 1 or lab.resultados_diplocco = 2)
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = $P{sexo}
+  $P!{add_sexo_sql}
+  $P!{add_idun_sql}
+  ) as total_gonorrea,
+
+(select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where per.sexo = $P{sexo}
+  $P!{add_sexo_sql}
+  $P!{add_idun_sql}) as total_persona,
+
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+left join vicits_laboratorio lab on lab.id_tipo_identidad = per.tipo_identificacion AND lab.numero_identificacion = per.numero_identificacion
+where lab.formulario_pre_prueba = 1
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = $P{sexo}
+  $P!{add_sexo_sql}
+  $P!{add_idun_sql}
+  ) as n_vih_pre,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+left join vicits_laboratorio lab on lab.id_tipo_identidad = per.tipo_identificacion AND lab.numero_identificacion = per.numero_identificacion
+where lab.resultados_pos_prueba = 1
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = $P{sexo}
+  $P!{add_sexo_sql}
+  $P!{add_idun_sql}
+  ) as n_vih_pos,
+
+(select COUNT(lab.id_vicits_laboratorio )
+from vicits_laboratorio lab
+inner join tbl_persona per on per.tipo_identificacion = lab.id_tipo_identidad and lab.numero_identificacion = per.numero_identificacion
+where per.sexo = $P{sexo}
+  $P!{add_sexo_sql}
+  $P!{add_idun_lab_sql}) as total_lab
+
+from vicits_form vic
+where vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+$P!{add_idun_sql}
+limit 1]]>
+	</queryString>
+	<field name="estable_totalN" class="java.lang.Long"/>
+	<field name="estable_n" class="java.lang.Long"/>
+	<field name="casual_totalN" class="java.lang.Long"/>
+	<field name="casual_n" class="java.lang.Long"/>
+	<field name="clientes_totalN" class="java.lang.Long"/>
+	<field name="clientes_n" class="java.lang.Long"/>
+	<field name="total_vih" class="java.lang.Long"/>
+	<field name="total_sifilis" class="java.lang.Long"/>
+	<field name="total_vaginosis" class="java.lang.Long"/>
+	<field name="total_gonorrea" class="java.lang.Long"/>
+	<field name="total_persona" class="java.lang.Long"/>
+	<field name="n_vih_pre" class="java.lang.Long"/>
+	<field name="n_vih_pos" class="java.lang.Long"/>
+	<field name="total_lab" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="413cfe91-db04-4e45-a888-02da2ed3c338" x="0" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{estable_totalN}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c39806e9-90db-4d73-8475-b87c8f31f295" x="35" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{estable_n}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="34cdb7f7-99e5-475a-aaa0-a160de833654" x="70" y="0" width="45" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{estable_totalN}>0) ? ($F{estable_n}.doubleValue()/$F{estable_totalN}.doubleValue())*100 : 0]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="1f16b109-2d4f-4419-a13b-333ee93154d4" x="115" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{casual_totalN}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="9cecebdd-433f-455f-aa5f-d7c5f07e5698" x="150" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{casual_n}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="d2c6d31e-c69d-4cb7-992b-2d8e12dd88d8" x="185" y="0" width="45" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{casual_totalN}>0) ? ($F{casual_n}.doubleValue()/$F{casual_totalN}.doubleValue())*100 : 0]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b65f68a3-a548-4567-83df-f43ed9a2ddaf" x="230" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{clientes_totalN}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8ae6fcb1-1236-4d88-9c7a-6a8e1cccd530" x="265" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{clientes_n}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="52c540d7-e9be-416b-9b24-ef0e9545c2a1" x="300" y="0" width="45" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{clientes_totalN}>0) ? ($F{clientes_n}.doubleValue()/$F{clientes_totalN}.doubleValue())*100 : 0]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e85757a2-4acf-4d7d-8392-ec09823fa602" x="345" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_persona}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="856bae36-1822-44d6-a1a6-74db1ffbc472" x="750" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{n_vih_pre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="285fb3a4-dcc0-437c-81e7-7a8c8f987459" x="830" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{n_vih_pos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="ce45139f-0109-4562-a4dd-77e71d748a7c" x="865" y="0" width="55" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{total_persona}>0) ? ($F{n_vih_pos}.doubleValue()/$F{total_persona}.doubleValue())*100 : 0]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c1bd6dd1-732d-4332-acf0-4107322875c0" x="380" y="0" width="30" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_sifilis}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="26fa3a97-7d39-4687-b480-ee66842ba047" x="455" y="0" width="50" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_vaginosis}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a878553f-2921-423f-893f-accb384b565d" x="640" y="0" width="30" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_vih}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="1d864cfa-5a1a-4498-85ba-f902bb1eceb0" x="785" y="0" width="45" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{total_lab}>0) ? ($F{n_vih_pre}.doubleValue()/$F{total_lab}.doubleValue())*100 : 0]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="69b07dc4-bf0c-4fb6-84de-02d45116aaac" x="670" y="0" width="45" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{total_persona}>0) ? ($F{total_vih}.doubleValue()/$F{total_persona}.doubleValue())*100 : 0]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="8ddb7774-af05-4ea7-9def-0e5cab4a9e2f" x="410" y="0" width="45" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{total_persona}>0) ? ($F{total_sifilis}.doubleValue()/$F{total_persona}.doubleValue())*100 : 0]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="be3c84f2-9ac4-457b-9c57-f186cc9674c2" x="505" y="0" width="54" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{total_persona}>0) ? ($F{total_vaginosis}.doubleValue()/$F{total_persona}.doubleValue())*100 : 0]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="2d9fffb6-be83-44cc-8d02-0e60435953aa" x="595" y="0" width="45" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{total_persona}>0) ? ($F{total_gonorrea}.doubleValue()/$F{total_persona}.doubleValue())*100 : 0]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f7abc50a-e143-4cff-bdc7-c500ede0656d" x="559" y="0" width="36" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_gonorrea}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fc3633f4-cfb9-4a1a-b65a-be3a893ca56f" x="715" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_lab}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,233 @@
+<div class="Content" align="left">
+        <form id="" action="" method="">
+                <h1> Derivaci&oacute;n de Muestra </h1>
+                <input type="hidden" id="muestra" value="{idMuestra}"/>
+
+                <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <label id="agregarError"></label>
+                        <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+                </div>
+                <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+                </div>
+                        <div id="filtroIndividuo">
+                            <table>
+                                <tr style="height: 0.95em"><td></td></tr>
+                            </table>
+                                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                                <legend>DATOS DE LA MUESTRA</legend>
+                                <table border="0" cellpadding="2" cellspacing="2" width="60%" align="center" style="">
+                                                <tr>
+                                                        <td>
+                                                            <label style="color:#000000; font-weight:normal;">C&oacute;digo Global:</label>
+                                                        </td>
+                                                        <td>
+                                                            <label style="color:#000000; font-weight:normal;">{valGlobal}</label>
+                                                        </td>
+                                                        <td>
+                                                            <label style="color:#000000; font-weight:normal;">C&oacute;digo Correlativo:</label>
+                                                        </td>
+                                                        <td>
+                                                            <label style="color:#000000; font-weight:normal;">{valCorrelativo}</label>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>
+                                                            <label style="color:#000000; font-weight:normal;">Fecha de Toma:</label>
+                                                        </td>
+                                                        <td>
+                                                            <label style="color:#000000; font-weight:normal;">{valFechaToma}</label>
+                                                        </td>
+                                                        <td>
+                                                            <label style="color:#000000; font-weight:normal;">Fecha de Recepci&oacute;n:</label>
+                                                        </td>
+                                                        <td>
+                                                            <label style="color:#000000; font-weight:normal;">{valFechaRecepcion}</label>
+                                                        </td>
+                                                        <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                        <td>
+                                                            <label style="color:#000000; font-weight:normal;">&Aacute;rea de an&aacute;lisis:</label>
+                                                        </td>
+                                                        <td>
+                                                            <label style="color:#000000; font-weight:normal;">{valArea}</label>
+                                                            <input type="hidden" id="idArea" value="{idArea}">
+                                                        </td>
+                                                        <td>
+                                                            <label style="color:#000000; font-weight:normal;">Evento:</label>
+                                                            <label style="color:#000000; font-weight:normal;">{valEvento}</label>
+                                                            <input type="hidden" id="idEvento" name="idEvento" value="{valIdEvento}"/>
+                                                            <input type="hidden" id="idEventoTipoMuestra" name="idEventoTipoMuestra" value="{valIdEventoTipo}"/>
+                                                        </td>
+                                                        <td>
+                                                            <label style="color:#000000; font-weight:normal;">Tipo: </label>
+                                                            <label style="color:#000000; font-weight:normal;">{valTipo}</label>
+                                                        </td>
+                                                        <td>&nbsp;</td>
+                                                </tr>
+                                                <tr style="display: {mostrarTendencia}">
+                                                    <td colspan="1">
+                                                            <label style="color:#000000; font-weight:normal;">Tendencia:</label>
+                                                    </td>
+                                                    <td colspan="4">
+                                                            <label><strong>{valorTendencia}</strong></label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="1">
+                                                            <br/><label style="color:#000000; font-weight:normal;">Estado de la muestra:</label>
+                                                    </td>
+                                                    <td colspan="4">
+                                                            <br/><label><strong>{valorEstado}</strong></label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="1">
+                                                        <label style="color:#000000; font-weight:normal;">Motivo:</label>
+                                                    </td>
+                                                    <td colspan="4">
+                                                            <label><strong>{valorMotivo}</strong></label>
+                                                    </td>
+                                                </tr>
+                                        </table>
+                                <div align="center"><h3>{estadoMuestraAnalisis}</h3></div>                                
+                                </fieldset><br/>
+                </div>
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>PRUEBAS REALIZADAS</legend><br/>
+                    <table align="center" id="pruebas" class="dxgvControl_PlasticBlue" rules="all" cellspacing="0"
+                        border="0" style="width: 90%; border-collapse: collapse;">
+                        <tbody>
+                        <tr id="0">
+                            <th class="dxgvHeader_PlasticBlue" width="">Prueba</th>
+                            <th class="dxgvHeader_PlasticBlue" width="">Resultado General</th>
+                            <th class="dxgvHeader_PlasticBlue" width="">Fecha</th>
+                            <th class="dxgvHeader_PlasticBlue" width="">Comentarios</th>
+                        </tr>
+
+                        <!-- BEGIN blkNoEntradas -->
+                        <tr class="dxgvDataRow_PlasticBlue" id="np">
+                            <td colspan="4" align="center">
+                                Muestra sin pruebas asignadas.
+                            </td>
+                        </tr>
+                        <!-- END blkNoEntradas -->
+
+                        <!-- BEGIN blkEntradas -->
+                        <tr class="dxgvDataRow_PlasticBlue" id="{idPrueba}">
+                            <td class="dxgv" id="{idColPrueba}">{pruebaFila}<input id="ip{i}" type="hidden" value="{p}"/></td>
+                            <td class="dxgv" id="{idColResultado}">{resultadoFila}<input id="ir{i}"type="hidden" value="{r}"/></td>
+                            <td class="dxgv" width="8%" id="{idColFecha}">{fechaFila}</td>
+                            <td class="dxgv" width="30%" id="{idColComentario}">{comentarioFila}</td>
+                        </tr>
+                        <!-- END blkEntradas -->
+                        </tbody>
+                    </table><br/>
+                </fieldset>
+                <br/>
+
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>
+                        CONCLUSI&Oacute;N
+                    </legend>
+
+                    <table border="0" align="center">
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal;">Resultado Final:</label>
+                            </td>
+                            <td colspan="2">
+                                <label style="color:#000000; font-weight:bold;">{valorResultadoFinal}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal;">Resultado Espec&iacute;fico No.1:</label>
+                            </td>
+                            <td>
+                                <label style="color:#000000; font-weight:bold;">{valorTipo1}</label>
+                            </td>
+                            <td>
+                                <label style="color:#000000; font-weight:bold;">{valorSubtipo1}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="180px">
+                                <label style="color:#000000; font-weight:normal;">Resultado Espec&iacute;fico No.2:</label>
+                            </td>
+                            <td>
+                                <label style="color:#000000; font-weight:bold;">{valorTipo2}</label>
+                            </td>
+                            <td>
+                                <label style="color:#000000; font-weight:bold;">{valorSubtipo2}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Comentarios:
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <textarea id="commments" cols="65" rows="2" readonly="readonly">{valorComentariosFinales}</textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset><br/>
+
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>DERIVACIONES</legend>
+                    <table align="center">
+                        <tr>
+                            <td align="">
+                                &Aacute;rea:<span class="mandatory">*</span>
+                            </td>
+                            <td>
+                                <select style="width: 275px;" name="data[muestra][area_alicuota]" id="area_alicuota">
+                                    <option value="0">N/A</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Evento:<span class="mandatory">*</span>
+                            </td>
+                            <td>
+                                <select style="width: 275px;" name="data[muestra][evento_alicuota]" id="evento_alicuota">
+                                    <option value="0">N/A</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <table align="center">
+                        <tr>
+                            <td colspan="2" align="center">
+                                <div style="margin-right:15px; margin-top: 10px">
+                                    <a id="" href="javascript:agregarDerivacion();" class="ui-state-default ui-corner-all ui-button" title=""
+                                        onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                        <span class="ui-icon ui-icon-plusthick"></span>Agregar
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table><br/><br/>
+                    <div align="center" id="derivaciones"></div><br/>
+                </fieldset>
+                <br/><br/>
+        </form>
+        <table align="center">
+            <tr>
+                <td colspan="2" align="center">
+                    <div style="margin-right:15px; margin-top: 10px">
+                        <a id="" href="index.php" class="ui-state-default ui-corner-all ui-button" title=""
+                            onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                            <span class="ui-icon ui-icon-arrowreturnthick-1-w"></span>Regresar
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+</div>

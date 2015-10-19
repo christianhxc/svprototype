@@ -1,0 +1,41 @@
+<div class="Content">
+    <div class="ui-state-error ui-corner-all"
+    	style="padding-bottom:5px; margin-bottom:6px;display:{disError}; margin-top:5px;" align="left">
+    	<span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+        <label>Ocurri&oacute; un error al momento de guardar los datos:</label><br>
+        <label>Por favor verifique de nuevo o reporte el problema al departamento t&eacute;cnico.</label><br>
+        <label>{desError}</label>
+    </div>
+    
+<div class="ui-state-error ui-corner-all" id="dSummaryErrors"
+    	style="padding-bottom:5px; margin-bottom:6px;display:none; margin-top:5px;" align="left">
+    	<span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+        <label>La clave no se puede cambiar debido a lo siguiente</label>
+        <p id="pSummaryErrors" style="margin-top:0px; margin-bottom:0px;"></p>
+    </div>
+    <div align="center">
+    <form id="frmLogin" method="post" action="cambiarclave.php" onsubmit="return validarFormulario();">
+  <fieldset class="ui-widget ui-widget-content ui-corner-all">
+    <legend>Cambiar clave</legend><br>
+    <label>
+  Se requiere que cambie su clave antes de poder continuar<br /><br />
+  Clave anterior:<br />
+  <input type="password" name="txtClaveAnterior" id="txtClaveAnterior">
+  <input type="hidden" name="username" value="{valUsername}"/>
+    </label>
+    <label>
+  <br />
+  Clave nueva:<br />
+  <input type="password" name="txtClaveNueva" id="txtClaveNueva">
+    </label>
+    <label><br>
+      Confirmar clave:<br>
+    <input type="password" name="txtClaveConfirmar" id="txtClaveConfirmar"></label>
+    <br>
+        <br>
+
+<button onclick="validarFormulario();">Cambiar</button>
+  </fieldset>
+</form>
+    </div>
+</div>

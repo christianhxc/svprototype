@@ -1,0 +1,450 @@
+<div id="logo_vih"><img src="../img/logo_vih.jpg" width="150" height="131" alt="s" /></div>
+<div class="Content" align="left">
+    
+    <form id="frmContenido" class="niceform" action="{urlprefix}vicits/form_laboratorio.php" method="POST" onsubmit="return validarFormLaboratorio();">
+        <table width="100%">
+            <tr>
+                <td>
+                    <div id="formLabel"><h2>Formulario solicitud de Ex&aacute;menes ITS - VICITS</h2></div>
+                </td>
+                <td align="right">
+                    <div style="color: #A4BC2B;">
+                        Regresar
+                        <a href="indexFormLaboratorio.php" class="" style="text-decoration: none; font-weight:bold;">
+                            <img title="Regresar" border=0 src="../img/back.png"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div id="ErrorGuardar" class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; display:{disError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{mensajeErrorGeneral}</label><br/>
+        </div>
+        <div class="ui-state-highlight ui-corner-all"
+             style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;" align="left">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{desInfo}</label>
+        </div>
+
+        <div class="ui-state-error ui-corner-all" id="dSummaryErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>Los datos no se pueden guardar debido a lo siguiente:</label>
+            <p id="pSummaryErrors" style="margin-top: 0px; margin-bottom: 0px;"></p>
+        </div>
+        <div id="tabs" class="">
+            <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"> 
+                <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#divFormulario">Formulario</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#divResultado">Resultados</a></li>
+            </ul>
+
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divFormulario" >
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Formulario</legend>
+                    <input name="data[formulario][id_form_laboratorio]" type="hidden" id="id_form_laboratorio" value="{valIdFormLaboratorio}" />
+                    <table border="0" cellpadding="2" cellspacing="2" align="center" style="width:800px;">
+                        <tr>
+                            <td style="width:180px;"><label >Tipo de consulta:<span class="mandatory">*</span></label></td>
+                            <td>
+                                <select id="drpTipoConsulta" name="data[formulario][tipoConsulta]">
+                                    <option value="0">Sel...</option>
+                                    <option value="1" {selTipoConNueva}>Nueva</option>
+                                    <option value="2" {selTipoConRecon}>Reconsulta</option>
+                                    <option value="3" {selTipoConDesc}>Desconoce</option>
+                                </select>
+                            </td>
+                            <td style="width:150px;"><label>Fecha de consulta:<span class="mandatory">*</span></label></td>
+                            <td>
+                                <input type="text" id="fecha_consulta" value="{valFechaConsulta}" name="data[formulario][fecha_consulta]"  style="width: 100px;" maxlength="12"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label >Tipo Identificador:<span class="mandatory">*</span></label></td>
+                            <td>
+                                <select id="drpTipoId" name="data[formulario][tipoId]" style="width:220px" onchange="buscarPersona()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkTipoId -->
+                                    <option value="{valTipoId}" {selTipoId}>{opcTipoId}</option>
+                                    <!-- END blkTipoId -->
+                                </select>
+                            </td>
+                            <td><label >No. Identificador:<span class="mandatory">*</span></label></td>
+                            <td><input type="text" id="no_identificador" name="data[formulario][identificador]" value="{valIdentificador}" style="width: 220px; text-align:center;" maxlength="45" onchange="buscarPersona()"/></td>
+                        </tr>
+                        <tr>
+                            <td><label >1er. Nombre:<span class="mandatory">*</span></label></td>
+                            <td><input type="text" id="primer_nombre" name="data[formulario][primer_nombre]" style="width: 220px; text-transform: uppercase;" value="{valPrimerNombre}" maxlength="45" {valReadOnly}/></td>
+                            <td><label >2do. Nombre:</label></td>
+                            <td><input type="text" id="segundo_nombre" name="data[formulario][segundo_nombre]" style="width: 220px; text-transform: uppercase;" value="{valSegundoNombre}" maxlength="45" {valReadOnly}/></td>
+                        </tr>
+                        <tr>
+                            <td><label >1er. Apellido:<span class="mandatory">*</span></label></td>
+                            <td><input type="text" id="primer_apellido" name="data[formulario][primer_apellido]" value="{valPrimerApellido}" style="width: 220px; text-transform: uppercase;" maxlength="75" {valReadOnly}/></td>
+                            <td><label >2do. Apellido:</label></td>
+                            <td><input type="text" id="segundo_apellido" name="data[formulario][segundo_apellido]" value="{valSegundoApellido}" style="width: 220px; text-transform: uppercase;" maxlength="75" {valReadOnly}/></td>
+                        </tr>
+                        <tr>
+                            <td><label>Instalaci&oacute;n de salud:<span class="mandatory">*</span></label></td>
+                            <td colspan="3">
+                                <input type="text" id="unidad_notificadora" value="{valNombreUn}" name="data[formulario][unidad_notificadora]" style="width: 603px;" maxlength="100"/>
+                                <input type="hidden" name="data[formulario][id_un]" id="id_un" value="{valIdUn}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <label >Recibi&oacute; consejer&iacute;a <strong>pre</strong> prueba:</label><span class="mandatory">*</span>&nbsp;&nbsp;
+                                <select id="drpPrePrueba" name="data[formulario][pre_prueba]">
+                                    <option value="0">Sel...</option>
+                                    <option value="1" {selPrePruebaSi}>Si</option>
+                                    <option value="2" {selPrePruebaNo}>No</option>
+                                    <option value="3" {selPrePruebaDesc}>Desc</option>
+                                </select>
+                            </td>
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr >
+                            <td><label>Grupo de poblaci&oacute;n:<span class="mandatory">*</span></label></td>
+                            <td>
+                                <select id="drpPoblacion" name="data[formulario][poblacion]" style="width:220px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkPoblacion -->
+                                    <option value="{valPoblacion}" {selPoblacion}>{opcPoblacion}</option>
+                                    <!-- END blkPoblacion -->
+                                </select>
+                            </td>
+                            <td><label >Nombre del m&eacute;dico o enfermera:<span class="mandatory">*</span></label></td>
+                            <td><input type="text" id="nombre_medico" name="data[formulario][nombre_medico]" value="{valNombreMedico}" style="width: 220px;"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" >
+                                <label>Tipo muestra: </label>
+                                <select id="drpTipoMuestra" name="data[formulario][tipo_muestra]" style="width:200px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkTipoMuestra -->
+                                    <option value="{valTipoMuestra}" {selTipoMuestra}>{opcTipoMuestra}</option>
+                                    <!-- END blkTipoMuestra -->
+                                </select>
+                                <a id="anadir" href="javascript:relacionarTabla('tablaMuestras');" class="ui-state-default ui-corner-all ui-button" title="A&ntilde;adir Tipo Muestra"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">A&ntilde;adir</a>
+                            </td>
+                            <td colspan="2" >
+                                <label>Prueba solicitada: </label>
+                                <select id="drpPrueba" name="data[formulario][prueba]" style="width:200px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkPrueba -->
+                                    <option value="{valPrueba}" {selPrueba}>{opcPrueba}</option>
+                                    <!-- END blkPrueba -->
+                                </select>
+                                <a id="anadir" href="javascript:relacionarTabla('tablaPruebas');" class="ui-state-default ui-corner-all ui-button" title="A&ntilde;adir Prueba"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">A&ntilde;adir</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="width:400px;"><div id="tablaMuestras"></div></td>
+                            <td colspan="2" style="width:400px;"><div id="tablaPruebas"></div></td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divResultado" >
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Resultados</legend>
+                    <table border="0" cellpadding="2" cellspacing="2" align="center" style="width:800px;">
+                        <tr>
+                            <td colspan="2">
+                                <table>
+                                    <tr> 
+                                        <td colspan="2"><label ><strong>Coloraci&oacute;n Gram Vagina/Uretra</strong></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:250px;">
+                                            <label >Polimorfos Nucleares (PLMN's):&nbsp;&nbsp;</label>
+                                        </td>
+                                        <td>
+                                            <select id="drpPoliformos" name="data[resultados][poliformos]" style="width:100px;">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selPoliformos1}>0</option>
+                                                <option value="2" {selPoliformos2}>1 a 5</option>
+                                                <option value="3" {selPoliformos3}>6 a 10</option>
+                                                <option value="4" {selPoliformos4}>> a 10</option>
+                                                <option value="5" {selPoliformosDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr><td colspan="2">&nbsp;</td></tr>
+                                    <tr>
+                                        <td style="width:230px;"><label >C&eacute;lulas Epifeliales:&nbsp;&nbsp;</label></td>
+                                        <td >
+                                            <select id="drpCelulas" name="data[resultados][celulas]" style="width:100px;">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selCelulas1}>Abundante</option>
+                                                <option value="2" {selCelulas2}>Moderado</option>
+                                                <option value="3" {selCelulas3}>Escaso</option>
+                                                <option value="4" {selCelulas4}>Ausente</option>
+                                                <option value="5" {selCelulasDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:230px;"><label >Obs. de Diplococo Gram Neg Intracel:&nbsp;&nbsp;</label></td>
+                                        <td >
+                                            <select id="drpDiplococo" name="data[resultados][dipocloco]" style="width:100px;">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selDiplococo1}>Abundante</option>
+                                                <option value="2" {selDiplococo2}>Moderado</option>
+                                                <option value="3" {selDiplococo3}>Escaso</option>
+                                                <option value="4" {selDiplococo4}>Ausente</option>
+                                                <option value="5" {selDiplococoDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:230px;"><label >Obs. de Levaduras/Pseudohifas:&nbsp;&nbsp;</label></td>
+                                        <td >
+                                            <select id="drpLevaduras" name="data[resultados][levaduras]" style="width:100px;">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selLevaduras1}>Abundante</option>
+                                                <option value="2" {selLevaduras2}>Moderado</option>
+                                                <option value="3" {selLevaduras3}>Escaso</option>
+                                                <option value="4" {selLevaduras4}>Ausente</option>
+                                                <option value="5" {selLevadurasDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:230px;"><label >Otros:&nbsp;&nbsp;</label></td>
+                                        <td >
+                                            <select id="drpOtros" name="data[resultados][otros]" style="width:100px;">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selOtros1}>Abundante</option>
+                                                <option value="2" {selOtros2}>Moderado</option>
+                                                <option value="3" {selOtros3}>Escaso</option>
+                                                <option value="4" {selOtros4}>Ausente</option>
+                                                <option value="5" {selOtrosDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr><td colspan="2">&nbsp;</td></tr>
+                                    <tr> 
+                                        <td colspan="2"><label ><strong>Resultados para el diagn&oacute;stico de Vaginosis Bacteriana</strong></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:230px;"><label >Flora Vaginal:&nbsp;&nbsp;</label></td>
+                                        <td >
+                                            <select id="drpFlora" name="data[resultados][flora]" style="width:100px;">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selFlora1}>Normal</option>
+                                                <option value="2" {selFlora2}>Intermedia</option>
+                                                <option value="3" {selFlora3}>Vaginosis</option>
+                                                <option value="4" {selFloraDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr><td colspan="2">&nbsp;</td></tr>
+                                    <tr><td colspan="2"><label ><strong>Interpretaci&oacute;n de Resultados del GRAM</strong></label></td></tr>
+                                    <tr><td colspan="2"><label ><strong>Escaso: </strong>De 1 a 4 Organ&iacute;smos por Campo</label></td></tr>
+                                    <tr><td colspan="2"><label ><strong>Moderado: </strong>De 5 a 30 Organ&iacute;smos por Campo</label></td></tr>
+                                    <tr><td colspan="2"><label ><strong>Abundante: </strong>Mayor de 30 organ&iacute;smos por Campo</label></td></tr>
+                                    <tr><td colspan="2">&nbsp;</td></tr>
+                                    <tr><td colspan="2"><label ><strong>Interpretaci&oacute;n de Resultados para punteo de GRAM</strong></label></td></tr>
+                                    <tr><td colspan="2"><label ><strong>Puntos de VB  -  Floral Vaginal</strong></label></td></tr>
+                                    <tr><td colspan="2"><label >0 - 3&nbsp;&nbsp;&nbsp;|  Noraml(N)</label></td></tr>
+                                    <tr><td colspan="2"><label >4 - 6&nbsp;&nbsp;&nbsp;|  Intermedia(I)</label></td></tr>
+                                    <tr><td colspan="2"><label >7 - 10&nbsp;|  Vaginosis Bacteriana(VB)</label></td></tr>
+                                    
+                                </table>
+                            </td>
+                            <td colspan="2">
+                                <table>
+                                    <tr>
+                                        <td colspan="2" style="width:230px;"><label ><strong>Ex&aacute;men en fresco</strong></label></td>
+                                        <td><label ><strong>Resultado</strong></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><label>Observaci&oacute;n de Levaduras</label></td>
+                                        <td>
+                                            <select id="drpObsLevadura" name="data[resultados][levadura]">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selObsLevaduraPos}>Positivo</option>
+                                                <option value="2" {selObsLevaduraNeg}>Negativo</option>
+                                                <option value="3" {selObsLevaduraDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><label>Observaci&oacute;n de Trichomonas</label></td>
+                                        <td>
+                                            <select id="drpObsTricho" name="data[resultados][tricho]">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selObsTrichoPos}>Positivo</option>
+                                                <option value="2" {selObsTrichoNeg}>Negativo</option>
+                                                <option value="3" {selObsTrichoDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><label>Observaci&oacute;n de Espermatozoides</label></td>
+                                        <td>
+                                            <select id="drpObsEsperma" name="data[resultados][esperma]">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selObsEspermaPos}>Positivo</option>
+                                                <option value="2" {selObsEspermaNeg}>Negativo</option>
+                                                <option value="3" {selObsEspermaDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr><td colspan="3">&nbsp;</td></tr>
+                                    <tr>
+                                        <td colspan="2" style="width:230px;"><label ><strong>PCR / Cultivo</strong></label></td>
+                                        <td><label ><strong>Resultado</strong></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><label>Neisseria Gonorrhoeae</label></td>
+                                        <td>
+                                            <select id="drpCulGonorrea" name="data[resultados][gonorrea]">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selCulGonorreaPos}>Positivo</option>
+                                                <option value="2" {selCulGonorreaNeg}>Negativo</option>
+                                                <option value="3" {selCulGonorreaDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><label>Chlamydia Trachomatis</label></td>
+                                        <td>
+                                            <select id="drpCulClamidia" name="data[resultados][clamidia]">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selCulClamidiaPos}>Positivo</option>
+                                                <option value="2" {selCulClamidiaNeg}>Negativo</option>
+                                                <option value="3" {selCulClamidiaDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><label>&beta; - Lactamasa </label></td>
+                                        <td>
+                                            <select id="drpCulBeta" name="data[resultados][beta]">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selCulBetaPos}>Positivo</option>
+                                                <option value="2" {selCulBetaNeg}>Negativo</option>
+                                                <option value="3" {selCulBetaDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr><td colspan="3">&nbsp;</td></tr>
+                                    <tr> 
+                                        <td style="width:130px;"><label ><strong>Resultados</strong></label></td>
+                                        <td colspan="2"><label ><strong>Titulaci&oacute;n</strong></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>VDRL </label></td>
+                                        <td><input type="text" id="VDRL_titulacion" name="data[resultados][VDRL_titulacion]" value="{valVDRL_titulacion}" style="width: 60px;"/></td>
+                                        <td>
+                                            <select id="drpResVDRL" name="data[resultados][VDRL]">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selResVDRLPos}>Positivo</option>
+                                                <option value="2" {selResVDRLNeg}>Negativo</option>
+                                                <option value="3" {selResVDRLDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>RPR </label></td>
+                                        <td><input type="text" id="RPR_titulacion" name="data[resultados][RPR_titulacion]" value="{valRPR_titulacion}" style="width: 60px;"/></td>
+                                        <td>
+                                            <select id="drpResRPR" name="data[resultados][RPR]">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selResRPRPos}>Positivo</option>
+                                                <option value="2" {selResRPRNeg}>Negativo</option>
+                                                <option value="3" {selResRPRDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>MHATP / TP-PA </label></td>
+                                        <td><input type="text" id="TP_titulacion" name="data[resultados][TP_titulacion]" value="{valTP_titulacion}" style="width: 60px;"/></td>
+                                        <td>
+                                            <select id="drpResTP" name="data[resultados][TP]">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selResTPPos}>Positivo</option>
+                                                <option value="2" {selResTPNeg}>Negativo</option>
+                                                <option value="3" {selResTPDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr><td colspan="3">&nbsp;</td></tr>
+                                    <tr>
+                                        <td colspan="2"><label><strong>Resultado de VIH</strong></label></td>
+                                        <td>
+                                            <select id="drpResVIH" name="data[resultados][VIH]">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selResVIHPos}>Positivo</option>
+                                                <option value="2" {selResVIHNeg}>Negativo</option>
+                                                <option value="3" {selResVIHDesc}>Desconoce</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label >Recibi&oacute; consejer&iacute;a <strong>pos</strong> prueba:</label>&nbsp;&nbsp;
+                                        </td>
+                                        <td>
+                                            <select id="drpPosPrueba" name="data[resultados][pos]">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selPosPruebaSi}>Si</option>
+                                                <option value="2" {selPosPruebaNo}>No</option>
+                                                <option value="3" {selPosPruebaDesc}>Desc</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr><td colspan="3">&nbsp;</td></tr>
+                                    <tr>
+                                        <td colspan="2" >
+                                            <label >Referido a clinica TARV:</label>&nbsp;&nbsp;
+                                        </td>
+                                        <td>
+                                            <select id="drpTARV" name="data[resultados][TARV]">
+                                                <option value="0">Sel...</option>
+                                                <option value="1" {selTARVSi}>Si</option>
+                                                <option value="2" {selTARVNo}>No</option>
+                                                <option value="3" {selTARVDesc}>Desc</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+
+                    </table>
+
+                </fieldset>
+            </div>
+
+            <div align="right">
+                <br/>
+                <a id="next" href="javascript:siguienteTab();" class="ui-state-default ui-corner-all ui-button"
+                    onmouseover="RollOver(this)" onmouseout="RollOut(this)">Siguiente
+                </a>
+                <br/>
+                <label style=" font-weight:normal; padding-right: 17px">
+                    Los campos marcados con <strong><span class="mandatory">*</span></strong> son obligatorios.
+                </label>
+            </div>
+        </div>
+        <table align="center">
+            <tr>
+                <td>
+                    <div style="margin-top:10px">
+                        <input type="hidden" name="action" id="action" value="{action}" />
+                        <input type="hidden" name="data[formulario][idLabForm]" id="idLabForm" value="{valIdLabForm}" />
+                        <input name="data[tipo_muestra][globalMuestrasRelacionadas]" type="hidden" id="globalMuestrasRelacionadas" value="{valMuestrasRelacionadas}" />
+                        <input name="data[prueba_solicitada][globalPruebasRelacionadas]" type="hidden" id="globalPruebasRelacionadas" value="{valPruebasRelacionadas}" />
+                        
+                        {botonGuardar}
+                        {botonCancelar}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

@@ -1,0 +1,361 @@
+            
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Controles</legend>
+                    <table align="center" border="0" cellpadding="2" cellspacing="2" id="insert_control">
+                        <tbody>
+                            <tr>
+                                <td>Fecha control M&eacute;dico: <span class="mandatory">*</span></td>
+                                <td >                               
+                                    <input id="fecha_control"  style="width: 100px;" maxlength="10"  type="text">
+                                    
+                                    <span class="ui-datepicker-append"> dd/mm/aaaa</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>Peso (kg) Control: </td>
+                                <td  ><input id="control_peso" name="peso" style="width:25px;" type="text">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                <td>N&uacute;mero de dosis a la fecha del control: <span class="mandatory">*</span></td>
+                                <td ><input id="control_dosis" style="width:25px;" type="text"></td>
+                                    
+                            </tr>
+                            
+                            <tr>
+                                <td>Fecha BK control:</td>
+                                <td><input id="fecha_control_BK" style="width: 100px;" maxlength="10"  type="text">
+                                    <span class="ui-datepicker-append"> dd/mm/aaaa</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>Resultado BK control:</td>
+                                <td valign="bottom"><select id="drpcontrol_BK"  >
+                                        <option selected value="">Seleccione...</option>
+                                        <option value="1">Positivo</option>
+                                        <option value="0">Negativo</option>
+                                    </select>&nbsp;&nbsp;</td>
+                                <td id="labelClaControl">Clasificaci&oacute;n BK control:</td>
+                                <td valign="bottom" id="selectClaControl"><select id="drpclas_BK"  >
+                                        <option selected value="">Seleccione...</option>
+                                        <option value="1">1&plus;</option>
+                                        <option value="2">2&plus;</option>
+                                        <option value="3">3&plus;</option>
+                                        <option value="4">de 0 a 9 BK  100 C</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                    
+                            </tr>
+                                
+                            <tr>
+                                <td>Fecha cultivo de control:</td>
+                                <td><input id="fecha_cultivo_control"  style="width: 100px;" maxlength="10"  type="text">
+                                    <span class="ui-datepicker-append"> dd/mm/aaaa</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+                                <td>Resultado cultivo control:</td>
+                                <td valign="bottom" colspan="2"><select id="drpres_cul_contr" >
+                                        <option selected="selected" value="">Seleccione...</option>
+                                        <option value="1">Micobacterias No tuberculosas</option>
+                                        <option value="2" style="font-style:italic;">Mycobacterium tuberculosis</option>
+                                        <option value="3">No hubo crecimiento de micobacterias</option>
+                                    </select>&nbsp;&nbsp;</td>
+                                <td></td>
+                                <td valign="bottom">
+                                </td>
+                            </tr>
+                            <tr id="labelResCulCtr">
+                                <td colspan="6">
+                                    <hr /><b>Resultado PSD control</b>
+                                </td>
+                            </tr>
+                            <tr id="selectResCulCtr">
+                    
+                                <td colspan="6">H:&nbsp;&nbsp;
+                                    <select id="drpcontrol_H">
+                                        <option selected="selected" value="">Seleccione...</option>
+                                        <option value="1">Sensible</option>
+                                        <option value="0">Resistente</option>
+                                    </select>&nbsp;&nbsp;
+                                     R:&nbsp;&nbsp;<select id="drpcontrol_R">
+                                        <option selected="selected" value="">Seleccione...</option>
+                                        <option value="1">Sensible</option>
+                                        <option value="0">Resistente</option>
+                                    </select>&nbsp;&nbsp;
+                                    Z:&nbsp;&nbsp;<select id="drpcontrol_Z">
+                                        <option selected="selected" value="">Seleccione...</option>
+                                        <option value="1">Sensible</option>
+                                        <option value="0">Resistente</option>
+                                    </select>&nbsp;&nbsp;
+                                    E:&nbsp;&nbsp;<select id="drpcontrol_E">
+                                        <option selected="selected" value="">Seleccione...</option>
+                                        <option value="1">Sensible</option>
+                                        <option value="0">Resistente</option>
+                                    </select>&nbsp;&nbsp;
+                                    S:&nbsp;&nbsp;<select id="drpcontrol_S" >
+                                        <option selected="selected" value="">Seleccione...</option>
+                                        <option value="1">Sensible</option>
+                                        <option value="0">Resistente</option>
+                                    </select>&nbsp;&nbsp;
+                                    Otros:&nbsp;&nbsp;<select id="drpcontrol_Otros" >
+                                        <option selected="selected" value="">Seleccione...</option>
+                                        <option value="1">Sensible</option>
+                                        <option value="0">Resistente</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                            <tr id="select2ResCulCtr"> 
+                                <td colspan="6">Fluoroquinolonas: &nbsp;&nbsp;
+                                    <select id="drpcontrol_fluoroquinolonas" >
+                                        <option selected="selected" value="">Seleccione...</option>
+                                        <option value="1">Sensible</option>
+                                        <option value="0">Resistente</option>
+                                    </select>&nbsp;&nbsp;
+                                    Inyectables de 2a l&iacute;nea:&nbsp;&nbsp;
+                                    <select id="drpcontrol_2linea"  >
+                                        <option selected="selected" value="">Seleccione...</option>
+                                        <option value="1">Sensible</option>
+                                        <option value="0">Resistente</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="6">
+                                    <hr /><b>Reacciones adversas a medicamentos</b>
+                                </td>
+                            </tr>
+                            <tr> 
+                                <td colspan="2">Reacci&oacute;n adversa a medicamentos: &nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <select id="drpreac_adv"  >
+                                        <option selected="selected" value="">Sel...</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <td colspan="2" id="labelReacAdv"><label>Fecha de reacci&oacute;n adversa:</label></td>
+                                <td id="inputReacAdv">
+                                    <input id="fecha_reac_adv" style="width: 100px;" maxlength="10" type="text">
+                                    <span class="ui-datepicker-append"> dd/mm/aaaa</span>
+                                </td>
+                            </tr>
+                            <tr id="tr_reac_adv">
+                                <td>
+                                    <label>Manifestaci&oacute;n:</label>&nbsp;&nbsp;
+                                </td>                         
+                                <td colspan="5">
+                                    <input type="checkbox" id="cutaneo" value="1">Cut&aacute;neo&nbsp;&nbsp;
+                                    <input type="checkbox" id="psiquico" value="2">Ps&iacute;quico&nbsp;&nbsp;
+                                    <input type="checkbox" id="hepatico" value="3">Hep&aacute;tico&nbsp;&nbsp;
+                                    <input type="checkbox" id="neurologico" value="4">Neurol&oacute;gico&nbsp;&nbsp;
+                                    <input type="checkbox" id="digestivo" value="5">Digestivo&nbsp;&nbsp;
+                                    <input type="checkbox" id="auditivo" value="6">Auditivo&nbsp;&nbsp;
+                                    <input type="checkbox" id="visual" value="7">Visual&nbsp;&nbsp;									
+                                    <input type="checkbox" id="renal" value="8">Renal&nbsp;&nbsp;
+                                    <br />
+                                    <input type="checkbox" id="art_oseo" value="9">Articular / &oacute;seo&nbsp;&nbsp;
+                                    <input type="checkbox" id="end_metab" value="10">Endocrino - metab&oacute;lico&nbsp;&nbsp;
+                                    <input type="checkbox" id="hematologico" value="11">hematol&oacute;gico&nbsp;&nbsp;
+                                    <input type="checkbox" id="cardiovascular" value="12">Cardiovascular&nbsp;&nbsp;
+                                    <input type="checkbox" id="otro" value="13">Otro tipo.
+                                </td>
+                            </tr>
+                            <tr id="tr2_reac_adv"> 
+                                <td >Clasificaci&oacute;n:</td>
+                                <td>
+                                    <select id="drpcontrol_clas"  >
+                                        <option selected="selected" value="">Seleccione...</option>
+                                        <option value="1">Leve</option>
+                                        <option value="2">Moderada</option>
+                                        <option value="3">Severa</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <td ><label>Conducta:</label></td>
+                                <td>
+                                    <select id="drpcontrol_cond"  >
+                                        <option selected="selected" value="">Seleccione...</option>
+                                        <option value="1">Desensibilizaci&oacute;n</option>
+                                        <option value="2">Cambio de esquema</option>
+                                        <option value="3">Otros</option>
+                                    </select>&nbsp;&nbsp
+                                </td>
+                                <td ><label>Hospitalizado:</label></td>
+                                <td>
+                                    <select id="drpcontrol_hosp" >
+                                        <option selected="selected" value="">Sel...</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </select>&nbsp;&nbsp
+                                </td>
+                            </tr>
+                            <tr>
+                                
+                                <td colspan="6"><hr /><b>Situaci&oacute;n actual del paciente</b>
+                                </td>
+                            </tr>  
+                            <tr>
+                                <td>Persona privada de Libertad:</td>
+                                <td>
+                                    <select id="drpcontacpreso"  >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <td id="labelPrivadaPreso">Fecha de privaci&oacute;n de libertad:</td>
+                                <td valign="bottom" id="inputPrivadaPreso">                               
+                                    <input id="fecha_preso_contact"  style="width: 100px;" maxlength="10"  type="text">
+                                    <span class="ui-datepicker-append"> dd/mm/aaaa</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>Usuario de drogas:</td>
+                                <td>
+                                    <select id="drpusr_drogas"  >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <td>Alcoholismo:</td>
+                                <td>
+                                    <select id="drpalcoho_contact"  >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <td>Tabaquismo:</td>
+                                <td>
+                                    <select id="drptabaquismo"  >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                    
+                                    
+                            </tr>
+                            <tr>
+                                <td>Miner&iacute;a:</td>
+                                <td>
+                                    <select id="drpmineria"  >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <td>Hacinamiento:</td>
+                                <td>
+                                    <select id="drphacimiento"  >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>
+                                <td>Empleado:</td>
+                                <td>
+                                    <select id="drpempleado"  >
+                                        <option selected value="">Sel...</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </select>&nbsp;&nbsp;
+                                </td>                                    
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <table align="center" border="0" cellspacing="0" cellpadding="0" id="agregaControles" width="100%">
+                        <tr>
+                            <td align="right" id="tdagregaControles" >
+                                
+                                <div style="margin-top:5px">
+                                    <a href="javascript:agregarControl();" class="ui-state-default ui-corner-all ui-button"
+                                       onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                        Agregar
+                                    </a>  &nbsp;&nbsp;
+                                    <a id="cancelar_Ctrl" href="javascript:cancelarControl();" class="ui-state-default ui-corner-all ui-button"
+                                       onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                        Cancelar
+                                    </a>
+                                </div>                                
+                                <br/>
+                            </td>
+                                
+                        </tr>
+                    </table>
+                    <table align="center" border="1" cellspacing="0" cellpadding="0" id="tblControles" width="100%">
+                        <thead>
+                            <tr align="center">
+                                <td bgcolor="#628529" width="5%">&nbsp;{valFechaControl}</td>
+                                <td bgcolor="#628529" width="13%"><font color="#FFFFFF"><strong>Fe. contr. M&eacute;d.</strong></font></td>
+                                <td bgcolor="#628529" width="13%"><font color="#FFFFFF"><strong>Peso (Kg)</strong></font></td>
+                                <td bgcolor="#628529" width="13%"><font color="#FFFFFF"><strong>No. dosis a la fe.</strong></font></td>
+                                <td bgcolor="#628529" width="13%"><font color="#FFFFFF"><strong>Fe. BK contr.</strong></font></td>
+                                <td bgcolor="#628529" width="13%"><font color="#FFFFFF"><strong>Res. BK contr.</strong></font></td>
+                                <td bgcolor="#628529" width="13%"><font color="#FFFFFF"><strong>Fe. culti. contr.</strong></font></td>
+                                <td bgcolor="#628529" width="13%"><font color="#FFFFFF"><strong>Res. culti. contr.</strong></font></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- BEGIN blkControlDetalle -->
+                            <tr id="trControl{control_indice}">
+                                <td>
+                                    <input id="control{control_indice}id_tb_control" type="hidden" value="{control_indice}"/>                                    
+                                    <input name="data[control][{control_indice}][id_tb_form]" id="controls{control_indice}id_tb_form" type="hidden" value="{id_tb_form}"/>
+                                    <input id="control{control_indice}fecha_control" name="data[control][{control_indice}][fecha_control]" value="{fecha_control}" type="hidden">
+                                    <input id="control{control_indice}control_peso" name="data[control][{control_indice}][peso]" value="{peso}" type="hidden">
+                                    <input id="control{control_indice}control_dosis" name="data[control][{control_indice}][numero_dosis]" value="{numero_dosis}" type="hidden">
+                                    <input id="control{control_indice}fecha_control_BK" name="data[control][{control_indice}][fecha_BK]" value="{fecha_BK}" type="hidden">
+                                    <input id="control{control_indice}drpcontrol_BK" name="data[control][{control_indice}][resultado_BK]" value="{res_BK_control}" type="hidden">
+                                    <input id="control{control_indice}drpclas_BK" name="data[control][{control_indice}][clas_BK]" value="{clas_BK}" type="hidden">
+                                    <input id="control{control_indice}fecha_cultivo_control" name="data[control][{control_indice}][fecha_cultivo_control]" value="{fecha_cultivo_control}" type="hidden">
+                                    <input id="control{control_indice}drpres_cul_contr" name="data[control][{control_indice}][res_cul_contr]" value="{res_cul_contr}" type="hidden">
+                                    <input id="control{control_indice}drpcontrol_H" name="data[control][{control_indice}][control_H]" value="{control_H}" type="hidden">
+                                    <input id="control{control_indice}drpcontrol_R" name="data[control][{control_indice}][control_R]" value="{control_R}" type="hidden">
+                                    <input id="control{control_indice}drpcontrol_Z" name="data[control][{control_indice}][control_Z]" value="{control_Z}" type="hidden">
+                                    <input id="control{control_indice}drpcontrol_E" name="data[control][{control_indice}][control_E]" value="{control_E}" type="hidden">
+                                    <input id="control{control_indice}drpcontrol_S" name="data[control][{control_indice}][control_S]" value="{control_S}" type="hidden">
+                                    <input id="control{control_indice}drpcontrol_Otros" name="data[control][{control_indice}][control_Otros]" value="{control_Otros}" type="hidden">
+                                    <input id="control{control_indice}drpcontrol_fluoroquinolonas" name="data[control][{control_indice}][control_fluoroquinolonas]" value="{control_fluoroquinolonas}" type="hidden">
+                                    <input id="control{control_indice}drpcontrol_2linea" name="data[control][{control_indice}][control_2linea]" value="{control_2linea}" type="hidden">
+                                    <input id="control{control_indice}drpreac_adv" name="data[control][{control_indice}][reac_adv]" value="{control_2linea}" type="hidden">
+                                    <input id="control{control_indice}fecha_reac_adv" name="data[control][{control_indice}][fecha_reac_adv]" value="{fecha_reac_adv}" type="hidden">
+                                    <input id="control{control_indice}cutaneo" name="data[control][{control_indice}][manif][cutaneo]" value="{cutaneo}" type="hidden">
+                                    <input id="control{control_indice}psiquico" name="data[control][{control_indice}][manif][psiquico]" value="{psiquico}" type="hidden">
+                                    <input id="control{control_indice}hepatico" name="data[control][{control_indice}][manif][hepatico]" value="{hepatico}" type="hidden">
+                                    <input id="control{control_indice}neurologico" name="data[control][{control_indice}][manif][neurologico]" value="{neurologico}" type="hidden">
+                                    <input id="control{control_indice}digestivo" name="data[control][{control_indice}][manif][digestivo]" value="{digestivo}" type="hidden">
+                                    <input id="control{control_indice}auditivo" name="data[control][{control_indice}][manif][auditivo]" value="{auditivo}" type="hidden">
+                                    <input id="control{control_indice}visual" name="data[control][{control_indice}][manif][visual]" value="{visual}" type="hidden">
+                                    <input id="control{control_indice}renal" name="data[control][{control_indice}][manif][renal]" value="{renal}" type="hidden">
+                                    <input id="control{control_indice}art_oseo" name="data[control][{control_indice}][manif][art_oseo]" value="{art_oseo}" type="hidden">
+                                    <input id="control{control_indice}end_metab" name="data[control][{control_indice}][manif][end_metab]" value="{end_metab}" type="hidden">
+                                    <input id="control{control_indice}hematologico" name="data[control][{control_indice}][manif][hematologico]" value="{hematologico}" type="hidden">
+                                    <input id="control{control_indice}cardiovascular" name="data[control][{control_indice}][manif][cardiovascular]" value="{cardiovascular}" type="hidden">
+                                    <input id="control{control_indice}otro" name="data[control][{control_indice}][manif][otro]" value="{otro}" type="hidden">
+                                    <input id="control{control_indice}drpcontrol_clas" name="data[control][{control_indice}][clasificacion]" value="{clasificacion}" type="hidden">
+                                    <input id="control{control_indice}drpcontrol_cond" name="data[control][{control_indice}][conducta]" value="{conducta}" type="hidden">
+                                    <input id="control{control_indice}drpcontrol_hosp" name="data[control][{control_indice}][hospitalizado]" value="{hospitalizado}" type="hidden">
+                                    <input id="control{control_indice}drpcontacpreso" name="data[control][{control_indice}][preso]" value="{preso}" type="hidden">
+                                    <input id="control{control_indice}fecha_preso_contact" name="data[control][{control_indice}][fecha_preso]" value="{fecha_preso}" type="hidden">
+                                    <input id="control{control_indice}drpusr_drogas" name="data[control][{control_indice}][usr_drogas]" value="{usr_drogas}" type="hidden">
+                                    <input id="control{control_indice}drpalcoho_contact" name="data[control][{control_indice}][alcoholismo]" value="{alcoholismo}" type="hidden">
+                                    <input id="control{control_indice}drptabaquismo" name="data[control][{control_indice}][tabaquismo]" value="{tabaquismo}" type="hidden">
+                                    <input id="control{control_indice}drpmineria" name="data[control][{control_indice}][mineria]" value="{mineria}" type="hidden">
+                                    <input id="control{control_indice}drphacimiento" name="data[control][{control_indice}][hacinamiento]" value="{hacinamiento}" type="hidden">
+                                    <input id="control{control_indice}drpempleado" name="data[control][{control_indice}][empleado]" value="{empleado}" type="hidden">
+                                    
+                                    <a href="#" onmouseout="RollOut(this)" onmouseover="RollOver(this)"
+                                       class="ui-state-default ui-corner-all ui-link-button" title="Borrar"
+                                       onclick="if (confirm('¿Esta seguro que desea borrar esta entrada?')) removerControl('{control_indice}');">
+                                        <span class="ui-icon ui-icon-trash"></span>
+                                    </a>
+
+                                </td>
+                                <td>{fecha_control}</td>
+                                <td>{peso}</td>
+                                <td>{no_dosis_control}</td>
+                                <td>{fecha_BK_control}</td>
+                                <td>{resultado_BK}</td>
+                                <td>{fecha_cultivo_control}</td>
+                                <td>{resultado_cultivo}</td>         
+                            </tr>
+                            <!-- END blkControlDetalle -->
+                        </tbody>
+                    </table>
+                </fieldset>

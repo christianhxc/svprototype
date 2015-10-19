@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="exportacion_excel_sub_its" pageWidth="158" pageHeight="802" columnWidth="158" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e7dc0158-879c-4a00-a646-1c3a9d2bdec2">
+	<property name="ireport.zoom" value="2.853116706110003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_vicits_form" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[select  its.nombre_ITS
+from vicits_its
+inner join cat_ITS its on its.id_ITS = vicits_its.id_ITS
+where vicits_its.id_vicits_form = $P{id_vicits_form}]]>
+	</queryString>
+	<field name="nombre_ITS" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="554cf860-6531-4b91-825c-bb60a0f21831" stretchType="RelativeToBandHeight" x="0" y="0" width="158" height="15"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_ITS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

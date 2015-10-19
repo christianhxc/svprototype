@@ -1,0 +1,802 @@
+<div class="Content" align="left">
+    <!-- POPUP de BUSQUEDA !-->
+    <div id="dialog-form" title="B&uacute;squeda de Personas" align="center">
+        <form id="formDialog" action="" method="">
+
+            <div class="ui-state-error ui-corner-all" id="pErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px; width: 50%">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <div id="pDetalle" style="margin-top: 0px; margin-bottom: 0px;"></div>
+            </div>
+            <fieldset style="width:740px; text-align: left">
+                <legend>Filtro</legend>
+                <div align="left">
+                    <table>
+                        <tr id="notFoundFilter">
+                            <td colspan="4" align="right">
+                                <a href="javascript:useSearched();" class="" title="Usar criterios de b&uacute;squeda para ingreso de nuevo individuo" style="text-decoration: none; font-weight:bold; display: none" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Usar estos datos</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>No. Identificador:</label></td>
+                            <td><input type="text" name="popid" id="id" value="" class="" style="width: 150px; text-align:center;" maxlength="45"/></td>
+                        </tr>
+                        <tr>
+                            <td><label>Nombres:</label></td>
+                            <td><input type="text" name="popn1" id="n" value="" class="" style="width: 250px; text-transform: uppercase;" maxlength="45"/></td>
+                            <td><label>Apellidos:</label></td>
+                            <td><input type="text" name="popp1" id="p" value="" class="" style="width: 250px; text-transform: uppercase;" maxlength="45"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" valign="bottom">
+                                <label >Edad:</label>
+                                <select id="drpPopTipo" name="poptipoE" onChange="validarEdadPop();">
+                                    <option value="0">Tipo</option>
+                                    <option value="1">D&iacute;as</option>
+                                    <option value="2">Meses</option>
+                                    <option value="3">A&ntilde;os</option>
+                                </select>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desde: <input type="text" id="ed" name="popEdesde" style="width: 40px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);" onChange="validarEdadPop();"/>
+                                Hasta: <input type="text" id="ed2" name="popEhasta" style="width: 40px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);" onChange="validarEdadPop();"/>
+                            </td>
+                            <td colspan="2" valign="bottom">
+                                <label >Sexo:</label>
+                                <select id="drpsexoP" name="popSexo">
+                                    <option value="0">Seleccionar</option>
+                                    <option value="M">Hombre</option>
+                                    <option value="F">Mujer</option>
+                                </select>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <label >Tipo:</label>
+                                <select id="drpPopHTipo" name="popTip">
+                                    <option value="0">Seleccionar</option>
+                                    <option value="1">Humano</option>
+                                    <option value="2">Animal</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr>
+                            <td colspan="2" align="right">
+                                <a href="javascript:validarPopupP();" class="ui-state-default ui-corner-all ui-button"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                    Filtrar
+                                </a>
+                            </td>
+                            <td  colspan="2"align="right">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <a href="javascript:nuevo();" class="" style="text-decoration: none; font-weight:bold; display: none" title="Ingresar nuevo individuo"onmouseover="RollOver(this)" onmouseout="RollOut(this)">Nuevo</a>
+                                            </div>
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <div>
+                                                <a href="javascript:clearSearch();" class="" style="text-decoration: none; font-weight:bold;" title="Borrar criterios de b&uacute;squeda" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Borrar filtro</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+        </form>
+        <br/>
+        <div id="resultadosBusqueda" align="center"></div>
+    </div>
+
+    <form id="frmContenido" class="niceform" action="{urlprefix}uceti/ingreso.php" method="POST" onsubmit="return validarIngreso();">
+        <h2>FORMULARIO GEN&Eacute;RICO DE INVESTIGACI&Oacute;N INDIVIDUAL DE EVENTOS RELACIONADOS CON LA SALUD</h2>
+        <div id="ErrorGuardar" class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; display:{disError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{mensajeErrorGeneral}</label>
+        </div>
+
+        <div class="ui-state-error ui-corner-all" id="dSummaryErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>Los datos no se pueden guardar debido a lo siguiente:</label>
+            <p id="pSummaryErrors" style="margin-top: 0px; margin-bottom: 0px;"></p>
+        </div>
+        <div id="tabs" class="">
+            <ul  class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                <li style="margin-left: 35px;" class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#div1">I. Datos generales del paciente
+                        <br/>II. Descripci&oacute;n resumida del evento.
+                        <br/>III. Tratamiento admnistrado</a></li>
+                <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#div2">IV. Muestras tomadas y resultados de laboratorio
+                        <br/>V. Exposici&oacute;n y factor de riesgo identificado
+                        <br/>VI. Acciones de prevenci&oacute;n y control</a></li>
+                <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#div3">VII. Informaci&oacute;n de contactos
+                        <br/>VIII. Diagn&oacute;stico final 
+                        <br/>IX. Datos del que realiza la investigaci&oacute;n</a></li>
+            </ul>
+
+            <!-- I. DATOS GENERALES DEL PACIENTE -->
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="div1" >
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>I. DATOS GENERALES DEL PACIENTE</legend>
+                    <input name="data[individuo][id_individuo]" type="hidden" id="id_individuo" value="{valID}" />
+                    
+                    <table border="0" cellpadding="2" cellspacing="2" align="center">
+                        <tr>
+                            <td colspan="3">
+                                <a href="javascript:buscar();" class="ui-state-default ui-corner-all ui-button"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                    Buscar
+                                </a>
+                            </td>
+                            <td align="right">
+                                <a onmouseout="RollOut(this)" title="Borrar datos del individuo" onmouseover="RollOver(this)" style="text-decoration: none; font-weight: bold;" class="ui-state-default ui-corner-all ui-button" href="javascript:borrarIndividuo();">Borrar Individuo</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="200px"><label style="color:#000000; font-weight:normal;">Tipo Identificador:</label></td>
+                            <td width="300px"><label style="width: 350px; text-align:center;" id="tipoId">{valTipoId}</label></td>
+                            <td width="200px"><label style="color:#000000; font-weight:normal;">No. Identificador:</label></td>
+                            <td width="300px"><label style="width: 350px; text-align:center;" id="no_identificador">{valIdentificador}</label></td>
+                        </tr>
+                        <tr>
+                            <td width="200px"><label style="color:#000000; font-weight:normal;">Nombres:</label></td>
+                            <td width="300px"><label style="width: 350px; text-transform: uppercase;" id="nombres">{valNombres}</label></td>
+                            <td width="200px"><label style="color:#000000; font-weight:normal;">Apellidos:</label></td>
+                            <td width="300px"><label style="width: 350px; text-transform: uppercase;" id="apellidos">{valApellidos}</label></td>
+                        </tr>
+                        <tr>
+                            <td width="200px"><label style="color:#000000; font-weight:normal;">Ocupaci&oacute;n:</label></td>
+                            <td width="300px"><label style="width: 350px; text-transform: uppercase;" id="ocupacion">{valOcupacion}</label></td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <!--            </div>-->
+                <br/>
+                <!-- II. DESCRIPCIÓN RESUMIDA DEL EVENTO -->
+                <!--            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divPacienteEvento" >-->
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>II. DESCRIPCI&Oacute;N RESUMIDA DEL EVENTO</legend>
+                    <table border="0" width="100%" cellpadding="2" cellspacing="2" align="center">
+                        <tr>
+                            <td rowspan="2">
+                                <label style="color:#000000; font-weight:normal;">Diagn&oacute;stico inicial:<span id="oblig" class="mandatory">*</span></label>
+                            </td>
+                            <td colspan="4">
+                                <input type="text" id="evento_inicial1" name="data[evento][evento_inicial1]" value="{valEventoInicial1}" style="width: 100%;" maxlength="100"/>
+                                <input type="hidden" id="id_evento_inicial1" name="data[evento][id_evento_inicial1]" value="{valIdEventoInicial1}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <input type="text" id="evento_inicial2" name="data[evento][evento_inicial2]" value="{valEventoInicial2}" style="width: 100%;" maxlength="100"/>
+                                <input type="hidden" id="id_evento_inicial2" name="data[evento][id_evento_inicial2]" value="{valIdEventoInicial2}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal;">Fechas de:</label>
+                            </td>
+                            <td width="155px">
+                                <label style="color:#000000; font-weight:normal;">dd/mm/aaaa</label>
+                            </td>
+                            <td style="text-align:center;">
+                                <label style="color:#000000; font-weight:normal;">Signos y s&iacute;ntomas</label>
+                            </td>
+                            <td style="text-align:center;">
+                                <label style="color:#000000; font-weight:normal;">dd/mm/aaaa</label>
+                            </td>
+                            <td style="text-align:center;">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal;">Atenci&oacute;n:<span id="oblig" class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <input type="text" id="fecha_atencion" name="data[evento][fecha_atencion]" value="{valAtencion}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                            <td style="text-align:center;">
+                                <select id="drpSintomas" name="data[sintomas][sintomas]" style="width:340px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkSintomas -->
+                                    <option value="{valSintomas}" {selSintomas}>{opcSintomas}</option>
+                                    <!-- END blkSintomas -->
+                                </select>
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" id="fecha_tabla_sintomas" name="data[sintomas][fecha_tabla_sintoma]" value="{valTablaSintomas}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                            <td style="text-align:center;">
+                                <a id="anadir" href="javascript:relacionarSintomas();" class="ui-state-default ui-corner-all ui-button" title="A&ntilde;adir s&iacute;ntoma"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">A&ntilde;adir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal;">Inicio de s&iacute;ntomas:<span id="oblig" class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <input type="text" id="fecha_inicio_sintomas" name="data[evento][fecha_inicio_sintomas]" value="{valInicioSintomas}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                            <td rowspan="7" colspan="3">
+                                <div id="tablaSignosSintomas">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal;">Notificaci&oacute;n:<span id="oblig" class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <input type="text" id="fecha_notificacion" name="data[evento][fecha_notificacion]" value="{valNotificacion}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal">Hospitalizaci&oacute;n:<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <input type="text" id="fecha_hospitalizacion" name="data[evento][fecha_hospitalizacion]" value="{valHospitalizacion}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal;">Traslado:<span id="oblig" class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <input type="text" id="fecha_traslado" name="data[evento][fecha_traslado]" value="{valTraslado}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal;">Egreso:<span id="oblig" class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <input type="text" id="fecha_egreso" name="data[evento][egreso]" value="{valEgreso}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal">Defunci&oacute;n:<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <input type="text" id="fecha_defuncion" name="data[evento][defuncion]" value="{valDefuncion}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="150px" rowspan="2">
+                                <label style="color:#000000; font-weight:normal">Atencion previa por el evento (detallar):<span class="mandatory">*</span></label>
+                            </td>
+                            <td width="150px">
+                                <input type="text" id="fecha_atencion_previa" name="data[evento][atencion_previa]" value="{valAtencionPrevia}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <input type="text" id="atencion_previa_detalle" name="data[evento][atencion_previa_detalle]" value="{valAtencionPreviaDetalle}" style="width: 100%;" maxlength="255" onChange="verificar()" onBlur="verificar()"/>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <!--            </div>-->
+                <br/>
+                <!-- III. TRATAMIENTO ADMINISTRADO -->
+                <!--            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divTratamientoMuestra" >-->
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>III. TRATAMIENTO ADMINISTRADO</legend>
+                    <table width="100%" border="0" cellpadding="2" cellspacing="2" align="center">
+                        <tr>
+                            <td style="text-align:left;">
+                                <label style="color:#000000; font-weight:normal;">Tratamiento administrado</label>
+                            </td>
+                            <td style="text-align:left;">
+                                <label style="color:#000000; font-weight:normal;">dd/mm/aaaa</label>
+                            </td>
+                            <td style="text-align:center;">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 950px;text-align:left;">
+                                <input type="text" id="tratamiento" name="data[tratamiento][tratamiento]" value="{valTratamiento}" style="width: 100%;"/>
+                            </td>
+                            <td style="width: 170px;text-align:left;">
+                                <input type="text" id="fecha_tabla_tratamiento" name="data[tratamiento][fecha_tabla_tratamiento]" value="{valTablaTratamiento}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                            <td style="width: 100px;text-align:center;">
+                                <a id="anadir" href="javascript:relacionarTratamientos();" class="ui-state-default ui-corner-all ui-button" title="A&ntilde;adir tratamiento administrado"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">A&ntilde;adir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <div id="tablaTratamiento"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <!-- IV. MUESTRAS TOMADAS Y RESULTADOS DE LABORATORIO -->
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="div2" >
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>IV. MUESTRAS TOMADAS Y RESULTADOS DE LABORATORIO</legend>
+                    <table width="100%" border="1" cellpadding="2" cellspacing="2" align="center">
+                        <tr>
+                            <td width="130px" style="text-align:center;">
+                                <label style="color:#000000; font-weight:normal;">Humanas</label>
+                            </td>
+                            <td width="145px" style="text-align:center;">
+                                <label style="color:#000000; font-weight:normal;">dd/mm/aaaa</label>
+                            </td>
+                            <td width="130px" style="text-align:center;">
+                                <label style="color:#000000; font-weight:normal;">Resultados</label>
+                            </td>
+                            <td width="145px" style="text-align:center;">
+                                <label style="color:#000000; font-weight:normal;">dd/mm/aaaa</label>
+                            </td>
+                            <td></td>
+                            <td width="60px"><label style="color:#000000; font-weight:normal">Autopsia:<span class="mandatory">*</span></label></td>
+                            <td width="150px">
+                                <label >Si<input class="normal" type="radio" id="autopsiaSi" name="data[muestra][autopsia]" value="1" onchange="autopsia()" {chkSi}/ ></label>
+                                <label >No<input class="normal" type="radio" id="autopsiaNo" name="data[muestra][autopsia]" value="0" onchange="autopsia()" {chkNo}/></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="130px" style="text-align:center;">
+                                <select id="drpHumanas" name="data[muestra][humanas]" style="width:100%">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkHumanas -->
+                                    <option value="{valHumanas}" {selHumanas}>{opcHumanas}</option>
+                                    <!-- END blkHumanas -->
+                                </select>
+                            </td>
+                            <td width="120px" style="text-align:center;">
+                                <input type="text" id="fecha_humanas" name="data[muestra][fecha_humanas]" value="{valFechaHumanas}" style="width: 120px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                            <td width="130px" style="text-align:center;">
+                                <select id="drpResultados" name="data[muestra][resultados]" style="width:100%">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkResultados -->
+                                    <option value="{valResultdos}" {selResultados}>{opcResultados}</option>
+                                    <!-- END blkResultados -->
+                                </select>
+                            </td>
+                            <td width="120px" style="text-align:center;">
+                                <input type="text" id="fecha_resultados" name="data[muestra][fecha_resultados]" value="{valFechaResultados}" style="width: 120px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                            <td width="60px" style="text-align:center;">
+                                <a id="anadir" href="javascript:relacionarMuestrasHumanas();" class="ui-state-default ui-corner-all ui-button" title="A&ntilde;adir muestra humana"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">A&ntilde;adir
+                                </a>
+                            </td>
+                            <td width="60px"><label id="label_fecha_autopsia" style="display:{valDisplayAutopsia};color:#000000; font-weight:normal">Fecha:<span class="mandatory">*</span></label></td>
+                            <td width="160px">
+                                <div id="display_fecha_autopsia" style="display:{valDisplayAutopsia}">
+                                    <input type="text" id="fecha_autopsia" name="data[muestra][fecha_autopsia]" value="{valFechaAutopsia}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                    <span class="ui-datepicker-append"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" colspan="5">
+                                <div id="tablaMuestrasTomadas">Tabla de muestras tomadas</div>
+                            </td>
+                            <td width="210px" colspan="2"><label id="label_muestra_tomada" style="display:{valDisplayAutopsia};color:#000000; font-weight:normal">Muestra tomada:<span class="mandatory">*</span></label></td>
+                        </tr>
+                        <tr>
+                            <td width="210px" colspan="2">
+                                <select id="drpMuestraTomada" name="data[muestra][muestra_tomada]" style="display:{valDisplayAutopsia};width:100%">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkMuestraTomada -->
+                                    <option value="{valMuestraTomada}" {selMuestraTomada}>{opcMuestraTomada}</option>
+                                    <!-- END blkMuestraTomada -->
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <!--            </div>-->
+                <br/>
+                <!-- V. EXPOSICIÓN Y FACTOR DE RIESGO IDENTIFICADO -->
+                <!--            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divPaciente" >-->
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>V. EXPOSICI&Oacute;N Y FACTOR DE RIESGO IDENTIFICADO</legend>
+                    <table width="100%" border="1" cellpadding="2" cellspacing="2" align="center">
+                        <tr>
+                            <td style="text-align:left;">
+                                <label style="color:#000000; font-weight:normal;">Factor de riesgo identificado</label>
+                            </td>
+                            <td style="text-align:left;">
+                                <label style="color:#000000; font-weight:normal;">dd/mm/aaaa</label>
+                            </td>
+                            <td style="text-align:left;">
+                                <label style="color:#000000; font-weight:normal;">Lugar de la exposici&oacute;n al riesgo</label>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 400px;text-align:left;">
+                                <select id="drpFactor" name="data[factor][factor]" style="width:98%">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkFactor -->
+                                    <option value="{valFactor}" {selFactor}>{opcFactor}</option>
+                                    <!-- END blkFactor -->
+                                </select>
+                            </td>
+                            <td style="width: 170px;text-align:left;">
+                                <input type="text" id="fecha_factor" name="data[factor][fecha_factor]" value="{valFechaFactor}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                            <td style="width: 400px;text-align:left;">
+                                <select id="drpLugarExpo" name="data[factor][lugar_expo]" style="width:98%">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkLugarExpo -->
+                                    <option value="{valLugarExpo}" {selLugarExpo}>{opcLugarExpo}</option>
+                                    <!-- END blkLugarExpo -->
+                                </select>
+                            </td>
+                            <td style="width: 70px;text-align:center;">
+                                <a id="anadir" href="javascript:relacionarFactor();" class="ui-state-default ui-corner-all ui-button" title="A&ntilde;adir factor de riesgo"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">A&ntilde;adir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <div id="tablaFactorRiesgo">Tabla de Factor de Riesgo</div>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <!--            </div>-->
+                <br/>
+                <!-- VI. ACCIONES DE PREVENCION Y CONTROL REALIZADAS -->
+                <!--            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divEvento" >-->
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>VI. ACCIONES DE PREVENCI&Oacute;N Y CONTROL REALIZADAS</legend>
+                    <table border="1" width="100%" cellpadding="2" cellspacing="2" align="center">
+                        <tr>
+                            <td colspan="2">
+                                <label style="color:#000000; font-weight:normal;">Informe de visita a viviendas</label>
+                            </td>
+                            <td style="text-align:center;">
+                                <label style="color:#000000; font-weight:normal;">Acciones con el enfermo, contacto y ambiente</label>
+                            </td>
+                            <td style="text-align:center;">
+                                <label style="color:#000000; font-weight:normal;">dd/mm/aaaa</label>
+                            </td>
+                            <td style="text-align:center;">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="140px">
+                                <label style="color:#000000; font-weight:normal;">Viviendas visitadas:<span id="oblig" class="mandatory">*</span></label>
+                            </td>
+                            <td width="140px">
+                                <input type="text" id="viviendas_visitadas" name="data[acciones][viviendas_visitadas]" value="{valViviendasVisitadas}" style="width: 135px;" maxlength="2" onChange="verificar()" onBlur="verificar()"/>
+                            </td>
+                            <td style="text-align:center;">
+                                <select id="drpAcciones" name="data[acciones][acciones]" style="width:350px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkAcciones -->
+                                    <option value="{valAcciones}" {selAcciones}>{opcAcciones}</option>
+                                    <!-- END blkAcciones -->
+                                </select>
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" id="fecha_tabla_acciones" name="data[acciones][fecha_tabla_acciones]" value="{valTablaAcciones}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                            <td style="text-align:center;">
+                                <a id="anadir" href="javascript:relacionarAcciones();" class="ui-state-default ui-corner-all ui-button" title="A&ntilde;adir acciones con el enfermo"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">A&ntilde;adir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal;">Personas investigadas:<span id="oblig" class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <input type="text" id="personas_investigadas" name="data[acciones][personas_investigadas]" value="{valPersonasInvestigadas}" style="width: 135px;" maxlength="2" onChange="verificar()" onBlur="verificar()"/>
+                            </td>
+                            <td rowspan="6" colspan="3"><div id="tablaAcciones">Tabla de acciones de prevencion y control de amenazas</div></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal;">Menores de 1 a&ntilde;o:<span id="oblig" class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <input type="text" id="menores_uno" name="data[acciones][menores_uno]" value="{valMenoresUno}" style="width: 135px;" maxlength="2" onChange="verificar()" onBlur="verificar()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal">1-4 a&ntilde;os:<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <input type="text" id="uno_cuatro" name="data[acciones][uno_cuatro]" value="{valUnoCuatro}" style="width: 135px;" maxlength="2" onChange="verificar()" onBlur="verificar()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal;">5-14 a&ntilde;os:<span id="oblig" class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <input type="text" id="cinco_catorce" name="data[acciones][cinco_catorce]" value="{valCincoCatorce}" style="width: 135px;" maxlength="2" onChange="verificar()" onBlur="verificar()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal;">15 y mas:<span id="oblig" class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <input type="text" id="quince_mas" name="data[acciones][quince_mas]" value="{valQuinceMas}" style="width: 135px;" maxlength="2" onChange="verificar()" onBlur="verificar()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label style="color:#000000; font-weight:normal">N&deg; casos secundarios<span class="mandatory">*</span></label>
+                            </td>
+                            <td>
+                                <input type="text" id="casos_secundarios" name="data[acciones][casos_secundarios]" value="{valCasosSecundarios}" style="width: 135px;" maxlength="2" onChange="verificar()" onBlur="verificar()"/>
+                            </td>
+                        </tr>
+
+                    </table>
+                </fieldset>
+            </div>
+
+            <!-- VII. INFORMACIÓN DE CONTACTOS -->
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="div3" >
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>VII. INFORMACI&Oacute;N DE CONTACTOS</legend>
+                    <table width="100%" border="1" cellpadding="2" cellspacing="2" align="center">
+                        <tr>
+                            <td width="500px" style="text-align:center;">
+                                <label style="color:#000000; font-weight:normal;">Nombre del contacto</label>
+                            </td>
+                            <td style="text-align:center;">
+                                <label style="color:#000000; font-weight:normal;">Edad</label>
+                            </td>
+                            <td style="text-align:center;">
+                                <label style="color:#000000; font-weight:normal;">Parentesco con el caso</label>
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center;">
+                                <input type="text" id="nombre_contacto" name="data[contactos][nombre_contacto]" value="{valNombreContacto}" style="width: 100%;" maxlength="100"/>
+                            </td>
+                            <td style="text-align:center;">
+                                <input type="text" id="quince_mas" name="data[contactos][edad]" value="{valEdad}" style="width: 135px;" maxlength="3" onChange="verificar()" onBlur="verificar()"/>
+                            </td>
+                            <td style="text-align:center;">
+                                <select id="drpContactos" name="data[contactos][contactos]" style="width:200px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkContactos -->
+                                    <option value="{valAcciones}" {selContactos}>{opcContactos}</option>
+                                    <!-- END blkContactos -->
+                                </select>
+                            </td>
+                            <td style="text-align:center;">
+                                <a id="anadir" href="javascript:relacionarAcciones();" class="ui-state-default ui-corner-all ui-button" title="A&ntilde;adir acciones con el enfermo"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">A&ntilde;adir
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <div id="tablaContactos">Tabla de Informacion de contactos</div>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <!--            </div>-->
+                <br/>
+                <!-- VIII. DIAGNÓSTICO FINAL    -->
+                <!--            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divEvento" >-->
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>VIII. DIAGN&Oacute;STICO FINAL   </legend>
+                    <table border="0" width="100%" cellpadding="2" cellspacing="2" align="center">
+                        <tr>
+                            <td width="20%">
+                                <label style="color:#000000; font-weight:normal;">Diagn&oacute;stico final:<span id="oblig" class="mandatory">*</span></label>
+                            </td>
+                            <td width="45%"></td>
+                            <td style="text-align:center">
+                                <label style="color:#000000; font-weight:normal;">Sosp.</label>
+                            </td>
+                            <td style="text-align:center">
+                                <label style="color:#000000; font-weight:normal;">Prob.</label>
+                            </td>
+                            <td style="text-align:center">
+                                <label style="color:#000000; font-weight:normal;">Conf.</label>
+                            </td>
+                            <td style="text-align:center">
+                                <label style="color:#000000; font-weight:normal;">Desc.</label>
+                            </td>
+                            <td style="text-align:center">
+                                <label style="color:#000000; font-weight:normal;">dd/mm/aaaa</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input type="text" id="evento_final1" name="data[evento][evento_final1]" value="{valEventoFinal1}" style="width: 100%;" maxlength="100"/>
+                                <input type="hidden" id="id_evento_final1" name="data[evento][id_evento_final1]" value="{valIdEventoFinal1}" />
+                            </td>
+                            <td style="text-align:center">
+                                <label><input class="normal" type="radio" id="sosp1" name="data[evento][resultado1]" value="1" {sosp1}/ ></label>
+                            </td>
+                            <td style="text-align:center">
+                                <label><input class="normal" type="radio" id="prop1" name="data[evento][resultado1]" value="2" {prop1}/ ></label>
+                            </td>
+                            <td style="text-align:center">
+                                <label><input class="normal" type="radio" id="conf1" name="data[evento][resultado1]" value="3" {conf1}/ ></label>
+                            </td>
+                            <td style="text-align:center">
+                                <label><input class="normal" type="radio" id="desc1" name="data[evento][resultado1]" value="4" {desc1}/ ></label>
+                            </td>
+                            <td style="text-align:center"">
+                                <input type="text" id="fecha_diag_final1" name="data[evento][fecha_diag_final1]" value="{valFechaDiagFinal1}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input type="text" id="evento_final2" name="data[evento][evento_final2]" value="{valEventoFinal2}" style="width: 100%;" maxlength="100"/>
+                                <input type="hidden" id="id_evento_final2" name="data[evento][id_evento_final2]" value="{valIdEventoFinal2}" />
+                            </td>
+                            <td style="text-align:center">
+                                <label><input class="normal" type="radio" id="sosp2" name="data[evento][resultado2]" value="1" {sosp2}/ ></label>
+                            </td>
+                            <td style="text-align:center">
+                                <label><input class="normal" type="radio" id="prop2" name="data[evento][resultado2]" value="2" {prop2}/ ></label>
+                            </td>
+                            <td style="text-align:center">
+                                <label><input class="normal" type="radio" id="conf2" name="data[evento][resultado2]" value="3" {conf2}/ ></label>
+                            </td>
+                            <td style="text-align:center">
+                                <label><input class="normal" type="radio" id="desc2" name="data[evento][resultado2]" value="4" {desc2}/ ></label>
+                            </td>
+                            <td style="text-align:center">
+                                <input type="text" id="fecha_diag_final2" name="data[evento][fecha_diag_final2]" value="{valFechaDiagFinal2}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="150px">
+                                <label style="color:#000000; font-weight:normal;">Criterio de diagn&oacute;stico:<span id="oblig" class="mandatory">*</span></label>
+                            </td>
+                            <td colspan="7">
+                                <label>Clinico<input class="normal" type="radio" id="criterioClinico" name="data[evento][criterio]" value="1" {chkClinico}/ ></label>
+                                <label>Laboratorio<input class="normal" type="radio" id="criterioLaboratorio" name="data[evento][criterio]" value="2" {chkLaboratorio}/></label>
+                                <label>Nexo epidemiol&oacute;gico <input class="normal" type="radio" id="criterioNexo" name="data[evento][criterio]" value="3" {chkNexo}/></label>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <!--            </div>-->
+                <br/>
+                <!-- IX.  DATOS DEL QUE REALIZA LA INVESTIGACIÓN -->
+                <!--            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divPaciente" >-->
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>IX. DATOS DEL QUE REALIZA LA INVESTIGACI&Oacute;N</legend>
+                    <table border="0" width="100%" cellpadding="2" cellspacing="2" align="center">
+                        <tr>
+                            <td><label style="color:#000000; font-weight:normal;">Nombre de quien registra:</label></td>
+                            <td><label style="width: 250px; text-align:center;" maxlength="45">{valNombreRegistra}</label></td>
+                            <td><label style="color:#000000; font-weight:normal;">Fecha actual:</label></td>
+                            <td><label style="width: 250px; text-align:center;" maxlength="45">{valFechaActual}</label></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><label style="color:#000000; font-weight:normal;">Nombre de quien notifica:<span id="oblig" class="mandatory">*</span></label></td>
+                            <td>
+                                <input type="text" id="nombre_notifica" name="data[datos][nombre_notifica]" value="{valNombreNotifica}" style="width: 135px;" maxlength="100" onChange="verificar()" onBlur="verificar()"/>
+                            </td>
+                            <td><label style="color:#000000; font-weight:normal;">Cargo de quien notifica:<span id="oblig" class="mandatory">*</span></label></td>
+                            <td>
+                                <input type="text" id="cargo" name="data[datos][cargo]" value="{valCargoNotifica}" style="width: 135px;" maxlength="100" onChange="verificar()" onBlur="verificar()"/>
+                            </td>
+                            <td><label style="color:#000000; font-weight:normal;">Fecha de notificaci&oacute;n:<span id="oblig" class="mandatory">*</span></label></td>
+                            <td><input type="text" id="fecha_notifica" name="data[datos][fecha_notifica]" value="{valFechaNotificacion}" style="width: 135px;" maxlength="10" onChange="verificar()" onBlur="verificar()"/>
+                                <span class="ui-datepicker-append"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label style="color:#000000; font-weight:normal;">Instituci&oacute;n:<span id="oblig" class="mandatory">*</span></label></td>
+                            <td colspan="2">
+                                <input type="text" id="institucion" name="data[datos][institucion]" value="{valInstitucion}" style="width: 100%;" maxlength="100" onChange="verificar()" onBlur="verificar()"/>
+                                <input type="hidden" id="id_institucion" name="data[evento][id_institucion]" value="{valIdInstitucion}" />
+                            </td>
+                            <td>
+                                <input type="checkbox" id="institucion_no_disponible" name="data[datos][institucion_no_disponible]" value="{valInstitucionNoDisponible}" onchange="otraInstitucion()">No disponible
+                            </td>
+                            <td><label id="label_region1" style="color:#000000; font-weight:normal;">Regi&oacute;n:</label></td>
+                            <td>
+                                <label id="label_valor_region1" style="width: 250px; text-align:center;" maxlength="45">{valRegion}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label id="label_region2" style="display:{valDisplayOtraRegion};color:#000000; font-weight:normal;">Regi&oacute;n:<span id="oblig" class="mandatory">*</span></label></td>
+                            <td colspan="2">
+                                <select id="drpOtraRegion" name="data[datos][otra_region]" style="width:100%;display:{valDisplayOtraRegion}">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkOtraRegion -->
+                                    <option value="{valOtraRegion}" {selOtraRegion}>{opcOtraRegion}</option>
+                                    <!-- END blkOtraRegion -->
+                                </select>
+                            </td>
+                            <td><label id="label_otra_institucion" style="display:{valDisplayOtraRegion};color:#000000; font-weight:normal;">Otra instituci&oacute;n:<span id="oblig" class="mandatory">*</span></label></td>
+                            <td colspan="2">
+                                <input type="text" id="otra_institucion" name="data[datos][otra_institucion]" value="{valOtraInstitucion}" style="width: 100%;display:{valDisplayOtraRegion}" maxlength="100" onChange="verificar()" onBlur="verificar()"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label style="color:#000000; font-weight:normal;">Observaciones:</label></td>
+                            <td colspan="5">
+                                <input type="text" id="observaciones" name="data[datos][observaciones]" value="{valObservaciones}" style="width: 100%;" maxlength="255" onChange="verificar()" onBlur="verificar()"/>
+                            </td>
+                        </tr>
+                        <!--                        <tr>
+                                                    <td colspan="6"><label style="color:#000000; font-weight:normal;">Observaciones:</label></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="6">
+                                                        <textarea rows="3" cols="80"  id="observaciones" name="data[datos][observaciones]">{valObservaciones}</textarea>
+                                                    </td>
+                                                </tr>-->
+                    </table>
+                </fieldset>
+            </div>
+            <div align="right">
+                <table>
+                    <tr>
+                        <td>
+                            <div style="margin-right:15px">
+                                <a id="next" href="javascript:siguienteTab();" class="ui-state-default ui-corner-all ui-button"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                    Siguiente
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <label style="color:#000000; font-weight:normal; padding-right: 17px">
+                    Los campos marcados con <strong><span class="mandatory">*</span></strong> son obligatorios.
+                </label>
+            </div>
+        </div>
+        <table align="center">
+            <tr>
+                <td>
+                    <div style="margin-top:10px">
+                        <input type="hidden" name="action" id="action" value="{action}" />
+                        <input type="hidden" name="muestra" id="muestra" value="{muestra}" />
+                        {botonGuardar}
+                        {botonCancelar}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

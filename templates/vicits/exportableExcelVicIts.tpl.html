@@ -1,0 +1,174 @@
+<div class="Content" align="left">
+    <form id="formBuscar" action="{urlprefix}reportes/vih/exportableExvelVih.php" method="POST">
+        <h1> Exportaci&oacute;n de las variables del formulario de VIH/SIDA a Excel</h1>
+
+        <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+        </div>
+        <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+        </div>
+        <div id="filtro" >
+            <table><tr style="height: 0.95em"><td></td></tr></table>
+            <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                <legend>FILTROS</legend>
+                <table border="0" cellpadding="2" cellspacing="2" align="center">
+                    <tr>
+                        <td colspan="4" align="right">
+                            <a onmouseout="RollOut(this)" title="Borrar filtro" onmouseover="RollOver(this)" style="text-decoration: none; font-weight: bold;" class="ui-state-default ui-corner-all ui-button" href="javascript:borrarFiltro();">Borrar Filtro</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <label style="color:#000000; font-weight:normal;">Nivel geogr&aacute;fico que pertenece a: <span class="mandatory">*</span></label>
+                            <select id="drpPertenece" name="search[pertenece]" style="width:155px" onchange="setPertenece()">
+                                <option value="0" {pertenece0}>Todos</option>
+                                <option value="1" {pertenece1}>Unidad notificadora</option>
+                                <option value="2" {pertenece2}>Persona</option>
+                            </select>
+                        </td>
+                        <td colspan="2">
+                            <div id="divNivelUn">
+                                <select id="drpNivelUn" name="search[nivel]" style="width:250px" onchange="setNivelUn()">
+                                    <option value="0" {selNivel0}>Seleccione...</option>
+                                    <option value="1" {selNivel1}>Nacional</option>
+                                    <option value="2" {selNivel2}>Provincia</option>
+                                    <option value="3" {selNivel3}>Region</option>
+                                    <option value="4" {selNivel4}>Distrito</option>
+                                    <option value="5" {selNivel5}>Corregimiento</option>
+                                    <option value="6" {selNivel6}>Unidad notificadora</option>
+                                </select>
+                            </div>
+                            <div id="divNivelPer">
+                                <select id="drpNivelPer" name="search[nivelPer]" style="width:250px" onchange="setNivelPer()">
+                                    <option value="0" {selNivelPer0}>Seleccione...</option>
+                                    <option value="1" {selNivelPer1}>Nacional</option>
+                                    <option value="2" {selNivelPer2}>Provincia</option>
+                                    <option value="3" {selNivelPer3}>Region</option>
+                                    <option value="4" {selNivelPer4}>Distrito</option>
+                                    <option value="5" {selNivelPer5}>Corregimiento</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="2">
+                            <div id="divProvincia">
+                                <label >Provincia:<span class="mandatory">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <select id="drpPro" name="search[provincia]" style="width:250px" onchange="setRegionCascada()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkPro -->
+                                    <option value="{valPro}" {selPro}>{opcPro}</option>
+                                    <!-- END blkPro -->
+                                </select>
+                            </div>
+                        </td>
+                        <td colspan="2">
+                            <div id="divRegion">
+                                <label >Regi&oacute;n:<span class="mandatory">*</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <select id="drpReg" name="search[region]" style="width:250px" onchange="setDistritoCascada()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkReg -->
+                                    <option value="{valReg}" {selReg}>{opcReg}</option>
+                                    <!-- END blkReg -->
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div id="divDistrito">
+                                <label >Distrito:<span class="mandatory">*</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <select id="drpDis" name="search[distrito]" style="width:250px" onchange="setCorregimientoCascada()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkDis -->
+                                    <option value="{valDis}" {selDis}>{opcDis}</option>
+                                    <!-- END blkDis -->
+                                </select>
+                            </div>
+                        </td>
+                        <td colspan="2">
+                            <div id="divCorregimiento">
+                                <label >Corregimiento:<span class="mandatory">*</span></label>&nbsp;&nbsp;
+                                <select id="drpCor" name="search[corregimiento]" style="width:250px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkCor -->
+                                    <option value="{valCor}" {selCor}>{opcCor}</option>
+                                    <!-- END blkCor -->
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <div id="divInstalacion">
+                                <label >Instalaci&oacute;n de salud:<span class="mandatory">*</span></label>
+                                <input type="text" id="nombre_un" style="width: 600px;" value="{valUnidad}"/>
+                                <input type="hidden" name="search[id_un]" id="id_un" value="{valIdUn}" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label >Caso:<span class="mandatory">*</span></label></td>
+                        <td >
+                            <select id="drpCaso" name="search[caso]" style="width:250px">
+                                <option value="0">Todos</option>
+                                <option value="1" {selCaso1}>VIH</option>
+                                <option value="2" {selCaso2}>SIDA</option>
+                            </select>
+                        </td>
+                        <td><label >Sexo:<span class="mandatory">*</span></label></td>
+                        <td >
+                            <select id="drpSexo" name="search[sexo]" style="width:250px">
+                                <option value="0">Todos</option>
+                                <option value="M" {selSexo1}>Hombre</option>
+                                <option value="F" {selSexo2}>Mujer</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label >Genero:<span class="mandatory">*</span></label></td>
+                        <td >
+                            <select id="drpGenero" name="search[genero]" style="width:250px">
+                                <option value="0">Todos</option>
+                                <!-- BEGIN blkGenero -->
+                                <option value="{valGenero}" {selGenero}>{opcGenero}</option>
+                                <!-- END blkGenero -->
+                            </select>
+                        </td>
+                        <td><label >Etnia:<span class="mandatory">*</span></label></td>
+                        <td >
+                            <select id="drpEtnia" name="search[etnia]" style="width:250px">
+                                <option value="0">Todos</option>
+                                <!-- BEGIN blkEtnia -->
+                                <option value="{valEtnia}" {selEtnia}>{opcEtnia}</option>
+                                <!-- END blkEtnia -->
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label >Condici&oacute;n paciente:<span class="mandatory">*</span></label></td>
+                        <td colspan="3" >
+                            <select id="drpCondicion" name="search[condicion]" style="width:250px">
+                                <option value="0">Todos</option>
+                                <option value="1" {selCondicion1}>Vivo</option>
+                                <option value="2" {selCondicion2}>Muerto</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table><br/>
+            </fieldset>
+        </div>
+        <table align="center">
+            <tr>
+                <td>
+                    {botonGenerar} &nbsp;
+                </td>
+            </tr>
+        </table>
+        <br/>
+    </form>
+</div>

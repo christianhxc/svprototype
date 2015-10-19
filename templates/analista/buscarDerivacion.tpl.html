@@ -1,0 +1,181 @@
+<div class="Content" align="left">
+
+        <form id="formBuscar" action="{urlprefix}analista/buscarDerivacion.php" method="POST">
+            <h1> B&uacute;squeda de derivaci&oacute;n </h1>
+
+                <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+                </div>
+                <div class="ui-state-error ui-corner-all" id="validacionesDiv" style="padding-bottom: 5px; margin-bottom: 6px; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <label>Imposible realizar b&uacute;squeda:</label>
+                        <p id="validaciones" style="margin-top: 0px; margin-bottom: 0px;"></p>
+                </div>
+                <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+                </div>
+                    <div id="filtroIndividuo" >
+                        <table><tr style="height: 0.95em"><td></td></tr></table>
+                            <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                            <legend>FILTRO</legend>
+                            <!--<label style="font-weight: bold; margin-left: 25px;">DATOS DEL INDIVIDUO</label>
+                            <hr align="center" style="width: 95%; color: #E5F1F4"/>!-->
+                                    <table border="0" cellpadding="2" cellspacing="2" align="" style="margin-left: 15px">
+                                                <tr>
+                                                        <td>
+                                                                <label style="color:#000000; font-weight:normal;">&Aacute;rea de An&aacute;lisis:</label>
+                                                                <select id="area" name="search[area]" style="width:275px">
+								<option value="0">Todas</option>
+                                                                <!-- BEGIN blkAreas -->
+                                                                    <option value="{valAreas}" {selAreas}>{opcAreas}</option>
+                                                                <!-- END blkAreas -->
+                                                                </select>
+                                                        </td>
+                                                        <td>
+                                                                &nbsp;&nbsp;
+                                                                <label style="color:#000000; font-weight:normal;">Evento:</label>
+                                                                <select id="evento" name="search[evento]" style="width:275px">
+                                                                    <option value="0">Todos</option>
+                                                                    <!-- BEGIN blkEventos -->
+                                                                    <option value="{valEventos}" {selEventos}>{opcEventos}</option>
+                                                                    <!-- END blkEventos -->
+                                                                </select>
+                                                        </td>
+                                                </tr>
+                                        </table>
+                                <table border="0" cellpadding="2" cellspacing="2" align="" style="margin-left: 15px">
+                                                <tr>
+                                                         <td>
+                                                                <label style="color:#000000; font-weight:normal;">C&oacute;digo Global:</label>
+                                                        </td>
+                                                        <td>
+                                                                <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">DESDE:</label>
+                                                                <input type="text" id="codigo_global_desde" name="search[global_desde]" style="width: 100px; text-align:center;" value="{gd}" maxlength="7" onKeyPress="return numbersonly(event, false);"/>
+                                                                <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HASTA:</label>
+                                                                <input type="text" id="codigo_global_hasta" name="search[global_hasta]" style="width: 100px; text-align:center;" value="{gh}" maxlength="7" onKeyPress="return numbersonly(event, false);"/>
+                                                        </td>
+                                                        <td>
+                                                                <label style="color:#000000; font-weight:normal;">C&oacute;digo Correlativo:</label>
+                                                        </td>
+                                                        <td>
+                                                                <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">DESDE:</label>
+                                                                <input type="text" id="codigo_correlativo_desde" name="search[correlativo_desde]" style="width: 100px; text-align:center;" value="{cd}" maxlength="7" onKeyPress="return numbersonly(event, false);"/>
+                                                                <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HASTA:</label>
+                                                                <input type="text" id="codigo_correlativo_hasta" name="search[correlativo_hasta]" style="width: 100px; text-align:center;" value="{ch}" maxlength="7" onKeyPress="return numbersonly(event, false);"/>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label style="color:#000000; font-weight:normal">Fecha de Derivaci&oacute;n:</label>
+                                                    </td>
+                                                    <td>
+                                                                <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">DESDE:</label>
+                                                                <input type="text" id="derivacion_desde" name="search[derivacion_desde]" value="{dd}" style="width: 100px; text-align:center;" maxlength="10"/>
+                                                                <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">HASTA:</label>
+                                                                <input type="text" id="derivacion_hasta" name="search[derivacion_hasta]" value="{dh}" style="width: 100px; text-align:center;" maxlength="10"/>
+                                                    </td>
+                                                    <td colspan="3" align="right">
+                                                        <a onmouseout="RollOut(this)" title="Borrar filtro" onmouseover="RollOver(this)" style="text-decoration: none; font-weight: bold;" class="" href="javascript:borrarFiltro();">Borrar Filtro</a>
+                                                    </td>
+                                            </tr>
+                                    </table><br/>
+                            </fieldset>
+                    </div>
+                <table align="center">
+                    <tr>
+                        <td>
+                            {botonBuscar}&nbsp;
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+        </form>
+    <table align ="center" rules="all" cellspacing="0" border="1" style="width: 100%; border-collapse: collapse; margin-top: 5px; display: {mostrarTablaSearch}" id="ctl00_MainContent_gvUsuarios" class="dxgvControl_PlasticBlue">
+            <tbody>
+            <tr>
+                <th scope="col" class="dxgvHeader_PlasticBlue">C&oacute;digo Global
+                    <a href="{prinurl}&search[order]= global ASC, gnumero ASC" title="Ascendente">
+                    <span class="ui-icon ui-icon-circle-triangle-n" style="display:inline-table"></span></a>
+                    <a href="{prinurl}&search[order]= global DESC, gnumero DESC" title="Descendente">
+                    <span class="ui-icon ui-icon-circle-triangle-s" style="display:inline-table"></span></a>
+                </th>
+                <th scope="col" class="dxgvHeader_PlasticBlue" >C&oacute;digo Correlativo
+                    <a href="{prinurl}&search[order]= correlativo ASC, cnumero ASC" title="Ascendente">
+                    <span class="ui-icon ui-icon-circle-triangle-n" style="display:inline-table"></span></a>
+                    <a href="{prinurl}&search[order]= correlativo DESC, cnumero DESC" title="Descendente">
+                    <span class="ui-icon ui-icon-circle-triangle-s" style="display:inline-table"></span></a>
+                </th>
+                <th scope="col" class="dxgvHeader_PlasticBlue">&Aacute;rea de An&aacute;lisis
+                </th>
+                <th scope="col" class="dxgvHeader_PlasticBlue">Evento
+                </th>
+                <th scope="col" class="dxgvHeader_PlasticBlue">Estado
+                </th>
+
+                <!-- BEGIN blkHeaderRevertir -->
+                <th scope="col" class="dxgvHeader_PlasticBlue">
+                    &nbsp;
+                </th>
+                <!-- END blkHeaderRevertir -->
+
+                <!-- BEGIN blkHeaderPruebas -->
+                <th scope="col" class="dxgvHeader_PlasticBlue" width="3%">
+                    &nbsp;
+                </th>
+                <!-- END blkHeaderPruebas -->
+                
+                <!-- BEGIN blkHeaderBorrar -->
+                <th scope="col" class="dxgvHeader_PlasticBlue" width="3%">
+                    &nbsp;
+                </th>
+                <!-- END blkHeaderBorrar -->
+            </tr>
+            <!-- BEGIN blkNoEntradas -->
+            <tr class="dxgvDataRow_PlasticBlue">
+                <td colspan="5" align="center" style="width: 26px;" class="dxgv">
+                    B&uacute;squeda sin resultados.
+                </td>
+            </tr>
+            <!-- END blkNoEntradas -->
+            
+            <!-- BEGIN blkEntradas -->
+            <tr class="dxgvDataRow_PlasticBlue">
+                <td class="dxgv">{global}</td>
+                <td class="dxgv">{correlativo}</td>
+                <td class="dxgv">{area}</td>
+                <td class="dxgv">{evento}</td>
+                <td class="dxgv">{estado}</td>               
+
+		<!-- BEGIN blkOpcionRevertir -->
+                <td class="dxgv" width="2%">
+                    {linkRevertir}
+                </td>
+                <!-- END blkOpcionRevertir -->
+
+                <!-- BEGIN blkOpcionPruebas -->
+                <td class="dxgv" width="2%">
+                    <a style="display: {pruebasMostrarLink}" href="pruebasDerivacion.php?m={id}" onmouseout="RollOut(this)" onmouseover="RollOver(this)" class="ui-state-default ui-corner-all ui-link-button" title="Asignar pruebas">
+                        <span class="ui-icon ui-icon-clipboard"></span>
+                    </a>
+                </td>
+                <!-- END blkOpcionPruebas -->
+
+                <!-- BEGIN blkOpcionBorrar -->
+                <td class="dxgv" width="2%">
+                    <a style ="display: {anularMostrarLink}" href="buscarDerivacion.php?action=B&m={id}" onmouseout="RollOut(this)" onmouseover="RollOver(this)" class="ui-state-default ui-corner-all ui-link-button" title="Anular" onclick="return confirm('\xbfEst\xe1 seguro que desea anular esta derivaci\xf3n?');">
+                        <span class="ui-icon ui-icon-trash"></span>
+                    </a>
+                </td>
+                <!-- END blkOpcionBorrar -->                
+            </tr>
+            <!-- END blkEntradas -->
+            <tr class="dxpPageNumber_PlasticBlue">
+                <td colspan="{colspanTabla}" align="center" style="background-color: white" class="dxgv">
+                    {viewPaginator}
+            	</td>
+            </tr>
+            </tbody>
+	</table>
+</div>

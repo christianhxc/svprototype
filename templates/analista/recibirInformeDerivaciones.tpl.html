@@ -1,0 +1,126 @@
+<div class="Content" align="left">
+        <form id="formBuscar" action="{urlprefix}analista/recibirInformeDerivaciones.php" method="POST">
+            <h2> INFORMES DE RECEPCI&Oacute;N DE DERIVACIONES </h2>
+
+                <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+                </div>
+                <div class="ui-state-error ui-corner-all" id="validacionesDiv" style="padding-bottom: 5px; margin-bottom: 6px; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <label>Imposible volver a generar informe:</label>
+                        <p id="validaciones" style="margin-top: 0px; margin-bottom: 0px;"></p>
+                </div>
+                <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+                </div>
+                        <div id="filtroIndividuo" >
+                            <table><tr style="height: 0.95em"><td></td></tr></table>
+                                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                                <legend>FILTRO</legend>
+                                        <table border="0" cellpadding="2" cellspacing="2" align="">
+                                                <tr>
+                                                    <td width="75px"></td>
+                                                    <td>
+                                                            <label style="color:#000000; font-weight:normal;">&Aacute;rea de An&aacute;lisis:</label>
+                                                            <select id="area" name="search[area]" style="width:365px">
+                                                            <option value="0">Todas</option>
+                                                            <!-- BEGIN blkAreas -->
+                                                                <option value="{valAreas}" {selAreas}>{opcAreas}</option>
+                                                            <!-- END blkAreas -->
+                                                            </select>
+                                                    </td>
+                                                    <td width="150px"></td>
+                                                    <td align="right">
+                                                        &nbsp;&nbsp;
+                                                        <a href="javascript:borrarFiltro();" class="" style="text-decoration: none; font-weight: bold;" onmouseover="RollOver(this)" title="Borrar filtro" onmouseout="RollOut(this)">Borrar Filtro</a>
+                                                    </td>
+                                                </tr>
+                                        </table>
+                                        <table border="0" cellpadding="2" cellspacing="2" align="">
+                                                <tr>
+                                                    <td width="75px">
+                                                    </td>
+                                                    <td>
+                                                            <label style="color:#000000; font-weight:normal;">N&uacute;mero de informe:</label>
+                                                    </td>
+                                                    <td>
+                                                            <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">DESDE:</label>
+                                                            <input type="text" id="idd" name="search[idd]" style="width: 120px; text-align:center;" value="{gd}" maxlength="10" onKeyPress="return numbersonly(event, false);"/>
+                                                            <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HASTA:</label>
+                                                            <input type="text" id="idh" name="search[idh]" style="width: 120px; text-align:center;" value="{gh}" maxlength="10" onKeyPress="return numbersonly(event, false);"/>
+                                                    </td>
+                                                </tr>
+                                        </table><br/>
+                                </fieldset>
+                        </div>
+                <table align="center">
+                    <tr>
+                        <td>
+                        {botonBuscar}&nbsp;
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+        </form>
+    <table rules="all" align="center"cellspacing="0" border="1" style="width: 45%; border-collapse: collapse; margin-top: 5px; display: {mostrarTablaSearch}" id="ctl00_MainContent_gvUsuarios" class="dxgvControl_PlasticBlue">
+            <tbody>
+            <tr>
+                <th scope="col" class="dxgvHeader_PlasticBlue" width="40%;">N&uacute;mero de Informe
+                    <a href="{prinurl}&search[order]= id ASC" title="Ascendente">
+                    <span class="ui-icon ui-icon-circle-triangle-n" style="display:inline-table"></span></a>
+                    <a href="{prinurl}&search[order]= id DESC" title="Descendente">
+                    <span class="ui-icon ui-icon-circle-triangle-s" style="display:inline-table"></span></a>
+                </th>
+                <th scope="col" class="dxgvHeader_PlasticBlue" width="55%;">&Aacute;rea de An&aacute;lisis
+                </th>
+                
+                <!-- BEGIN blkHeaderRecibirTodos -->
+                <th scope="col" class="dxgvHeader_PlasticBlue">
+                    &nbsp;
+                </th>
+                <!-- END blkHeaderRecibirTodos -->
+                
+                <!-- BEGIN blkHeaderSelectivo -->
+                <th scope="col" class="dxgvHeader_PlasticBlue">
+                    &nbsp;
+                </th>
+                <!-- END blkHeaderSelectivo -->
+            </tr>
+
+            <!-- BEGIN blkNoEntradas -->
+            <tr class="dxgvDataRow_PlasticBlue">
+                <td colspan="9" align="center" style="width: 26px;">
+                    B&uacute;squeda sin resultados.
+                </td>
+            </tr>
+            <!-- END blkNoEntradas -->
+
+            <!-- BEGIN blkEntradas -->
+            <tr class="dxgvDataRow_PlasticBlue">
+                <td class="dxgv">{id}</td>
+                <td class="dxgv">{area}</td>
+
+		<!-- BEGIN blkRecibirTodas -->
+                <td  class="dxgv" style="width: 26px;">
+                    {linkRecibirTodas}
+                </td>
+                <!-- END blkRecibirTodas -->
+
+		<!-- BEGIN blkRecibirSelectivo -->
+                <td  class="dxgv" style="width: 26px;">
+                    {linkRecibirSelectivo}
+                </td>
+                <!-- END blkRecibirSelectivo -->
+            </tr>
+            
+            <!-- END blkEntradas -->
+            <tr class="dxpPageNumber_PlasticBlue">
+                <td colspan="3" align="center" style="background-color: white">
+                    {viewPaginator}
+            	</td>
+            </tr>
+            </tbody>
+	</table>
+</div>

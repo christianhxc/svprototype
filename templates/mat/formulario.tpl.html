@@ -1,0 +1,390 @@
+<div class="Content" align="left">
+    <table width="100%">
+        <tr>
+            <td>
+                <h2>Modulo de Alerta Temprana - MAT </h2>
+            </td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+    </table>
+    <div id="divErrorGeneral" class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; display:{disErrorGeneral}; margin-top: 5px;">
+        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+        <label>{valErrorGeneral}</label><br/>
+    </div>
+    <div id="divInfoGeneral" class="ui-state-highlight ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; display:{disInfoGeneral}; margin-top: 5px;" align="left">
+        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+        <label>{valInfoGeneral}</label>
+    </div>
+    <input type="hidden" id="pestana" value="{valPestana}" />
+    <div id="tabs" class="">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+            <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#divListEscenario">Escenarios</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#divListContacto">Contactos</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#divGrupo">Grupos Contactos</a></li>
+            <li class="ui-state-default ui-corner-top"><a href="#divRelContacto">Relacionar contactos</a></li>
+        </ul>
+
+        <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divListEscenario" >
+            <table width="100%">
+                <tr>
+                    <td>
+                        <h2>Listado de Escenarios</h2>
+                    </td>
+                    <td align="right">
+                        <div style="color: #A4BC2B;">
+                            Nuevo Escenario
+                            <a href="javascript:nuevoEscenario()" class="" style="text-decoration: none; font-weight:bold; display:{botNuevo};" title="Nuevo Escenario">
+                                <img title="Nuevo Escenario" border=0 src="{urlprefix}img/add_small.png"/></a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="ui-state-highlight ui-corner-all" id="divInfoEscenario" style="padding-bottom:5px; margin-bottom:6px;display:{disInfoEscenario}; margin-top:5px;" align="left">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <label id="labelInfoEscenario"></label>
+                <input type="hidden" id="infoEscenario" value="{valInfoEscenario}" />
+            </div>
+            <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                <div align="left">
+                    <table border="0" width="80%">
+                        <tr>
+                            <td>
+                                <label>Ingrese una palabra:</label>
+                                <input type="text" name="filtroEscenario" id="filtroEscenario" value="" class="" style="width: 250px;" maxlength="45"/>
+                                <a href="javascript:busquedaEscenario();" class="ui-state-default ui-corner-all ui-button"
+                                onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                    Buscar
+                                </a>
+                                <input type="hidden" name="permisoBorrar" id="permisoBorrar" value="{valPermisoBorrar}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="1">
+                                <label>Esta palabra puede ser nombre o CIE10 del evento o el nombre del nivel geogr&aacute;fico.</label>
+                                <br/><label>Si quiere traer todo el listado dejar en blanco y presionar buscar.</label> 
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+            <br/>
+            <div id="resListEscenario" align="center"></div>
+        </div>
+        <form id="frmEscenario" class="niceform" action="{urlprefix}mat/formulario.php" method="POST" onsubmit="return validarEscenario();">
+            <div class="ui-state-error ui-corner-all" id="divErrorEscenario" style="padding-bottom: 5px; margin-bottom: 6px; margin-top: 5px;">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <label id="labelErrorEscenario" >{valErrorEscenario}</label>
+            </div>
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divEscenario" >
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Escenario</legend>
+                    <input name="data[escenario][id_escenario]" type="hidden" id="id_escenario" value="{valID}" />
+                    <input name="data[grupos][globalGruposRelacionados]" type="hidden" id="globalGruposRelacionados" value="{valGlobalGruposRelacionados}" />
+                    <table border="0" cellpadding="2" cellspacing="2" align="center">
+                        <tr>
+                            <td ><label>Evento seg&uacute;n CIE10:<span class="mandatory">*</span></label></td>
+                            <td colspan="3">
+                                <input type="text" id="evento" style="width:670px" value="{valEvento}"/>
+                                <input type="hidden" name="data[escenario][eve_nombre]" id="eveNombre" value="{valEveNombre}" />
+                                <input type="hidden" name="data[escenario][eve_id]" id="eveId" value="{valEveId}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label >Algoritmo a utilizar:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpAlgoritmo" name="data[escenario][algoritmo]" style="width:250px">
+                                    <option value="0">Seleccione...</option>
+                                    <option value="1" {selAlgo1}>Caso individual (Baja frecuencia)</option>
+                                    <option value="2" {selAlgo2}>Casos agrupados (alta frecuencia)</option>
+                                </select>
+                            </td>
+                            <td colspan="2"> </td>
+                        </tr>
+                        <tr>
+                            <td><label >Seleccionar Nivel geogr&aacute;fico:<span class="mandatory">*</span></label></td>
+                            <td colspan="3">
+                                <select id="drpNivelGeo" name="data[escenario][nivel_geo]" onchange="nivelGeo()">
+                                    <option value="0">Seleccione...</option>
+                                    <option value="1" {selNivelGeo1}>Nacional</option>
+                                    <option value="2" {selNivelGeo2}>Provincia</option>
+                                    <option value="3" {selNivelGeo3}>Region salud</option>
+                                    <option value="4" {selNivelGeo4}>Distrito</option>
+                                    <option value="5" {selNivelGeo5}>Corregimiento</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td id="divPolitica1"><label >Provincia:<span class="mandatory">*</span></label></td>
+                            <td id="divPolitica2">
+                                <select id="drpProvincia" name="data[escenario][provincia]" style="width:250px" onchange="setRegionCascada()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkProvincia -->
+                                    <option value="{valProvincia}" {selProvincia}>{opcProvincia}</option>
+                                    <!-- END blkProvincia -->
+                                </select>
+                            </td>
+                            <td id="divPolitica3"><label >Regi&oacute;n de salud:<span class="mandatory">*</span></label></td>
+                            <td id="divPolitica4">
+                                <select id="drpRegion" name="data[escenario][region]" style="width:250px" onchange="setDistritoCascada()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkRegion -->
+                                    <option value="{valRegion}" {selRegion}>{opcRegion}</option>
+                                    <!-- END blkRegiono -->
+                                </select>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td id="divPolitica5"><label >Distrito:<span class="mandatory">*</span></label></td>
+                            <td id="divPolitica6">
+                                <select id="drpDistrito" name="data[escenario][distrito]" style="width:250px" onchange="setCorregimientoCascada()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkDistrito -->
+                                    <option value="{valDistrito}" {selDistrito}>{opcDistrito}</option>
+                                    <!-- END blkDistrito -->
+                                </select>
+                            </td>
+                            <td id="divPolitica7"><label >Corregimiento:<span class="mandatory">*</span></label></td>
+                            <td id="divPolitica8">
+                                <select id="drpCorregimiento" name="data[escenario][corregimiento]" style="width:250px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkCorregimiento -->
+                                    <option value="{valCorregimiento}" {selCorregimiento}>{opcCorregimiento}</option>
+                                    <!-- END blkCorregimiento -->
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label >Tiempo para lanzar la alerta:<span class="mandatory">*</span></label></td>
+                            <td>
+                                <label>Inmediato </label><input class="normal" type="radio" id="check_tiempo_inm" name="data[escenario][tiempo]" value="1" onchange="diaSemana()" {valTiempoInm}/>
+                                <label>Semanal </label><input class="normal" type="radio" id="check_tiempo_sem" name="data[escenario][tiempo]" value="2" onchange="diaSemana()" {valTiempoSem}/>
+                            </td>
+                            <td id="divTiempo1"><label >D&iacute;a de corte de la semana<span class="mandatory">*</span></label></td>
+                            <td id="divTiempo2">
+                                <select id="drpDiaCorte" name="data[escenario][diaCorte]" style="width:250px">
+                                    <option value="0">Seleccione...</option>
+                                    <option value="1" {selDiaCorte1}>Lunes</option>
+                                    <option value="2" {selDiaCorte2}>Martes</option>
+                                    <option value="3" {selDiaCorte3}>Miercoles</option>
+                                    <option value="4" {selDiaCorte4}>Jueves</option>
+                                    <option value="5" {selDiaCorte5}>Viernes</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td ><label >Grupo de contactos:<span class="mandatory">*</span></label></td>
+                            <td colspan="2">
+                                <select id="drpGrupoContacto" name="data[escenario][grupoContacto]" style="width:250px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkGrupoContacto -->
+                                    <option value="{valGrupoContacto}" {selGrupoContacto}>{opcGrupoContacto}</option>
+                                    <!-- END blkGrupoContacto -->
+                                </select>
+                            </td>
+                            <td >
+                                <a id="anadir" href="javascript:relacionarGrupo();" class="ui-state-default ui-corner-all ui-button" title="A&ntilde;adir"
+                                    onmouseover="RollOver(this)" onmouseout="RollOut(this)">A&ntilde;adir</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="width:400px;"><div id="divRelGrupos"></div></td>
+                        </tr>
+                        <tr><td colspan="4">&nbsp;</td></tr>
+                        <tr>
+                            <td colspan="4"><label >Escribir parte del correo electr&oacute;nico que se enviar&aacute; cuando se active la alerta:</label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="text-align:center;">
+                                <textarea id="parteEmail" name="data[escenario][parteEmail]" cols="100" rows="4">{valParteEmail}</textarea> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >Nombre de quien crea:</td>
+                            <td ><input type="text" id="nombreCrear" name="data[escenario][nombreCrear]" style="width:100%" value="{valNombreCrear}" readonly="readonly" disabled="disabled" /></td>   
+                            <td >Fecha de creaci&oacute;n</td>
+                            <td ><input type="text" id="fechaCrear" name="data[escenario][fechaCrear]" value="{valFechaCrear}" readonly="readonly" disabled="disabled" /></td>
+                        </tr>
+                        <tr><td colspan="4">&nbsp;</td></tr>
+                        <tr>
+                            <td colspan="4" style="text-align:center;">
+                                {btnGuardarEscenario}
+                                {btnCancelarEscenario}
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <input type="hidden" name="actionEscenario" id="actionEscenario" value="{actionEscenario}" />
+        </form>  
+        <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divListContacto" >
+            <table width="100%">
+                <tr>
+                    <td>
+                        <h2>Listado de Contactos</h2>
+                    </td>
+                    <td align="right">
+                        <div style="color: #A4BC2B;">
+                            Nuevo Contacto
+                            <a href="javascript:nuevoContacto()" class="" style="text-decoration: none; font-weight:bold; display:{botNuevo};" title="Nuevo Contacto">
+                                <img title="Nuevo Contacto" border=0 src="../img/add_small.png"/></a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="ui-state-highlight ui-corner-all" id="divInfoContacto" style="padding-bottom:5px; margin-bottom:6px;display:{disInfoContacto}; margin-top:5px;" align="left">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <label id="labelInfoContacto"></label>
+            </div>
+            
+            <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                <div align="left">
+                    <table border="0" width="100%">
+                        <tr>
+                            <td>
+                                <label>Ingrese una palabra:</label>
+                                <input type="text" name="filtroContacto" id="filtroContacto" value="" class="" style="width: 250px;" maxlength="45"/>
+                                <a href="javascript:busquedaContacto();" class="ui-state-default ui-corner-all ui-button"
+                                onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                    Buscar
+                                </a>
+                                <input type="hidden" name="permisoBorrar" id="permisoBorrar" value="{valPermisoBorrar}" />
+                                <input type="hidden" name="permisoReporte" id="permisoReporte" value="{valPermisoReporte}" />
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="1">
+                                <label>Esta palabra puede ser nombre o apellidos del contacto.</label>
+                                <br/><label>Si quiere traer todo el listado dejar en blanco y presionar buscar.</label> 
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+            <br/>
+            <div id="resListContacto" align="center"></div>
+        </div>
+        <form id="frmContacto" class="niceform" action="{urlprefix}mat/formulario.php" method="POST" onsubmit="return validarContacto();">
+            <div class="ui-state-error ui-corner-all" id="divErrorContacto" style="padding-bottom: 5px; margin-bottom: 6px; display:{disErrorContacto}; margin-top: 5px;">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <label id="labelErrorContacto"></label>
+            </div>
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divContacto" >
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Datos de Contacto</legend>
+                    <input name="data[contacto][id_contacto]" type="hidden" id="id_contacto" value="{valIdContacto}" />
+                    <table border="0" align="center">
+                        <tr>
+                            <td width="150px"><label>Nombres:</label></td>
+                            <td ><input type="text" name="data[contacto][nombres]" id="contNombres" style="width:250px" value="{valContNombres}"/></td>
+                            <td width="150px"><label>Apellidos:</label></td>
+                            <td ><input type="text" name="data[contacto][apellidos]" id="contApellidos" style="width:250px" value="{valContApellidos}"/></td>
+                        </tr>
+                        <tr>
+                            <td width="150px"><label>Email:</label></td>
+                            <td ><input type="text" name="data[contacto][email]" id="contEmail" style="width:250px" value="{valContEmail}" onchange="javascript:validarCorreo()"/></td>
+                            <td width="150px"><label>Telefono:</label></td>
+                            <td ><input type="text" name="data[contacto][telefono]" id="contTelefono" style="width:250px" value="{valContTelefono}"/></td>
+                        </tr>
+                        <tr>
+                            <td><label>Status:</label></td>
+                            <td>
+                                <label>Activo </label><input class="normal" type="radio" id="check_status_act" name="data[contacto][status]" value="1" {valContStatusAct}/>
+                                <label>Inactivo </label><input class="normal" type="radio" id="check_status_ina" name="data[contacto][status]" value="2" {valContStatusIna}/>
+                            </td>
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr><td colspan="4">&nbsp;</td></tr>
+                        <tr>
+                            <td colspan="4" style="text-align:center;">
+                                {btnGuardarContacto}
+                                {btnCancelarContacto}
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="actionContacto" id="actionContacto" value="{actionContacto}" />
+                </fieldset>
+            </div>
+        </form>
+
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divGrupo" >    
+                <div class="ui-state-highlight ui-corner-all" id="divInfoGrupo" style="padding-bottom:5px; margin-bottom:6px;display:{disInfoEscenario}; margin-top:5px;" align="left">
+                    <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                    <label id="labelInfoGrupo"></label>
+                </div>
+                <div class="ui-state-error ui-corner-all" id="divErrorGrupo" style="padding-bottom: 5px; margin-bottom: 6px; display:{disErrorEscenario}; margin-top: 5px;">
+                    <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                    <label id="labelErrorGrupo"></label>
+                </div>
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <h2>Listado de Grupos de contacto</h2>
+                        </td>
+                    </tr>
+                </table>
+                
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Grupo Contacto</legend>
+                    <div id ="resListGrupo"></div>
+                </fieldset>
+            </div>
+            
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divRelContacto" >    
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Relacionar Contactos con sus respectivos Grupos:</legend>
+                    <div class="ui-state-highlight ui-corner-all" id="divInfoRel" style="padding-bottom:5px; margin-bottom:6px;display:{disInfoRel}; margin-top:5px;" align="left">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <label id="labelInfoRel"></label>
+                    </div>
+                    <div class="ui-state-error ui-corner-all" id="divErrorRel" style="padding-bottom: 5px; margin-bottom: 6px; display:{disErrorRel}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <label id="labelErrorRel"></label>
+                    </div>
+                    <table  align="center" border="0" cellpadding="2" cellspacing="2" width="80%" >
+                        <tr>
+                            <td><label>Grupo: </label></td>
+                            <td >
+                                <select id="drpSelGrupo" style="width:400px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkSelGrupo -->
+                                    <option value="{valSelGrupo}">{opcSelGrupo}</option>
+                                    <!-- END blkSelGrupo -->
+                                </select>
+                            </td>
+                            <td >
+                                <a id="filtrar" href="javascript:traerTabla();" class="ui-state-default ui-corner-all ui-button" title="Filtrar"
+                                    onmouseover="RollOver(this)" onmouseout="RollOut(this)">Filtrar</a>
+                            </td>
+                        </tr>
+                        <tr><td colspan="3">&nbsp;</td></tr>
+                        <tr>
+                            <td colspan="3">
+                                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                                    <legend>Listado de Contactos</legend><br>
+                                    <table align="center">
+                                        <tr>
+                                            <td>
+                                                <div  id="divTablaContactos"></div>
+                                            </td>
+                                        </tr>
+                                        
+                                    </table>
+                                </fieldset>
+                            </td>
+                        </tr>
+                        <tr><td colspan="3">&nbsp;</td></tr>
+                        <tr>
+                            <td colspan="3" style="text-align:center;">
+                                {btnGuardarRel}
+                                {btnCancelarRel}
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    <input type="hidden" name="action" id="action" value="{action}" />
+                </fieldset>
+            </div>
+        </div>
+      
+</div>

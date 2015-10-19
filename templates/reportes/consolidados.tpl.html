@@ -1,0 +1,80 @@
+<div class="Content" align="left">
+            <h2> Reportes Consolidados por Evento </h2>
+
+                <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+                </div>
+                <br/>
+
+                <div align="center">
+                    <fieldset class="ui-widget ui-widget-content ui-corner-all" style="width: 55%">
+                        <legend>Filtro</legend>
+
+                        <table align="left" style="padding-left: 25%">
+                            <tr>
+                                <td>
+                                    &Aacute;rea de an&aacute;lisis: 
+                                </td>
+                                <td>
+                                    <select id="area" name="area" style="width: 210px">
+                                        <option value="0">Seleccione...</option>
+                                        <!-- BEGIN blkAreas -->
+                                        <option value="{valAreas}" {selAreas}>{opcAreas}</option>
+                                        <!-- END blkAreas -->
+                                    </select
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Evento: 
+                                </td>
+                                <td>
+                                    <select id="evento" name="evento" style="width: 210px">
+                                        <option value="0">Todos...</option>
+                                        <!-- BEGIN blkEventos -->
+                                        <option value="{valEventos}" {selEventos}>{opcEventos}</option>
+                                        <!-- END blkEventos -->
+                                    </select
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    A&ntilde;o: 
+                                </td>
+                                <td>
+                                    Desde: <input type="text" id="anio_desde" name="search[ad]" maxlength="4" style=" width: 55px" onKeyPress="return numbersonly(event, false);"/>
+                                    &nbsp;Hasta: <input type="text" id="anio_hasta" name="search[ah]" maxlength="4" style=" width: 55px" onKeyPress="return numbersonly(event, false);"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Semana:
+                                </td>
+                                <td>
+                                    Desde: <input type="text" id="semana_desde" name="search[sd]" maxlength="2" style=" width: 55px" onKeyPress="return numbersonly(event, false);"/>
+                                    &nbsp;Hasta: <input type="text" id="semana_hasta" name="search[sh]" maxlength="2" style=" width: 55px" onKeyPress="return numbersonly(event, false);"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <form id="radio_form" action="">
+                                    PDF: <input type="radio" id ="pdf" name="search[pdf]" onclick="pdf_xls()" checked value="1">
+                                    &nbsp;
+                                    Excel: <input type="radio" id ="xls" name="search[xls]" onclick="xls_pdf()" value ="2">
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+                        <a href="javascript: borrarFiltro();">Borrar filtro</a>
+                    </fieldset>
+
+                <table align="center">
+                    <tr>
+                        <td>
+                            {botonGenerar}&nbsp;
+                        </td>
+                    </tr>
+                </table>
+                </div>
+</div>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="consolidado_clinico_sub_grupo_edad" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="87b16703-3877-4ce9-80a0-31cfe5af75fb">
+	<property name="ireport.zoom" value="1.9487171000000014"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="numero" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFin" class="java.lang.String"/>
+	<parameter name="fechaIni" class="java.lang.String"/>
+	<parameter name="numeroFin" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[40]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idUn" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="add_idun_sql" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[($P{idUn} != null ) ? " and vic.id_un = "+$P{idUn} : ""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select (
+select COUNT(vic.id_vicits_form ) as total
+from vicits_form vic
+where vic.fecha_consulta between STR_TO_DATE('01/01/1900', '%d/%m/%Y') and DATE_SUB(STR_TO_DATE($P{fechaIni}, '%d/%m/%Y'), INTERVAL 1 DAY)
+  and vic.per_edad between (18+($P{numero}*4)) and (21+($P{numeroFin}*4))
+$P!{add_idun_sql}
+) as total_antes,
+(
+select COUNT(vic.id_vicits_form ) as ts_nuevo
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vic.antec_motivo_consulta = 1
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and vic.per_edad between (18+($P{numero}*4)) and (21+($P{numeroFin}*4))
+  and per.sexo = 'F'
+$P!{add_idun_sql}
+  ) as ts_nuevo,
+(
+select COUNT(vic.id_vicits_form ) as hsh_nuevo
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vic.antec_motivo_consulta = 1
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and vic.per_edad between (18+($P{numero}*4)) and (21+($P{numeroFin}*4))
+  and per.sexo = 'M'
+  and (per.id_genero <> 3 and per.id_genero <> 4 and per.id_genero <> 5)
+$P!{add_idun_sql}
+  ) as hsh_nuevo,
+(
+select COUNT(vic.id_vicits_form ) as trans_nuevo
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vic.antec_motivo_consulta = 1
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and vic.per_edad between (18+($P{numero}*4)) and (21+($P{numeroFin}*4))
+  and per.sexo = 'M'
+  and (per.id_genero = 3 or per.id_genero = 4 or per.id_genero = 5)
+$P!{add_idun_sql}
+  ) as trans_nuevo,
+(
+select COUNT(vic.id_vicits_form ) as ts_viejo
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vic.antec_motivo_consulta <> 1
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and vic.per_edad between (18+($P{numero}*4)) and (21+($P{numeroFin}*4))
+  and per.sexo = 'F'
+$P!{add_idun_sql}
+  ) as ts_viejo,
+(
+select COUNT(vic.id_vicits_form ) as hsh_viejo
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vic.antec_motivo_consulta <> 1
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and vic.per_edad between (18+($P{numero}*4)) and (21+($P{numeroFin}*4))
+  and per.sexo = 'M'
+  and (per.id_genero <> 3 and per.id_genero <> 4 and per.id_genero <> 5)
+$P!{add_idun_sql}
+  ) as hsh_viejo,
+(
+select COUNT(vic.id_vicits_form ) as trans_viejo
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vic.antec_motivo_consulta <> 1
+  and vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and vic.per_edad between (18+($P{numero}*4)) and (21+($P{numeroFin}*4))
+  and per.sexo = 'M'
+  and (per.id_genero = 3 or per.id_genero = 4 or per.id_genero = 5)
+$P!{add_idun_sql}
+  ) as trans_viejo
+
+from vicits_form vic
+where vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+and vic.per_edad between (18+($P{numero}*4)) and (21+($P{numeroFin}*4))
+$P!{add_idun_sql}
+limit 1]]>
+	</queryString>
+	<field name="total_antes" class="java.lang.Long"/>
+	<field name="ts_nuevo" class="java.lang.Long"/>
+	<field name="hsh_nuevo" class="java.lang.Long"/>
+	<field name="trans_nuevo" class="java.lang.Long"/>
+	<field name="ts_viejo" class="java.lang.Long"/>
+	<field name="hsh_viejo" class="java.lang.Long"/>
+	<field name="trans_viejo" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement uuid="689c9c02-a5ff-41bf-8ba9-1ac9f2eef2a6" x="65" y="0" width="100" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_antes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b624af67-6334-4ab1-83ec-636c3101f944" x="165" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ts_nuevo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ec833a6a-ae71-444b-9eb6-64dd02e9e25c" x="200" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{hsh_nuevo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="903a5f3f-66ee-4bf2-b2a5-3c0ee020e663" x="235" y="0" width="45" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{trans_nuevo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a5573669-7d35-4a4d-9ce2-6206c25e1829" x="315" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ts_viejo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6f8db571-c0c2-477a-9911-0aa43d0c2636" x="350" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{hsh_viejo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4dca2a6f-4b74-4b33-b55f-f5da83be4482" x="385" y="0" width="45" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{trans_viejo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4bccdd52-0182-456f-97c7-fad19d965145" x="0" y="0" width="65" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[(18+($P{numero}*4))+" - "+(21+($P{numeroFin}*4))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="681989e1-64f3-4f32-84a5-55bc87488b3c" x="280" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ts_nuevo}+$F{hsh_nuevo}+$F{trans_nuevo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="af9555d0-b152-4e7c-9613-ce9c46e72ce2" x="430" y="0" width="35" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ts_viejo}+$F{hsh_viejo}+$F{trans_viejo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4b20a664-037f-4576-bf21-d7829960d4cd" x="465" y="0" width="90" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_antes}+$F{ts_nuevo}+$F{hsh_nuevo}+$F{trans_nuevo}+
+$F{ts_viejo}+$F{hsh_viejo}+$F{trans_viejo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

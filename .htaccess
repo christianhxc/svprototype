@@ -1,0 +1,4 @@
+#php_value include_path ".;C:/xampp/php/pear/;C:/xampp/htdocs/sisvig2/"
+php_value include_path ".:/usr/share/pear:/usr/share/php:/var/www/html/sisvig2/"
+AddCharset UTF-8 .php
+AddCharset ISO-8859-1 .html

@@ -1,0 +1,162 @@
+<div class="wrapper col4">
+<div class="Content" id="container">
+    <div class="ui-state-error ui-corner-all"
+            style="padding-bottom:5px; margin-bottom:6px;display:{disError}; margin-top:5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>Ocurrio un error al momento de borrar los datos, por favor intentelo de nuevo.</label><br>
+    </div>
+
+    <div class="ui-state-highlight ui-corner-all"
+        style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;">
+        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+        <label>{desInfo}</label>
+    </div>
+
+  <br>
+    <!-- BEGIN blkAgregar -->
+    <a href="data.php" class="ui-state-default ui-corner-all ui-button"
+                    onmouseover="RollOver(this)" onmouseout="RollOut(this)" title="Ingresar datos">
+                    <span class="ui-icon-add-data"></span>
+    </a>&nbsp;<!-- END blkAgregar -->
+    <table width="100%">
+        <tr>
+            <td>
+                <h2>Denominadores </h2>
+            </td>
+            <td align="right">
+                <div style="color: #A4BC2B;" >
+                    Nuevo Formulario
+                    <a title="Ingresar nuevo formulario de denominadores" style="text-decoration: none; font-weight:bold;" class="" href="data.php">
+                        <img width="30px" height="30px" border="0" src="../img/add_small.png" title="Nuevo formulario"></a>
+                </div>
+            </td>
+        </tr>
+    </table>    
+    <fieldset class="ui-widget ui-widget-content ui-corner-all">
+        <legend>Filtro de datos</legend>
+        <div align="left">
+            <form id="frmSearch" name="frmSearch" method="post" action="index.php">
+                <table border="0" cellspacing="2" cellpadding="2">
+                    <tr>
+                        <td colspan="4" valign="top">
+                            * Es recomendable filtrar solo por semana o solo por fecha de notificaci&oacute;n
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top"><strong>Semana epidemiol&oacute;gica:</strong></td>
+                        <td colspan="2" valign="top">
+                            <input style="margin-left: 51px;" type="text" name="search[semana_epidemiologica]" id="semana_epidemiologica" size="10" maxlength="10" value="{semana_epidemiologica}" />
+                            <strong  style="margin-left: 30px;" >  A&ntilde;o</strong> &nbsp;
+                            <input type="text" name="search[semana_anio]" id="semana_anio" size="10" maxlength="4" value="{semana_anio}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td valign="top"><strong>Fecha de Notificaci&oacute;n:</strong></td>
+                        <td colspan="2" valign="top">Desde &nbsp;
+                            <input name="search[desde]" type="text" id="fecha_notificacion_desde" style="width:80px" value="{desde}" maxlength="10"  />
+                            Hasta &nbsp;
+                            <input name="search[hasta]" type="text" id="fecha_notificacion_hasta" style="width:80px" value="{hasta}" maxlength="10"  /></td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a href="#" onclick="$('form:frmSearch').submit();" class="ui-state-default ui-corner-all ui-button"
+                                    onmouseover="RollOver(this)" onmouseout="RollOut(this)" title="Buscar">
+                            <span>Buscar</span>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </fieldset>
+
+    <table rules="all" cellspacing="0" border="1" style="dwidth: 100%; border-collapse: collapse; margin-top: 5px;" id="ctl00_MainContent_gvUsuarios" class="dxgvControl_PlasticBlue">
+        <tbody>
+        <tr>
+        <!-- BEGIN blkHeaderModificar -->
+            <th scope="col" dclass="dxgvHeader_PlasticBlue">&nbsp;</th>
+        <!-- END blkHeaderModificar -->
+        <!-- BEGIN blkHeaderBorrar -->
+            <th scope="col" dclass="dxgvHeader_PlasticBlue">&nbsp;</th>
+        <!-- END blkHeaderBorrar -->
+            <th scope="col" dclass="dxgvHeader_PlasticBlue">&nbsp;</th>
+            <th scope="col" dclass="dxgvHeader_PlasticBlue">&nbsp;</th>
+            <th scope="col" class="dxgvHeader_PlasticBlue">No.
+                <a href="{prinurl}&search[order]=no_denominador ASC" title="Ascendente">
+                <span class="ui-icon ui-icon-circle-triangle-n" style="display:inline-table"></span></a>
+                <a href="{prinurl}&search[order]=no_denominador DESC" title="Descendente">
+                <span class="ui-icon ui-icon-circle-triangle-s" style="display:inline-table"></span></a>
+            </th>
+            <th scope="col" class="dxgvHeader_PlasticBlue">Unidad notificadora
+                <a href="{prinurl}&search[order]=unidad_notificadora ASC" title="Ascendente">
+                <span class="ui-icon ui-icon-circle-triangle-n" style="display:inline-table"></span></a>
+                <a href="{prinurl}&search[order]=unidad_notificadora DESC" title="Descendente">
+                <span class="ui-icon ui-icon-circle-triangle-s" style="display:inline-table"></span></a>
+            </th>
+            <th scope="col" class="dxgvHeader_PlasticBlue">Fecha de Notificaci&oacute;n
+                <a href="{prinurl}&search[order]=fecha_notificacion ASC" title="Ascendente">
+                <span class="ui-icon ui-icon-circle-triangle-n" style="display:inline-table"></span></a>
+                <a href="{prinurl}&search[order]=fecha_notificacion DESC" title="Descendente">
+                <span class="ui-icon ui-icon-circle-triangle-s" style="display:inline-table"></span></a>
+            </th>
+            <th scope="col" class="dxgvHeader_PlasticBlue">Semana
+                <a href="{prinurl}&search[order]=semana_epidemiologica ASC" title="Ascendente">
+                <span class="ui-icon ui-icon-circle-triangle-n" style="display:inline-table"></span></a>
+                <a href="{prinurl}&search[order]=semana_epidemiologica DESC" title="Descendente">
+                <span class="ui-icon ui-icon-circle-triangle-s" style="display:inline-table"></span></a>
+            </th>
+            <th scope="col" class="dxgvHeader_PlasticBlue">A&ntilde;o
+                <a href="{prinurl}&search[order]=anio ASC" title="Ascendente">
+                <span class="ui-icon ui-icon-circle-triangle-n" style="display:inline-table"></span></a>
+                <a href="{prinurl}&search[order]=anio DESC" title="Descendente">
+                <span class="ui-icon ui-icon-circle-triangle-s" style="display:inline-table"></span></a>
+            </th>
+        </tr>
+        <!-- BEGIN blkNoEntradas -->
+        <tr class="dxgvDataRow_PlasticBlue">
+            <td colspan="9" align="center" style="width: 26px;">
+                No hay datos bajo los criterios de busqueda realizado
+            </td>
+        </tr>
+        <!-- END blkNoEntradas -->
+        <!-- BEGIN blkEntradas -->
+        <tr class="dxgvDataRow_PlasticBlue">
+            <!-- BEGIN blkOpcionModificar -->
+            <td align="center" style="width: 26px;">
+                <a href="data.php?id={id_denominador}&action=M" class="ui-state-defaul-table ui-corner-all ui-link-button" title="Editar">
+                <span class="ui-icon ui-icon-pencil"></span></a>
+            </td>
+            <!-- END blkOpcionModificar -->
+            <!-- BEGIN blkOpcionBorrar -->
+            <td align="center" style="width: 26px;">
+                <a href="data.php?id={id_denominador}&action=X"  class="ui-state-default-table ui-corner-all ui-link-button" title="Borrar"
+                   onclick="return confirm('¿Esta seguro que desea borrar esta entrada?');">
+                <span class="ui-icon ui-icon-trash"></span></a>
+            </td>
+            <!-- END blkOpcionBorrar -->
+
+            <td align="center" style="width: 26px;">
+                <a href="data.php?id={id_denominador}&action=M" class="ui-state-defaul-table ui-corner-all ui-link-button" title="Editar">
+                <span class="ui-icon ui-icon-pencil"></span></a>
+            </td>
+            <td align="center" style="width: 26px;">
+                <a href="data.php?id={id_denominador}&action=X"  class="ui-state-default-table ui-corner-all ui-link-button" title="Borrar"
+                   onclick="return confirm('¿Esta seguro que desea borrar esta entrada?');">
+                <span class="ui-icon ui-icon-trash"></span></a>
+            </td>
+            <td class="dxgv">{no_denominador}</td>
+            <td class="dxgv">{unidad_notificadora}</td>
+            <td class="dxgv">{fecha_notificacion}</td>
+            <td class="dxgv">{semana_epidemilogica}</td>
+            <td class="dxgv">{anio}</td>
+        </tr>
+        <!-- END blkEntradas -->
+        <tr class="dxpPageNumber_PlasticBlue">
+            <td colspan="9">
+                {viewPaginator}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>

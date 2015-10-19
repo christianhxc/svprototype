@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_individal_sub_its" pageWidth="200" pageHeight="802" columnWidth="200" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="21b34990-4102-4637-9659-2ad1e7c392f2">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="Table Dataset 1" uuid="030d0c0d-ab6c-42c0-a9e7-af918e25d039"/>
+	<parameter name="idVicitsForm" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select cat_ITS.nombre_ITS
+from vicits_its its
+inner join cat_ITS ON cat_ITS.id_ITS = its.id_ITS
+where its.id_vicits_form = $P{idVicitsForm}]]>
+	</queryString>
+	<field name="nombre_ITS" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement uuid="f944881b-d021-4df0-96fe-ff1238c3b02f" mode="Opaque" x="0" y="0" width="200" height="20" forecolor="#FFFFFF" backcolor="#628529"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre ITS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="aef9d5f2-54ea-4811-820f-f9951690b1bc" stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="200" height="15" backcolor="#E5EFD0"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="0.25" lineColor="#999999"/>
+					<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="0.25" lineColor="#999999"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_ITS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

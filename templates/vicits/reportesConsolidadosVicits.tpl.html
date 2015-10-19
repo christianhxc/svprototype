@@ -1,0 +1,71 @@
+<div class="Content" align="left">
+    <form id="formBuscar" action="{urlprefix}reportes/vicits/ReportesConsolidadosVicits.php" method="POST">
+        <h1> Reportes consolidados para el formulario de VICITS a Excel seg&uacute;n las fechas seleccionadas</h1>
+
+        <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+        </div>
+        <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+        </div>
+        <div id="filtro" >
+            <table><tr style="height: 0.95em"><td></td></tr></table>
+            <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                <legend>FILTROS</legend>
+                <table border="0" cellpadding="2" cellspacing="2" align="center">
+                    <tr>
+                        <td ><label >Fecha inicial:<span class="mandatory">*</span> </label></td>
+                        <td ><input type="text" id="fecha_ini" style="width: 100px;" /></td>
+                        <td ><label > a fecha final:<span class="mandatory">*</span> </label></td>
+                        <td ><input type="text" id="fecha_fin" style="width: 100px;" /></td>
+                        
+                    </tr>
+                    <tr>
+                        <td><label >Tipo reporte:<span class="mandatory">*</span> </td>
+                        <td colspan="3">
+                            <select id="drpTipoReporte" name="search[tipo_reporte]" style="width:150px" onchange="tipoReporte()">
+                                <option value="-1">Seleccione...</option>
+                                <option value="0">Nivel Nacional</option>
+                                <option value="1">Por Instalaci&oacute;n de salud</option>
+                            </select>
+                        </td>
+                    </tr>
+                    
+                    <tr id="divIntalacion">
+                        <td><label >Intalaci&oacute;n de salud:<span class="mandatory">*</span></td>
+                        <td colspan="3">
+                            <input type="text" id="unidad_notificadora" value="{unidad_notificadora}" name="search[unidad_notificadora]" style="width: 450px;" maxlength="100"/>
+                            <input type="hidden" name="search[id_un]" id="id_un" value="{id_un}" />
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td><label >Reporte:<span class="mandatory">*</span> </label></td>
+                        <td colspan="3">
+                            <select id="drpReporte" name="search[reporte]" style="width:310px">
+                                <option value="-1">Seleccione...</option>
+                                <option value="0">Consolidado Cl&iacute;nico epidemiol&oacute;gico</option>
+                                <option value="1">Consolidado por Poblaci&oacute;n</option>
+                                <option value="2">H&aacute;bitos de consumo de bebidas alcoh&oacute;licas</option>
+                                <option value="3">H&aacute;bitos de consumo de drogas &uacute;ltimo a&ntilde;o</option>
+                                <option value="4">H&aacute;bitos de consumo de drogas &uacute;ltumos 30 d&iacute;as</option>
+                                <option value="5">Consolidado de morbilidad</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr><td colspan="4" style="text-align:right;"><label>* Todos los campos son obligatorios</label></td></tr>
+                </table><br/>
+            </fieldset>
+        </div>
+        <table align="center">
+            <tr>
+                <td>
+                    {botonGenerar} &nbsp;
+                </td>
+            </tr>
+        </table>
+        <br/>
+    </form>
+</div>

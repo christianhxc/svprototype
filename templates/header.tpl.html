@@ -1,0 +1,105 @@
+<div id="Header">
+	<div class="Header" align="left"></div>
+</div>
+<div class="menu" align="left">
+    <ul>
+            <li style="display: {mostrarInicio}">
+                <a href="{urlprefix}"><img src="{urlprefix}img/iconos/Homeazul.PNG" border="0px" alt=""/> Inicio</a>
+            </li>
+            <li style="display: {mostrarVentanilla}">
+                <a><img src="{urlprefix}img/iconos/ventanilla.PNG" border="0px" alt=""/> Recepción de Muestra</a>
+                <ul>
+                    <li style="display: {v1}"><a href="{urlprefix}ventanilla/ingreso.php">Ingreso de muestras</a></li>
+                    <li style="display: {v3}"><a href="{urlprefix}ventanilla/index.php">B&uacute;squeda de muestra</a></li>
+                    <li style="display: {v4}"><a href="{urlprefix}ventanilla/envio.php">Env&iacute;o de muestras</a></li>
+                    <li style="display: {v5}"><a href="{urlprefix}ventanilla/historial.php">Informes de env&iacute;o</a></li>
+                </ul>
+            </li>
+            <li style="display: {mostrarAnalisis}">
+                <a><img src="{urlprefix}img/iconos/analisis.PNG" border="0px" alt=""/> Secciones</a>
+                <ul>
+                    <li style="display: {a1}"><a href="{urlprefix}analista/historial.php" title="Recibir muestras y al&iacute;cuotas desde ventanilla">Recepci&oacute;n de muestras</a></li>
+                    <li style="display: {a2}"><a href="{urlprefix}analista/recibirInformeDerivaciones.php" title="Recibir derivaciones desde &aacute;reas de an&aacute;lisis">Recepci&oacute;n de derivaciones</a></li>
+                    <li style="display: {a3}"><a href="{urlprefix}analista/index.php">B&uacute;squeda de muestra</a></li>
+                    <li style="display: {a4}"><a href="{urlprefix}analista/buscarDerivacion.php">B&uacute;squeda de derivaci&oacute;n</a></li>
+                    <li style="display: {a5}"><a href="{urlprefix}analista/envioDerivaciones.php">Env&iacute;o de derivaciones</a></li>
+                    <li style="display: {a6}"><a href="{urlprefix}analista/historialDerivacion.php">Informes de env&iacute;o de derivaciones</a></li>
+                </ul>
+            </li>
+            <li style="display: {mostrarReportes}">
+                <a><img src="{urlprefix}img/iconos/consulta.png" border="0px" alt=""/> Reportes</a>
+                <ul>
+                    <li style="display: {r1}"><a href="{urlprefix}reportes/consolidados.php" title="Reporte consolidado por evento">Consolidados</a></li>
+                    <li style="display: {r2}"><a href="{urlprefix}reportes/area_evento.php">Individuales por &Aacute;rea y Evento</a></li>
+                    <li style="display: {r4}"><a href="{urlprefix}reportes/exportables.php">Exportaci&oacute;n a Excel</a></li>
+                    <li style="display: {r5}"><a href="{urlprefix}reportes/historico.php" title="Reporte con todo el proceso de una muestra en el LNS">Historial de Muestra</a></li>
+                </ul>
+            </li>
+            <li style="display: {mostrarAdmin}">
+                <a><img src="{urlprefix}img/iconos/ayuda_icon.png"/><span>Cat&aacute;logos</span></a>
+                <ul>
+                    <li style="display: {ad1}"><a href="{urlprefix}admin/pruebas.php">Cata de Pruebas</a></li>
+                    <li style="display: {ad2}"><a href="{urlprefix}admin/pruebas_resultado.php">Cat. de Resultados de Pruebas</a></li>
+                    <li><a href="#">Muestras</a>
+                            <ul>
+                                <li style="display: {ad3}"><a href="{urlprefix}admin/tipos_muestra.php">Cat. de Tipos de Muestra</a></li>
+                                <li style="display: {ad4}"><a href="{urlprefix}admin/evento_muestra.php">Cat. de Evento - Muestra</a></li>
+                                <li style="display: {ad16}"><a href="{urlprefix}admin/prueba_evento.php">Cat. de Evento - Prueba</a></li>
+                                <li style="display: {ad5}"><a href="{urlprefix}admin/evento_muestra_res.php">Cat. de Evento - Muestra - Res.</a></li>
+                            </ul>
+                    </li>
+                    <li><a href="#">Resultados</a>
+                            <ul>
+                                <li style="display: {ad6}"><a href="{urlprefix}admin/resultado_final.php">Cat. de Resultados Finales</a></li>
+                                <li style="display: {ad7}"><a href="{urlprefix}admin/resultado_tipo.php">Cat. de Tipos de Resultado</a></li>
+                                <li style="display: {ad8}"><a href="{urlprefix}admin/resultado_subtipo.php">Cat. de Subtipos de Resultado</a></li>                            
+                                <li style="display: {ad17}"><a href="{urlprefix}admin/resultado_final_evento.php">Resultados finales - Evento</a></li>
+                                <li style="display: {ad18}"><a href="{urlprefix}admin/resultado_final_tipo.php">Resultados finales - Tipo</a></li>
+                                <li style="display: {ad19}"><a href="{urlprefix}admin/resultado_final_subtipo.php">Resultados finales - Subtipo</a></li> 
+                            </ul>
+                    </li>
+                    <li><a href="#">Razones</a>
+                            <ul>
+                                <li style="display: {ad11}"><a href="{urlprefix}admin/razon_rechazo_proc.php">Razon Rechazo en Procesamiento</a></li>
+                                <li style="display: {ad12}"><a href="{urlprefix}admin/razon_rechazo_seccion.php">Razon Rechazo en Seccion</a></li>
+                            </ul>
+                    </li> 
+                    <li style="display: {ad10}"><a href="{urlprefix}admin/derivaciones.php">Derivaciones permitidas</a></li>
+                    <li style="display: {ad13}"><a href="{urlprefix}admin/tipo_caso.php">Cat. de Tipo de Caso</a></li>
+                    <li style="display: {ad20}"><a href="{urlprefix}admin/tipo_vigilancia_seccion.php">Cat. de Tipo de Caso - Seccion</a></li>
+                    <li style="display: {ad15}"><a href="{urlprefix}admin/codigo_global.php">Reiniciar codigo global y correlativo</a></li>
+                    <li style="display: {ad21}"><a href="{urlprefix}admin/metodologia.php">Cat. de Metodologias</a></li>
+                    <li style="display: {ad22}"><a href="{urlprefix}admin/factor_riesgo.php">Cat. de Factores de Riesgo</a></li>
+                    <li style="display: {ad23}"><a href="{urlprefix}admin/factor_riesgo_evento.php">Cat. Factores de Riesgo - Evento o Seccion</a></li>
+                </ul>
+            </li>
+            <li style="display: {mostrarAyuda}">
+                <a><img src="{urlprefix}img/iconos/ayuda.png" border="0px" alt=""/> Ayuda</a>
+                <ul>
+                    <li style="display: {h1}"><a href="{urlprefix}ayuda/online.php" title="Manual en línea">Manual en l&iacute;nea</a></li>
+                    <li style="display: {h2}"><a href="{urlprefix}ayuda/descargar.php" title="Descargar manual del usuario">Descargar manual</a></li>
+                    <!--<li style="display: {h3}"><a href="javascript:about();" title="Acerca de VIGILAB">Acerca de VIGILAB</a></li>!-->
+                </ul>
+            </li>
+            <li style="display: {mostrarSalir}">
+               <a href="{urlprefix}login.php?logout=true"><img src="{urlprefix}img/iconos/salir.PNG" border="0px" alt=""/> Salir</a>
+            </li>
+    </ul>
+    {usuarioConectado}
+</div>
+<br/>
+
+<!-- <div class="demo">
+    <div id="dialog-message" title="Acerca de VIGILAB">
+        <br/>
+        <div align="center">
+            <strong>Sistema para la Vigilancia de Laboratorios de Salud P&uacute;blica</strong>
+        </div>
+        <div align="center">Laboratorio Nacional de Salud (LNS)</div>
+        <br/>
+        <p align="center">
+            Con el apoyo t&eacute;cnico y financiero del Programa de Influenza de la Oficina Regional para Centro Am&eacute;rica y Panam&aacute; de los Centros para el Control y Prevenci&oacute;n de Enfermedades (CDC) por medio del acuerdo cooperativo con el Centro de Estudios en Salud (CES) de la Universidad del Valle de Guatemala (UVG)
+            <br/><br/>Guatemala, Centro Am&eacute;rica, 2011
+        </p>
+    </div>
+</div> !-->

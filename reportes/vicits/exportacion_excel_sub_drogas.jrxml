@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="exportacion_excel_sub_drogas" pageWidth="263" pageHeight="802" columnWidth="263" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6425a0d9-a4eb-4a77-a3da-8a8f90154435">
+	<property name="ireport.zoom" value="1.9487171000000014"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_vicits_form" class="java.lang.Integer" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[select vdroga.id_droga, droga.nombre_droga,
+(case when vdroga.fecha_consumo = '1' then "12 meses" else "30 días" end) as tiempo_consumo
+FROM vicits_droga vdroga
+inner join cat_droga droga ON droga.id_droga = vdroga.id_droga
+where vdroga.id_vicits_form = $P{id_vicits_form}]]>
+	</queryString>
+	<field name="id_droga" class="java.lang.Integer"/>
+	<field name="nombre_droga" class="java.lang.String"/>
+	<field name="tiempo_consumo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="84d4bae6-0c6b-4a55-b659-d333bf084d4e" stretchType="RelativeToBandHeight" x="0" y="0" width="54" height="15"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_droga}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="4ae9e4a3-3ce6-4d67-a3b1-b4368463748d" stretchType="RelativeToBandHeight" x="54" y="0" width="122" height="15"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_droga}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="5dc2c1a5-1d0d-4942-82b6-d01fd14e5fbe" stretchType="RelativeToBandHeight" x="176" y="0" width="87" height="15"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tiempo_consumo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

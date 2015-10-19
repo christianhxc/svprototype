@@ -1,0 +1,3516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_individal" pageWidth="600" pageHeight="800" columnWidth="580" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="20" uuid="d65bea0c-9bc9-4633-a773-92d4ddabdcd1">
+	<property name="ireport.zoom" value="1.6105100000000023"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="432"/>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#E5EFD0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#628529">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="its" uuid="ca40a179-008f-4622-bfb8-235bfac1c613">
+		<parameter name="idVicitsForm" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[select cat_its.nombre_ITS
+from vicits_its its
+inner join cat_its ON cat_its.id_ITS = its.id_ITS
+where its.id_vicits_form = $P{idVicitsForm}]]>
+		</queryString>
+		<field name="nombre_ITS" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="idVicitsForm" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["http://localhost/sisvig2/reportes/vicits/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+-- INDIVIDUO
+tipoId.nombre_tipo, vicits.numero_identificacion, vicits.per_nombre_trans, per.primer_nombre, per.segundo_nombre, per.primer_apellido, per.segundo_apellido,
+pais.nombre_pais, pro.nombre_provincia, reg.nombre_region, dis.nombre_distrito, cor.nombre_corregimiento, vicits.per_localidad,
+DATE_FORMAT(per.fecha_nacimiento ,'%d-%m-%Y') as fecha_nacimiento, concat (vicits.per_edad," ",ted.nombre) as edad,
+(case when per.sexo = 'M' then 'Hombre' else 'Mujer' end) as sexo, gen.genero_nombre, etnia.nombre_etnia,
+(case when per.id_estado_civil = 1 then 'Soltero' when per.id_estado_civil  = 2 then 'Casado' when per.id_estado_civil = 3 then 'Unido' when per.id_estado_civil = 4
+then 'Divorciado' else 'No especificado' end) as estado_civil,
+(case when per.id_escolaridad = 1 then 'Primaria completa' when per.id_escolaridad  = 2 then 'Primaria incompleta' when per.id_escolaridad = 3 then 'Secundaria completa'
+when per.id_escolaridad = 4 then 'Secundaria incompleta' when per.id_escolaridad = 5 then 'Universidad completa' when per.id_escolaridad = 6 then 'Universidad incompleta'
+when per.id_escolaridad = 7 then 'Vocacional' when per.id_escolaridad = 8 then 'Ninguna' else 'No especificada' end) as escolaridad,
+(case when vicits.per_sabe_leer = 1 then "Si" when vicits.per_sabe_leer = 2 then "no" else "Desc" end) as sabe_leer,
+
+-- Antecedentes
+(case when vicits.antec_abuso_sexual = 1 then "Si" when vicits.antec_abuso_sexual = 2 then "no" else "Desc" end) as abuso_sexual, vicits.antec_edad_abuso_sexual,
+(case when vicits.antec_abuso_ultimo = 1 then "Si" when vicits.antec_abuso_ultimo = 2 then "no" else "Desc" end) as abuso_sexual12, vicits.antec_edad_inicio_sexual,
+(case when vicits.antec_ts_alguna_vez = 1 then "Si" when vicits.antec_ts_alguna_vez = 2 then "no" else "Desc" end) as ts,
+(case when vicits.antec_ts_actual = 1 then "Si" when vicits.antec_ts_actual = 2 then "no" else "Desc" end) as ts_actual,
+(case when vicits.antec_ts_tiempo = 1 then "Menos de un mes" when vicits.antec_ts_tiempo = 2 then "de 1 a 6 meses"
+when vicits.antec_ts_tiempo = 3 then "de 7 a 12 meses" when vicits.antec_ts_tiempo = 4 then "Mas de un año" else "" end) as ts_tiempo,
+vicits.antec_ts_tiempo_anios,
+(case when vicits.antec_ts_otro_pais = 1 then "Si" when vicits.antec_ts_otro_pais = 2 then "no" else "Desc" end) as ts_otro_pais, tspas.nombre_pais as pais_ts,
+(case when vicits.antec_relacion = 1 then "Hombres" when vicits.antec_relacion = 2 then "Mujeres" when vicits.antec_relacion = 3 then "Ambos" else "Desc" end) as relaciones_con,
+(case when vicits.antec_its_ultimo = 1 then "Si" when vicits.antec_its_ultimo = 2 then "no" else "Desc" end) as its_ultimo_anio, vicits.antec_ts_nombre_lugar,
+(case when vicits.antec_ts_tipo_lugar = 1 then "Night Club" when vicits.antec_ts_tipo_lugar = 2 then "Centro privado"
+when vicits.antec_ts_tipo_lugar = 3 then "Burdel" when vicits.antec_ts_tipo_lugar = 4 then "Sala de masajes"
+when vicits.antec_ts_tipo_lugar = 5 then "Calle" when vicits.antec_ts_tipo_lugar = 6 then "Otro" else "Desc" end) as ts_tipo_lugar,
+(case when vicits.antec_vih = 1 then "Si" when vicits.antec_vih = 2 then "no" else "Desc" end) as vih,
+DATE_FORMAT(vicits.antec_fecha_vih ,'%d-%m-%Y') as fecha_vih,
+(case when vicits.antec_consejeria_pre = 1 then "Si" when vicits.antec_consejeria_pre = 2 then "no" else "Desc" end) as pre_vih,
+(case when vicits.antec_consejeria_post = 1 then "Si" when vicits.antec_consejeria_post = 2 then "no" else "Desc" end) as pos_vih,
+(case when vicits.antec_referido_TARV = 1 then "Si" when vicits.antec_referido_TARV = 2 then "no" else "Desc" end) as referido_tarv, tarv.nombre_clinica_tarv,
+(case when vicits.antec_consumo_alcohol = 1 then "Si" when vicits.antec_consumo_alcohol = 2 then "no" else "Desc" end) as consumo_alcohol,
+(case when vicits.antec_consumo_alcohol_semana = 1 then "Un día" when vicits.antec_consumo_alcohol_semana = 2 then "2 a 3 días"
+when vicits.antec_consumo_alcohol_semana = 3 then "4 a 5 días" when vicits.antec_consumo_alcohol_semana = 4 then "6 a 7 días"
+when vicits.antec_consumo_alcohol_semana = 5 then "No consumio" else "Desc" end) as frecuencia_alcohol,
+
+-- Parte A
+(case when vicits.antec_motivo_consulta = 1 then "Nuevo" when vicits.antec_motivo_consulta = 2 then "Molestias/Síntomas"
+when vicits.antec_motivo_consulta = 3 then "Control trimestral" else "Control semestral" end) as motivo_consulta,
+(case when vicits.otro_antibiotico = 1 then "Si" when vicits.otro_antibiotico = 2 then "no" else "Desc" end) as recibio_antibiotico,
+(case when vicits.condon_rel_anal_otro = 1 then "Si" when vicits.condon_rel_anal_otro = 2 then "no" else "Desc" end) as condon_rel_anal_otro,
+(case when vicits.condon_rel_sexual = 1 then "Si" when vicits.condon_rel_sexual = 2 then "no" else "Desc" end) as condon_rel_sexual,
+(case when vicits.condon_rel_anal = 1 then "Si" when vicits.condon_rel_anal = 2 then "no" else "Desc" end) as condon_rel_anal,
+(case when vicits.condon_tipo_rel_anal = 1 then "Penetra" when vicits.condon_tipo_rel_anal = 2 then "Es penetrado" when vicits.condon_tipo_rel_anal = 3 then "Ambos" else "" end) as condon_tipo_rel_anal,
+(case when vicits.condon_sexo_oral = 1 then "Si" when vicits.condon_sexo_oral = 2 then "no" else "Desc" end) as condon_sexo_oral,
+(case when vicits.condon_ult_rel_uso_condon = 1 then "Si" when vicits.condon_ult_rel_uso_condon = 2 then "no" else "Desc" end) as condon_ult_rel_uso_condon,
+(case when vicits.par_hombre_fija = 1 then "Si" when vicits.par_hombre_fija = 2 then "no" else "Desc" end) as par_hombre_fija,
+(case when vicits.par_hombre_fija_uso_condon = 1 then "Nunca" when vicits.par_hombre_fija_uso_condon = 2 then "A veces" when vicits.par_hombre_fija_uso_condon = 3 then "Siempre" else "Desc" end) as par_hombre_fija_uso_condon,
+(case when vicits.par_hombre_fija_ult_usu_condon = 1 then "Si" when vicits.par_hombre_fija_ult_usu_condon = 2 then "no" else "Desc" end) as par_hombre_fija_ult_usu_condon,
+(case when vicits.par_hombre_casual = 1 then "Si" when vicits.par_hombre_casual = 2 then "no" else "Desc" end) as par_hombre_casual,
+(case when vicits.par_hombre_casual_uso_condon = 1 then "Nunca" when vicits.par_hombre_casual_uso_condon = 2 then "A veces" when vicits.par_hombre_casual_uso_condon = 3 then "Siempre" else "Desc" end) as par_hombre_casual_uso_condon,
+(case when vicits.par_hombre_casual_ult_usu_condon = 1 then "Si" when vicits.par_hombre_casual_ult_usu_condon = 2 then "no" else "Desc" end) as par_hombre_casual_ult_usu_condon,
+(case when vicits.par_mujer_fija = 1 then "Si" when vicits.par_mujer_fija = 2 then "no" else "Desc" end) as par_mujer_fija,
+(case when vicits.par_mujer_fija_uso_condon = 1 then "Nunca" when vicits.par_mujer_fija_uso_condon = 2 then "A veces" when vicits.par_mujer_fija_uso_condon = 3 then "Siempre" else "Desc" end) as par_mujer_fija_uso_condon,
+(case when vicits.par_mujer_fija_ult_usu_condon = 1 then "Si" when vicits.par_mujer_fija_ult_usu_condon = 2 then "no" else "Desc" end) as par_mujer_fija_ult_usu_condon,
+(case when vicits.par_mujer_casual = 1 then "Si" when vicits.par_mujer_casual = 2 then "no" else "Desc" end) as par_mujer_casual,
+(case when vicits.par_mujer_casual_uso_condon = 1 then "Nunca" when vicits.par_mujer_casual_uso_condon = 2 then "A veces" when vicits.par_mujer_casual_uso_condon = 3 then "Siempre" else "Desc" end) as par_mujer_casual_uso_condon,
+(case when vicits.par_mujer_casual_ult_usu_condon = 1 then "Si" when vicits.par_mujer_casual_ult_usu_condon = 2 then "no" else "Desc" end) as par_mujer_casual_ult_usu_condon,
+vicits.ts_cliente_quincena, vicits.ts_cliente_semana,
+(case when vicits.ts_uso_condon = 1 then "Nunca" when vicits.ts_uso_condon = 2 then "A veces" when vicits.ts_uso_condon = 3 then "Siempre" else "Desc" end) as ts_uso_condon,
+(case when vicits.ts_ultimo_usu_condon = 1 then "Si" when vicits.ts_ultimo_usu_condon = 2 then "no" else "Desc" end) as ts_ultimo_usu_condon,
+(case when vicits.exa_realizado = 1 then "Si" when vicits.exa_realizado = 2 then "no" else "Desc" end) as exa_realizado,
+vicits.exa_temperatura, vicits.exa_libras, vicits.exa_PA,
+(case when vicits.exa_ganglio = 1 then "Normal" when vicits.exa_ganglio = 2 then "Anormal" else "Desc" end) as exa_ganglio,
+(case when vicits.exa_ganglio_cuello = 1 then "X" else "" end) as exa_ganglio_cuello,
+(case when vicits.exa_ganglio_axilar = 1 then "X" else "" end) as exa_ganglio_axilar,
+(case when vicits.exa_ganglio_inguinal = 1 then "X" else "" end) as exa_ganglio_inguinal,
+(case when vicits.exa_rash = 1 then "Ausencia" when vicits.exa_rash = 2 then "Presencia" else "Desc" end) as exa_rash,
+(case when vicits.exa_rash_opcion = 1 then "Generalizada" when vicits.exa_rash_opcion = 2 then "Localizada" else "Desc" end) as exa_rash_opcion,
+(case when vicits.exa_boca = 1 then "Normal" when vicits.exa_boca = 2 then "Anormal" else "Desc" end) as exa_boca,
+(case when vicits.exa_boca_monilia = 1 then "X" else "" end) as exa_boca_monilia,
+(case when vicits.exa_boca_ulcera = 1 then "X" else "" end) as exa_boca_ulcera,
+(case when vicits.exa_boca_amigdalas = 1 then "X" else "" end) as exa_boca_amigdalas,
+(case when vicits.exa_boca_irritacion_faringea = 1 then "X" else "" end) as exa_boca_irritacion_faringea,
+(case when vicits.exa_boca_otro = 1 then "X" else "" end) as exa_boca_otro,
+(case when vicits.exa_pene = 1 then "Normal" when vicits.exa_pene = 2 then "Anormal" else "Desc" end) as exa_pene,
+(case when vicits.exa_pene_ulcera = 1 then "X" else "" end) as exa_pene_ulcera,
+(case when vicits.exa_pene_verruga = 1 then "X" else "" end) as exa_pene_verruga,
+(case when vicits.exa_pene_ampolla = 1 then "X" else "" end) as exa_pene_ampolla,
+(case when vicits.exa_pene_otro = 1 then "X" else "" end) as exa_pene_otro,
+(case when vicits.exa_testiculo = 1 then "Normal" when vicits.exa_testiculo = 2 then "Anormal" else "Desc" end) as exa_testiculo,
+(case when vicits.exa_testiculo_ulcera = 1 then "X" else "" end) as exa_testiculo_ulcera,
+(case when vicits.exa_testiculo_verruga = 1 then "X" else "" end) as exa_testiculo_verruga,
+(case when vicits.exa_testiculo_ampolla = 1 then "X" else "" end) as exa_testiculo_ampolla,
+(case when vicits.exa_testiculo_otro = 1 then "X" else "" end) as exa_testiculo_otro,
+(case when vicits.exa_meato = 1 then "Normal" when vicits.exa_meato = 2 then "Anormal" else "Desc" end) as exa_meato,
+(case when vicits.exa_meato_hiperemia = 1 then "X" else "" end) as exa_meato_hiperemia,
+(case when vicits.exa_meato_verruga = 1 then "X" else "" end) as exa_meato_verruga,
+(case when vicits.exa_meato_secrecion = 1 then "X" else "" end) as exa_meato_secrecion,
+(case when vicits.exa_ano = 1 then "Normal" when vicits.exa_ano = 2 then "Anormal" else "Desc" end) as exa_ano,
+(case when vicits.exa_ano_ulcera = 1 then "X" else "" end) as exa_ano_ulcera,
+(case when vicits.exa_ano_verruga = 1 then "X" else "" end) as exa_ano_verruga,
+(case when vicits.exa_ano_vesicula = 1 then "X" else "" end) as exa_ano_vesicula,
+(case when vicits.exa_ano_secrecion = 1 then "X" else "" end) as exa_ano_secrecion,
+(case when vicits.exa_ano_otro = 1 then "X" else "" end) as exa_ano_otro,
+
+-- Parte B
+(case when vicits.usuario_sano = 1 then "Si" else "No" end) as usuario_sano,
+(case when vicits.muestra_ninguna = 1 then "Si" else "No" end) as muestra_ninguna,
+(case when vicits.muestra_sangre_hsh = 1 then "X" else "" end) as muestra_sangre_hsh,
+(case when vicits.muestra_secrecion_uretral = 1 then "X" else "" end) as muestra_secrecion_uretral,
+(case when vicits.muestra_ulcera = 1 then "X" else "" end) as muestra_ulcera,
+(case when vicits.muestra_secrecion_anal = 1 then "X" else "" end) as muestra_secrecion_anal,
+(case when vicits.otro_tratamiento = 1 then "Si" when vicits.otro_tratamiento = 2 then "no" else "Desc" end) as otro_tratamiento,
+(case when vicits.intervencion = 1 then "Si" when vicits.intervencion = 2 then "no" else "Desc" end) as intervencion,
+vicits.diag_otro, vicits.diag_otro_medicamento,
+(case when vicits.noti_referencia_pareja = 1 then "Si" when vicits.noti_referencia_pareja = 2 then "no" else "Desc" end) as noti_referencia_pareja,
+(case when vicits.noti_preservativos = 1 then "Si" when vicits.noti_preservativos = 2 then "no" else "Desc" end) as noti_preservativos,
+vicits.noti_preservativos_cuantos, vicits.noti_medicamento1, vicits.noti_medicamento2, vicits.noti_medicamento3, un.nombre_un,
+vicits.noti_nombre_medico, DATE_FORMAT(vicits.fecha_consulta ,'%d-%m-%Y') as fecha_consulta, DATE_FORMAT(vicits.fecha_formulario ,'%d-%m-%Y') as fecha_formulario,
+vicits.nombre_registra
+
+from vicits_form vicits
+inner join tbl_persona per on per.tipo_identificacion = vicits.id_tipo_identidad AND per.numero_identificacion = vicits.numero_identificacion
+inner join cat_tipo_identidad tipoId on per.tipo_identificacion = tipoId.id_tipo_identidad
+inner join cat_pais pais ON pais.id_pais = vicits.per_id_pais
+inner join cat_edad ted ON vicits.per_tipo_edad = ted.tipo_edad
+left join cat_corregimiento cor on vicits.per_id_corregimiento = cor.id_corregimiento
+left join cat_distrito dis on dis.id_distrito = cor.id_distrito
+left join cat_region_salud reg on reg.id_region = dis.id_region
+left join cat_provincia pro on pro.id_provincia = dis.id_provincia
+left join cat_etnia etnia on etnia.id_etnia = per.id_etnia
+left join cat_genero gen on gen.id_genero = per.id_genero
+left join cat_pais tspas on tspas.id_pais = vicits.antec_ts_id_pais
+left join cat_clinica_tarv tarv on tarv.id_clinica_tarv = vicits.id_clinica_tarv
+left join cat_unidad_notificadora un on un.id_un = vicits.id_un
+where vicits.id_vicits_form = $P{idVicitsForm}]]>
+	</queryString>
+	<field name="nombre_tipo" class="java.lang.String"/>
+	<field name="numero_identificacion" class="java.lang.String"/>
+	<field name="per_nombre_trans" class="java.lang.String"/>
+	<field name="primer_nombre" class="java.lang.String"/>
+	<field name="segundo_nombre" class="java.lang.String"/>
+	<field name="primer_apellido" class="java.lang.String"/>
+	<field name="segundo_apellido" class="java.lang.String"/>
+	<field name="nombre_pais" class="java.lang.String"/>
+	<field name="nombre_provincia" class="java.lang.String"/>
+	<field name="nombre_region" class="java.lang.String"/>
+	<field name="nombre_distrito" class="java.lang.String"/>
+	<field name="nombre_corregimiento" class="java.lang.String"/>
+	<field name="per_localidad" class="java.lang.String"/>
+	<field name="fecha_nacimiento" class="java.lang.String"/>
+	<field name="edad" class="java.lang.String"/>
+	<field name="sexo" class="java.lang.String"/>
+	<field name="genero_nombre" class="java.lang.String"/>
+	<field name="nombre_etnia" class="java.lang.String"/>
+	<field name="estado_civil" class="java.lang.String"/>
+	<field name="escolaridad" class="java.lang.String"/>
+	<field name="sabe_leer" class="java.lang.String"/>
+	<field name="abuso_sexual" class="java.lang.String"/>
+	<field name="antec_edad_abuso_sexual" class="java.lang.Integer"/>
+	<field name="abuso_sexual12" class="java.lang.String"/>
+	<field name="antec_edad_inicio_sexual" class="java.lang.Integer"/>
+	<field name="ts" class="java.lang.String"/>
+	<field name="ts_actual" class="java.lang.String"/>
+	<field name="ts_tiempo" class="java.lang.String"/>
+	<field name="antec_ts_tiempo_anios" class="java.lang.Integer"/>
+	<field name="ts_otro_pais" class="java.lang.String"/>
+	<field name="pais_ts" class="java.lang.String"/>
+	<field name="relaciones_con" class="java.lang.String"/>
+	<field name="its_ultimo_anio" class="java.lang.String"/>
+	<field name="antec_ts_nombre_lugar" class="java.lang.String"/>
+	<field name="ts_tipo_lugar" class="java.lang.String"/>
+	<field name="vih" class="java.lang.String"/>
+	<field name="fecha_vih" class="java.lang.String"/>
+	<field name="pre_vih" class="java.lang.String"/>
+	<field name="pos_vih" class="java.lang.String"/>
+	<field name="referido_tarv" class="java.lang.String"/>
+	<field name="nombre_clinica_tarv" class="java.lang.String"/>
+	<field name="consumo_alcohol" class="java.lang.String"/>
+	<field name="frecuencia_alcohol" class="java.lang.String"/>
+	<field name="motivo_consulta" class="java.lang.String"/>
+	<field name="recibio_antibiotico" class="java.lang.String"/>
+	<field name="condon_rel_anal_otro" class="java.lang.String"/>
+	<field name="condon_rel_sexual" class="java.lang.String"/>
+	<field name="condon_rel_anal" class="java.lang.String"/>
+	<field name="condon_tipo_rel_anal" class="java.lang.String"/>
+	<field name="condon_sexo_oral" class="java.lang.String"/>
+	<field name="condon_ult_rel_uso_condon" class="java.lang.String"/>
+	<field name="par_hombre_fija" class="java.lang.String"/>
+	<field name="par_hombre_fija_uso_condon" class="java.lang.String"/>
+	<field name="par_hombre_fija_ult_usu_condon" class="java.lang.String"/>
+	<field name="par_hombre_casual" class="java.lang.String"/>
+	<field name="par_hombre_casual_uso_condon" class="java.lang.String"/>
+	<field name="par_hombre_casual_ult_usu_condon" class="java.lang.String"/>
+	<field name="par_mujer_fija" class="java.lang.String"/>
+	<field name="par_mujer_fija_uso_condon" class="java.lang.String"/>
+	<field name="par_mujer_fija_ult_usu_condon" class="java.lang.String"/>
+	<field name="par_mujer_casual" class="java.lang.String"/>
+	<field name="par_mujer_casual_uso_condon" class="java.lang.String"/>
+	<field name="par_mujer_casual_ult_usu_condon" class="java.lang.String"/>
+	<field name="ts_cliente_quincena" class="java.lang.Integer"/>
+	<field name="ts_cliente_semana" class="java.lang.Integer"/>
+	<field name="ts_uso_condon" class="java.lang.String"/>
+	<field name="ts_ultimo_usu_condon" class="java.lang.String"/>
+	<field name="exa_realizado" class="java.lang.String"/>
+	<field name="exa_temperatura" class="java.lang.Integer"/>
+	<field name="exa_libras" class="java.lang.Integer"/>
+	<field name="exa_PA" class="java.lang.String"/>
+	<field name="exa_ganglio" class="java.lang.String"/>
+	<field name="exa_ganglio_cuello" class="java.lang.String"/>
+	<field name="exa_ganglio_axilar" class="java.lang.String"/>
+	<field name="exa_ganglio_inguinal" class="java.lang.String"/>
+	<field name="exa_rash" class="java.lang.String"/>
+	<field name="exa_rash_opcion" class="java.lang.String"/>
+	<field name="exa_boca" class="java.lang.String"/>
+	<field name="exa_boca_monilia" class="java.lang.String"/>
+	<field name="exa_boca_ulcera" class="java.lang.String"/>
+	<field name="exa_boca_amigdalas" class="java.lang.String"/>
+	<field name="exa_boca_irritacion_faringea" class="java.lang.String"/>
+	<field name="exa_boca_otro" class="java.lang.String"/>
+	<field name="exa_pene" class="java.lang.String"/>
+	<field name="exa_pene_ulcera" class="java.lang.String"/>
+	<field name="exa_pene_verruga" class="java.lang.String"/>
+	<field name="exa_pene_ampolla" class="java.lang.String"/>
+	<field name="exa_pene_otro" class="java.lang.String"/>
+	<field name="exa_testiculo" class="java.lang.String"/>
+	<field name="exa_testiculo_ulcera" class="java.lang.String"/>
+	<field name="exa_testiculo_verruga" class="java.lang.String"/>
+	<field name="exa_testiculo_ampolla" class="java.lang.String"/>
+	<field name="exa_testiculo_otro" class="java.lang.String"/>
+	<field name="exa_meato" class="java.lang.String"/>
+	<field name="exa_meato_hiperemia" class="java.lang.String"/>
+	<field name="exa_meato_verruga" class="java.lang.String"/>
+	<field name="exa_meato_secrecion" class="java.lang.String"/>
+	<field name="exa_ano" class="java.lang.String"/>
+	<field name="exa_ano_ulcera" class="java.lang.String"/>
+	<field name="exa_ano_verruga" class="java.lang.String"/>
+	<field name="exa_ano_vesicula" class="java.lang.String"/>
+	<field name="exa_ano_secrecion" class="java.lang.String"/>
+	<field name="exa_ano_otro" class="java.lang.String"/>
+	<field name="usuario_sano" class="java.lang.String"/>
+	<field name="muestra_ninguna" class="java.lang.String"/>
+	<field name="muestra_sangre_hsh" class="java.lang.String"/>
+	<field name="muestra_secrecion_uretral" class="java.lang.String"/>
+	<field name="muestra_ulcera" class="java.lang.String"/>
+	<field name="muestra_secrecion_anal" class="java.lang.String"/>
+	<field name="otro_tratamiento" class="java.lang.String"/>
+	<field name="intervencion" class="java.lang.String"/>
+	<field name="diag_otro" class="java.lang.String"/>
+	<field name="diag_otro_medicamento" class="java.lang.String"/>
+	<field name="noti_referencia_pareja" class="java.lang.String"/>
+	<field name="noti_preservativos" class="java.lang.String"/>
+	<field name="noti_preservativos_cuantos" class="java.lang.Integer"/>
+	<field name="noti_medicamento1" class="java.lang.String"/>
+	<field name="noti_medicamento2" class="java.lang.String"/>
+	<field name="noti_medicamento3" class="java.lang.String"/>
+	<field name="nombre_un" class="java.lang.String"/>
+	<field name="noti_nombre_medico" class="java.lang.String"/>
+	<field name="fecha_consulta" class="java.lang.String"/>
+	<field name="fecha_formulario" class="java.lang.String"/>
+	<field name="nombre_registra" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="a22fc12c-a110-481e-99d8-eff2fb1f1910" x="0" y="28" width="580" height="15" forecolor="#333333"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MINISTERIO DE SALUD - PROGRAMA NACIONAL DE ITS/VIH/SIDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b1e7dbb6-0c44-426a-99a8-19bf549c1e49" x="0" y="13" width="580" height="15" forecolor="#333333"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPUBLICA DE PANAMÁ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b01c6e22-8974-40c0-ba7f-8a408b26fb6d" x="0" y="45" width="580" height="23"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FOMULARIO DE VIGILANCIA CENTINELA DE ITS - VICITS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="484" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="f2fff633-d037-4292-a38d-1712cb84652a" x="0" y="0" width="580" height="140"/>
+				<box leftPadding="5">
+					<pen lineWidth="1.5"/>
+					<topPen lineWidth="1.5"/>
+					<leftPen lineWidth="1.5"/>
+					<bottomPen lineWidth="1.5"/>
+					<rightPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f4f31c0e-5c2d-43e8-a860-c41de070b7af" x="2" y="33" width="61" height="13" backcolor="#FFFFFF"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5e9cdd63-7135-45e7-a155-1c55c03e8d30" x="63" y="33" width="233" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{primer_nombre}+" "+$F{segundo_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e61bec57-68a4-4552-b129-75e8d51e1200" x="296" y="33" width="61" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Apellido:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="47bf8a4a-534a-44a7-9695-e2606cad0f4b" x="357" y="33" width="213" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{primer_apellido}+" "+$F{segundo_apellido}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9eb5c39b-53cf-4b70-8e75-6b4ae4920b9b" x="2" y="20" width="112" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Tipo y número de id:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b341d0f1-b177-4132-a509-3e5a50e033a1" x="114" y="20" width="300" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombre_tipo}+" - "+$F{numero_identificacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a6d9b6b1-c258-41ba-9e39-92725cbcf6de" x="357" y="47" width="71" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nacionalidad:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="19815e2c-0a72-48ba-b407-6d2d5aa7c0e1" x="429" y="47" width="141" height="13"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombre_pais}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1c66e754-ddfe-4570-ba2c-ffcec0a3c8e1" x="2" y="61" width="61" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Provincia:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c06a095b-153c-4e62-8127-138763b54f52" x="63" y="61" width="233" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombre_provincia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="068faf5a-af6b-4147-a9ff-b4cb21b91231" x="2" y="75" width="61" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Distrito:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c6cb78c5-94a6-40e9-b6b4-23a7e8773739" x="63" y="75" width="233" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombre_distrito}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b8298cb4-bbc9-4cc8-a3b9-35a91c43515c" x="296" y="61" width="61" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Region:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="2ec1bfe7-6ec3-4213-a9a4-13e83a3ca16b" x="378" y="75" width="192" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombre_corregimiento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="175293a8-216f-4ec6-8b50-29cdc9aff100" x="296" y="75" width="82" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Corregimiento:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fd8033a7-5e4a-4d9a-8527-0128b4371ac5" x="357" y="61" width="213" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombre_region}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7850ee56-0473-4881-907c-1920028ab54a" x="114" y="89" width="300" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{per_localidad}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="349189b6-6a15-4c67-ab52-03bb7ae635a2" x="2" y="89" width="112" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Punto de referencia:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="af923bb5-5209-4aa7-a5d1-1b3e5f2ebb03" x="89" y="103" width="82" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fecha_nacimiento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="53a0d5a7-734a-41ba-8dcd-f5204230c85a" x="2" y="103" width="87" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fec. nacimiento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="93afbc79-1311-4850-9e88-5a706b3b47d5" x="171" y="103" width="40" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Edad:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="2f54f85b-45e3-4f3e-a9e1-d90e730fab47" x="211" y="103" width="85" height="13"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{edad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="64b53315-cd64-453b-b9a2-a807a10fc4a1" x="338" y="103" width="76" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8c72e688-ac84-4bf3-b922-59c182339020" x="296" y="103" width="42" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Sexo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="84f8bf9d-5103-45c6-843a-884b62d2cb01" x="2" y="3" width="568" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[I. Datos Personales:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f24d1293-1852-472d-b8e4-be979f29cd48" x="414" y="103" width="69" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Est. civil:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d18b5cb1-8213-4b22-bc37-95fa29ced227" x="483" y="103" width="87" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{estado_civil}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2a3a1584-e88c-4bbe-8e1b-4602de09c877" x="2" y="117" width="87" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Iden. Genero:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6c504e14-b3b3-473e-a95d-c87f8d148d5c" x="89" y="118" width="122" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{genero_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="342b2611-90f6-4c07-b7c3-ae9cdd0a15b4" x="357" y="118" width="82" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Escolaridad:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c99e6e8b-d6fa-469b-bacb-1bc1c2eb87a4" x="439" y="117" width="131" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{escolaridad}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="89ae0377-91c3-46b5-9098-20410fb73f69" x="211" y="118" width="45" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Etnia:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="052b16a6-4129-4182-b628-9def1f0510ea" x="256" y="118" width="101" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nombre_etnia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="95d7c494-f585-4e02-b5c2-cfe7f5d5eb85" x="2" y="48" width="149" height="13" backcolor="#FFFFFF"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nombre con Iden. Genero:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b00be851-1820-42a0-a37a-7146121e845b" x="151" y="48" width="206" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{per_nombre_trans}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a123b79e-e86a-431d-ba63-7bacd1b08d94" x="414" y="20" width="69" height="13"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Sabe leer:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="146bb682-7064-47ba-9996-7a74aa639e67" x="483" y="20" width="87" height="13"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{sabe_leer}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement uuid="180c28ba-43e8-43f8-b850-5b301f2f750a" x="0" y="148" width="581" height="336"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="4c4435c6-deec-409d-abd5-05d90aae04ea" x="231" y="27" width="59" height="15"/>
+					<box leftPadding="0">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{abuso_sexual}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="5df0b8e5-1f6d-48fc-aecc-52ae4d02ed52" x="70" y="42" width="42" height="15"/>
+					<box leftPadding="0">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{antec_edad_abuso_sexual}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="e4852a62-5f6c-47b3-9ec2-39a38c1e692d" x="231" y="42" width="59" height="15"/>
+					<box leftPadding="0">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{abuso_sexual12}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="133ab69e-b437-4760-a34c-a03e5817b6ce" x="231" y="77" width="59" height="15"/>
+					<box leftPadding="0">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{antec_edad_inicio_sexual}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="e51079b9-a2f0-4dfb-b09e-67d2e951ef38" x="231" y="92" width="59" height="15"/>
+					<box leftPadding="0">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ts}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="da2868d4-d6c6-4d9b-b26e-c3b5bfdf60d2" x="231" y="107" width="59" height="15"/>
+					<box leftPadding="0">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ts_actual}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="43057238-c62e-4d1c-aee9-150c44c95ad4" x="191" y="123" width="99" height="15"/>
+					<box leftPadding="0">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ts_tiempo}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="05804b2c-6dfa-4f77-861d-714fd6adfca5" x="112" y="138" width="79" height="15"/>
+					<box leftPadding="0">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{antec_ts_tiempo_anios}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="227d2532-4167-48c0-bd8a-cd40418184a4" x="231" y="153" width="59" height="15"/>
+					<box leftPadding="0">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ts_otro_pais}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="e4a86132-031d-4632-ada6-fae91376cf91" x="191" y="183" width="99" height="15"/>
+					<box leftPadding="3">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{relaciones_con}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="ee51381c-7287-4df7-b8f7-d08de2804f0a" mode="Opaque" x="8" y="0" width="100" height="13"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Antecedentes]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="964bad04-97df-4b37-8fb4-274d959ba585" x="2" y="13" width="288" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Antecedentes de abuso sexual]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7e181b92-fce9-4a76-bd8e-1d219a1121c5" mode="Transparent" x="2" y="28" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Ha sufrido abuso sexual alguna vez en la vida:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="9540580c-80e8-44d3-833c-87414f2ce3ee" mode="Transparent" x="2" y="42" width="68" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[A que edad:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="dea908ba-4111-492b-985e-5ea62aa7d63e" mode="Transparent" x="112" y="42" width="119" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Abuso en el ultimo año:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="1d6b5ba5-57c0-4efa-8f84-ffe9d5c02db4" mode="Transparent" x="2" y="62" width="288" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Antecedentes de relaciones sexuales]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="4d1b250c-10a6-4ce5-a87d-c1976870325e" mode="Transparent" x="2" y="77" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Edad de inicio de las relaciones sexuales:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="99afeb30-0da7-4e83-b331-0dcf87de4040" mode="Transparent" x="2" y="92" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Alguna vez ha ejercido como TS:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f3b7a8c4-065c-4059-a8b2-226a6f34c92d" mode="Transparent" x="2" y="107" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Actualmente ejerce trabajo sexual:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="a1327e13-dffe-4bb9-9eec-81a675099438" mode="Transparent" x="2" y="123" width="189" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Hace cuánto tiempo trabaja como TS:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="1050d804-7d58-4211-a5b6-7a96a00c3afb" mode="Transparent" x="2" y="138" width="110" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Cuantos años:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="219d80c1-80dc-4f66-a3f9-6724fa8b3832" mode="Transparent" x="2" y="153" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[En el último año realizó TS en otro país:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0dfbd3cb-a093-43e6-8e33-a2ea3c550b92" mode="Transparent" x="2" y="168" width="110" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Que País fue:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="f3f9d72f-32af-447d-8885-b2d036fb8632" x="171" y="219" width="119" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{antec_ts_nombre_lugar}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="df1e6725-8290-46b3-8a75-1893ad252594" x="112" y="168" width="178" height="15"/>
+					<box leftPadding="0">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{pais_ts}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="3312ac66-e029-4b6e-ad2b-8794a9b558b1" mode="Transparent" x="2" y="183" width="189" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Ha tenido relaciones sexuales con:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="a2c77e26-9287-4a95-ad35-010896e00cfc" mode="Transparent" x="2" y="204" width="288" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Antecedentes de Lugar de trabajo para TS]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="4f3dabb5-aad5-4cf8-84fd-2a9679637f45" x="171" y="232" width="119" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{ts_tipo_lugar}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="85c91a18-45fb-4e31-b212-d0fde367a2f2" x="231" y="269" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{its_ultimo_anio}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="f90464ec-6bd2-45ee-8a09-07dadaf01948" mode="Transparent" x="2" y="219" width="169" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Nombre del lugar de trabajo TS:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="4cc55e36-2d95-422c-9877-aba2dbfba130" mode="Transparent" x="2" y="234" width="169" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Tipo de lugar de trabajo TS:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="22cf1403-cb8f-4ef9-ac94-2254dd59bf68" mode="Transparent" x="2" y="254" width="288" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Antecedentes de ITS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="2bc60d6b-7e95-4777-a1dd-10b52781ccf7" mode="Transparent" x="2" y="269" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[En los últimos 12 meses tuvo una ITS:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="07c93f1a-b969-403d-9188-75cdec264fde" x="304" y="13" width="272" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Antecedentes de VIH]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="f38b71be-12ce-46b1-a5a7-afea49de48d4" x="518" y="28" width="58" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{vih}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="65949872-f37f-4da0-a13b-8c0aa1952f75" x="481" y="43" width="95" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{fecha_vih}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="307cd5aa-daa4-4d39-978f-90a20b52f4bc" x="518" y="58" width="58" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{pre_vih}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="964d7040-d5a8-4071-8857-b3b442b0c0e1" x="518" y="73" width="58" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{pos_vih}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="34922034-f146-4026-b2c1-35efd9d7614f" x="518" y="88" width="58" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{referido_tarv}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="500b6ead-e099-46b1-b53c-2ae0aca9e00a" x="357" y="103" width="219" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{nombre_clinica_tarv}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="09a8ce2f-ab03-47ee-a701-4a30b458294c" mode="Transparent" x="304" y="28" width="214" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Tiene diagnóstico de VIH:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="efc01547-0130-4021-915f-eb090240dd7b" mode="Transparent" x="304" y="43" width="177" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Fecha de diagnóstico de VIH:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="1741668b-b10d-47c8-b009-696c865b8004" mode="Transparent" x="304" y="58" width="214" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Recibió consejería pre prueba de VIH:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d0167c6a-d560-4d26-8c49-f343a0102b4e" mode="Transparent" x="304" y="73" width="214" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Recibió consejería pos prueba de VIH:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0694e9f7-46d9-4e01-988b-896dfb207d20" mode="Transparent" x="304" y="88" width="214" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Ha sido referido a una clínica TARV:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0de90dc2-2a8a-4b38-a2c9-b75d6744e196" mode="Transparent" x="304" y="103" width="53" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Cual:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="3c7ce245-01ba-4bd8-9941-f7526868c00b" x="304" y="131" width="272" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Antecedentes de VIH]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="879a9702-3434-47ed-866a-db21005e4857" mode="Transparent" x="304" y="146" width="214" height="13"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[En los últimos 30 días, consumió bebidas]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="3b6e5d65-22f3-498a-8f98-91c41bfda733" mode="Transparent" x="304" y="159" width="214" height="13"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[alcoholicas:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="c6ffb56f-7f3a-41da-a422-0af9b17f5faa" mode="Transparent" x="304" y="185" width="198" height="13"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[ingirió cerveza o bebidas alcohólicas:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="2092237c-d388-41a0-898a-6cd8591bd894" mode="Transparent" x="304" y="172" width="198" height="13"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[En la última semana con que frecuencia]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="49fe1f1f-b794-4fe7-b7ac-707342913eb6" x="518" y="146" width="58" height="26"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+					<textFieldExpression><![CDATA[$F{consumo_alcohol}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="556ca454-ca15-44d6-a3e3-f09447f1ce5d" x="502" y="172" width="74" height="26"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+					<textFieldExpression><![CDATA[$F{frecuencia_alcohol}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="2e26fdae-33f5-4b3d-9892-5e0660a9f30c" mode="Transparent" x="304" y="198" width="169" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Drogas utlizadas:]]></text>
+				</staticText>
+				<subreport>
+					<reportElement uuid="035dfe9b-a39f-4d71-8a23-8e3c3ecf6aef" x="45" y="292" width="200" height="29"/>
+					<subreportParameter name="idVicitsForm">
+						<subreportParameterExpression><![CDATA[$P{idVicitsForm}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporte_individal_sub_its.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport>
+					<reportElement uuid="4dbe19ef-4f68-49d0-be20-89dfdc3eb276" x="319" y="221" width="250" height="100"/>
+					<subreportParameter name="idVicitsForm">
+						<subreportParameterExpression><![CDATA[$P{idVicitsForm}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporte_individal_sub_droga.jasper"]]></subreportExpression>
+				</subreport>
+			</frame>
+		</band>
+		<band height="488">
+			<frame>
+				<reportElement uuid="70fb9b21-9cad-43d4-bafe-a1c0c01e57ff" x="0" y="11" width="581" height="477"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<staticText>
+					<reportElement uuid="ab3a06e6-7016-4166-8ae7-b272c0b647a0" mode="Opaque" x="13" y="0" width="100" height="13"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Parte A]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f03cd9f4-366d-4aa5-bbab-3c3d5484708f" mode="Transparent" x="2" y="397" width="288" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Signos y síntomas]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d25a6030-2bab-4dd0-800f-252219f8640b" mode="Transparent" x="2" y="412" width="169" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Motivo de la consulta:]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="33a6522a-8dab-4984-978b-f1f0ad579b20" x="171" y="412" width="119" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{motivo_consulta}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="98236586-39af-40d0-b37d-93e7d6ffdb37" mode="Transparent" x="304" y="364" width="272" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Otros datos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f81bf8a7-a6a5-4f8f-bd86-1cf6f240272f" mode="Transparent" x="304" y="379" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Recibió antibiótico en las últimas dos semanas:]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="61daf53f-cec0-4d2a-9c3a-995d9363f963" x="533" y="379" width="43" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{recibio_antibiotico}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="81a46be5-2da5-43c0-b0d0-03256ca93bd6" mode="Transparent" x="2" y="23" width="288" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Datos sobre uso del condon]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="24cb8754-fd15-4a5c-8dba-37a29a9d1472" mode="Transparent" x="2" y="38" width="229" height="13"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Ha tenido sexo anal con otros hombres]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="70be43ce-193c-482e-b881-3b76fe93946a" mode="Transparent" x="2" y="51" width="229" height="13"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[diferentes a su pareja en los ultimos 6 meses]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="3502fca1-babf-4434-98d9-572a91b45acb" mode="Transparent" x="2" y="64" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[En los últimos 30 días tuvo relaciones sexuales:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="94f17421-13ba-4644-bca5-44c8171452b7" mode="Transparent" x="2" y="79" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[En los últimos 30 días ha tenido sexo anal:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f5e21e16-74ff-4af4-848b-49ecede377bc" mode="Transparent" x="2" y="109" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[En los últimos 30 días ha tenido sexo oral:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="51094504-8189-4544-bf68-d62ae87984f3" mode="Transparent" x="2" y="124" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[En su última relacion sexual utilizó condón:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="501197f0-67d5-45ca-8d70-8bf28b352632" mode="Transparent" x="2" y="145" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Tienes pareja ESTABLE o FIJA hombre:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="016e6538-a071-4628-b9bd-9e763a1e2fb9" mode="Transparent" x="2" y="160" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Utilizó condón en los últimos 30 días:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="ef9f2cdd-f7bd-4d9e-83e1-24d83d3bb21d" mode="Transparent" x="2" y="175" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[la última vez, utilizó condón:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="a136d5d5-6529-4a0b-9ec2-eaa43c2c30f7" mode="Transparent" x="2" y="190" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Tienes pareja Casual hombre:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d7c3b58f-052f-43f4-a72d-78c79a8c9c54" mode="Transparent" x="2" y="220" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[la última vez, utilizó condón:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="25e9526f-6f6a-4e6d-8974-d8d8cee96c0a" mode="Transparent" x="2" y="205" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Utilizó condón en los últimos 30 días:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f9cdf0e7-83f7-4c1a-bb06-02ad7981aec2" mode="Transparent" x="2" y="250" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Utilizó condón en los últimos 30 días:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="b2234b9e-fc52-4b1e-8109-86f003660772" mode="Transparent" x="2" y="265" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[la última vez, utilizó condón:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="24fb998d-433b-4ab5-b8e6-f0a976b88282" mode="Transparent" x="2" y="235" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Tienes pareja ESTABLE o FIJA mujer:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="489f8d66-e8e3-4317-975c-57faa42ee170" mode="Transparent" x="2" y="295" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Utilizó condón en los últimos 30 días:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="fdc429ab-18aa-443b-9350-2bcd27d8a0a9" mode="Transparent" x="2" y="310" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[la última vez, utilizó condón:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7a7a4ef4-b72d-4b7b-9e3c-be645d92fb6f" mode="Transparent" x="2" y="280" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Tienes pareja Casual mujer:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="2d16e31a-6f59-41c3-896d-539d28c99249" x="231" y="38" width="59" height="26"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{condon_rel_anal_otro}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="cc02b5bd-e37f-437c-b8c2-88757769d9f3" x="231" y="64" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{condon_rel_sexual}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="ee4166eb-67c7-48a2-bc5b-b8e5800fb06d" x="231" y="79" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{condon_rel_anal}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="d76f7245-61c9-4d1a-aa20-a8ffefd297da" x="191" y="94" width="99" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{condon_tipo_rel_anal}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="323b2224-e519-4111-b5fa-899220a5d364" x="231" y="109" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{condon_sexo_oral}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="e645468a-bd74-475f-937f-f0636622f2dc" x="231" y="124" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{condon_ult_rel_uso_condon}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="58426ed7-992b-4b23-978c-2d0cc7f21c3f" x="231" y="145" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{par_hombre_fija}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="b03467d4-67d0-4b00-b0d1-5488fc0a8979" x="231" y="160" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{par_hombre_fija_uso_condon}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="63b06499-3fbe-4976-83bd-75acd7c17019" x="231" y="175" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{par_hombre_fija_ult_usu_condon}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="39b4e50d-6b26-45f1-b978-db8d69661ce6" x="231" y="190" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{par_hombre_casual}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="02724630-62d2-4534-9639-2c2f52c4ac4f" x="231" y="205" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{par_hombre_casual_uso_condon}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="162c3135-efee-4100-bc66-06208438bf43" x="231" y="220" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{par_hombre_casual_ult_usu_condon}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="373c2fae-f996-413d-bb6f-bc0af6859ab0" x="231" y="235" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{par_mujer_fija}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="f9d5f044-438d-4fda-b7cb-419bac769803" x="231" y="250" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{par_mujer_fija_uso_condon}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="67276f55-10b4-4c43-bf15-1d28b73abeba" x="231" y="265" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{par_mujer_fija_ult_usu_condon}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="172e8f89-bde7-47f6-a9be-22df6d5f17e5" x="231" y="280" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{par_mujer_casual}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="04e53e3b-829e-4b54-bd1d-bf75cd8ff7fd" x="231" y="295" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{par_mujer_casual_uso_condon}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="c535874d-4500-4486-b36e-ef3281519e59" x="231" y="310" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{par_mujer_casual_ult_usu_condon}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="f6b1c62c-63fe-4807-bceb-9a74555d4197" mode="Transparent" x="2" y="94" width="189" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Tipo de relacion anal:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="58c0cc45-0d61-429a-9ca9-fe0c15ccee6a" mode="Transparent" x="2" y="342" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Número de Clientes en la última semana:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="8e78c32d-111b-4dc3-9d92-26a9f4d4c51c" mode="Transparent" x="2" y="357" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Con clientes Utilizó condón los últimos 30 dias:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7549d5c3-ee30-48f7-944a-0b5ec6b13c0f" mode="Transparent" x="2" y="372" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[La última vez con un cliente, uso condón:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="80fa4653-4ce8-482d-b0be-157f48a080e6" mode="Transparent" x="2" y="327" width="229" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Número de Clientes en la última quincena:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="b95d5e5a-37ef-4ff5-ae10-4db61e695689" x="231" y="327" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ts_cliente_quincena}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="77dd9bbf-9c5c-44be-85ca-f131256f2997" x="231" y="342" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ts_cliente_semana}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="90eae950-f49d-4038-b69a-4c5591f0dcd1" x="231" y="357" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ts_uso_condon}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="618f9483-4467-4e55-8546-470f7e2edb36" x="231" y="372" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{ts_ultimo_usu_condon}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="d9785f0b-ba7f-4eeb-9b5d-1ee5f3fcba66" mode="Transparent" x="305" y="23" width="272" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Exámen general:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="a9436825-389d-4371-8c79-b50e3b670f6a" mode="Transparent" x="305" y="38" width="169" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Examen General:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="6e2f4c99-d7fe-4e1f-b8a9-36cf092fe774" mode="Transparent" x="305" y="53" width="110" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Temperatura oral:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="fceaa7cd-2512-4d48-92f5-5768ad73a471" mode="Transparent" x="305" y="68" width="45" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Peso:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="b7823bea-8ca5-4491-a3e8-aef012fbb59e" mode="Transparent" x="429" y="68" width="45" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[P/A:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="86dea0d2-b908-4001-a1fb-6bcc8468f284" mode="Transparent" x="305" y="83" width="169" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Ganglios:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="33521df9-79ff-4860-b2b4-6802eb750dfd" mode="Transparent" x="305" y="98" width="169" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Adenomegalia]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="a5f35ade-0563-4d99-afdf-5b2203c16caf" mode="Transparent" x="320" y="113" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Cuello]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="9ca78aa8-2ed2-4c07-8554-aa65a1f7d34c" mode="Transparent" x="409" y="113" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Axilar]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="464453c2-90ac-46dc-9426-9e27c7a47791" mode="Transparent" x="499" y="113" width="77" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Inguinal]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="6359313e-03c9-4108-8145-f60e979a8069" x="474" y="38" width="103" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_realizado}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="c47332a7-89e0-4bca-bc72-de91e7ec1708" x="415" y="53" width="39" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{exa_temperatura}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="db40db15-2e24-4dab-b39a-bdcdddb15c3b" x="350" y="68" width="50" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_libras}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="6a6a0ba9-787b-49e5-b1c1-65cf51f7d569" x="474" y="68" width="54" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_PA}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="e8ace0a4-e1e0-462e-ad9c-918b59026f71" x="474" y="83" width="103" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_ganglio}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="c0084def-87c4-4156-af8a-7344a041bb0d" x="305" y="113" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_ganglio_cuello}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="32d55c2a-59b0-4568-b628-92f2baeee980" x="394" y="113" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_ganglio_axilar}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="fb0ff6e0-21b8-4b5c-a915-b85dbff1aa48" x="485" y="113" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_ganglio_inguinal}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="b7ebdb48-6ef8-426e-9879-37abbb9ec0d2" mode="Transparent" x="305" y="128" width="74" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Rash:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="7195bc53-791d-4014-be07-8b9474c83fa8" x="379" y="128" width="85" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_rash}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="5d14b7fd-1095-40ff-98b6-0ce42c9ee111" x="473" y="128" width="103" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_rash_opcion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="b979fe8e-870e-4ea7-bc93-eae5264b36e1" mode="Transparent" x="409" y="159" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Ulcera]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="a7c5f59a-5b8c-4848-9943-2680999e2c7c" mode="Transparent" x="304" y="144" width="169" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Boca:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="1dd125cf-05c5-4a84-9390-5786858fbf34" mode="Transparent" x="319" y="159" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Monilia]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="ca0fb84b-dd3c-4c39-8d7b-14b7dd8f2e6e" mode="Transparent" x="499" y="159" width="77" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Secreción]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="9d0e476d-5827-4594-959d-5532004f559f" mode="Transparent" x="319" y="174" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Irrit. Faringea]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="95f1a34e-9de4-4fcf-abb6-cbc6cbeb9aaf" mode="Transparent" x="409" y="174" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Otros]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d6791df0-36bd-4d3d-886f-f73369ef1238" mode="Transparent" x="499" y="174" width="77" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Amigdalas]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="47d864a6-51c9-4a20-a1f1-812bd4b0abd9" x="304" y="159" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_boca_monilia}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="cfa97fa2-1431-4fff-b280-1ee5cd83eb54" x="394" y="159" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_boca_ulcera}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="bcd4ed9a-20dd-48f3-a8c2-51d232f423a5" x="304" y="174" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_boca_irritacion_faringea}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="98417e99-5416-4d10-ae03-c000a70f71ff" x="394" y="174" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_boca_otro}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="eb423d6d-df73-4d9b-8af3-e78d0ae4f1a2" x="484" y="167" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_boca_amigdalas}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="32213a32-e9a1-4531-9918-23eead8e74d5" mode="Transparent" x="454" y="53" width="20" height="15"/>
+					<box leftPadding="0">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[°C]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="2e131b24-046a-49f4-b7f8-9313421c06a4" mode="Transparent" x="528" y="68" width="49" height="15"/>
+					<box leftPadding="0">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[mmHg]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="09dd6d8a-7b71-47fc-a84e-fcdd750b7676" mode="Transparent" x="399" y="68" width="29" height="15"/>
+					<box leftPadding="0">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[lbs]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f1154f81-d64e-49e6-821e-5a47a40ad926" mode="Transparent" x="319" y="205" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Úlcera]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7c98ad01-501d-48a1-8b74-493db3049ca9" mode="Transparent" x="409" y="205" width="167" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Ampolla o vesícula]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0cbded7a-6be3-45df-9cf1-ea3b975a0532" mode="Transparent" x="409" y="220" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Otros]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="31c4d0e3-3951-45e6-bd92-a38af8cef2d0" mode="Transparent" x="304" y="190" width="169" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Pene:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="1483ebbc-c8ff-4e11-9014-7c1f8c977d57" mode="Transparent" x="319" y="220" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Verruga]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="b997a8c9-c531-4e52-8a8a-21c4b6f3570c" x="473" y="190" width="103" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_pene}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="a5cc5c59-61ab-4bc1-968f-a871f8c62e72" x="473" y="144" width="103" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_boca}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="f050b638-7292-4f71-8054-913c93487a12" x="304" y="205" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_pene_ulcera}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="c31d7962-c690-4b5b-9981-b5e180c25cac" x="304" y="220" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_pene_verruga}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="de164d94-8ff4-4312-ad25-1572042ed128" x="394" y="205" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_pene_ampolla}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="57b45d3c-e053-4725-aa3e-c7369dc75fdd" x="394" y="220" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_pene_otro}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="92a3ba01-4f91-41b8-b8ad-fa14fd29d538" mode="Transparent" x="409" y="250" width="167" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Ampolla o vesícula]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="85958243-a8ba-4705-9132-6ed2c9fb4b6b" mode="Transparent" x="319" y="250" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Úlcera]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="77a5c711-a8a3-47bf-8cb2-836f4c294dec" mode="Transparent" x="409" y="265" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Otros]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d97e58a9-ee4b-44b1-bedf-a9deced873d6" mode="Transparent" x="304" y="235" width="169" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Testículo:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="96861dbe-8056-4000-b7da-0dba4f01ff27" mode="Transparent" x="319" y="265" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Verruga]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="96cee737-ac74-47ca-89dc-13bffa73a32f" x="304" y="250" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_testiculo_ulcera}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="cfb704ee-f43d-41f5-8f87-0f056e7d8f27" x="304" y="265" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_testiculo_verruga}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="200303c8-b042-4c93-a12b-7db8fef4b91a" x="394" y="250" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_testiculo_ampolla}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="5d3df8d8-70ff-4eda-8a12-914391371dda" x="394" y="265" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_testiculo_otro}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="7fee0f65-1e6b-4279-8309-ac4d8fa223d0" x="473" y="235" width="103" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_testiculo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="24196624-4ed1-4e90-9778-1101fe0ac1a4" mode="Transparent" x="320" y="295" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Hiperemia]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="ac6e4b9a-8931-45cb-ab6a-2ccc114aee40" mode="Transparent" x="410" y="295" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Secreción]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="5895020b-26ef-4e2e-ba73-11baeeb4f7a6" mode="Transparent" x="500" y="295" width="77" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Verruga]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="1244634d-fe4b-42f3-b5ec-6f6590d4a8aa" mode="Transparent" x="305" y="280" width="169" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Meato uretral:]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="da3a36d6-559b-485a-8844-d40ee303ea5f" x="305" y="295" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_meato_hiperemia}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="4370e30c-567c-4504-b1d0-2c488a820598" x="485" y="295" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_meato_verruga}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="70f16e32-2cbc-4bc2-9156-e001ad296fd2" x="395" y="295" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_meato_secrecion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="7e32bd87-dedc-490a-acac-0c6cc110f77a" mode="Transparent" x="320" y="325" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Úlcera]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="c4a35310-9e5c-4824-b836-d8e90ed7d2c6" mode="Transparent" x="410" y="340" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Otros]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="92142337-f384-48ec-940a-cbd4609079c8" mode="Transparent" x="410" y="325" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Verruga]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="b76e87e7-35c7-4305-ac10-42e190c35d74" mode="Transparent" x="500" y="325" width="77" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Secreción]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="5021ff77-418b-423c-9b23-dee4154bd1de" mode="Transparent" x="305" y="310" width="169" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Ano:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="85e4ec88-7fb8-4274-a4c0-be3bac3223f1" mode="Transparent" x="320" y="340" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Vesícula]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="a0ab177b-540c-4c77-952c-4011f9d34204" x="305" y="325" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_ano_ulcera}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="85e0c0df-62f1-4020-9aaa-9630db06acd3" x="395" y="325" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_ano_verruga}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="9624795f-1fa7-4f1f-82bf-db1a4481f927" x="484" y="325" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_ano_secrecion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="fa664c15-af73-4d6e-b4f5-9dc05370e98a" x="305" y="340" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_ano_vesicula}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="4ec31ec5-ce9b-4860-ba05-5aa620002122" x="395" y="340" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_ano_otro}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="d3260bfd-23b8-446d-ae94-6b811d3bd5de" x="474" y="310" width="103" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_ano}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="839f5cbd-b4cf-4618-a89b-6b93bcdc983d" x="474" y="280" width="103" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{exa_meato}]]></textFieldExpression>
+				</textField>
+				<subreport>
+					<reportElement uuid="5fbac34d-2000-4ec8-bdd3-8f9b4e31eb33" x="7" y="432" width="280" height="35"/>
+					<subreportParameter name="idVicitsForm">
+						<subreportParameterExpression><![CDATA[$P{idVicitsForm}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporte_individal_sub_sintoma.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport>
+					<reportElement uuid="6ea688d9-92b5-4287-bc83-aec906a5c291" x="296" y="400" width="280" height="67"/>
+					<subreportParameter name="idVicitsForm">
+						<subreportParameterExpression><![CDATA[$P{idVicitsForm}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporte_individal_sub_antibiotico.jasper"]]></subreportExpression>
+				</subreport>
+			</frame>
+		</band>
+		<band height="161">
+			<frame>
+				<reportElement uuid="3ead51a8-30c1-4af3-b4ee-e76631d5fc60" x="0" y="10" width="580" height="151"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<staticText>
+					<reportElement uuid="15518580-e94f-4ce4-8447-0d3688192185" mode="Opaque" x="14" y="0" width="100" height="13"/>
+					<box leftPadding="5">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Parte B]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="346037cc-9703-4f32-9807-e826f7972374" x="108" y="86" width="182" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{diag_otro}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="1ac9acf2-fd1d-4c5c-869f-8d23979cd322" mode="Transparent" x="144" y="26" width="87" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Tomó muestra:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e4a7d3df-424a-4a6e-9c5a-60cd5cc59dcc" mode="Transparent" x="409" y="41" width="167" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Secreción Anal]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="811bd03d-85b5-430f-9c29-e3c632409599" x="89" y="26" width="55" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{usuario_sano}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="0989d66e-6a72-4a98-8281-da17926223e6" mode="Transparent" x="319" y="41" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Úlcera]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="18a3c9d0-a92c-450e-8f81-0bf65f531637" mode="Transparent" x="290" y="86" width="112" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Otro medicamento:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="1f8e1308-8068-4b8b-be56-2f7ad6c6fb51" x="231" y="26" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{muestra_ninguna}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="13a722cb-6706-42ba-8b3d-ac7e79465529" mode="Transparent" x="2" y="71" width="412" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Ha recibido una intervención de cambio de comportamiento en los últimos 12 meses:]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="8d14a681-927e-4725-a98a-42ca60bab082" x="304" y="41" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{muestra_ulcera}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="1eda9f0f-e0fe-47f6-9657-e832bbb64ded" x="394" y="26" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{muestra_secrecion_uretral}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="3b97f91b-d913-4201-b9e4-a330db3d8bd8" mode="Transparent" x="409" y="26" width="167" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Secreción Uretral]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="e93f4065-dc83-4184-84a4-1467941329ce" x="394" y="41" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{muestra_secrecion_anal}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="9d068216-bb08-4f6a-b81c-bebf703fb525" x="414" y="71" width="59" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{intervencion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="69cb6520-6229-48d1-a1ee-10cbe3a45dce" mode="Transparent" x="319" y="26" width="75" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Sangre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="8a4a8b68-2a0d-4d7f-906b-d689763f2635" mode="Transparent" x="2" y="56" width="574" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Diagnóstico Sindrómico]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f5f25c1e-3d3f-40f0-87e3-09732e7bce22" mode="Transparent" x="2" y="26" width="87" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Usuario sano:]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="d34a7a88-1d1d-49d1-9226-2a9f26f90185" x="402" y="86" width="174" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{diag_otro_medicamento}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="efd917ce-8fa3-4944-aa29-ba152b0cbaf0" x="304" y="26" width="15" height="15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{muestra_sangre_hsh}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="32da1933-5874-4916-b9b0-862762eac15b" mode="Transparent" x="2" y="86" width="106" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Otro diagnóstico:]]></text>
+				</staticText>
+				<subreport>
+					<reportElement uuid="2d4124e3-ba93-400a-ba01-9067455b35f8" x="13" y="108" width="560" height="33"/>
+					<subreportParameter name="idVicitsForm">
+						<subreportParameterExpression><![CDATA[$P{idVicitsForm}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporte_individal_sub_tratamiento.jasper"]]></subreportExpression>
+				</subreport>
+			</frame>
+		</band>
+		<band height="137">
+			<frame>
+				<reportElement uuid="d0a5fd77-1435-4f13-8e85-46dd99336760" x="0" y="10" width="581" height="127"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<staticText>
+					<reportElement uuid="9e4a0717-9458-47a8-b7dc-aede7c46673e" mode="Transparent" x="3" y="41" width="112" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Medicamento 1:]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="c5143f88-ac9c-4c1f-ac99-d32b8144ca1e" x="115" y="56" width="462" height="15"/>
+					<box leftPadding="3">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noti_medicamento2}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="f8ed2fa3-4c15-4bbd-83bf-f706789d3900" mode="Transparent" x="3" y="56" width="112" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Medicamento 2:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="79638d26-8d71-4bd9-b87e-96ec12aabdae" mode="Transparent" x="291" y="26" width="138" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Preservartivos entregados:]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="b309891b-bf25-4866-9c77-d270b092636c" x="115" y="101" width="248" height="15"/>
+					<box leftPadding="3">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noti_nombre_medico}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="ddbdef5f-f4bf-45e2-9aca-4f58773f446f" mode="Transparent" x="14" y="0" width="101" height="15"/>
+					<box leftPadding="0">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Notificación]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="4cb2ad7a-46e2-43ac-9161-4d426e4bf0bc" x="429" y="26" width="46" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noti_preservativos}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="340eea68-764a-4534-b3ff-5e3cdf3c42c8" mode="Transparent" x="3" y="26" width="243" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Referencia de pareja/contactos para tratamiento:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="b0f92150-fb5e-458d-be45-f2d8dff29077" mode="Transparent" x="363" y="101" width="112" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Fecha de consulta:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="c926ebf6-e729-4ec6-924f-5919b42ff559" mode="Transparent" x="3" y="101" width="112" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Nombre del médico:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e9e35fd4-e015-45b6-a554-e57b92ceb12a" mode="Transparent" x="475" y="26" width="65" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Cuantos:]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="182cce76-f31e-491b-bff5-4e4082153704" x="115" y="86" width="462" height="15"/>
+					<box leftPadding="3">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{nombre_un}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="a02d4985-c4f5-497c-a76e-ed5db7ef2949" x="115" y="71" width="462" height="15"/>
+					<box leftPadding="3">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noti_medicamento3}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="b545218b-e8ca-42ec-9382-8529326736ee" mode="Transparent" x="3" y="86" width="112" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Instalación de salud:]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="435b82b3-c0d6-401e-941f-74775cc7ea87" x="115" y="41" width="462" height="15"/>
+					<box leftPadding="3">
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noti_medicamento1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="0dfb78ab-9e61-452b-8043-36c5e23dd15e" mode="Transparent" x="3" y="71" width="112" height="15"/>
+					<box leftPadding="5">
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Medicamento 3:]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="3a37e818-a423-43db-b69c-59133cb5282b" x="475" y="101" width="102" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{fecha_consulta}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="2d4aff83-3241-49da-99e2-c3996151cc15" x="246" y="26" width="45" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noti_referencia_pareja}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="4ab20731-98e1-402e-a551-cb601a5975dd" x="540" y="26" width="37" height="15"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{noti_preservativos_cuantos}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,2088 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteIndividual" language="groovy" pageWidth="605" pageHeight="842" columnWidth="590" leftMargin="10" rightMargin="5" topMargin="15" bottomMargin="5" uuid="bbeff5de-fde5-4de0-a755-64bd59347348">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="313"/>
+	<style name="table_TD"/>
+	<parameter name="filtro" class="java.lang.String">
+		<defaultValueExpression><![CDATA[-1]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["http://localhost/sisvig2/reportes/uceti/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select IFNULL(un.nombre_un,'No disponible') as "nombre_un" ,
+uceti.nombre_registra, uceti.nombre_investigador,
+DATE_FORMAT(uceti.fecha_formulario,'%d-%m-%Y') as "fecha_formulario",
+CONCAT_WS(" ", tipo_id.nombre_tipo, uceti.numero_identificacion) as "identificacion",
+(case when uceti.per_tipo_paciente = 1 then 'Ambulatorio' when uceti.per_tipo_paciente = 2 then 'Hospitalizado' else 'Sin dato' end) as tipo_paciente,
+(case when uceti.per_hospitalizado = 1 then CONCAT_WS(" ", "Si - Lugar:", (case when uceti.per_hospitalizado_lugar = 1 then 'Observación' when uceti.per_hospitalizado_lugar = 2 then 'Sala' when uceti.per_hospitalizado_lugar = 3 then 'UCI' else 'Sin dato' end)) else 'No' end) as esta_hospitalizado,
+(case when uceti.per_asegurado = 1 then 'Si' when uceti.per_asegurado = 0 then 'No' when uceti.per_asegurado = 2 then 'Desconoce' else 'Sin dato' end) as per_asegurado,
+per.primer_nombre, per.segundo_nombre, per.primer_apellido, per.segundo_apellido,
+DATE_FORMAT(per.fecha_nacimiento,'%d-%m-%Y') as "fecha_nacimiento",
+per.edad, c_edad.nombre as "edad_nombre",
+(case when per.sexo = "M" then 'Hombre' when per.sexo = "F" then 'Mujer' else 'Sin dato' end) as "sexo",
+per.nombre_responsable, pro.nombre_provincia, re.nombre_region, corr.nombre_corregimiento, dis.nombre_distrito,
+per.dir_referencia, per.dir_trabajo, per.tel_residencial,
+(case when uceti.vac_tarjeta = 1 then 'Si' when uceti.vac_tarjeta = 0 then 'No' else 'Sin dato' end) as vac_tarjeta,
+(case when uceti.vac_segun_esquema = 1 then 'Si' when uceti.vac_segun_esquema = 0 then 'No' else 'Sin dato' end) as vac_segun_esquema,
+(case when uceti.vac_fecha_ultima_dosis = "9999-99-99" then 'Desconocida' when uceti.vac_fecha_ultima_dosis = "0000-00-00" then 'No recibida' else DATE_FORMAT(uceti.vac_fecha_ultima_dosis,'%d-%m-%Y') end) as "vac_fecha_ultima_dosis",
+(case when uceti.riesgo_embarazo = 1 then 'Si' when uceti.riesgo_embarazo = 0 then 'No' when uceti.riesgo_embarazo = 2 then 'Desconoce' else 'No aplica' end) as riesgo_embarazo,
+(case when uceti.riesgo_trimestre = 1 then '1er' when uceti.riesgo_trimestre = 2 then '2do' when uceti.riesgo_trimestre = 3 then '3ro' when uceti.riesgo_embarazo = 0 then ' ' else 'No aplica' end) as riesgo_trimestre,
+(case when uceti.riesgo_enf_cronica = 1 then 'Si' when uceti.riesgo_enf_cronica = 0 then 'No' when uceti.riesgo_enf_cronica = 2 then 'Desconoce' else 'No aplica' end) as riesgo_enf_cronica,
+(case when uceti.riesgo_profesional = 1 then 'Si' when uceti.riesgo_profesional = 0 then 'No' when uceti.riesgo_profesional = 2 then 'Desconoce' else 'Sin dato' end) as riesgo_profesional,
+(case when uceti.riesgo_pro_cual = 1 then 'Trabajador Agropecuario' when uceti.riesgo_pro_cual = 2 then 'Trabajador de Salud' when uceti.riesgo_pro_cual = 3 then 'Otro' else ' ' end) as riesgo_pro_cual,
+(case when uceti.riesgo_viaje = 1 then 'Si' when uceti.riesgo_viaje = 0 then 'No' when uceti.riesgo_viaje = 2 then 'Desconoce' else 'Sin dato' end) as riesgo_viaje,
+(case when uceti.riesgo_contacto_confirmado = 1 then 'Si' when uceti.riesgo_contacto_confirmado = 0 then 'No' when uceti.riesgo_contacto_confirmado = 2 then 'Desconoce' else 'Sin dato' end) as riesgo_contacto_confirmado,
+(case when uceti.riesgo_contacto_tipo = 0 then 'Familiar' when uceti.riesgo_contacto_tipo = 1 then 'Laboral' when uceti.riesgo_contacto_tipo = 2 then 'Escolar' when uceti.riesgo_contacto_tipo = 3 then 'Social' else ' ' end) as riesgo_contacto_tipo,
+(case when uceti.riesgo_aislamiento = 1 then 'Si' when uceti.riesgo_aislamiento = 0 then 'No' when uceti.riesgo_aislamiento = 2 then 'Desconoce' else 'Sin dato' end) as riesgo_aislamiento,
+uceti.riesgo_contacto_nombre,
+(case when uceti.eve_sindrome = 1 then 'Síndrome Gripal'
+      when uceti.eve_neumo_bacteriana = 1 then
+      (case when uceti.eve_centinela = 1 then 'Neumonía B. - IRAG Centinela'
+            when uceti.eve_inusitado = 1 then 'Neumonía B. - IRAG Inusitado'
+            when uceti.eve_imprevisto = 1 then 'Neumonía B. - IRAG Imprevisto'
+            when uceti.eve_excesivo = 1 then 'Neumonía B. - IRAG N Excesivo'
+            when uceti.eve_conglomerado = 1 then 'IRAG Conglomerado'
+            else 'Neumonía Bacteriana' end)
+      when uceti.eve_centinela = 1 then 'IRAG Centinela'
+      when uceti.eve_inusitado = 1 then 'IRAG Inusitado'
+      when uceti.eve_imprevisto = 1 then 'IRAG Imprevisto'
+      when uceti.eve_excesivo = 1 then 'IRAG N Excesivo'
+      when uceti.eve_conglomerado = 1 then 'IRAG Conglomerado'
+      else 'Sin dato' end) as tipo_evento,
+ev.cie_10_1, ev.nombre_evento,
+DATE_FORMAT(uceti.fecha_inicio_sintoma,'%d-%m-%Y') as "fecha_inicio_sintoma",
+DATE_FORMAT(uceti.fecha_hospitalizacion,'%d-%m-%Y') as "fecha_hospitalizacion",
+DATE_FORMAT(uceti.fecha_notificacion,'%d-%m-%Y') as "fecha_notificacion",
+DATE_FORMAT(uceti.fecha_egreso,'%d-%m-%Y') as "fecha_egreso",
+DATE_FORMAT(uceti.fecha_defuncion,'%d-%m-%Y') as "fecha_defuncion",
+(case when uceti.antibiotico = 1 then 'Si' when uceti.antibiotico = 0 then 'No' when uceti.antibiotico = 2 then 'Desconoce' else 'Sin dato' end) as antibiotico,
+uceti.antibiotico_cual,
+DATE_FORMAT(uceti.antibiotico_fecha,'%d-%m-%Y') as "antibiotico_fecha",
+(case when uceti.antiviral = 1 then 'Si' when uceti.antiviral = 0 then 'No' when uceti.antiviral = 2 then 'Desconoce' else 'Sin dato' end) as antiviral,
+uceti.antiviral_cual,
+DATE_FORMAT(uceti.antiviral_fecha,'%d-%m-%Y') as "antiviral_fecha",
+(case when uceti.sintoma_fiebre = 1 then 'Si' when uceti.sintoma_fiebre = 0 then 'No' when uceti.sintoma_fiebre = 2 then 'Desconoce' else 'Sin dato' end) as sintoma_fiebre,
+IFNULL(DATE_FORMAT(uceti.fecha_fiebre,'%d-%m-%Y'),' ') as "fecha_fiebre",
+(case when uceti.sintoma_tos = 1 then 'Si' when uceti.sintoma_tos = 0 then 'No' when uceti.sintoma_tos = 2 then 'Desconoce' else 'Sin dato' end) as sintoma_tos,
+IFNULL(DATE_FORMAT(uceti.fecha_tos,'%d-%m-%Y'),' ') as "fecha_tos",
+(case when uceti.sintoma_garganta = 1 then 'Si' when uceti.sintoma_garganta = 0 then 'No' when uceti.sintoma_garganta = 2 then 'Desconoce' else 'Sin dato' end) as sintoma_garganta,
+IFNULL(DATE_FORMAT(uceti.fecha_garganta,'%d-%m-%Y'),' ') as "fecha_garganta",
+(case when uceti.sintoma_rinorrea = 1 then 'Si' when uceti.sintoma_rinorrea = 0 then 'No' when uceti.sintoma_rinorrea = 2 then 'Desconoce' else 'Sin dato' end) as sintoma_rinorrea,
+IFNULL(DATE_FORMAT(uceti.fecha_rinorrea,'%d-%m-%Y'),' ') as "fecha_rinorrea",
+(case when uceti.sintoma_respiratoria = 1 then 'Si' when uceti.sintoma_respiratoria = 0 then 'No' when uceti.sintoma_respiratoria = 2 then 'Desconoce' else 'Sin dato' end) as sintoma_respiratoria,
+IFNULL(DATE_FORMAT(uceti.fecha_respiratoria,'%d-%m-%Y'),' ') as "fecha_respiratoria",
+(case when uceti.sintoma_otro = 1 then 'Si' when uceti.sintoma_otro = 0 then 'No' when uceti.sintoma_otro = 2 then 'Desconoce' else 'Sin dato' end) as sintoma_otro,
+IFNULL(DATE_FORMAT(uceti.fecha_otro,'%d-%m-%Y'),' ') as "fecha_otro",
+IFNULL(uceti.sintoma_nombre_otro,' ') as sintoma_nombre_otro,
+(case when uceti.torax_condensacion = 1 then 'Si' when uceti.torax_condensacion = 0 then 'No' when uceti.torax_condensacion = 2 then 'Desconoce' else ' ' end) as torax_condensacion,
+(case when uceti.torax_derrame = 1 then 'Si' when uceti.torax_derrame = 0 then 'No' when uceti.torax_derrame = 2 then 'Desconoce' else ' ' end) as torax_derrame,
+(case when uceti.torax_broncograma = 1 then 'Si' when uceti.torax_broncograma = 0 then 'No' when uceti.torax_broncograma = 2 then 'Desconoce' else ' ' end) as torax_broncograma,
+(case when uceti.torax_infiltrado = 1 then 'Si' when uceti.torax_infiltrado = 0 then 'No' when uceti.torax_infiltrado = 2 then 'Desconoce' else ' ' end) as torax_infiltrado,
+(case when uceti.torax_otro = 1 then 'Si' when uceti.torax_otro = 0 then 'No' when uceti.torax_otro = 2 then 'Desconoce' else ' ' end) as torax_otro,
+uceti.torax_nombre_otro
+from flureg_form uceti
+inner join tbl_persona per on per.tipo_identificacion = uceti.tipo_identificacion and per.numero_identificacion = uceti.numero_identificacion
+left join cat_edad c_edad ON per.tipo_edad = c_edad.tipo_edad
+left join cat_tipo_identidad tipo_id ON per.tipo_identificacion = tipo_id.id_tipo_identidad
+left join cat_unidad_notificadora un on un.id_un = uceti.id_un
+left join cat_region_salud re on re.id_region = per.id_region
+left join cat_corregimiento corr on per.id_corregimiento = corr.id_corregimiento
+left join cat_distrito dis on corr.id_distrito = dis.id_distrito
+left join cat_provincia pro on dis.id_provincia = pro.id_provincia
+left join cat_evento ev on ev.id_evento = uceti.id_evento
+where 1 and id_flureg = $P!{filtro}]]>
+	</queryString>
+	<field name="nombre_un" class="java.lang.String"/>
+	<field name="nombre_registra" class="java.lang.String"/>
+	<field name="nombre_investigador" class="java.lang.String"/>
+	<field name="fecha_formulario" class="java.lang.String"/>
+	<field name="identificacion" class="java.lang.String"/>
+	<field name="tipo_paciente" class="java.lang.String"/>
+	<field name="esta_hospitalizado" class="java.lang.String"/>
+	<field name="per_asegurado" class="java.lang.String"/>
+	<field name="primer_nombre" class="java.lang.String"/>
+	<field name="segundo_nombre" class="java.lang.String"/>
+	<field name="primer_apellido" class="java.lang.String"/>
+	<field name="segundo_apellido" class="java.lang.String"/>
+	<field name="fecha_nacimiento" class="java.lang.String"/>
+	<field name="edad" class="java.lang.Integer"/>
+	<field name="edad_nombre" class="java.lang.String"/>
+	<field name="sexo" class="java.lang.String"/>
+	<field name="nombre_responsable" class="java.lang.String"/>
+	<field name="nombre_provincia" class="java.lang.String"/>
+	<field name="nombre_region" class="java.lang.String"/>
+	<field name="nombre_corregimiento" class="java.lang.String"/>
+	<field name="nombre_distrito" class="java.lang.String"/>
+	<field name="dir_referencia" class="java.lang.String"/>
+	<field name="dir_trabajo" class="java.lang.String"/>
+	<field name="tel_residencial" class="java.lang.String"/>
+	<field name="vac_tarjeta" class="java.lang.String"/>
+	<field name="vac_segun_esquema" class="java.lang.String"/>
+	<field name="vac_fecha_ultima_dosis" class="java.lang.String"/>
+	<field name="riesgo_embarazo" class="java.lang.String"/>
+	<field name="riesgo_trimestre" class="java.lang.String"/>
+	<field name="riesgo_enf_cronica" class="java.lang.String"/>
+	<field name="riesgo_profesional" class="java.lang.String"/>
+	<field name="riesgo_pro_cual" class="java.lang.String"/>
+	<field name="riesgo_viaje" class="java.lang.String"/>
+	<field name="riesgo_contacto_confirmado" class="java.lang.String"/>
+	<field name="riesgo_contacto_tipo" class="java.lang.String"/>
+	<field name="riesgo_aislamiento" class="java.lang.String"/>
+	<field name="riesgo_contacto_nombre" class="java.lang.String"/>
+	<field name="tipo_evento" class="java.lang.String"/>
+	<field name="cie_10_1" class="java.lang.String"/>
+	<field name="nombre_evento" class="java.lang.String"/>
+	<field name="fecha_inicio_sintoma" class="java.lang.String"/>
+	<field name="fecha_hospitalizacion" class="java.lang.String"/>
+	<field name="fecha_notificacion" class="java.lang.String"/>
+	<field name="fecha_egreso" class="java.lang.String"/>
+	<field name="fecha_defuncion" class="java.lang.String"/>
+	<field name="antibiotico" class="java.lang.String"/>
+	<field name="antibiotico_cual" class="java.lang.String"/>
+	<field name="antibiotico_fecha" class="java.lang.String"/>
+	<field name="antiviral" class="java.lang.String"/>
+	<field name="antiviral_cual" class="java.lang.String"/>
+	<field name="antiviral_fecha" class="java.lang.String"/>
+	<field name="sintoma_fiebre" class="java.lang.String"/>
+	<field name="fecha_fiebre" class="java.lang.String"/>
+	<field name="sintoma_tos" class="java.lang.String"/>
+	<field name="fecha_tos" class="java.lang.String"/>
+	<field name="sintoma_garganta" class="java.lang.String"/>
+	<field name="fecha_garganta" class="java.lang.String"/>
+	<field name="sintoma_rinorrea" class="java.lang.String"/>
+	<field name="fecha_rinorrea" class="java.lang.String"/>
+	<field name="sintoma_respiratoria" class="java.lang.String"/>
+	<field name="fecha_respiratoria" class="java.lang.String"/>
+	<field name="sintoma_otro" class="java.lang.String"/>
+	<field name="fecha_otro" class="java.lang.String"/>
+	<field name="sintoma_nombre_otro" class="java.lang.String"/>
+	<field name="torax_condensacion" class="java.lang.String"/>
+	<field name="torax_derrame" class="java.lang.String"/>
+	<field name="torax_broncograma" class="java.lang.String"/>
+	<field name="torax_infiltrado" class="java.lang.String"/>
+	<field name="torax_otro" class="java.lang.String"/>
+	<field name="torax_nombre_otro" class="java.lang.String"/>
+	<title>
+		<band height="75" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b95ca8f9-659a-4fc7-a30e-7cf4e80d538e" style="table_TD" mode="Opaque" x="0" y="15" width="585" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[MINISTERIO DE SALUD - CAJA DE SEGURO SOCIAL - INSTITUCIONES DE SALUD PRIVADAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0d28902-9425-4ac5-8010-bd8eb0ef6167" style="table_TD" x="0" y="0" width="585" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPUBLICA DE PANAMÁ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f888d3db-a108-4859-91b7-06e96633c742" style="table_TD" mode="Opaque" x="0" y="30" width="585" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[INSTITUTO CONMEMORATIVO GORGAS DE ESTUDIOS EN SALUD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="51e081cf-4680-4f32-8709-7c611a968962" style="table_TD" mode="Opaque" x="0" y="45" width="585" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Formulario para Vigilancia de la Influenza - Síndrome Gripal,  Respiratorias Agudas y Graves,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7b7a419a-9c70-4e77-ab23-d0e132eac158" style="table_TD" mode="Opaque" x="0" y="60" width="585" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Bronconeumonías, Neumonías Virales y Bacterianas-Bronquiolitis]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="255" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="766c0751-7003-4eb6-ab07-217e37e5df91" style="table_TD" x="0" y="0" width="426" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre instalación de salud:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="dfb8a75a-230c-486f-9aea-ed74601134a4" style="table_TD" x="0" y="15" width="426" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_un}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="96353ae5-7117-4368-987f-eeca63aaae5c" style="table_TD" x="426" y="15" width="159" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_formulario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="46124526-8976-41be-bee8-3882cc6920f5" style="table_TD" x="426" y="0" width="159" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Formulario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9fee8c84-b67d-4d31-ac86-9d0f8df8a5b8" style="table_TD" mode="Opaque" x="0" y="30" width="585" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[DATOS DEL PACIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="47894e05-0f1d-4bf7-88fe-5b2e59ea0d6a" style="table_TD" x="0" y="60" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de paciente:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b9a6d288-7632-4236-ae87-471d0fee626c" style="table_TD" x="0" y="75" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipo_paciente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="39b6eed1-1a1d-485a-9463-72f4bff84988" style="table_TD" x="179" y="60" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[¿Está hospitalizado por IRAG?]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d41e071e-55f4-4064-9406-c69cfbfbd0d4" style="table_TD" x="179" y="75" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{esta_hospitalizado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="374883ca-04f5-49ed-867e-e1641388fa2a" style="table_TD" x="0" y="45" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Identificación del paciente:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="26875af3-0a97-4b13-a86a-50ba1250c4a4" style="table_TD" x="405" y="60" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Asegurado:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="1713541d-f0d2-4ec4-b48c-4cf41c981631" style="table_TD" x="405" y="75" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{per_asegurado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="57af1c78-ff1a-4765-9282-5b7c6087ff63" style="table_TD" x="179" y="45" width="406" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{identificacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="2f40d056-4436-4e25-bce8-adb0e16793e1" style="table_TD" x="293" y="105" width="150" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{primer_apellido}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1e740870-d7d6-4ecd-87fa-ee0fdcaf3e99" style="table_TD" x="293" y="90" width="150" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[1er. Apellido]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6acbbf37-c40d-4e14-b023-edec0693afc3" style="table_TD" x="443" y="105" width="142" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{segundo_apellido}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3046556b-8f35-4360-a280-e6eb4defae81" style="table_TD" x="443" y="90" width="142" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[2do. Apellido]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f1132686-ab0c-4b36-ad51-40cbadf6d9bd" style="table_TD" x="0" y="105" width="148" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{primer_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ebc98dfa-ca1f-4536-aec5-eba9bbede6a4" style="table_TD" x="148" y="90" width="145" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[2do. Nombre]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="ddce6ae9-ab03-48fa-b697-a2529347b53d" style="table_TD" x="148" y="105" width="145" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{segundo_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b8dfb821-6a08-4d38-aa0b-c05917e46525" style="table_TD" x="0" y="90" width="148" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[1er. Nombre]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e711e5dc-a13c-4292-89bb-18cd16313825" style="table_TD" x="443" y="120" width="142" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{edad}+" "+$F{edad_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="44662ef8-4dd6-4c3f-ab8b-62e371276a34" style="table_TD" x="0" y="135" width="148" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Sexo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3e9d84eb-0461-4022-aabe-c6bba2507ef6" style="table_TD" x="293" y="120" width="150" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Edad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f95e204a-1117-4273-b390-3275890be5be" style="table_TD" x="0" y="120" width="148" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de nacimiento:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="217a7bad-4763-4fde-95f3-0a7d4d803ef6" style="table_TD" x="148" y="120" width="145" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_nacimiento}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="2627c903-e17e-4684-b71e-b54c37b1ff77" style="table_TD" x="148" y="135" width="145" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="90f13e9d-b9ba-475d-98a2-8c2f13abd415" style="table_TD" x="443" y="135" width="142" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_responsable}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1bf98088-e39a-47d9-9314-57c614a73f0a" style="table_TD" x="293" y="135" width="150" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Nombre responsable:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="ec4be0fd-1431-4d86-b541-02fb45ae9bb4" style="table_TD" x="148" y="165" width="145" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_region}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="70a1b998-6edc-4147-87e9-ce2c564eb329" style="table_TD" x="443" y="165" width="142" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_corregimiento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="4586bdf0-78eb-4255-bb78-7c488b0cfca1" style="table_TD" x="293" y="150" width="150" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Distrito:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="958c2534-1ddb-4f12-a0fd-8dcbd474eb61" style="table_TD" x="293" y="165" width="150" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_distrito}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2cc65cea-9dbd-4405-9552-597948608922" style="table_TD" x="443" y="150" width="142" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Corregimiento:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a60706f3-709b-469d-bebd-bc42d63fea81" style="table_TD" x="0" y="165" width="148" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_provincia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b1c67124-f705-436b-bd5d-2c25b3a3bd75" style="table_TD" x="0" y="150" width="148" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Provincia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1976f536-87c6-428d-85b6-3e322162bf54" style="table_TD" x="148" y="150" width="145" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Región:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="73d9f5ae-247b-475e-b667-9763912a55d4" style="table_TD" x="0" y="180" width="148" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Dirección de referencia:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6d19a2d1-5d67-4758-94ac-72c0d233fd48" style="table_TD" x="148" y="180" width="437" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dir_referencia}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="340d8419-ee35-44bf-a21b-d445537d96f8" style="table_TD" x="148" y="195" width="145" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dir_trabajo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="fa1aebcf-a14a-4174-9b1d-371888ed04f8" style="table_TD" x="0" y="195" width="148" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Otra dirección:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="1a71fc7b-2748-43a3-823e-2d79264d1644" style="table_TD" x="443" y="195" width="142" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tel_residencial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="4d90828d-a32d-476c-8f0c-5b12f25fd045" style="table_TD" x="293" y="195" width="150" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Telefono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="813c2be7-34ea-4440-860d-6578480344ed" style="table_TD" mode="Opaque" x="0" y="210" width="585" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[ANTECEDENTES]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="00e2799a-6b2c-406a-9fd4-02959a7529f5" style="table_TD" x="179" y="240" width="199" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vac_segun_esquema}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d7943d62-7f60-4939-b505-784ef14ecc0a" style="table_TD" x="179" y="225" width="199" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Corresponde vacuna según esquema:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9c117919-d21a-4348-9f0f-22a35a874a18" style="table_TD" x="378" y="225" width="207" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Fecha penúltima dosis Anti Influenza:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="24fbabff-7eb6-4546-84fd-bbc29a792a67" style="table_TD" x="0" y="225" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Porta Tarjeta de vacuna:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6847919f-c032-4a25-9be9-b08db8fa8256" style="table_TD" x="378" y="240" width="207" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vac_fecha_ultima_dosis}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8b48d736-9d56-4b65-bb1b-60f8eef059ad" style="table_TD" x="0" y="240" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vac_tarjeta}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="10">
+			<subreport>
+				<reportElement uuid="8a0873a0-2464-4e19-8bd5-8df8565f8604" stretchType="RelativeToTallestObject" x="0" y="0" width="585" height="10"/>
+				<subreportParameter name="filtro">
+					<subreportParameterExpression><![CDATA[$P{filtro}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteIndividual_antecedente.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="45">
+			<staticText>
+				<reportElement uuid="82d50636-c83d-445c-9849-75ba0ff56aaf" style="table_TD" x="0" y="15" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Embarazo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="43d03ca7-581b-4379-8213-ee6fb5d1ca6f" style="table_TD" x="179" y="15" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Trimestre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="90bd671b-a05d-4ef2-b104-cd60de8a7130" style="table_TD" x="405" y="15" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Enfermedad crónica:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="470a3297-e72b-47ff-b231-901a25af1ed2" style="table_TD" x="179" y="30" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riesgo_trimestre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="47a056cd-d8ea-496e-8e1d-d8843bf8d567" style="table_TD" x="0" y="30" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riesgo_embarazo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e8b65556-5211-410b-a048-88db07b737af" style="table_TD" x="405" y="30" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riesgo_enf_cronica}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="68ea8cec-04b7-4ca3-b2d9-9303c5eaf8d1" style="table_TD" mode="Opaque" x="0" y="0" width="585" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[FACTOR DE RIESGO]]></text>
+			</staticText>
+		</band>
+		<band height="13">
+			<subreport>
+				<reportElement uuid="f7d2aa32-2240-4d6a-9234-6059b11ef612" stretchType="RelativeToTallestObject" x="0" y="0" width="585" height="13"/>
+				<subreportParameter name="filtro">
+					<subreportParameterExpression><![CDATA[$P{filtro}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteIndividual_enfermedad.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="479">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f3dae63d-b82a-42a5-a8da-e6839b84d126" style="table_TD" x="0" y="15" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riesgo_profesional}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b42cc678-3a2b-41c9-803f-1908d6d1b4bc" style="table_TD" x="0" y="0" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Riesgo profesional:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="9919487d-7f89-416b-ad75-a4c466936351" style="table_TD" x="405" y="15" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riesgo_viaje}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2181f3e7-2c5d-4e1d-8795-7369f0e5b1df" style="table_TD" x="179" y="0" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Cual:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="ae9c9cbc-0f39-41bd-884f-5571c4781aff" style="table_TD" x="179" y="15" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riesgo_pro_cual}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="605309b4-be12-480b-86cc-549cfaf4a4a8" style="table_TD" x="405" y="0" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Historia de viaje 15 días antes:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7457ede8-3454-44db-a9c1-e0ec06fccdc5" style="table_TD" x="0" y="45" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riesgo_contacto_confirmado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b667e18f-82bb-46d5-a6fe-0b7795cc5956" style="table_TD" x="0" y="30" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Contacto de caso confirmado:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3cca2467-993e-4bbf-8286-1365ef9821d3" style="table_TD" x="405" y="45" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riesgo_aislamiento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="69eaf038-a8b2-4689-ae8d-7b0586358064" style="table_TD" x="179" y="30" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de contacto:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4ef8e055-b053-49a7-b2e3-8d7011f690b2" style="table_TD" x="179" y="45" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riesgo_contacto_tipo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="6d1e54ca-63d0-4e69-a3b6-5f5a723987be" style="table_TD" x="405" y="30" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Indicación de aislamiento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d200dbba-0aaa-4e45-b68f-6c6476ad0680" style="table_TD" x="0" y="60" width="148" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Nombre contacto:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6d59f94a-28ce-44e9-bd1e-a8cbdd57e1c2" style="table_TD" x="148" y="60" width="437" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{riesgo_contacto_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9b7e4039-04f1-4efe-8bcf-e9c851845ea0" style="table_TD" mode="Opaque" x="0" y="75" width="585" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[DATOS CLÍNICOS EPIDEMIOLÓGICOS]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c0581448-2ba3-458b-948b-dc706a3d4a70" style="table_TD" x="179" y="105" width="406" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cie_10_1}+" - "+$F{nombre_evento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5d295bc2-1c34-41c6-ad59-b67651ba5376" style="table_TD" x="0" y="90" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de evento en Estudio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ba822392-9f3a-4592-a873-a4f25272e42d" style="table_TD" x="179" y="90" width="406" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Diagnóstico Clínico:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6b912f22-d90f-4f7b-b186-ed68b0d9dd45" style="table_TD" x="0" y="105" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipo_evento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2981fdf0-b48e-484c-a35d-9afe19f9ef26" style="table_TD" x="0" y="149" width="293" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ Egreso:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="02b73eab-6271-4bcb-90cf-5f9c0b6850b4" style="table_TD" x="179" y="134" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_hospitalizacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="481e93bd-a5da-4ce4-b65d-5e39e8491de6" style="table_TD" x="0" y="164" width="293" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_egreso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="216c2e8a-6f10-4b0b-b454-4eb78f813561" style="table_TD" x="0" y="119" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Inicio de síntomas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0857d5e1-ba0b-4cbf-a582-dcf3f3f77603" style="table_TD" x="405" y="119" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ Notificación:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="329b1d29-b133-4dd7-84b3-c34f6a09c339" style="table_TD" x="179" y="119" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Hospitalización:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c6921a17-7757-45e7-a382-74176e2dd5e1" style="table_TD" x="293" y="149" width="292" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Defunción:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a8ec911a-8556-402d-9f58-1f4f91a06dc8" style="table_TD" x="293" y="164" width="292" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_defuncion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="40610b15-be44-4cd9-ac42-e5abeb6e99f3" style="table_TD" x="405" y="134" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_notificacion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a8ff8f3b-eee2-4764-9303-9416d5e4fb32" style="table_TD" x="0" y="134" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_inicio_sintoma}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c94f95d5-af95-48ed-8086-0314794ffe8a" style="table_TD" x="179" y="194" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{antibiotico_cual}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5b546e9b-b44b-4d58-9e0b-2724adceb72a" style="table_TD" x="0" y="179" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Uso de antibióticos última semana:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5253156e-f81a-49de-bacf-90fc38d3be90" style="table_TD" x="405" y="179" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ Fecha:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4189faf0-1629-45d8-95d2-f51ee3d1c5db" style="table_TD" x="0" y="194" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{antibiotico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="adcea796-efd6-458b-afa1-3dd9faea67bf" style="table_TD" x="179" y="179" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Cual:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a9f39f37-1f2a-4873-95bd-71df9209d84f" style="table_TD" x="405" y="194" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{antibiotico_fecha}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="da1e9c7c-4d73-43d4-9115-70f103bd6fba" style="table_TD" x="0" y="224" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{antiviral}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="14ca0d1d-7b54-430b-9b00-b6b8bde72cc6" style="table_TD" x="405" y="224" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{antiviral_fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0533bba9-312d-4f7f-b9d0-5699195332bc" style="table_TD" x="405" y="209" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4fa3df75-d020-4fc0-a63e-66671080a1d8" style="table_TD" x="0" y="209" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Uso de antivirales:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a436f576-8519-4030-9b57-916f0f6d0408" style="table_TD" x="179" y="224" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{antiviral_cual}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0f960f5f-7d79-414a-8397-5ba5312a6169" style="table_TD" x="179" y="209" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Cual:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="65d632ef-5acd-4a6b-89ed-058d83ab7e17" style="table_TD" x="0" y="239" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Hallazgos Clínicos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="56c06ccc-636b-42b6-8aa4-1b8381e109b6" style="table_TD" x="179" y="239" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Resultado:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="40b3bce1-3daf-4fa0-80b9-447e78d8ad48" style="table_TD" x="405" y="239" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Fecha de Inicio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="137754bb-8434-4772-a1ec-491f6c0656ee" style="table_TD" x="0" y="254" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Fiebre > 38ºC:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cff88010-1798-4bbf-989c-a405af6f00ae" style="table_TD" x="0" y="284" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Dolor de garganta:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7523223d-77c1-4e03-bada-b89271202fcf" style="table_TD" x="0" y="299" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Rinorrea:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="654e338e-6d86-4f2a-bc64-d660222db618" style="table_TD" x="0" y="269" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Tos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1ef5e06c-4f60-4647-97d8-446d2cc954a5" style="table_TD" x="0" y="314" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Dificultad Respiratoria:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="41c823e4-e3a9-4cb6-81f0-0578b4b2d138" style="table_TD" x="0" y="329" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Otro:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7345cb8d-8395-44ab-97f5-28c30137b951" style="table_TD" x="0" y="344" width="179" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Cual:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="51b9cb10-48d7-4c20-aff9-f0106e267876" style="table_TD" x="179" y="254" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sintoma_fiebre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="1fabd98d-2b2a-4b00-ad49-b68ea8c3dad7" style="table_TD" x="179" y="269" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sintoma_tos}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a1868342-3cd2-4cda-8c5f-e00bd7a4aa82" style="table_TD" x="179" y="284" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sintoma_garganta}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="90ba6222-ee56-43c7-949f-18cac8020105" style="table_TD" x="179" y="299" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sintoma_rinorrea}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fcb66e2d-9a92-4f58-bc51-8e049497913f" style="table_TD" x="179" y="314" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sintoma_respiratoria}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="725a3676-d2c5-4b95-a457-357f17878c83" style="table_TD" x="179" y="329" width="226" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sintoma_otro}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="77619f11-394e-4e5f-a4c0-827ae4496cdd" style="table_TD" x="179" y="344" width="406" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{sintoma_nombre_otro}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7c4046d8-91b2-4641-86f8-79f6a6482096" style="table_TD" x="405" y="254" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_fiebre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="ad97f242-44c3-4424-99d5-75b9c91a696d" style="table_TD" x="405" y="269" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_tos}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6bb98592-3fa5-4c37-84ee-1eb41f6ae3a7" style="table_TD" x="405" y="284" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_garganta}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0699d441-2e70-4972-9050-17577f053ba4" style="table_TD" x="405" y="299" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_rinorrea}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="826e8c33-09e7-4862-8a3c-0791cbb5d155" style="table_TD" x="405" y="314" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_respiratoria}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="bf4c7463-cfc7-4738-b2e3-088adc0fd688" style="table_TD" x="405" y="329" width="180" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_otro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8facbd7f-c134-4d45-9ad3-bfecafef1fa4" style="table_TD" x="0" y="359" width="585" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ Resultado de la radiografía de Tórax]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="006e6082-19e0-471e-b8d3-da9eb2e36426" style="table_TD" x="293" y="389" width="150" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Infiltrado Intersticial:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6c40ae81-1685-4a84-a3ab-20f01ea8d328" style="table_TD" x="0" y="389" width="148" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Broncograma Aéreo:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0607cf62-147c-4955-b1c2-6ead564202c9" style="table_TD" x="148" y="389" width="145" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{torax_broncograma}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7ab46342-cb1f-43d7-a96b-aef8e72ad736" style="table_TD" x="443" y="389" width="142" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{torax_infiltrado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ed91d057-a9c9-454d-bc1d-747dd002e0f8" style="table_TD" x="0" y="374" width="148" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Condensación:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="56c7e450-f3bd-48ee-bccf-f049bf8d78eb" style="table_TD" x="443" y="374" width="142" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{torax_derrame}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="72a4ce7b-b169-48bc-999c-486a2de9ab0c" style="table_TD" x="148" y="374" width="145" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{torax_condensacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b7a57f16-1da8-4840-af88-1925031b89ed" style="table_TD" x="293" y="374" width="150" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Derrame pleural:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="31ef828a-fc71-4ca3-82c4-e16c828ef2a0" style="table_TD" x="148" y="404" width="437" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{torax_otro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="653b3237-1a02-4637-affc-c867eef0a26a" style="table_TD" x="0" y="404" width="148" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Otro:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="1d9ce7c9-7687-4d27-8e0c-3165136ac54f" style="table_TD" x="148" y="419" width="437" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{torax_nombre_otro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="fdd07495-977d-4c7e-813d-9a9905af30d0" style="table_TD" x="0" y="419" width="148" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Describir:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cc7ee195-6257-464d-a000-31af1e6a1916" style="table_TD" mode="Opaque" x="0" y="434" width="585" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[DATOS NOTIFICACIÓN]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="2c8a65ef-c498-48c7-8f67-0061f8a0b628" style="table_TD" x="0" y="464" width="293" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_investigador}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="080465e3-bdf2-4d1f-bc31-d4ad5012d563" style="table_TD" x="293" y="464" width="292" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_registra}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0674b252-e04d-43c6-8cb4-00252f0bed04" style="table_TD" x="293" y="449" width="292" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre de quien registra:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="05045db6-df65-4dd3-9377-2c79fb144e84" style="table_TD" x="0" y="449" width="293" height="15"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre de quien notifica:]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

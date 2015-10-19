@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_area_evento" language="groovy" pageWidth="1008" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="980" leftMargin="14" rightMargin="14" topMargin="14" bottomMargin="14">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1"/>
+	<parameter name="filtro" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["http://192.168.1.24/vigilabhnd/reportes/area_evento/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="evento" class="java.lang.Integer"/>
+	<parameter name="firma" class="java.lang.String"/>
+	<parameter name="evNom" class="java.lang.String"/>
+	<parameter name="aa" class="java.lang.String"/>
+	<parameter name="atencion" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from datos_basicos_reporte_area_evento
+where EVE_ID = $P{evento} AND $P!{filtro}
+order by MUE_CODIGO_GLOBAL_ANIO, MUE_CODIGO_GLOBAL_NUMERO]]>
+	</queryString>
+	<field name="MUE_ID" class="java.lang.Integer"/>
+	<field name="MUE_CODIGO_GLOBAL_ANIO" class="java.lang.Integer"/>
+	<field name="MUE_CODIGO_GLOBAL_NUMERO" class="java.lang.Integer"/>
+	<field name="MUE_CODIGO_CORRELATIVO_ALFA" class="java.lang.String"/>
+	<field name="MUE_CODIGO_CORRELATIVO_NUMERO" class="java.lang.Integer"/>
+	<field name="global" class="java.lang.String"/>
+	<field name="correlativo" class="java.lang.String"/>
+	<field name="persona" class="java.lang.String"/>
+	<field name="recepcion" class="java.sql.Date"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="semana" class="java.lang.Integer"/>
+	<field name="area" class="java.lang.String"/>
+	<field name="distrito" class="java.lang.String"/>
+	<field name="ESTABLECIMIENTO" class="java.lang.String"/>
+	<field name="IDENTIFICADOR" class="java.lang.String"/>
+	<field name="NO HISTORIA CLINICA" class="java.lang.String"/>
+	<field name="PRIMER NOMBRE" class="java.lang.String"/>
+	<field name="SEGUNDO NOMBRE" class="java.lang.String"/>
+	<field name="PRIMER APELLIDO" class="java.lang.String"/>
+	<field name="SEGUNDO APELLIDO" class="java.lang.String"/>
+	<field name="APELLIDO CASADA" class="java.lang.String"/>
+	<field name="edad" class="java.lang.Integer"/>
+	<field name="tipo_edad" class="java.lang.String"/>
+	<field name="sexo" class="java.lang.String"/>
+	<field name="SIT_ID" class="java.lang.Integer"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="idas" class="java.lang.Integer"/>
+	<field name="idds" class="java.lang.Integer"/>
+	<field name="idtss" class="java.lang.String"/>
+	<field name="idts" class="java.lang.String"/>
+	<field name="otro" class="java.lang.String"/>
+	<field name="EVE_NOMBRE" class="java.lang.String"/>
+	<field name="EVE_ID" class="java.lang.Integer"/>
+	<field name="comentarios" class="java.lang.String"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="RES_FIN_ID" class="java.lang.Long"/>
+	<field name="resultado" class="java.lang.String"/>
+	<field name="t1" class="java.lang.String"/>
+	<field name="s1" class="java.lang.String"/>
+	<field name="t2" class="java.lang.String"/>
+	<field name="s2" class="java.lang.String"/>
+	<title>
+		<band height="20">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="21" y="0" width="245" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{atencion}==""?" " : "ATENCION:  "+ $P{atencion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="97" splitType="Stretch">
+			<staticText>
+				<reportElement x="266" y="33" width="430" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[UNIDAD CENTRAL DE REFERENCIA PARA LA VIGILANCIA EPIDEMIOLOGICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="0" width="430" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[MINISTERIO DE SALUD PUBLICA Y ASISTENCIA SOCIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="19" width="430" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="SansSerif" size="11" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[LABORATORIO NACIONAL DE SALUD]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="897" y="0" width="46" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Pág. "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="943" y="0" width="37" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="57" width="980" height="17" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["ÁREA DE  "+ $P{aa}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="245" y="74" width="468" height="17" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{EVE_ID} == 18? "INFORME DE RESULTADOS DIAGNÓSTICO DE CHAGAS":
+(
+        $F{EVE_ID} == 5? "INFORME DE RESULTADOS DE PACIENTES SOSPECHOSOS DE LEPTOSPIROSIS":
+            (
+                $F{EVE_ID} == 17? "INFORME DE RESULTADOS DIAGNÓSTICO DE LEISHMANIASIS":
+                    (
+                        $F{EVE_ID} == 7? "INFORME DE RESULTADOS DIAGNÓSTICO DE MALARIA":"INFORME DE DIAGNÓSTICO DE " + $P{evNom}.toUpperCase()
+                    )
+            )
+)]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement style="table_TD" x="730" y="0" width="70" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Resultado Final]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="800" y="0" width="89" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Res. Específico No.1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="889" y="0" width="91" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Res. Específico No.2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="515" y="0" width="164" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Prueba]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="679" y="0" width="51" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Resultado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="466" y="0" width="49" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Recepción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="388" y="0" width="78" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Establecimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="284" y="0" width="104" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Área de Salud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="256" y="0" width="28" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="206" y="0" width="50" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Edad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="122" y="0" width="84" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="65" y="0" width="57" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Correlativo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="0" y="0" width="65" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Código Global]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="515" y="0" width="215" height="20" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="muestra">
+					<subreportParameterExpression><![CDATA[$F{MUE_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "pruebas_propuesta.jasper"]]></subreportExpression>
+			</subreport>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="800" y="0" width="89" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{s1} == 'No Aplica'?$F{t1}:$F{t1}+" " + $F{s1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="889" y="0" width="91" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{s2} == 'No Aplica'?$F{t2}:$F{t2}+" " + $F{s2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="730" y="0" width="70" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{resultado}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="466" y="0" width="49" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{recepcion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="388" y="0" width="78" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ESTABLECIMIENTO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="284" y="0" width="104" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{area}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="256" y="0" width="28" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sexo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="206" y="0" width="50" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{edad}+" "+($F{tipo_edad} == '1'? "Días" : ($F{tipo_edad} == '2'? "Meses":
+    ($F{tipo_edad} == '3'? "Años":" ")))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="122" y="0" width="84" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{persona}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="65" y="0" width="57" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{correlativo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="0" y="0" width="65" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{global}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="99">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="374" y="59" width="212" height="14" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{firma}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="374" y="73" width="212" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[PROFESIONAL RESPONSABLE]]></text>
+			</staticText>
+			<line>
+				<reportElement x="378" y="58" width="205" height="1"/>
+			</line>
+			<textField pattern="dd/MM/yyyy h:mm a">
+				<reportElement x="21" y="68" width="209" height="20"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

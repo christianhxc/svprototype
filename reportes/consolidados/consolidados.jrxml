@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="consolidados" language="groovy" pageWidth="842" pageHeight="3000" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#006400">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFFFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["http://192.168.1.24/vigilabhnd/reportes/consolidados/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="filtro" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="anioIni" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[2012]]></defaultValueExpression>
+	</parameter>
+	<parameter name="anioFin" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[2012]]></defaultValueExpression>
+	</parameter>
+	<parameter name="semanaIni" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<parameter name="semanaFin" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[52]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+count(con.MUE_ID) as total, con.MUE_ID, con.RES_FIN_ID, con.RES_FIN_NOMBRE, con.anio, con.MUE_SEMANA_EPI, con.EVE_ID, con.EVE_NOMBRE, con.ARE_ANA_ID, con.ARE_ANA_NOMBRE,
+(select
+count(con1.MUE_ID)
+from vw_matriz_conclusion con1
+where con1.RES_FIN_ID = 0 AND con1.anio = con.anio AND con1.MUE_SEMANA_EPI = con.MUE_SEMANA_EPI AND
+con1.EVE_ID = con.EVE_ID AND con1.ARE_ANA_ID = con.ARE_ANA_ID) as no_procesadas
+from vw_matriz_conclusion con
+where (anio between $P{anioIni} and $P{anioFin}) and (MUE_SEMANA_EPI between $P{semanaIni} and $P{semanaFin}) $P!{filtro}
+group by con.ARE_ANA_ID, con.anio, con.MUE_SEMANA_EPI, con.EVE_ID
+order by con.ARE_ANA_ID, con.anio, con.EVE_ID, con.MUE_SEMANA_EPI, con.RES_FIN_ID;]]>
+	</queryString>
+	<field name="total" class="java.lang.Long"/>
+	<field name="MUE_ID" class="java.lang.Integer"/>
+	<field name="RES_FIN_ID" class="java.lang.Integer"/>
+	<field name="RES_FIN_NOMBRE" class="java.lang.String"/>
+	<field name="anio" class="java.lang.Integer"/>
+	<field name="MUE_SEMANA_EPI" class="java.lang.Integer"/>
+	<field name="EVE_ID" class="java.lang.Integer"/>
+	<field name="EVE_NOMBRE" class="java.lang.String"/>
+	<field name="ARE_ANA_ID" class="java.lang.Integer"/>
+	<field name="ARE_ANA_NOMBRE" class="java.lang.String"/>
+	<field name="no_procesadas" class="java.lang.Long"/>
+	<group name="ARE_ANA_ID">
+		<groupExpression><![CDATA[$F{ARE_ANA_ID}]]></groupExpression>
+		<groupHeader>
+			<band height="18">
+				<staticText>
+					<reportElement x="0" y="0" width="55" height="18"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Área:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="55" y="0" width="747" height="18"/>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{ARE_ANA_NOMBRE}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="anio">
+		<groupExpression><![CDATA[$F{anio}]]></groupExpression>
+		<groupHeader>
+			<band height="36">
+				<textField>
+					<reportElement x="55" y="0" width="747" height="18"/>
+					<box leftPadding="5"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{anio}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="55" height="18"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Año:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="table_TH" x="0" y="18" width="216" height="18" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Evento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="table_TH" x="216" y="18" width="47" height="18" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Semana]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="table_TH" x="263" y="18" width="36" height="18" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="table_TH" x="299" y="18" width="79" height="18" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[No procesadas]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="table_TH" x="378" y="18" width="67" height="18" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Procesadas]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="table_TH" x="445" y="18" width="357" height="18" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Resultado Final]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<title>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="802" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MINISTERIO DE SALUD PUBLICA DE HONDURAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="18" width="802" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LABORATORIO DE REFERENCIA NACIONAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="36" width="802" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte consolidado por área de analisis y evento]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement style="table_TD" x="0" y="0" width="216" height="30"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{EVE_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="216" y="0" width="47" height="30"/>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{MUE_SEMANA_EPI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="263" y="0" width="36" height="30"/>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="299" y="0" width="79" height="30"/>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{no_procesadas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="378" y="0" width="67" height="30"/>
+				<box leftPadding="5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{total}-$F{no_procesadas}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="445" y="0" width="357" height="30"/>
+				<subreportParameter name="anio">
+					<subreportParameterExpression><![CDATA[$F{anio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="semana">
+					<subreportParameterExpression><![CDATA[$F{MUE_SEMANA_EPI}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="area_id">
+					<subreportParameterExpression><![CDATA[$F{ARE_ANA_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="eve_id">
+					<subreportParameterExpression><![CDATA[$F{EVE_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "consolidados_sub.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

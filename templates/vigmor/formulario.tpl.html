@@ -1,0 +1,497 @@
+<div class="Content" align="left">
+    <!-- POPUP de BUSQUEDA !-->
+    <div id="dialog-form" title="B&uacute;squeda de Personas" align="center">
+        <form id="formDialog" action="" method="">
+            <div class="ui-state-error ui-corner-all" id="pErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px; width: 50%">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <div id="pDetalle" style="margin-top: 0px; margin-bottom: 0px;"></div>
+            </div>
+            <fieldset style="width:740px; text-align: left">
+                <legend>Filtro</legend>
+                <div align="left">
+                    <table>
+                        <tr id="notFoundFilter">
+                            <td colspan="4" align="right">
+                                <a href="javascript:useSearched();" class="" title="Usar criterios de b&uacute;squeda para ingreso de nuevo individuo" style="text-decoration: none; font-weight:bold; display: none" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Usar estos datos</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>No. Identificador:</label></td>
+                            <td><input type="text" name="popid" id="id" value="" class="" style="width: 150px; text-align:center;" maxlength="45"/></td>
+                        </tr>
+                        <tr>
+                            <td><label>Nombres:</label></td>
+                            <td><input type="text" name="popn1" id="n" value="" class="" style="width: 250px; text-transform: uppercase;" maxlength="45"/></td>
+                            <td><label>Apellidos:</label></td>
+                            <td><input type="text" name="popp1" id="p" value="" class="" style="width: 250px; text-transform: uppercase;" maxlength="45"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" valign="bottom">
+                                <label >Edad:</label>
+                                <select id="drpPopTipo" name="poptipoE" onChange="validarEdadPop();">
+                                    <option value="0">Tipo</option>
+                                    <option value="1">D&iacute;as</option>
+                                    <option value="2">Meses</option>
+                                    <option value="3">A&ntilde;os</option>
+                                </select>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desde: <input type="text" id="ed" name="popEdesde" style="width: 40px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);" onChange="validarEdadPop();"/>
+                                Hasta: <input type="text" id="ed2" name="popEhasta" style="width: 40px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);" onChange="validarEdadPop();"/>
+                            </td>
+                            <td colspan="2" valign="bottom">
+                                <label >Sexo:</label>
+                                <select id="drpsexoP" name="popSexo">
+                                    <option value="0">Seleccionar</option>
+                                    <option value="M">Hombre</option>
+                                    <option value="F">Mujer</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr>
+                            <td colspan="2" align="right">
+                                <a href="javascript:validarPopupP();" class="ui-state-default ui-corner-all ui-button"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                    Filtrar
+                                </a>
+                            </td>
+                            <td  colspan="2"align="right">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <a href="javascript:nuevo();" class="" style="text-decoration: none; font-weight:bold; display: none" title="Ingresar nuevo individuo"onmouseover="RollOver(this)" onmouseout="RollOut(this)">Nuevo</a>
+                                            </div>
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <div>
+                                                <a href="javascript:clearSearch();" class="" style="text-decoration: none; font-weight:bold;" title="Borrar criterios de b&uacute;squeda" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Borrar filtro</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+        </form>
+        <br/>
+        <div id="resultadosBusqueda" align="center"></div>
+    </div>
+
+
+    <form id="frmContenido" class="niceform" action="{urlprefix}vigmor/formulario.php" method="POST" onsubmit="return validarVigmor();">
+        <table width="100%">
+            <tr>
+                <td>
+                    <h2>Formulario para la Vigilancia en Mortalidad - VIGMOR </h2>
+                </td>
+                <td align="right">
+                    <div style="color: #A4BC2B;">
+                        Regresar
+                        <a href="index.php" class="" style="text-decoration: none; font-weight:bold;">
+                            <img title="Regresar" border=0 src="../img/back.png"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div id="ErrorGuardar" class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; display:{disError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{mensajeErrorGeneral}</label><br/>
+        </div>
+        <div class="ui-state-highlight ui-corner-all"
+             style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;" align="left">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{desInfo}</label>
+        </div>
+
+        <div class="ui-state-error ui-corner-all" id="dSummaryErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>Los datos no se pueden guardar debido a lo siguiente:</label>
+            <p id="pSummaryErrors" style="margin-top: 0px; margin-bottom: 0px;"></p>
+        </div>
+        <div id="tabs" class="">
+            <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#divIndividuo">Individuo</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#divDefuncion">Datos de la defunci&oacute;n</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#divNotificacion">Datos Notificaci&oacute;n</a></li>
+            </ul>
+
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divIndividuo" >
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Individuo</legend>
+                    <input name="data[individuo][id_individuo]" type="hidden" id="id_individuo" value="{valID}" />
+                    <table border="0" cellpadding="2" cellspacing="2" align="center">
+                        <tr>
+                            <td colspan="3">
+                                <a href="javascript:buscar();" class="ui-state-default ui-corner-all ui-button"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                    Buscar
+                                </a>
+                            </td>
+                            <td align="right">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td><label >Tipo Identificador:<span class="mandatory">*</span></label></td>
+                            <td>
+                                <select id="drpTipoId" name="data[individuo][tipoId]" style="width:250px" {valReadOnly} onchange="setTipoId()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkTipoId -->
+                                    <option value="{valTipoId}" {selTipoId}>{opcTipoId}</option>
+                                    <!-- END blkTipoId -->
+                                </select>
+                                <input type="hidden" id="tipoId" name="data[loaded][tipoId]" value="{valTipoId}" />
+                            </td>
+                            <td><label >No. Identificador:<span class="mandatory">*</span></label></td>
+                            <td>
+                                <div id="divCedula1">
+                                    <input type="text" id="no_identificador" name="data[individuo][identificador]" value="{valIdentificador}" style="width: 250px; text-align:center;" maxlength="45" {valReadOnly}/>
+                                </div>
+                                <div id="divCedula2">
+                                    <input type="text" id="no_identificador1" name="data[individuo][identificador1]" value="{valIdentificador1}" style="width: 50px; text-align:center;" maxlength="4" {valReadOnly}/> -
+                                    <input type="text" id="no_identificador2" name="data[individuo][identificador2]" value="{valIdentificador2}" style="width: 50px; text-align:center;" maxlength="4" {valReadOnly}/> -
+                                    <input type="text" id="no_identificador3" name="data[individuo][identificador3]" value="{valIdentificador3}" style="width: 50px; text-align:center;" maxlength="4" {valReadOnly}/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label >1er. Nombre:<span class="mandatory">*</span></label></td>
+                            <td><input type="text" id="primer_nombre" name="data[individuo][primer_nombre]" style="width: 250px; text-transform: uppercase;" value="{valPrimerNombre}" maxlength="45"/></td>
+                            <td><label >2do. Nombre:</label></td>
+                            <td><input type="text" id="segundo_nombre" name="data[individuo][segundo_nombre]" style="width: 250px; text-transform: uppercase;" value="{valSegundoNombre}" maxlength="45"/></td>
+                        </tr>
+                        <tr>
+                            <td><label >1er. Apellido:<span class="mandatory">*</span></label></td>
+                            <td><input type="text" id="primer_apellido" name="data[individuo][primer_apellido]" value="{valPrimerApellido}" style="width: 250px; text-transform: uppercase;" maxlength="75"/></td>
+                            <td><label >2do. Apellido:</label></td>
+                            <td><input type="text" id="segundo_apellido" name="data[individuo][segundo_apellido]" value="{valSegundoApellido}" style="width: 250px; text-transform: uppercase;" maxlength="75"/></td>
+                        </tr>
+                        <tr>
+                            <td><label >Fecha de nacimiento:</label></td>
+                            <td>
+                                <input type="text" id="fecha_nacimiento" name="data[individuo][fecha_nacimiento]" value="{valFechaNacimiento}" style="width: 135px;" maxlength="10" onchange="calcularEdad();"/>
+                                <span class="ui-datepicker-append"> dd/mm/aaaa</span>
+                            </td>
+                            <td colspan="2">
+                                <label >Edad:<span class="mandatory">*</span></label>&nbsp;&nbsp;
+                                <select id="drptipo_edad" name="data[individuo][tipo_edad]">
+                                    <option value="0" >Selec...</option>
+                                    <option value="5" {selMinutos}>Minutos</option>
+                                    <option value="4" {selHoras}>Horas</option>
+                                    <option value="1" {selDias}>D&iacute;as</option>
+                                    <option value="2" {selMeses}>Meses</option>
+                                    <option value="3" {selAnios}>A&ntilde;os</option>
+                                </select>
+                                <input type="text" id="edad" name="data[individuo][edad]" value="{valEdad}" style="width: 50px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);" onchange="validarEdad();"/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <label >Sexo:<span class="mandatory">*</span></label>&nbsp;&nbsp;
+                                <select id="drpsexo" name="data[individuo][sexo]">
+                                    <option value="0">Seleccione...</option>
+                                    <option value="M" {selSexoM}>Hombre</option>
+                                    <option value="F" {selSexoF}>Mujer</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><label>Residencia Habitual</label></td>
+                        </tr>
+                        <tr>
+                            <td><label >Pa&iacute;s:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpPais" name="data[individuo][pais]" style="width:250px" onchange="setPais()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkPais -->
+                                    <option value="{valPais}" {selPais}>{opcPais}</option>
+                                    <!-- END blkPais -->
+                                </select>
+                                <input type="hidden" id="idPais" name="data[loaded][idPais]" value="{valIdPais}" />
+                            </td>
+                        </tr>
+                        <tr id="divPolitica1">
+                            <td ><label >Provincia:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpProIndividuo" name="data[individuo][provincia]" style="width:250px" onchange="setRegionCascada()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkProIndividuo -->
+                                    <option value="{valProIndividuo}" {selProIndividuo}>{opcProIndividuo}</option>
+                                    <!-- END blkProIndividuo -->
+                                </select>
+                                <input type="hidden" id="idPro" name="data[loaded][idPro]" value="{valIdPro}" />
+                            </td>
+                            <td ><label >Regi&oacute;n:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpRegIndividuo" name="data[individuo][region]" style="width:250px" onchange="setDistritoCascada()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkRegIndividuo -->
+                                    <option value="{valRegIndividuo}" {selRegIndividuo}>{opcRegIndividuo}</option>
+                                    <!-- END blkRegIndividuo -->
+                                </select>
+                                <input type="hidden" id="idReg" name="data[loaded][idReg]" value="{valIdReg}" />
+                            </td>
+                        </tr>
+                        <tr id="divPolitica2">
+                            <td ><label >Distrito:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpDisIndividuo" name="data[individuo][distrito]" style="width:250px" onchange="setCorregimientoCascada()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkDisIndividuo -->
+                                    <option value="{valDisIndividuo}" {selDisIndividuo}>{opcDisIndividuo}</option>
+                                    <!-- END blkDisIndividuo -->
+                                </select>
+                                <input type="hidden" id="idDis" name="data[loaded][idDis]" value="{valIdDis}" />
+                            </td>
+                            <td id="divPolitica7"><label >Corregimiento:<span class="mandatory">*</span></label></td>
+                            <td id="divPolitica8">
+                                <select id="drpCorIndividuo" name="data[individuo][corregimiento]" style="width:250px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkCorIndividuo -->
+                                    <option value="{valCorIndividuo}" {selCorIndividuo}>{opcCorIndividuo}</option>
+                                    <!-- END blkCorIndividuo -->
+                                </select>
+                                <input type="hidden" id="idCor" name="data[loaded][idCor]" value="{valIdCor}" />
+                            </td>
+                        </tr>
+                        <tr >
+                            <td ><label >Direcci&oacute;n residencial:</label></td>
+                            <td colspan="2"><input type="text" id="lugar_poblado" name="data[individuo][lugar_poblado]" value="{valLugarPoblado}" style="width:350px;" maxlength="150"/>&nbsp;&nbsp;</td>
+                            <td>
+                                <label >Telefono:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="text" id="telefono" name="data[individuo][telefono]" value="{valTelefono}" style="width:160px;" onKeyPress="return numbersonly(event, false);"/>&nbsp;&nbsp;                       
+                            </td>
+                        </tr>
+                        <tr >
+                            <td ><label >Direcci&oacute;n laboral:</label></td>
+                            <td colspan="2"><input type="text" id="dir_trabajo" name="data[individuo][dir_laboral]" value="{valDirLaboral}" style="width:350px;" maxlength="150"/>&nbsp;&nbsp; </td>
+                            <td>
+                                <label >Telefono:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="text" id="tel_laboral" name="data[individuo][tel_laboral]" value="{valTelLaboral}" style="width:160px;" onKeyPress="return numbersonly(event, false);"/>&nbsp;&nbsp;                       
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divDefuncion" >
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Datos de la defunci&oacute;n</legend>
+                    <table border="0" align="center">
+                        <tr>
+                            <td ><label >Fec. Hospitalizaci&oacute;n:</label></td>
+                            <td colspan="2" >
+                                <input type="text" id="fecha_hospitalizacion" name="data[defuncion][fecha_hospitalizacion]" value="{valFechaHospitalizacion}" style="width: 100px;" maxlength="10" onchange="validarFechas()"/>
+                                <span class="ui-datepicker-append"> dd/mm/aaaa</span>
+                            </td>
+                            <td><label >Fec. Defunci&oacute;n:<span class="mandatory">*</span></label></td>
+                            <td colspan="3" >
+                                <input type="text" id="fecha_defuncion" name="data[defuncion][fecha_defuncion]" value="{valFechaDefuncion}" style="width: 100px;" maxlength="10" onchange="calcularSemana()"/>
+                                <span class="ui-datepicker-append"> dd/mm/aaaa</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                            <td><label >Sem. y a&ntilde;o epi:</label></td>
+                            <td>
+                                <input type="text" id="semana_epi" name="data[defuncion][semana_epi]" value="{valSemanaEpi}" style="width: 35px;" maxlength="2" readonly="readonly" disabled="disabled"/>
+                                <input type="text" id="anio_epi" name="data[defuncion][anio_epi]" value="{valAnioEpi}" style="width: 50px;" maxlength="4" readonly="readonly" disabled="disabled"/>
+                            </td>
+                            <td><label >Hora:</label></td>
+                            <td>
+                                <input type="text" id="def_hora" name="data[defuncion][def_hora]" value="{valDefHora}" style="width: 35px;" maxlength="2" onchange="validarHora()"/>:
+                                <input type="text" id="def_minutos" name="data[defuncion][def_minutos]" value="{valDefMinutos}" style="width: 35px;" maxlength="2" onchange="validarMin()"/>
+                            </td>
+                            <td>
+                                <label >AM</label><input class="normal" type="radio" id="tipo_horaAM" name="data[defuncion][tipo_hora]" value="1" {chkTipoHoraAM}/ >
+                                <label >PM</label><input class="normal" type="radio" id="tipo_horaPM" name="data[defuncion][tipo_hora]" value="0" {chkTipoHoraPM}/>
+                            </td>
+                            <td ><label >Fec. Ingreso Morgue:</label></td>
+                            <td><input type="text" id="fecha_morgue" name="data[defuncion][fecha_morgue]" value="{valFechaMorgue}" style="width: 100px;" maxlength="10" onchange="validarFechas()"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6"><label>Diagn&oacute;sticos:<span class="mandatory">*</span> (Ingrese el c&oacute;digo CIE 10 o el nombre del evento)</label></td>
+                            <td ><label>Estado:<span class="mandatory">*</span></label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" >
+                                <input type="text" id="def_evento1" style="width:600px" value="{valDefEvento1}"/>
+                                <input type="hidden" name="data[defuncion][nombre_evento1]" id="defEvento1Nombre" value="{valDefEvento1Nombre}" />
+                                <input type="hidden" name="data[defuncion][id_evento1]" id="defEvento1Id" value="{valDefEvento1Id}" />
+                            </td>
+                            <td >
+                                <select id="drpEstadoEvento1" name="data[defuncion][estado_eve1]">
+                                    <option value="0" >Seleccione</option>
+                                    <option value="1" {selEve1Sos}>Sospechoso</option>
+                                    <option value="2" {selEve1Con}>Confirmado</option>
+                                    <option value="3" {selEve1Des}>Descartado</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" >
+                                <input type="text" id="def_evento2" style="width:600px" value="{valDefEvento2}"/>
+                                <input type="hidden" name="data[defuncion][nombre_evento2]" id="defEvento2Nombre" value="{valDefEvento2Nombre}" />
+                                <input type="hidden" name="data[defuncion][id_evento2]" id="defEvento2Id" value="{valDefEvento2Id}" />
+                            </td>
+                            <td >
+                                <select id="drpEstadoEvento2" name="data[defuncion][estado_eve2]">
+                                    <option value="0" >Seleccione</option>
+                                    <option value="1" {selEve2Sos}>Sospechoso</option>
+                                    <option value="2" {selEve2Con}>Confirmado</option>
+                                    <option value="3" {selEve2Des}>Descartado</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" >
+                                <input type="text" id="def_evento3" style="width:600px" value="{valDefEvento3}"/>
+                                <input type="hidden" name="data[defuncion][nombre_evento3]" id="defEvento3Nombre" value="{valDefEvento3Nombre}" />
+                                <input type="hidden" name="data[defuncion][id_evento3]" id="defEvento3Id" value="{valDefEvento3Id}" />
+                            </td>
+                            <td >
+                                <select id="drpEstadoEvento3" name="data[defuncion][estado_eve3]">
+                                    <option value="0" >Seleccione</option>
+                                    <option value="1" {selEve3Sos}>Sospechoso</option>
+                                    <option value="2" {selEve3Con}>Confirmado</option>
+                                    <option value="3" {selEve3Des}>Descartado</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6"><label>Diagn&oacute;sticos de cierre: (Ingrese el c&oacute;digo CIE 10 o el nombre del evento)</label></td>
+                            <td ><label>Estado:</label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" >
+                                <input type="text" id="def_eve_cierre1" style="width:600px" value="{valDefEventoCierre1}"/>
+                                <input type="hidden" name="data[defuncion][nombre_eve_cierre1]" id="defEveCierre1Nombre" value="{valDefEveCierre1Nombre}" />
+                                <input type="hidden" name="data[defuncion][id_eve_cierre1]" id="defEveCierre1Id" value="{valDefEveCierre1Id}" />
+                            </td>
+                            <td >
+                                <select id="drpEstadoEveCierre1" name="data[defuncion][estado_eve_cierre1]">
+                                    <option value="0" >Seleccione</option>
+                                    <option value="1" {selEveCierre1Sos}>Sospechoso</option>
+                                    <option value="2" {selEveCierre1Con}>Confirmado</option>
+                                    <option value="3" {selEveCierre1Des}>Descartado</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" >
+                                <input type="text" id="def_eve_cierre2" style="width:600px" value="{valDefEventoCierre2}"/>
+                                <input type="hidden" name="data[defuncion][nombre_eve_cierre2]" id="defEveCierre2Nombre" value="{valDefEveCierre2Nombre}" />
+                                <input type="hidden" name="data[defuncion][id_eve_cierre2]" id="defEveCierre2Id" value="{valDefEveCierre2Id}" />
+                            </td>
+                            <td >
+                                <select id="drpEstadoEveCierre2" name="data[defuncion][estado_eve_cierre2]">
+                                    <option value="0" >Seleccione</option>
+                                    <option value="1" {selEveCierre2Sos}>Sospechoso</option>
+                                    <option value="2" {selEveCierre2Con}>Confirmado</option>
+                                    <option value="3" {selEveCierre2Des}>Descartado</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr><td colspan="7"><label>-> Debe ingresar ya sea la fecha de hospitalizaci&oacute;n o la de ingreso a la morgue.</label></td></tr>
+                        <tr><td colspan="7"><label>-> La funci&oacute;n de autocomplete empieza a funcionar con m&iacute;nimo 3 caracteres.</label></td></tr>
+                    </table>
+                </fieldset>
+            </div>
+
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divNotificacion" >    
+                <fieldset>
+                    <legend>Datos de notificaci&oacute;n</legend>
+                    <table border="0" cellpadding="2" cellspacing="2" align="center">
+                        <tr>
+                            <td style="width: 159px;" ><label >Instalaci&oacute;n de salud:<span class="mandatory">*</span></label></td>
+                            <td style="width: 400px;" colspan="4">
+                                <input type="text" id="notificacion_unidad" style="width:100%" value="{valNotificacionUnidad}"/>
+                                <input type="hidden" name="data[notificacion][id_un]" id="notificacion_id_un" value="{valNotificacionIdUn}" />
+                            </td>
+                        </tr>
+                        <tr >
+                            <td >Servicio:<span class="mandatory">*</span></td>
+                            <td colspan="2" >
+                                <select id="drpServicio" name="data[notificacion][servicio]" style="width:250px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkServicio -->
+                                    <option value="{valServicio}" {selServicio}>{opcServicio}</option>
+                                    <!-- END blkServicio -->
+                                </select>
+                                <input type="hidden" id="servicio" name="data[loaded][servicio]" value="{valServicio}" />
+                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sala:<span class="mandatory">*</span></label>
+                            </td>
+                            <td><input type="text" id="notiSala" name="data[notificacion][sala]" value="{valNotiSala}" style="width: 100px;"/></td>
+                            <td >
+                                <label>Tele: </label>
+                                <input type="text" id="telefonoInvestigador" name="data[notificacion][telefonoInvestigador]" value="{valTelefonoInvestigador}" style="width: 70px;" onKeyPress="return numbersonly(event, false);"/>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td >Nombre quien notifica:<span class="mandatory">*</span></td>
+                            <td colspan="2"><input type="text" id="nombreInvestigador" name="data[notificacion][nombreInvestigador]" style="width:100%" value="{valNombreInvestigador}"/></td>
+                            <td colspan="2" >Cargo:<span class="mandatory">*</span>
+                                <select id="drpCargo" name="data[notificacion][cargo]" style="width:180px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkCargo -->
+                                    <option value="{valCargo}" {selCargo}>{opcCargo}</option>
+                                    <!-- END blkCargo -->
+                                </select>
+                                <input type="hidden" id="cargo" name="data[loaded][cargo]" value="{valCargo}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >Nombre quien registra:</td>
+                            <td colspan="2"><input type="text" id="nombreRegistra" name="data[notificacion][nombreRegistra]" style="width:100%" value="{valNombreRegistra}" readonly="readonly" disabled="disabled" /></td>   
+                            <td >Fecha notificaci&oacute;n:<span class="mandatory">*</span></td>
+                            <td><input type="text" id="fecha_notificacion" name="data[notificacion][fecha_notificacion]" value="{valFechaNotificacion}" style="width: 90px;" maxlength="10" onchange="validarFechaNoti()"/></td>
+                        </tr>
+                        <tr>
+                            <td >Fecha formulario:</td>
+                            <td ><input type="text" id="fecFormVigmor" name="data[notificacion][fechaFormularioVigmor]" value="{valFecFormVigmor}" style="width: 80px;" readonly="readonly" disabled="disabled" /></td>
+                            <td >
+                                Hora captura:<span class="mandatory">*</span>
+                                <input type="text" id="form_hora" name="data[notificacion][form_hora]" value="{valFormHora}" style="width: 30px;" maxlength="2" readonly="readonly" disabled="disabled"/>:
+                                <input type="text" id="form_minutos" name="data[notificacion][form_minutos]" value="{valFormMinutos}" style="width: 30px;" maxlength="2" readonly="readonly" disabled="disabled"/>
+                                <label >AM</label><input class="normal" type="radio" id="form_tipo_horaAM" name="data[notificacion][form_tipo_hora]" value="1" {chkFormTipoHoraAM} readonly="readonly" disabled="disabled"/>
+                                <label >PM</label><input class="normal" type="radio" id="form_tipo_horaPM" name="data[notificacion][form_tipo_hora]" value="0" {chkFormTipoHoraPM} readonly="readonly" disabled="disabled"/>
+                            </td>
+                            <td colspan="2">
+                                N&uacute;mero formulario:<span class="mandatory">*</span>
+                                <input type="text" id="numeroForm" name="data[notificacion][numeroForm]" value="{valNumeroForm}" style="width: 70px;" maxlength="10" readonly="readonly" disabled="disabled"/>
+                            </td>
+                        
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            
+            
+            <div align="right">
+                <table>
+                    <tr><td>
+                            <div style="margin-right:15px">
+                                <a id="next" href="javascript:siguienteTab();" class="ui-state-default ui-corner-all ui-button"
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">Siguiente
+                                </a>&nbsp;
+                            </div>
+                        </td></tr>
+                </table>
+                <br/>
+                <label style=" font-weight:normal; padding-right: 17px">
+                    Los campos marcados con <strong><span class="mandatory">*</span></strong> son obligatorios.
+                </label>
+            </div>
+        </div>
+        <table align="center">
+            <tr>
+                <td>
+                    <div style="margin-top:10px">
+                        <input type="hidden" name="action" id="action" value="{action}" />
+                        <input type="hidden" name="data[formulario][idVigmorForm]" id="idVigmorForm" value="{valIdVigmorForm}" />               
+                        {botonGuardar}
+                        {botonCancelar}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>    
+</div>

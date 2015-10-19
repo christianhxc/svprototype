@@ -1,0 +1,30 @@
+/* 
+    Document   : indicadores
+    Created on : Mar 17, 2015, 9:29:16 AM
+    Author     : amendez
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#tGrupoEdad td {
+    border-bottom: 1px solid ;
+    border-top: 1px solid ;
+    padding: 1.3px;
+    text-align: center;
+}
+#tGrupoEdad input:disabled {
+    background-color: #f9f9f9;
+}
+.dark_td {
+    background: none repeat scroll 0 0 #f1f1f1;
+}
+.hospital_row, .uci_row, .defuncion_row {
+    width: 40px;
+}
+
+.div_size {
+    width: 88px;
+}
+
+
+

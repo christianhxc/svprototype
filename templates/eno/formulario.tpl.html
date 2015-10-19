@@ -1,0 +1,224 @@
+<div class="Content" align="left">
+    <form id="frmContenido" class="niceform" action="{urlprefix}eno/formulario.php" method="POST" onsubmit="return validarVih();">
+        <table width="100%">
+            <tr>
+                <td>
+                    <h2>Formulario para el ingreso de eventos notificables - ENO</h2>
+                </td>
+                <td align="right">
+                    <div style="color: #A4BC2B;">
+                        Regresar
+                        <a href="index.php" class="" style="text-decoration: none; font-weight:bold;">
+                            <img title="Regresar" border=0 src="../img/back.png"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div id="ErrorGuardar" class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; display:{disError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{mensajeErrorGeneral}</label><br/>
+        </div>
+        <div class="ui-state-highlight ui-corner-all"
+             style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;" align="left">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{desInfo}</label>
+        </div>
+
+        <div class="ui-state-error ui-corner-all" id="dSummaryErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>Los datos no se pueden guardar debido a lo siguiente:</label>
+            <p id="pSummaryErrors" style="margin-top: 0px; margin-bottom: 0px;"></p>
+        </div>
+        <div id="divEncabezado" >
+            <fieldset>
+                <legend>Encabezado</legend>
+                <input name="data[encabezado][id_encabezado]" type="hidden" id="id_encabezado" value="{valID}" />
+                <table border="0" cellpadding="2" cellspacing="2" align="center">
+                    <tr valign="top">
+                        <td colspan="6">
+                            <label>Instalaci&oacute;n de salud:<span class="mandatory">*</span>&nbsp;&nbsp;&nbsp;</label>
+                            <input type="text" id="un" style="width:550px" value="{valUn}"/>
+                            <input type="hidden" name="data[encabezado][un_nombre]" id="unNombre" value="{valUnNombre}" />
+                            <input type="hidden" name="data[encabezado][un_id]" id="unId" value="{valUnId}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label >Provincia:<span class="mandatory">*</span></label></td>
+                        <td colspan="2">
+                            <select id="drpPro" name="data[encabezado][provincia]" style="width:250px" onchange="setRegionCascada()">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkPro -->
+                                <option value="{valPro}" {selPro}>{opcPro}</option>
+                                <!-- END blkPro -->
+                            </select>
+                            <input type="hidden" id="idPro" name="data[loaded][idPro]" value="{valIdPro}" />
+                        </td>
+                        <td><label >Regi&oacute;n:<span class="mandatory">*</span></label></td>
+                        <td colspan="2">
+                            <select id="drpReg" name="data[encabezado][region]" style="width:250px" onchange="setDistritoCascada()">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkReg -->
+                                <option value="{valReg}" {selReg}>{opcReg}</option>
+                                <!-- END blkReg -->
+                            </select>
+                            <input type="hidden" id="idReg" name="data[loaded][idReg]" value="{valIdReg}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label >Distrito:<span class="mandatory">*</span></label></td>
+                        <td colspan="2">
+                            <select id="drpDis" name="data[encabezado][distrito]" style="width:250px" onchange="setCorregimientoCascada()">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkDis -->
+                                <option value="{valDis}" {selDis}>{opcDis}</option>
+                                <!-- END blkDis -->
+                            </select>
+                            <input type="hidden" id="idDis" name="data[loaded][idDis]" value="{valIdDis}" />
+                        </td>
+                        <td><label >Corregimiento:<span class="mandatory">*</span></label></td>
+                        <td colspan="2">
+                            <select id="drpCor" name="data[encabezado][corregimiento]" style="width:250px">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkCor -->
+                                <option value="{valCor}" {selCor}>{opcCor}</option>
+                                <!-- END blkCor -->
+                            </select>
+                            <input type="hidden" id="idCor" name="data[loaded][idCor]" value="{valIdCor}" />
+                        </td>
+                    </tr>
+                    <tr>
+                       <td><label> Fecha Inicio:<span class="mandatory">*</span></label></td>
+                       <td colspan="2">
+                           <input type="text" name="data[encabezado][fechaIni]" id="enoFechaIni" size="12" value="{valFechaIni}"/> 
+                           <label>Semana y a&ntilde;o Epi:&nbsp;</label>
+                       </td>
+                       <td >
+                           <input type="text" name="data[encabezado][semanaEpi]" id="enoSemana" size="2" value="{valSemanaEpi}" readonly/>
+                           <input type="text" name="data[encabezado][anioEpi]" id="anioEpi" size="4" value="{valAnioEpi}" readonly/>
+                        </td>
+                       <td>Fecha Fin: </td>
+                       <td><input type="text" name="data[encabezado][fechaFin]" id="enoFechaFin" size="12" value="{valFechaFin}" readonly/> </td>
+                    </tr>
+                    <tr valign="top">
+                        <td >Servicio:<span class="mandatory">*</span></td>
+                        <td >
+                            <select id="drpSer" name="data[encabezado][servicio]" style="width:250px">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkSer -->
+                                <option value="{valSer}" {selSer}>{opcSer}</option>
+                                <!-- END blkSer -->
+                            </select>
+                            <input type="hidden" id="idCor" name="data[loaded][idSer]" value="{valIdSer}" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+        
+        <table align="center">
+            <tr>
+                <td>
+                    <div style="margin-top:10px">
+                        <input type="hidden" name="action" id="action" value="{action}" />
+                        <input type="hidden" name="data[encabezado][idEnoForm]" id="idEnoForm" value="{valIdEnoForm}" />                
+                        
+                        {botonGuardar}
+                        {botonCancelar}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+        
+    <div id="divDetalle" >
+        <fieldset>
+            <legend>Detalle</legend>
+
+            <table border="0" cellpadding="2" cellspacing="2" align="center">
+                <tr>
+                    <td ><label>Evento CIE10:</label></td>
+                    <td >
+                        <input type="text" id="evento" style="width:550px" value="{valEvento}"/>
+                        <input type="hidden" name="data[detalle][evento_nombre]" id="eventoNombre" value="{valEventoNombre}" />
+                        <input type="hidden" name="data[detalle][evento_id]" id="eventoId" value="{valEventoId}" />
+                    </td>
+                </tr>
+                <tr><td colspan="2"><label>N&uacute;mero de casos:</label></td></tr>
+                <tr>
+                    <td colspan="2">
+                        <table id="detalle">
+                            <tr class="fila">
+                                <td>Genero</td>
+                                <td>< de 1</td>
+                                <td>01-04</td>
+                                <td>05-09</td>
+                                <td>10-14</td>
+                                <td>15-19</td>
+                                <td>20-24</td>
+                                <td>25-34</td>
+                                <td>35-49</td>
+                                <td>50-59</td>
+                                <td>60-64</td>
+                                <td>65 o +</td>
+                                <td>N/E</td>
+                                <td>Total</td>
+                            </tr>
+                            <tr >
+                               <td>Hombre:</td>
+                               <td><input id="homRango1" class="num" size="2" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango2" class="num" size="2" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango3" class="num" size="2" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango4" class="num" size="2" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango5" class="num" size="2" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango6" class="num" size="2" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango7" class="num" size="2" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango8" class="num" size="2" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango9" class="num" size="2" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango10" class="num" size="2" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango11" class="num" size="2" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango12" class="num" size="2" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango13" class="num" size="2" value="0" readonly/></td>
+
+                            </tr>
+                            <tr >
+                               <td>Mujer:</td>
+                               <td><input id="mujRango1" class="num1" size="2" onkeyup="javascript:sumCasosM()"/></td>
+                               <td><input id="mujRango2" class="num1" size="2" onkeyup="javascript:sumCasosM()"/></td>
+                               <td><input id="mujRango3" class="num1" size="2" onkeyup="javascript:sumCasosM()"/></td>
+                               <td><input id="mujRango4" class="num1" size="2" onkeyup="javascript:sumCasosM()"/></td>
+                               <td><input id="mujRango5" class="num1" size="2" onkeyup="javascript:sumCasosM()"/></td>
+                               <td><input id="mujRango6" class="num1" size="2" onkeyup="javascript:sumCasosM()"/></td>
+                               <td><input id="mujRango7" class="num1" size="2" onkeyup="javascript:sumCasosM()"/></td>
+                               <td><input id="mujRango8" class="num1" size="2" onkeyup="javascript:sumCasosM()"/></td>
+                               <td><input id="mujRango9" class="num1" size="2" onkeyup="javascript:sumCasosM()"/></td>
+                               <td><input id="mujRango10" class="num1" size="2" onkeyup="javascript:sumCasosM()"/></td>
+                               <td><input id="mujRango11" class="num1" size="2" onkeyup="javascript:sumCasosM()"/></td>
+                               <td><input id="mujRango12" class="num1" size="2" onkeyup="javascript:sumCasosM()"/></td>
+                               <td><input id="mujRango13" class="num1" size="2" value="0" readonly/></td>
+                           </tr>
+
+                            <tr style="vertical-align: top">
+                                <td colspan="17" style=" ">
+                                    <a href="javascript:actDetalle();" id="btnEnoDetActualizar" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Actualizar</a>
+                                    <a href="javascript:grabarDetalle();" id="btnEnoDetGrabar" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Grabar</a>
+                                    
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        </br>
+        <div id="divEventosGuardados">
+            <fieldset>
+                <legend>Eventos guardados</legend>
+                <div id="dataGridInforme"></div>
+            </fieldset>
+        </div>
+        
+    </div>
+</div>
+    
+    

@@ -1,0 +1,58 @@
+<div class="Content" align="left">
+        <form id="formBuscar" action="" method="">
+            <h2> RECEPCI&Oacute;N SELECTIVA DE MUESTRAS </h2>
+
+                <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+                </div>
+                <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+                </div>
+                    <div id="filtroIndividuo" >
+                        <table><tr style="height: 0.95em"><td></td></tr></table>
+                            <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                            <legend>DATOS DEL INFORME</legend>
+                            <table border="0" cellpadding="2" cellspacing="2" align="" style="margin-left: 175px">
+                                <tr>
+                                    <td>
+                                        Informe N&uacute;mero:
+                                    </td>
+                                    <td>
+                                        <strong>{informe}</strong>
+                                        <input type="hidden" id="informe" value="{informe}"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        &Aacute;rea de An&aacute;lisis:
+                                    </td>
+                                    <td>
+                                        <strong>{area}</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Generado por:
+                                    </td>
+                                    <td>
+                                        <strong>{generador}</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Fecha de creaci&oacute;n:
+                                    </td>
+                                    <td>
+                                        <strong>{fecha}</strong>
+                                    </td>
+                                </tr>
+                                </table>
+                            </fieldset>
+                    </div><br/><br/>
+                    <input type="hidden" id="resultado" value="-1"/>
+                    <div align="center" id="muestras"></div>
+                <br/>
+        </form>
+</div>

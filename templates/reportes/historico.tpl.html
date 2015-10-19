@@ -1,0 +1,205 @@
+<div class="Content" align="left">
+        <form id="formBuscar" action="{urlprefix}reportes/historico.php" method="POST">
+                <h1> Reporte de Historial de Muestra</h1>
+
+                <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+                </div>
+                <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+                        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                        <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+                </div>
+                    <div id="filtroIndividuo" >
+                        <table><tr style="height: 0.95em"><td></td></tr></table>
+                            <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                            <legend>FILTRO</legend>
+                            <!--<label style="font-weight: bold; margin-left: 25px;">DATOS DEL INDIVIDUO</label>
+                            <hr align="center" style="width: 95%; color: #E5F1F4"/>!-->
+                                    <table border="0" cellpadding="2" cellspacing="2" align="">
+                                            <tr>
+                                                <td>
+                                                            <label style="color:#000000; font-weight:normal;">Nombres:</label>
+                                                </td>
+                                                <td>
+                                                            <input type="text" id="nombres" name="search[nombres]" style="width: 275px; text-align:center; text-transform: uppercase;" value="{n}" maxlength="45"/>
+                                                </td>
+                                                <td>
+                                                            <label style="color:#000000; font-weight:normal;">Apellidos:</label>
+                                                </td>
+                                                <td>
+                                                            <input type="text" id="apellidos" name="search[apellidos]" value="{a}" style="width: 275px; text-align:center; text-transform: uppercase;" maxlength="75"/>
+                                                </td>
+                                                <td align="right">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <a href="javascript:borrarFiltro();" class="" style="text-decoration: none; font-weight: bold;" onmouseover="RollOver(this)" title="Borrar filtro" onmouseout="RollOut(this)">Borrar Filtro</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label style="color:#000000; font-weight:normal;">No. Identificador:</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="identificador" name="search[identificador]" value="{id}" style="width: 190px; text-align:center;" maxlength="45"/>
+                                                </td>
+                                                <td>
+                                                    <label style="color:#000000; font-weight:normal;">Historia Cl&iacute;nica:</label>
+                                                </td>
+                                                <td colspan="2">
+                                                    <input type="text" id="no_historia_clinica" name="search[historia_clinica]" value="{hc}" style="width: 190px; text-align:center;" maxlength="45"/>
+                                                </td>
+                                            </tr>
+                                    </table><br/>
+                                    
+                                    <table border="0" cellpadding="2" cellspacing="2" align="">
+                                            <tr>
+                                                    <td>
+                                                            <label style="color:#000000; font-weight:normal;">&Aacute;rea de An&aacute;lisis:</label>
+                                                    </td>
+                                                    <td>
+                                                            <select id="area" name="search[area]" style="width:290px">
+                                                            <option value="0">Todas</option>
+                                                            <!-- BEGIN blkAreas -->
+                                                                <option value="{valAreas}" {selAreas}>{opcAreas}</option>
+                                                            <!-- END blkAreas -->
+                                                            </select>
+                                                    </td>
+                                                    <td>
+                                                            <label style="color:#000000; font-weight:normal;">Evento:</label>
+                                                    </td>
+                                                    <td>
+                                                            <select id="evento" name="search[evento]" style="width:290px">
+                                                                <option value="0">Todos</option>
+                                                                <!-- BEGIN blkEventos -->
+                                                                <option value="{valEventos}" {selEventos}>{opcEventos}</option>
+                                                                <!-- END blkEventos -->
+                                                            </select>
+                                                    </td>
+                                            </tr>
+                                            <tr>
+                                                    <td>
+                                                            <label style="color:#000000; font-weight:normal;">C&oacute;digo Global:</label>
+                                                    </td>
+                                                    <td>
+                                                            <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">DESDE:</label>
+                                                            <input type="text" id="codigo_global_desde" name="search[global_desde]" style="width: 90px; text-align:center;" value="{gd}" maxlength="7" onKeyPress="return numbersonly(event, false);"/>
+                                                            <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HASTA:</label>
+                                                            <input type="text" id="codigo_global_hasta" name="search[global_hasta]" style="width: 90px; text-align:center;" value="{gh}" maxlength="7" onKeyPress="return numbersonly(event, false);"/>
+                                                    </td>
+                                                    <td>
+                                                            <label style="color:#000000; font-weight:normal;">C&oacute;digo Correlativo:</label>
+                                                    </td>
+                                                    <td>
+                                                            <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">DESDE:</label>
+                                                            <input type="text" id="codigo_correlativo_desde" name="search[correlativo_desde]" style="width: 90px; text-align:center;" value="{cd}" maxlength="7" onKeyPress="return numbersonly(event, false);"/>
+                                                            <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HASTA:</label>
+                                                            <input type="text" id="codigo_correlativo_hasta" name="search[correlativo_hasta]" style="width: 90px; text-align:center;" value="{ch}" maxlength="7" onKeyPress="return numbersonly(event, false);"/>
+                                                    </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                            <label style="color:#000000; font-weight:normal">Fecha de Toma:</label>
+                                                </td>
+                                                <td>
+                                                            <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">DESDE:</label>
+                                                            <input type="text" id="fecha_toma_desde" name="search[toma_desde]" value="{td}" style="width: 90px; text-align:center;" maxlength="10"/>
+                                                            <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">HASTA:</label>
+                                                            <input type="text" id="fecha_toma_hasta" name="search[toma_hasta]" value="{th}" style="width: 90px; text-align:center;" maxlength="10"/>
+                                                </td>
+                                                <td>
+                                                        <label style="color:#000000; font-weight:normal">Fecha de Recepci&oacute;n:</label>
+                                                </td>
+                                                <td>
+                                                        <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">DESDE:</label>
+                                                        <input type="text" id="fecha_recepcion_desde" name="search[recepcion_desde]" value="{rd}" style="width: 90px; text-align:center;" maxlength="10"/>
+                                                        <label style="font-weight:normal; color:#1d5987; font-weight: bold; font-size: smaller">HASTA:</label>
+                                                        <input type="text" id="fecha_recepcion_hasta" name="search[recepcion_hasta]" value="{rh}" style="width: 90px; text-align:center;" maxlength="10"/>
+                                                </td>
+                                            </tr>
+                                    </table><br/>
+                            </fieldset>
+                    </div>
+                <table align="center">
+                    <tr>
+                        <td>
+                            {botonBuscar} &nbsp;
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+        </form>
+    <table rules="all" cellspacing="0" border="1" align="center" style="width: 75%; border-collapse: collapse; margin-top: 5px; display: {mostrarTablaSearch}" id="ctl00_MainContent_gvUsuarios" class="dxgvControl_PlasticBlue">
+            <tbody>
+            <tr>
+                <th scope="col" class="dxgvHeader_PlasticBlue" width="100px;">C&oacute;digo Global
+                    <a href="{prinurl}&search[order]= global ASC, gnumero ASC" title="Ascendente">
+                    <span class="ui-icon ui-icon-circle-triangle-n" style="display:inline-table"></span></a>
+                    <a href="{prinurl}&search[order]= global DESC, gnumero DESC" title="Descendente">
+                    <span class="ui-icon ui-icon-circle-triangle-s" style="display:inline-table"></span></a>
+                </th>
+                <th scope="col" class="dxgvHeader_PlasticBlue" width="110px;">C&oacute;digo Correlativo
+                    <a href="{prinurl}&search[order]= correlativo ASC, cnumero ASC" title="Ascendente">
+                    <span class="ui-icon ui-icon-circle-triangle-n" style="display:inline-table"></span></a>
+                    <a href="{prinurl}&search[order]= correlativo DESC, cnumero DESC" title="Descendente">
+                    <span class="ui-icon ui-icon-circle-triangle-s" style="display:inline-table"></span></a>
+                </th>
+                <th scope="col" class="dxgvHeader_PlasticBlue" width="40px">&Aacute;rea de An&aacute;lisis
+                </th>
+                <th scope="col" class="dxgvHeader_PlasticBlue">Evento
+                </th>
+                <th scope="col" class="dxgvHeader_PlasticBlue">Nombre
+                </th>
+                <!-- BEGIN blkHeaderReportePDF -->
+                <th scope="col" class="dxgvHeader_PlasticBlue">
+                    &nbsp;
+                </th>
+                <!-- END blkHeaderReportePDF -->
+
+                <!-- BEGIN blkHeaderReporteXLS -->
+                <th scope="col" class="dxgvHeader_PlasticBlue">
+                    &nbsp;
+                </th>
+                <!-- END blkHeaderReporteXLS -->
+
+            </tr>
+            <!-- BEGIN blkNoEntradas -->
+            <tr class="dxgvDataRow_PlasticBlue">
+                <td colspan="6" align="center" style="width: 26px;" class="dxgv">
+                    B&uacute;squeda sin resultados.
+                </td>
+            </tr>
+            <!-- END blkNoEntradas -->
+            
+            <!-- BEGIN blkEntradas -->
+            <tr class="dxgvDataRow_PlasticBlue">
+                <td class="dxgv">{global}</td>
+                <td class="dxgv">{correlativo}</td>
+                <td class="dxgv">{area}</td>
+                <td class="dxgv">{evento}</td>
+                <td class="dxgv">{nombre}</td>
+                
+		<!-- BEGIN blkOpcionReportePDF -->
+                <td class="dxgv" align="center" style="width: 26px;">
+                    <a href="javascript:generarReporte({linkPdf});">
+                        <img src="{urlprefix}/img/pdf.png" align="center" border=0 alt="Generar reporte hist&oacute;rico de muestra"/>
+                    </a>
+                </td>
+                <!-- END blkOpcionReportePDF -->
+
+		<!-- BEGIN blkOpcionReporteXLS -->
+                <td class="dxgv" align="center" style="width: 26px;">
+                    <a href="javascript:generarReporte({linkExcel});">
+                        <img src="{urlprefix}/img/excel.png" align="center" border=0 alt="Generar reporte hist&oacute;rico de muestra"/>
+                    </a>
+                </td>
+                <!-- END blkOpcionReporteXLS -->
+            </tr>
+            <!-- END blkEntradas -->
+            <tr class="dxpPageNumber_PlasticBlue">
+                <td colspan="6" align="center" style="background-color: white;" class="dxgv">
+                    {viewPaginator}
+            	</td>
+            </tr>
+            </tbody>
+	</table>
+</div>

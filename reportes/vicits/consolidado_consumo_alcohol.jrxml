@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="consolidado_clinico" pageWidth="480" pageHeight="842" columnWidth="440" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3c7d47b7-7147-4880-aeaf-d1fcd6068848">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaIni" class="java.lang.String"/>
+	<parameter name="fechaFin" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["http://localhost/sisvig2/reportes/vicits/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idUn" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="add_idun_sql" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[($P{idUn} != null ) ? " and vic.id_un = "+$P{idUn} : ""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nombreUn" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where  vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = 'F'
+  $P!{add_idun_sql}
+  ) as ntotal_ts,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = 'M'
+  and (per.id_genero <> 3 and per.id_genero <> 4 and per.id_genero <> 5)
+  $P!{add_idun_sql}
+  ) as ntotal_hsh,
+(
+select COUNT(vic.id_vicits_form )
+from vicits_form vic
+inner join tbl_persona per on per.tipo_identificacion = vic.id_tipo_identidad and vic.numero_identificacion = per.numero_identificacion
+where vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+  and per.sexo = 'M'
+  and (per.id_genero = 3 or per.id_genero = 4 or per.id_genero = 5)
+  $P!{add_idun_sql}
+  ) as ntotal_trans
+
+from vicits_form vic
+where vic.fecha_consulta between STR_TO_DATE($P{fechaIni}, '%d/%m/%Y') and STR_TO_DATE($P{fechaFin}, '%d/%m/%Y')
+$P!{add_idun_sql}
+limit 1]]>
+	</queryString>
+	<field name="ntotal_ts" class="java.lang.Long"/>
+	<field name="ntotal_hsh" class="java.lang.Long"/>
+	<field name="ntotal_trans" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="70f10454-11ff-4c53-93b9-925eaaa95f32" x="0" y="0" width="440" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consolidado consumo de alcohol]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="776841a0-7d73-450d-b162-1e328e330999" x="37" y="34" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[De:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b858482f-c456-4c83-b848-ab2de7d7a6ac" x="79" y="34" width="141" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaIni}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="89e271e4-f3d1-4a90-b433-712af4e3ef0a" x="220" y="34" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[A:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8856c48a-606d-4e40-8776-488c13754306" x="262" y="34" width="141" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f72e3609-8ec7-49ed-abcf-26c56cbd93c8" x="0" y="54" width="440" height="20"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreUn}!=null ?
+"Instalación de salud: "+$P{nombreUn} : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="34">
+			<staticText>
+				<reportElement uuid="96b3bc31-3be3-494d-a7a4-7f99ef0b4c43" mode="Opaque" x="0" y="0" width="165" height="34" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hábitos de consumo de bebidas alcohólicas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a44cec6a-ba25-485f-8628-de93108fb7f0" mode="Opaque" x="165" y="17" width="46" height="17" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[n]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7adad3bc-f834-4995-b7c8-5cc3986acea4" mode="Opaque" x="211" y="17" width="46" height="17" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2495160b-0481-462f-803b-bce23299676a" mode="Opaque" x="257" y="17" width="46" height="17" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[n]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b0dae24d-5c5e-4195-b761-5415ea23570e" mode="Opaque" x="303" y="17" width="46" height="17" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8d18399e-0e18-4e64-99c7-b607483decc7" mode="Opaque" x="349" y="17" width="46" height="17" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[n]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7c8bb9e3-0cae-45eb-8534-9caa6339f20d" mode="Opaque" x="395" y="17" width="45" height="17" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="13f5864a-24a1-4f8a-8cfd-1f5b588b4e60" x="165" y="0" width="92" height="17"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TS N:"+$F{ntotal_ts}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="dd15af5e-6c90-4b73-9466-0930491daed4" x="257" y="0" width="92" height="17"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["HSH N:"+$F{ntotal_hsh}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="91861a27-7554-41ed-95f4-9833651ef879" x="349" y="0" width="91" height="17"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TRANS N:"+$F{ntotal_trans}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="105">
+			<staticText>
+				<reportElement uuid="53476049-e8db-4860-9aa1-cf3edf981666" x="0" y="0" width="165" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Diariamente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="93041760-5b23-40a8-9c08-142478e9cd7d" x="0" y="15" width="165" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ 4 - 5 días de la semana]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9af9504e-c02b-44b3-be71-dcdb86bac5ad" x="0" y="30" width="165" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ 2 - 3 días de la semana]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0eb753d2-686e-43a9-9659-d450b4f9501d" x="0" y="45" width="165" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Un día a la semana]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="2601ef05-b2e4-475c-81b5-4f0b2fb69c9c" x="165" y="0" width="275" height="15"/>
+				<subreportParameter name="ntotal_trans">
+					<subreportParameterExpression><![CDATA[$F{ntotal_trans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ntotal_hsh">
+					<subreportParameterExpression><![CDATA[$F{ntotal_hsh}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="alcohol">
+					<subreportParameterExpression><![CDATA[1]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ntotal_ts">
+					<subreportParameterExpression><![CDATA[$F{ntotal_ts}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="diaAlcohol">
+					<subreportParameterExpression><![CDATA[4]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "consolidado_consumo_alcohol_sexo.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="6c0434fe-406e-4a30-afd0-75f75b30ff31" x="165" y="15" width="275" height="15"/>
+				<subreportParameter name="ntotal_trans">
+					<subreportParameterExpression><![CDATA[$F{ntotal_trans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ntotal_hsh">
+					<subreportParameterExpression><![CDATA[$F{ntotal_hsh}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="alcohol">
+					<subreportParameterExpression><![CDATA[1]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ntotal_ts">
+					<subreportParameterExpression><![CDATA[$F{ntotal_ts}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="diaAlcohol">
+					<subreportParameterExpression><![CDATA[3]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "consolidado_consumo_alcohol_sexo.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="a0b23863-e6aa-4cb1-a5f6-a2fa6da7bd3a" x="165" y="30" width="275" height="15"/>
+				<subreportParameter name="ntotal_trans">
+					<subreportParameterExpression><![CDATA[$F{ntotal_trans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ntotal_hsh">
+					<subreportParameterExpression><![CDATA[$F{ntotal_hsh}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="alcohol">
+					<subreportParameterExpression><![CDATA[1]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ntotal_ts">
+					<subreportParameterExpression><![CDATA[$F{ntotal_ts}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="diaAlcohol">
+					<subreportParameterExpression><![CDATA[2]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "consolidado_consumo_alcohol_sexo.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="d5b2366b-03f3-4bae-aaed-a42ee87ae0a2" x="165" y="45" width="275" height="15"/>
+				<subreportParameter name="ntotal_trans">
+					<subreportParameterExpression><![CDATA[$F{ntotal_trans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ntotal_hsh">
+					<subreportParameterExpression><![CDATA[$F{ntotal_hsh}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="alcohol">
+					<subreportParameterExpression><![CDATA[1]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ntotal_ts">
+					<subreportParameterExpression><![CDATA[$F{ntotal_ts}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="diaAlcohol">
+					<subreportParameterExpression><![CDATA[1]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "consolidado_consumo_alcohol_sexo.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="c71d278a-8b84-4f95-8ea9-23c891c1e07d" x="0" y="75" width="165" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[No consumio en la semana]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="32596908-7862-4970-b461-f40f8b0121d1" x="165" y="75" width="275" height="15"/>
+				<subreportParameter name="ntotal_trans">
+					<subreportParameterExpression><![CDATA[$F{ntotal_trans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ntotal_hsh">
+					<subreportParameterExpression><![CDATA[$F{ntotal_hsh}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="alcohol">
+					<subreportParameterExpression><![CDATA[1]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ntotal_ts">
+					<subreportParameterExpression><![CDATA[$F{ntotal_ts}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="diaAlcohol">
+					<subreportParameterExpression><![CDATA[5]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "consolidado_consumo_alcohol_sexo.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="ccc701a2-0c78-47d7-9bfe-d5615c942360" x="165" y="60" width="275" height="15"/>
+				<subreportParameter name="ntotal_trans">
+					<subreportParameterExpression><![CDATA[$F{ntotal_trans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ntotal_hsh">
+					<subreportParameterExpression><![CDATA[$F{ntotal_hsh}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="alcohol">
+					<subreportParameterExpression><![CDATA[1]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ntotal_ts">
+					<subreportParameterExpression><![CDATA[$F{ntotal_ts}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="diaAlcohol">
+					<subreportParameterExpression><![CDATA[6]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "consolidado_consumo_alcohol_sexo.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement uuid="737d4ee8-5736-4763-9f5d-43ff08fc64df" x="0" y="60" width="165" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[No se sabe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bd27db54-99ae-47bb-a7ec-16d2569f8bd3" x="0" y="90" width="165" height="15"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[No consumio]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="bf5b9eae-9239-42d4-a216-bb875b383963" x="165" y="90" width="275" height="15"/>
+				<subreportParameter name="ntotal_trans">
+					<subreportParameterExpression><![CDATA[$F{ntotal_trans}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ntotal_hsh">
+					<subreportParameterExpression><![CDATA[$F{ntotal_hsh}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="alcohol">
+					<subreportParameterExpression><![CDATA[2]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ntotal_ts">
+					<subreportParameterExpression><![CDATA[$F{ntotal_ts}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idUn">
+					<subreportParameterExpression><![CDATA[$P{idUn}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaIni">
+					<subreportParameterExpression><![CDATA[$P{fechaIni}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="diaAlcohol">
+					<subreportParameterExpression><![CDATA[0]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "consolidado_consumo_alcohol_sexo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

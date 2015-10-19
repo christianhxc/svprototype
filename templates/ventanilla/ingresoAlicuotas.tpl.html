@@ -1,0 +1,671 @@
+<div class="Content" align="left">
+        <!-- POPUP de BUSQUEDA !-->
+        <div id="dialog-form" title="B&uacute;squeda de Personas" align="center">
+                <form id="formDialog" action="" method="">
+                    <br/>
+		<div class="ui-state-error ui-corner-all" id="pErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px; width: 50%">
+			<span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+			<div id="pDetalle" style="margin-top: 0px; margin-bottom: 0px;"></div>
+		</div>
+                    <fieldset style="width:740px; text-align: left">
+                        <legend>Filtro</legend>
+                        <div align="left">
+                        <table>
+                            <tr id="notFoundFilter">
+                                <td colspan="4" align="right">
+                                    <a href="javascript:useSearched();" class="" title="Usar criterios de b&uacute;squeda para ingreso de nuevo individuo" style="text-decoration: none; font-weight:bold;" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Usar estos datos</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>No. Identificador:</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="popid" id="id" value="" class="" style="width: 150px; text-align:center;" maxlength="45"/>
+                                </td>
+                                <td>
+                                    <label>Historia Cl&iacute;nica:</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="pophis" id="his" value="" class="" style="width: 150px; text-align:center;" maxlength="45" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Nombres:</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="popn1" id="n" value="" class="" style="width: 250px; text-align:center;" maxlength="45"/>
+                                </td>
+                                <td>
+                                    <label>Apellidos:</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="popp1" id="p" value="" class="" style="width: 250px; text-align:center;" maxlength="45"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" valign="bottom">
+                                    <label style="color:#000000; font-weight:normal;">Edad:</label>
+                                    <select id="drpPopTipo" name="poptipoE" onChange="validarEdadPop();">
+                                        <option value="0">Tipo</option>
+                                        <option value="1">D&iacute;as</option>
+                                        <option value="2">Meses</option>
+                                        <option value="3">A&ntilde;os</option>
+                                    </select>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desde: <input type="text" id="ed" name="popEdesde" style="width: 40px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);" onChange="validarEdadPop();"/>
+                                    Hasta: <input type="text" id="ed2" name="popEhasta" style="width: 40px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);" onChange="validarEdadPop();"/>
+                                </td>
+                                <td colspan="2" valign="bottom">
+                                    <label style="color:#000000; font-weight:normal;">Sexo:</label>
+                                    <select id="drpsexoP" name="popSexo">
+                                            <option value="0">Seleccionar</option>
+                                            <option value="M">Masculino</option>
+                                            <option value="F">Femenino</option>
+                                        </select>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                   <label style="color:#000000; font-weight:normal;">Tipo:</label>
+                                        <select id="drpPopHTipo" name="popTip">
+                                            <option value="0">Seleccionar</option>
+                                            <option value="1">Humano</option>
+                                            <option value="2">Animal</option>
+                                        </select>
+                                </td>
+                            </tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr>
+                                <td colspan="2" align="right">
+                                    <a href="javascript:validarPopupP();" class="ui-state-default ui-corner-all ui-button"
+                                        onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                       Filtrar
+                                    </a>
+                                </td>
+                                <td  colspan="2"align="right">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                <a href="javascript:nuevo();" class="" style="text-decoration: none; font-weight:bold;" title="Ingresar nuevo individuo"onmouseover="RollOver(this)" onmouseout="RollOut(this)">Nuevo</a>
+                                                </div>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                            <td>
+                                                <div>
+                                                <a href="javascript:clearSearch();" class="" style="text-decoration: none; font-weight:bold;" title="Borrar criterios de b&uacute;squeda" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Borrar filtro</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        </div>
+                    </fieldset>
+                </form>
+                <br/>
+                <div id="resultadosBusqueda" align="center"></div>
+        </div>
+
+
+        <form id="frmContenido" class="niceform" action="{urlprefix}ventanilla/ingresoAlicuotas.php" method="POST" onsubmit="return validarIngreso();">
+		<h2>INGRESO DE ALICUOTAS </h2><br/>
+		<div id="ErrorGuardar" class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; display:{disError}; margin-top: 5px;">
+			<span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+			<label>Ocurri&oacute; un error al momento de guardar los datos, por favor intente nuevamente.</label><br/>
+		</div>
+
+		<div class="ui-state-error ui-corner-all" id="dSummaryErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px;">
+			<span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+			<label>Los datos no se pueden guardar debido a lo siguiente:</label>
+			<p id="pSummaryErrors" style="margin-top: 0px; margin-bottom: 0px;"></p>
+		</div>
+		<div id="tabs" class="">
+			<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+				<li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#divPaciente">Datos Personales</a></li>
+				<li class="ui-state-default ui-corner-top"><a href="#divMuestra">Datos de la Muestra</a></li>
+                                <li class="ui-state-default ui-corner-top"><a href="#divAlicuotas">Ingreso de Al&iacute;cuotas</a></li>
+			</ul>
+
+			<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divPaciente" >
+				<fieldset class="ui-widget ui-widget-content ui-corner-all">
+                                    <legend>Individuo</legend>
+                                    <input name="data[individuo][id_individuo]" type="hidden" id="id_individuo" value="{valID}" />
+                                    <table border="0" cellpadding="2" cellspacing="2">
+                                        <tr>
+                                            <td colspan="3">
+                                                <a href="javascript:buscar();" class="ui-state-default ui-corner-all ui-button"
+                                                    onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                                    <span class="ui-icon ui-icon-search"></span> Buscar
+                                                </a>
+                                            </td>
+                                            <td align="right">
+                                                <a onmouseout="RollOut(this)" title="Borrar datos del individuo" onmouseover="RollOver(this)" style="text-decoration: none; font-weight: bold;" class="" href="javascript:borrarIndividuo();">Borrar Individuo</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">
+                                                    <br/>
+                                                        <label>Propiedades:</label>
+                                                        <input type="checkbox" id="no_muestra_humana" name="data[individuo][no_muestra_humana]"  {chkMuestraHumana}/>
+                                                        <label style="color:#000000;">No es muestra humana</label>
+                                                        <input type="checkbox" id="confidencial" name="data[individuo][confidencial]"  onclick ="clickConfidencial()" {chkConfidencial}/>
+                                                        <label style="color:#000000;">Caso Confidencial</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                        <label style="color:#000000; font-weight:normal;">No. Identificador:<span class="mandatory">*</span></label>
+                                                </td>
+                                                <td>
+                                                        <input type="text" id="identificador" name="data[individuo][identificador]" value="{valIdentificador}" style="width: 150px; text-align:center" maxlength="45"/>
+                                                        <input type="checkbox" name="data[individuo][identificador_no_disponible]" id="identificador_no_disponible" onclick="clickIdentificadorDisponible()" {chkIdentificadorNoDisponible}/>No disponible &nbsp;&nbsp;&nbsp;
+                                                </td>
+                                                <td>
+                                                        <label style="color:#000000; font-weight:normal;">No. Historia Cl&iacute;nica:</label>
+                                                </td>
+                                                <td>
+                                                        <input type="text" id="no_historia_clinica" name="data[individuo][historia_clinica]" value="{valHistoriaClinica}" style="width: 150px; text-align:center;" maxlength="45"/>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                        <label style="color:#000000; font-weight:normal;">1er. Nombre:<span class="mandatory">*</span></label>
+                                                </td>
+                                                <td>
+                                                        <input type="text" id="primer_nombre" name="data[individuo][primer_nombre]" style="width: 250px; text-align:center;" value="{valPrimerNombre}" maxlength="45"/>
+                                                </td>
+                                                <td>
+                                                        <label style="color:#000000; font-weight:normal;">2do. Nombre:</label>
+                                                </td>
+                                                <td>
+                                                        <input type="text" id="segundo_nombre" name="data[individuo][segundo_nombre]" style="width: 250px; text-align:center;" value="{valSegundoNombre}" maxlength="45"/>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                        <label style="color:#000000; font-weight:normal;">1er. Apellido:<span class="mandatory">*</span></label>
+                                                </td>
+                                                <td>
+                                                        <input type="text" id="primer_apellido" name="data[individuo][primer_apellido]" value="{valPrimerApellido}" style="width: 250px; text-align:center;" maxlength="75"/>
+                                                </td>
+                                                <td>
+                                                        <label style="color:#000000; font-weight:normal;">2do. Apellido:</label>
+                                                </td>
+                                                <td>
+                                                        <input type="text" id="segundo_apellido" name="data[individuo][segundo_apellido]" value="{valSegundoApellido}" style="width: 250px; text-align:center;" maxlength="75"/>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <label style="color:#000000; font-weight:normal;">Apellido casada:</label>
+                                                &nbsp;&nbsp;<input type="text" id="casada" name="data[individuo][casada]" value="{valCasada}" style="width: 250px; text-align:center;" maxlength="75"/>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                        <label style="color:#000000; font-weight:normal;">Edad:<span class="mandatory">*</span></label>
+                                                </td>
+                                                <td>
+                                                        <select id="drptipo_edad" name="data[individuo][tipo_edad]">
+                                                                <option value="1" {selDias}>D&iacute;as</option>
+                                                                <option value="2" {selMeses}>Meses</option>
+                                                                <option value="3" {selAnios}>A&ntilde;os</option>
+                                                        </select>
+                                                        <input type="text" id="edad" name="data[individuo][edad]" value="{valEdad}" style="width: 82px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);" onBlur="validarEdad();" onBlur="calcularFechaNacimiento();"/>
+                                                </td>
+                                                <td>
+                                                        <label style="color:#000000; font-weight:normal;">Fecha de nacimiento:</label>
+                                                </td>
+                                                <td>
+                                                        <input type="text" id="fecha_nacimiento" name="data[individuo][fecha_nacimiento]" value="{valFechaNacimiento}" style="width: 135px; text-align:center;" maxlength="10" onBlur="calcularEdad();"/>
+                                                        <span class="ui-datepicker-append"> dd/mm/aaaa</span>
+                                                </td>
+                                        </tr>
+                                        <tr>
+                                                <td>
+                                                        <label style="color:#000000; font-weight:normal;">Sexo:<span class="mandatory">*</span></label>
+                                                </td>
+                                                <td>
+                                                        <select id="drpsexo" name="data[individuo][sexo]">
+                                                                <option value="0">N/A</option>
+                                                                <option value="M" {selSexoM}>Masculino</option>
+                                                                <option value="F" {selSexoF}>Femenino</option>
+                                                        </select>
+                                                </td>
+                                                <td>
+                                                        <label style="color:#000000; font-weight:normal;">Tipo de Caso:<span class="mandatory">*</span></label>
+                                                </td>
+                                                <td>
+                                                        <select name="vigilancia" id="vigilancia" style="width: auto;">
+                                                                <option value="0">N/A</option>
+                                                                <!-- BEGIN blkTipoVigilancia -->
+                                                                <option value="{valTipoVigilancia}" {selTipoVigilancia}>{opcTipoVigilancia}</option>
+                                                                <!-- END blkTipoVigilancia -->
+                                                        </select>
+							<input type="hidden" id="tipo_vigilancia" name="data[individuo][tipo_vigilancia]" value="{valTipoVigilancia}" />
+                                                </td>
+                                        </tr>
+                                    </table>
+				</fieldset>
+				<br/>
+				<fieldset class="ui-widget ui-widget-content ui-corner-all">
+					<legend>Procedencia</legend>
+					<table>
+						<tr>
+							<td>
+								<label style="color:#000000; font-weight:normal;">Departamento:<span class="mandatory">*</span></label>
+							</td>
+                                                        <td colspan="3">
+                                                            <select id="drpdepartamento" name="data[individuo][departamento]" style="width:275px">
+									<option value="0">N/A</option>
+                                                                        <!-- BEGIN blkDeptoIndividuo -->
+                                                                        <option value="{valDeptoIndividuo}" {selDeptoIndividuo}>{opcDeptoIndividuo}</option>
+                                                                        <!-- END blkDeptoIndividuo -->
+								</select>
+								<input type="hidden" id="iddep" name="data[loaded][iddep]" value="{validdep}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label style="color:#000000; font-weight:normal;">Municipio:<span class="mandatory">*</span></label>
+							</td>
+                                                        <td colspan="3">
+                                                            <select id="drpmunicipio" name="data[individuo][municipio]" style="width:275px">
+									<option value="0">N/A</option>
+                                                                        <!-- BEGIN blkMuniIndividuo -->
+                                                                        <option value="{valMuniIndividuo}" {selMuniIndividuo}>{opcMuniIndividuo}</option>
+                                                                        <!-- END blkMuniIndividuo -->
+								</select>
+								<input type="hidden" id="idmun" name="data[loaded][idmun]" value="{validmun}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label style="color:#000000; font-weight:normal;">Localidad:<span class="mandatory">*</span></label>
+							</td>
+                                                        <td colspan="3">
+								<select id="drplocalidad" name="data[individuo][localidad]" style="width:275px">
+									<option value="0">N/A</option>
+                                                                        <!-- BEGIN blkLocalidadIndividuo -->
+                                                                        <option value="{valLocalidadIndividuo}" {selLocalidadIndividuo}>{opcLocalidadIndividuo}</option>
+                                                                        <!-- END blkLocalidadIndividuo -->
+								</select>
+								<input type="hidden" id="lp" name="data[loaded][idlp]" value="{validlp}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label style="color:#000000; font-weight:normal;">Direcci&oacute;n:<span class="mandatory">*</span></label>
+							</td>
+							<td>
+								<input type="text" id="direccion_individuo" name="data[individuo][direccion]" value="{valDireccionIndividuo}" style="width: 450px; text-align:center;" maxlength="150"/>
+							</td>
+							<td colspan="2">
+								<input type="checkbox" id="no_direccion_individuo" name="data[individuo][no_direccion_individuo]" {chkNoDirIndividuo}/>
+								<label style="color:#000000;">No disponible</label>
+
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+			</div>
+
+			<div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divMuestra" >
+				<fieldset class="ui-widget ui-widget-content ui-corner-all">
+					<legend>Procedencia de la muestra</legend>
+					<table>
+						<tr>
+							<td>
+								<label style="color:#000000; font-weight:normal;">&Aacute;rea de Salud:<span class="mandatory">*</span></label>
+							</td>
+							<td colspan="2">
+								<select id="drpareamuestra" name="drpareamuestra" style="width:375px">
+									<option value="0">N/A</option>
+                                                                        <!-- BEGIN blkAreaMuestra -->
+                                                                        <option value="{valAreaMuestra}"{selAreaMuestra}>{opcAreaMuestra}</option>
+                                                                        <!-- END blkAreaMuestra -->
+								</select>
+								<input type="hidden" id="area_salud_muestra" name="data[muestra][area_salud]" value="{validas}"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label style="color:#000000; font-weight:normal;">Distrito:<span class="mandatory">*</span></label>
+							</td>
+							<td colspan="2">
+								<select id="drpdistrito" name="drpdistrito" style="width:375px">
+									<option value="0">N/A</option>
+                                                                        <!-- BEGIN blkDistritoMuestra -->
+                                                                        <option value="{valDistritoMuestra}" {selDistritoMuestra}>{opcDistritoMuestra}</option>
+                                                                        <!-- END blkDistritoMuestra -->
+
+								</select>
+								<input type="hidden" id="distrito_muestra" name="data[muestra][distrito]" value="{validds}" />
+                                                                <input type="checkbox" id="no_distrito_muestra" name="data[muestra][no_distrito_muestra]" {chkNoDistrito} />
+								<label style="color:#000000;">No disponible</label>
+							</td>
+						</tr>
+						<tr>
+						  <td>
+                                                      <label  style="color:#000; font-weight:normal">Establecimiento:<span class="mandatory">*</span></label>
+                                                  </td>
+						  <td colspan="2">
+                                                      <select id="drpservicio" name="drpservicio" style="width:375px" onchange="servicioHospitalar()">
+                                                            <option value="0">N/A</option>
+                                                            <!-- BEGIN blkServicioMuestra -->
+                                                            <option value="{valServicioMuestra}" {selServicioMuestra}>{opcServicioMuestra}</option>
+                                                            <!-- END blkServicioMuestra -->
+                                                       </select>
+                                                       <input type="hidden" id="servicio_muestra" name="data[muestra][establecimiento]" value="{validEstablecimiento}" />
+                                                       <input type="hidden" id="tipo_servicio_muestra" name="data[muestra][tipo_establecimiento]" value="{validts}" />
+                                                       
+                                                       <input type="checkbox" id="no_establecimiento" name="data[muestra][no_establecimiento]" {chkNoEstablecimiento}/>
+                                                       <label style="color:#000000;">No disponible</label>              
+						  </td>
+                                                </tr>
+						<tr id="servicio_hospitalar" style="display: {valMostrarServicioIntra}">
+						  <td>
+                                                      <label style="color:#000; font-weight:normal">Servicio:</label>
+                                                  </td>
+						  <td colspan="2">
+                                                        <input type="text" id="servicio_intrahosp" name="data[muestra][servicio]" value="{valServicioIntra}" style="width:375px"/>
+						  </td>
+                                                </tr>
+						<tr>
+							<td>
+								<label style="color:#000000; font-weight:normal;">Otro (Especifique):</label>
+							</td>
+							<td colspan="2">
+                                                            <input type="text" id="otro_establecimiento" name="data[muestra][otro_establecimiento]" value="{valOtroEstablecimiento}" style="width: 475px; text-align:center;" maxlength="150" onblur="javascript:revisarOtroEstablecimiento();"/>
+							</td>
+						</tr>
+						<tr id="ref" style="display: {valMostrarReferida}">
+							<td>
+								<label style="color:#000000; font-weight:normal;">Referida por:<span class="mandatory">*</span></label>
+							</td>
+                                                        <td colspan="2">
+								<input type="text" id="referida_por" name="data[muestra][referida_por]" value="{valReferidaPor}" style="width: 450px; text-align:center;" maxlength="150"/>
+							</td>
+                                                </tr>
+					</table>
+				</fieldset>
+				<br/>
+				<fieldset class="ui-widget ui-widget-content ui-corner-all">
+					<legend>Datos de la muestra</legend>
+                                        <table cellpadding="2" cellspacing="2" border="0">
+					  <tr>
+						<td>
+							<label style="color:#000000; font-weight:normal;">&Aacute;rea de An&aacute;lisis:<span class="mandatory">*</span></label>
+						</td>
+                                                <td colspan="3">
+							<select id="drpareaanalisis" name="drpareaanalisis" style="width:275px">
+								<option value="0">N/A</option>
+                                                                <!-- BEGIN blkAreas -->
+                                                                <option value="{valAreas}" {selAreas}>{opcAreas}</option>
+                                                                <!-- END blkAreas -->
+							</select>
+							<input type="hidden" id="area_analisis_muestra" name="data[muestra][area_analisis]" value="{valArea}" />
+						</td>
+                                          </tr>
+                                          <tr>
+						<td>
+							<label style="color:#000000; font-weight:normal;">Evento:<span class="mandatory">*</span></label>
+						</td>
+						<td>
+                                                    <select id="drpevento" name="drpevento" style="width:275px">
+								<option value="0">N/A</option>
+                                                                <!-- BEGIN blkEventos -->
+                                                                <option value="{valEventos}" {selEventos}>{opcEventos}</option>
+                                                                <!-- END blkEventos -->
+							</select>
+							<input type="hidden" id="evento_muestra" name="data[muestra][evento][id_evento]" value="{valEvento}" />
+							<input type="hidden" id="evento_donador" name="data[muestra][evento][donador]" value="{valDonador}" />
+							<input type="hidden" id="evento_confidencial" name="data[muestra][evento][confidencial]" value="{valConfidencial}" />
+							<input type="hidden" id="evento_carga_viral" name="data[muestra][evento][carga_viral]" value="{valViral}" />
+							<input type="hidden" id="evento_inicio_sintomas" name="data[muestra][evento][inicio_sintomas]" value="{valIniciosintomas}" />
+							<input type="hidden" id="evento_encuesta_serologica" name="data[muestra][evento][encuesta_serologica]" value="{valEncuesta}" />
+						</td>
+                                                <td colspan="2">
+                                                    <div id="carga" style="display: {valMostrarCarga}">
+							<input type="checkbox" id="carga_viral" name="data[muestra][carga_viral_check]" {chkCargaViral}/>
+							<label style="color:#000000;">Carga viral</label>
+                                                    </div>
+                                                    <div id="serologica" style="display: {valMostrarSerologica}">
+							<input type="checkbox" id="encuesta_serologica" name="data[muestra][encuesta_serologica_check]" {chkEncuestaSerologica}/>
+							<label style="color:#000000;">Encuesta Serol&oacute;gica</label>
+                                                    </div>
+                                                </td>
+					  </tr>
+					  <tr>
+						<td>
+							<label style="color:#000000; font-weight:normal;">Tipo de muestra:<span class="mandatory">*</span></label>
+						</td>
+						<td>
+							<select id="drptipomuestra" name="drptipomuestra" style="width:275px">
+								<option value="0">N/A</option>
+                                                                <!-- BEGIN blkTipoMuestra -->
+                                                                <option value="{valTipoMuestra}" {selTipoMuestra}>{opcTipoMuestra}</option>
+                                                                <!-- END blkTipoMuestra -->
+							</select>
+							<input type="hidden" id="tipo_muestra" name="data[muestra][tipo]" value="{valTipoMuestra}" />
+						</td>
+						<td>
+                                                        <div id="don_pac" style="display: {valMostrarRadiosPD}">
+                                                            <label style="color:#000000; font-weight:normal;">Tipo de invididuo:<span class="mandatory">*</span></label>
+                                                            <label style="color:#000000; font-weight:normal">&nbsp;&nbsp;&nbsp;Paciente</label>
+                                                            <input type="radio" id="paciente" name="data[muestra][chk_paciente]" onclick="dp()"  {chkPaciente}/ >
+
+                                                            <label style="color:#000000; font-weight:normal">&nbsp;&nbsp;&nbsp;Donador</label>
+                                                            <input type="radio" id="donador" name="data[muestra][chk_donador]" onclick="pd()" {chkDonador}/>
+                                                        </div>
+						</td>
+					  </tr>
+                                          <tr id="senal_hospital" style="height: 25px;">
+                                              <td>
+                                                  <label style="color:#000000; font-weight:normal;">Condici&oacute;n del paciente:</label>
+                                              </td>
+                                              <td>
+                                                  <select id="hospitalario" name="data[muestra][hospitalario]" style=" width:275px;">
+                                                                <option value="0" {selNormal}>Normal</option>
+                                                                <option value="1" {selHospitalizado}>Hospitalizado</option>
+                                                                <option value="2" {selFallecido}>Fallecido</option>
+                                                  </select>
+                                              </td>
+                                              <td colspan="2">
+                                                  <div id="senal">
+                                                    {imagenEstado}
+                                                  </div>
+                                              </td>                                             
+                                          </tr>
+
+					  <tr>
+						<td>
+                                                    <label style="color:#000000; vertical-align:middle">Muestra rechazada:<span class="mandatory">*</span></label>
+                                                </td>
+                                                <td  colspan="4"
+							<label style="color:#000000; font-weight:normal">&nbsp;No</label>
+							<input type="radio" id="muestra_rechazada_no" name="data[muestra][no_rechazada]" onclick="nr()" {chkNoRechazada}/>
+							<label style="color:#000000; font-weight:normal">S&iacute;</label>
+							<input type="radio" id="muestra_rechazada_si" name="data[muestra][si_rechazada]" onclick="sr()" {chkSiRechazada}/>
+						</td>
+					  </tr>
+                                          <tr id="rechazoRow" style="display: {mostrarRechazo}">
+						<td colspan="1">
+							<label style="color:#000000; font-weight:normal">Raz&oacute;n de rechazo:<span class="mandatory">*</span></label>
+                                                </td>
+                                                <td colspan="4">
+							<select id="drprazonrechazo" name="drprazonrechazo" style="width:375px">
+								<option value="0">N/A</option>
+                                                                <!-- BEGIN blkRazones -->
+                                                                <option value="{valRazon}" {selRazon}>{opcRazon}</option>
+                                                                <!-- END blkRazones -->
+							</select>
+							<input type="hidden" id="razon_rechazo" name="data[muestra][razon_rechazo]" value="{valRazonRechazo}" />
+						</td>
+					  </tr>
+					  <tr>
+						<td colspan="5">
+                                                    &nbsp;
+						</td>
+					  </tr>
+					  </table>
+					  <table>
+					  <tr>
+						<td>
+							<label style="color:#000000; font-weight:normal;">Fecha de inicio de s&iacute;ntomas:<span id="oblig" class="mandatory">*</span></label>
+						</td>
+						<td>
+							<input type="text" id="fecha_inicio_sintomas" name="data[muestra][fecha_inicio_sintomas]" value="{valInicioSintomas}" style="width: 135px; text-align:center;" maxlength="10" onChange="verificar()"/>
+							<span class="ui-datepicker-append"> dd/mm/aaaa</span>
+						</td>
+						<td>
+                                                    &nbsp;&nbsp;&nbsp;
+						</td>
+						<td>
+							<label style="color:#000000; font-weight:normal">Fecha de toma de muestra:<span class="mandatory">*</span></label>
+						</td>
+						<td>
+							<input type="text" id="fecha_toma" name="data[muestra][fecha_toma]" value="{valToma}" style="width: 135px; text-align:center;" maxlength="10" onChange="verificar()"/>
+							<span class="ui-datepicker-append"> dd/mm/aaaa</span>
+						</td>
+					  </tr>
+					  <tr>
+						<td>
+							<label style="color:#000000; font-weight:normal">Fecha de recepci&oacute;n:<span class="mandatory">*</span></label>
+						</td>
+						<td>
+							<input type="text" id="fecha_recepcion" name="data[muestra][fecha_recepcion]" value="{valRecepcion}" style="width: 135px; text-align:center;" maxlength="10"/>
+							<span class="ui-datepicker-append"> dd/mm/aaaa</span>
+						</td>
+						<td colspan="3">
+                                                    <label style="color:#000000; font-weight:normal">&nbsp;&nbsp;&nbsp; Semana Epidemiol&oacute;gica:</label>
+                                                    <span id="semanaEpi">{valSE}</span>
+                                                    <input type="hidden" id="se" name="data[muestra][semana]"value="{valSE}"/>
+						</td>
+					  </tr>
+					</table>
+					<br/>
+					<label style="color:#000000;">Comentarios adicionales:</label><br/>
+                                        <div id="comentarios" align="center">
+					<textarea rows="3" cols="135"  id="comentarios_adicionales" name="data[muestra][comentarios_adicionales]">{textComentarios}</textarea>
+                                        </div>
+					<br/><br/>
+					<label style="color:#000000;">Antecedentes de inter&eacute;s:</label><br/>
+                                        <div id="antecedentes" align="center">
+					<textarea rows="3" cols="135"  id="antecedentes" name="data[muestra][antecedentes]">{textAntecedentes}</textarea>
+                                        </div>
+					<br/><br/>
+					<label style="color:#000000;">Resultados externos:</label><br/>
+                                        <div id="resultados" align="center">
+					<textarea rows="3" cols="135"  id="resultados_externos" name="data[muestra][resultados_externos]">{textResultadosExternos}</textarea>
+                                        </div>
+				</fieldset>
+			</div>
+                        <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divAlicuotas" >
+                            <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                                <legend>Alicuotas</legend><br/>
+                                <table align="center">
+                                    <tr>
+                                        <td align="">
+                                            &Aacute;rea:
+                                        </td>
+                                        <td>
+                                            <select style="width: 275px;" name="data[muestra][area_alicuota]" id="area_alicuota">
+                                                <option value="0">N/A</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Evento:
+                                        </td>
+                                        <td>
+                                            <select style="width: 275px;" name="data[muestra][evento_alicuota]" id="evento_alicuota">
+                                                <option value="0">N/A</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table align="center">
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <div style="margin-right:15px; margin-top: 10px">
+                                                <a id="" href="javascript:agregarAlicuota();" class="ui-state-default ui-corner-all ui-button" title=""
+                                                    onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                                    <span class="ui-icon ui-icon-plusthick"></span>Agregar
+                                                </a>
+                                            </div>                                            
+                                        </td>
+                                    </tr>
+                                </table>
+                            </fieldset>
+                            <br/>
+                            <div id="alicuotasLista">
+                                <div id="alicuotasPorAgregar" align="center">
+                                    <table border="0" align="center" width="60%">
+                                        <tr>
+                                            <td colspan="3"><h3>ALICUOTAS SELECCIONADAS</h3></td>
+                                            <td align="right">
+                                                 <a href="javascript:borrarLista();"
+                                                    onmouseover="RollOver(this)" onmouseout="RollOut(this)"
+                                                    title="&iexcl;Borrar listado de al&iacute;cuotas!" style="text-decoration: none; font-weight: bold; color: black">
+                                                    Borrar Lista
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table id="alicuotas" class="dxgvControl_PlasticBlue" rules="all" cellspacing="0"
+                                        border="0" style="width: 60%; border-collapse: collapse;">
+                                        <tbody>
+                                        <tr id="0">
+                                            <th class="dxgvHeader_PlasticBlue" width="45%">&Aacute;rea de an&aacute;lisis</th>
+                                            <th class="dxgvHeader_PlasticBlue" width="45%">Evento</th>
+                                            <th class="dxgvHeader_PlasticBlue" width="5%">&nbsp;</th>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+			<div align="right">
+                            <table>
+                                <tr><td>
+                                <div style="margin-right:15px">
+                                    <a id="next" href="javascript:siguienteTab();" class="ui-state-default ui-corner-all ui-button" title=""
+                                        onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                        <span class="ui-icon ui-icon-arrowthick-1-e"></span>Siguiente
+                                    </a>
+                                </div>
+                                    </td></tr>
+                            </table>
+                            <br/>
+				<label style="color:#000000; font-weight:normal; padding-right: 17px">
+					Los campos marcados con <strong><span class="mandatory">*</span></strong> son obligatorios.
+				</label>
+			</div>
+		</div>
+                <br/>
+                <table align="center">
+                    <tr>
+                        <td>
+                        <div style="margin-top:10px">
+                            <input type="hidden" name="action" id="action" value="{action}" />
+                            <input type="hidden" name="control[conteo]" id="conteo" value="{conteo}"/>
+                            <input type="hidden" name="control[alicuotas]" id="alic" value="{alics}"/>
+                            <input type="hidden" name="control[tabla_alicuotas]" id="tabla_alicuotas" value="{tabla_alicuotas}"/>
+                            <input type="hidden" name="muestra" id="muestra" value="{muestra}" />
+                            <a href="javascript:validarIngresoAlicuotas();" class="ui-state-default ui-corner-all ui-button"
+                                onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                <span class="ui-icon ui-icon-disk"></span> Guardar
+                            </a>&nbsp;
+                            <a href="../ventanilla/index.php" class="ui-state-default ui-corner-all ui-button"
+                                onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                <span class="ui-icon ui-icon-cancel"></span> Cancelar
+                            </a>
+                        </div>
+                        </td>
+                    </tr>
+                </table>
+	</form>
+</div>

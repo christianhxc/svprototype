@@ -1,0 +1,77 @@
+<div class="Content" align="left">
+    <div class="ui-state-error ui-corner-all"
+    	style="padding-bottom:5px; margin-bottom:6px;display:{disError}; margin-top:5px;" align="left">
+    	<span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+        <label>Ocurri&oacute; un error al momento de guardar los datos.</label><br>
+        <label>Por favor verifique de nuevo o reporte el problema al departamento t&eacute;cnico.</label><br>
+        <label>{desError}</label>
+    </div>
+    
+<div class="ui-state-error ui-corner-all" id="dSummaryErrors"
+    	style="padding-bottom:5px; margin-bottom:6px;display:none; margin-top:5px;" align="left">
+    	<span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+        <label>La clave no se puede recuperar debido a lo siguiente:</label>
+        <p id="pSummaryErrors" style="margin-top:0px; margin-bottom:0px;"></p>
+    </div>
+    <br/>
+    <div style="width: 70%; margin-left: 15%">
+    <form id="frmLogin" method="post" action="recuperarusuario.php" onsubmit="return validarFormulario();">
+        <fieldset class="ui-widget ui-widget-content ui-corner-all">
+        <legend>Recuperar Usuario</legend><br>
+        <div align="left" style="margin-left:10px">
+            <table align="center">
+                <tr>
+                    <td>
+                        Por favor ingrese los siguientes datos para contactar al soporte t&eacute;cnico. <br/>Se verificar&aacute; la informaci&oacute;n y recibir&aacute; un correo electr&oacute;nico con la informaci&oacute;n requerida.<br /><br />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    Nombres:<br />
+                    <input type="text" name="nombres" id="nombres" style="width:300px">
+                    </td>
+                </tr>
+            <tr>
+                <td>
+                Apellidos:<br />
+                <input type="text" name="apellidos" id="apellidos" style="width:300px">
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                  Correo electr&oacute;nico:<br />
+                  <input type="text" name="email" id="email" style="width:300px">
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                  Telefono:<br />
+                  <input type="text" name="telefono" id="telefono" style="width:300px">
+                <td/>
+            </tr>
+            <tr>
+                <td>
+                  Comentario:<br />
+                  <textarea id="comentario" name="comentario" style="width:300px" cols="60" rows="4"></textarea>
+                <td/>
+            </tr>
+            </table>
+        </div>
+        <br/>
+        <table align="center">
+                <tr>
+                    <td align="center" colspan="2">
+                        <a class="ui-state-default ui-corner-all ui-button" onclick="javascript:validarFormulario();"
+                           onmouseover="RollOver(this)" onmouseout="RollOut(this)" style="cursor: pointer">Solicitar
+                        </a>&nbsp;&nbsp;
+                        <a class="ui-state-default ui-corner-all ui-button" onclick="window.location = 'index.php'; return false;"
+                           onmouseover="RollOver(this)" onmouseout="RollOut(this)" style="cursor: pointer">Cancelar
+                        </a>
+                    </td>
+                </tr>
+        </table>
+        <br/>
+  </fieldset>
+</form>
+    </div>
+</div>
