@@ -1,4 +1,16 @@
-#php_value include_path ".;C:/xampp/php/pear/;C:/xampp/htdocs/sisvig2/"
-php_value include_path ".:/usr/share/pear:/usr/share/php:/var/www/html/sisvig2/"
+php_value include_path ".;G:/xampp/php/pear/;G:/xampp/htdocs/sisvig2/"
+#php_value include_path ".:/usr/share/pear:/usr/share/php:/var/www/html/sisvig2/"
 AddCharset UTF-8 .php
 AddCharset ISO-8859-1 .html
+php_flag display_startup_errors off
+php_flag display_errors off
+php_flag html_errors off
+
+<IfModule mod_php5.c>
+php_value post_max_size 10M
+php_value upload_max_filesize 10M
+php_value memory_limit 512M
+php_value max_execution_time 600
+php_value max_input_time 600
+#php_value session.gc_maxlifetime 1200
+</IfModule>

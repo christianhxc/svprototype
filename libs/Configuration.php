@@ -15,16 +15,16 @@ class Configuration
     
     // BD EN GODADDY
     const DBHandler = 'mysql';
-    const DBuser = 'sisvigPan';
-    const DBpass = 'qwerty12';
+    const DBuser = 'root';
+    const DBpass = '';
     const DB = 'sisvigdb';
     const host = 'localhost';
 
-    //const templatesPath = 'C:/xampp/htdocs/sisvig2/templates/';
-    const templatesPath = '/var/www/html/sisvig2/templates/';
+    const templatesPath = 'G:/xampp/htdocs/sisvig2/templates/';
+    //const templatesPath = '/var/www/html/sisvig2/templates/';
 
-//    const bdEpiInfoPath = 'C:/xampp/htdocs/sisvig2/vih/archivos_bd/';
-    const bdEpiInfoPath = '/var/www/html/sisvig2/vih/archivos_bd/';
+    const bdEpiInfoPath = 'G:/xampp/htdocs/sisvig2/vih/archivos_bd/';
+    //const bdEpiInfoPath = '/var/www/html/sisvig2/vih/archivos_bd/';
 
     // No. de dias para cambiar una clave, si es 0 no solicita cambiar
     const expiracion = 0;
@@ -46,10 +46,10 @@ class Configuration
 //    const urlReport = "jdbc:mysql://localhost:3306/";
 //    const dbReport = "sisvigdb?user=sisvig&password=123456";
     
-    const urlprefix = 'http://190.34.154.87/sisvig2/';    
-    const urlprefixViejo ='http://190.34.154.87/sisvig/';
+    const urlprefix = 'http://localhost/sisvig/';    
+    const urlprefixViejo ='http://localhost/sisvig/';
     const javaAddress = '/var/www/html/sisvig2/bridge/java/Java.inc';    
-    const reportAddress = 'http://190.34.154.87/sisvig2/';    
+    const reportAddress = 'http://localhost/sisvig/';    
     const urlReport = "jdbc:mysql://localhost:3306/";
     const dbReport = "sisvigdb?user=sisvigPan&password=qwerty12";
 

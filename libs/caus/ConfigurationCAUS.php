@@ -2,8 +2,8 @@
 class ConfigurationCAUS{
 
     const DBHandler = 'mysql';
-    const DBuser = 'sisvigPan';
-    const DBpass = 'qwerty12';
+    const DBuser = 'root';
+    const DBpass = '';
     const DB = 'caus_sisvig';
     const host = 'localhost';
     
