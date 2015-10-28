@@ -166,6 +166,68 @@
                             <td><input type="text" id="segundo_apellido" name="data[individuo][segundo_apellido]" value="{valSegundoApellido}" style="width: 250px; text-transform: uppercase;" maxlength="75"/></td>
                         </tr>
                         <tr>
+                            <td colspan="4"><br></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><strong>Residencia al Diagnostico</strong></td>
+                        </tr>
+                        <tr>
+                            <td><label >Provincia:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpProIndividuoDiagnostico" name="data[individuo][provincia_diagnostico]" style="width:250px" onchange="setRegionCascadaDiagnostico()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkProIndividuoDiagnostico -->
+                                    <option value="{valProIndividuo}" {selProIndividuo}>{opcProIndividuo}</option>
+                                    <!-- END blkProIndividuoDiagnostico -->
+                                </select>
+                                <input type="hidden" id="idProDiagnostico" name="data[loaded][idPro_diagnostico]" value="{valIdProDiagnostico}" />
+                            </td>
+                            <td><label >Regi&oacute;n:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpRegIndividuoDiagnostico" name="data[individuo][region_diagnostico]" style="width:250px" onchange="setDistritoCascadaDiagnostico()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkRegIndividuoDiagnostico -->
+                                    <option value="{valRegIndividuo}" {selRegIndividuo}>{opcRegIndividuo}</option>
+                                    <!-- END blkRegIndividuoDiagnostico -->
+                                </select>
+                                <input type="hidden" id="idRegDiagnostico" name="data[loaded][idReg_diagnostico]" value="{valIdRegDiagnostico}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label >Distrito:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpDisIndividuoDiagnostico" name="data[individuo][distrito_diagnostico]" style="width:250px" onchange="setCorregimientoCascadaDiagnostico()">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkDisIndividuoDiagnostico -->
+                                    <option value="{valDisIndividuo}" {selDisIndividuo}>{opcDisIndividuo}</option>
+                                    <!-- END blkDisIndividuoDiagnostico -->
+                                </select>
+                                <input type="hidden" id="idDisDiagnostico" name="data[loaded][idDis_diagnostico]" value="{valIdDisDiagnostico}" />
+                            </td>
+                            <td><label >Corregimiento:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpCorIndividuoDiagnostico" name="data[individuo][corregimiento_diagnostico]" style="width:250px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkCorIndividuoDiagnostico -->
+                                    <option value="{valCorIndividuo}" {selCorIndividuo}>{opcCorIndividuo}</option>
+                                    <!-- END blkCorIndividuoDiagnostico -->
+                                </select>
+                                <input type="hidden" id="idCorDiagnostico" name="data[loaded][idCor_diagnostico]" value="{valIdCorDiagnostico}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label >Lugar poblado:</label></td>
+                            <td colspan="3">
+                                <input type="text" id="lugar_pobladoDiagnostico" name="data[individuo][lugar_poblado_diagnostico]" value="{valLugarPobladoDiagnostico}" style="width:350px;" maxlength="150"/>&nbsp;&nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><br></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><strong>Residencia Actual</strong></td>
+                        </tr>
+                        <tr>
                             <td><label >Provincia:<span class="mandatory">*</span></label></td>
                             <td >
                                 <select id="drpProIndividuo" name="data[individuo][provincia]" style="width:250px" onchange="setRegionCascada()">
@@ -219,7 +281,9 @@
                                 <input type="text" id="telefono" name="data[individuo][telefono]" value="{valTelefono}" style="width:160px;" onKeyPress="return numbersonly(event, false);"/>&nbsp;&nbsp;                       
                             </td>
                         </tr>
-                        
+                        <tr>
+                            <td colspan="4"><br></td>
+                        </tr>
                         <tr>
                             <td><label >Fecha de nacimiento:</label></td>
                             <td>

@@ -604,7 +604,11 @@ function setRegionCascada(){
     setRegionPersona($("#drpProIndividuo").val(),-1);
 }
 
-function setRegionPersona(idProvincia, idRegion)
+function setRegionCascadaDiagnostico(){
+    setRegionPersona($("#drpProIndividuoDiagnostico").val(),-1,'drpRegIndividuoDiagnostico');
+}
+
+function setRegionPersona(idProvincia, idRegion, idRegistro)
 {
     $.getJSON(urlprefix + 'js/dynamic/regiones.php',{
         idProvincia: idProvincia,
@@ -622,7 +626,10 @@ function setRegionPersona(idProvincia, idRegion)
             options += '<option value="' + j[i].optionValue + '" '+extra+'>' + j[i].optionDisplay + '</option>';
         }
 
-        $("#drpRegIndividuo").html(options);
+        if (!idRegistro)
+            $("#drpRegIndividuo").html(options);
+        else
+            $("#"+idRegistro).html(options);
     })
 }
 
@@ -630,7 +637,11 @@ function setDistritoCascada(){
     setDistritoPersona($("#drpProIndividuo").val(),$("#drpRegIndividuo").val(),-1);
 }
 
-function setDistritoPersona(idProvincia, idRegion, idDistrito)
+function setDistritoCascadaDiagnostico(){
+    setDistritoPersona($("#drpProIndividuoDiagnostico").val(),$("#drpRegIndividuoDiagnostico").val(),-1,'drpDisIndividuoDiagnostico');
+}
+
+function setDistritoPersona(idProvincia, idRegion, idDistrito, idDistritoDestino)
 {
     $.getJSON(urlprefix + 'js/dynamic/distritos.php',{
         idProvincia: idProvincia,
@@ -649,7 +660,10 @@ function setDistritoPersona(idProvincia, idRegion, idDistrito)
             options += '<option value="' + j[i].optionValue + '" '+extra+'>' + j[i].optionDisplay + '</option>';
         }
 
-        $("#drpDisIndividuo").html(options);
+        if (!idDistritoDestino)
+            $("#drpDisIndividuo").html(options);
+        else
+            $("#"+idDistritoDestino).html(options);
     })
 }
 
@@ -657,7 +671,11 @@ function setCorregimientoCascada(){
     setCorregimientoPersona($("#drpDisIndividuo").val(),-1);
 }
 
-function setCorregimientoPersona(idDistrito, idCorregimiento)
+function setCorregimientoCascadaDiagnostico(){
+    setCorregimientoPersona($("#drpDisIndividuo").val(),-1,'drpCorIndividuoDiagnostico');
+}
+
+function setCorregimientoPersona(idDistrito, idCorregimiento, idCorregimientoDestino)
 {
     $.getJSON(urlprefix + 'js/dynamic/corregimientos.php',{
         idDistrito: idDistrito,
@@ -675,7 +693,10 @@ function setCorregimientoPersona(idDistrito, idCorregimiento)
             options += '<option value="' + j[i].optionValue + '" '+extra+'>' + j[i].optionDisplay + '</option>';
         }
 
-        $("#drpCorIndividuo").html(options);
+        if (!idCorregimientoDestino)
+            $("#drpCorIndividuo").html(options);
+        else
+            $("#"+idCorregimientoDestino).html(options);
     })
 }
 

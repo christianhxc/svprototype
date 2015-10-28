@@ -105,6 +105,15 @@ class formVih extends page {
                     $this->tpl->setVariable("selProIndividuo", ($provincia["id_provincia"] == $this->config["data"]["individuo"]["idProvincia"] ? 'selected="selected"' : ''));
 
                 $this->tpl->parse('blkProIndividuo');
+
+                $this->tpl->setCurrentBlock('blkProIndividuoDiagnostico');
+                $this->tpl->setVariable("valProIndividuo", $provincia["provincia"]);
+                $this->tpl->setVariable("opcProIndividuo", htmlentities($provincia["descripcionProvincia"]));
+
+                if ($this->config["preselect"])
+                    $this->tpl->setVariable("selProIndividuo", ($provincia["id_provincia"] == $this->config["data"]["individuo"]["idProvinciaDiagnostico"] ? 'selected="selected"' : ''));
+
+                $this->tpl->parse('blkProIndividuoDiagnostico');
             }
         }
         if (isset($this->config["data"]["individuo"]["idProvincia"])) {
@@ -119,6 +128,21 @@ class formVih extends page {
                         $this->tpl->setVariable("selRegIndividuo", ($region["id_region"] == $this->config["data"]["individuo"]["idRegion"] ? 'selected="selected"' : ''));
 
                     $this->tpl->parse('blkRegIndividuo');
+                }
+            }
+        }
+        if (isset($this->config["data"]["individuo"]["idRegionDiagnostico"])) {
+            $regiones = $this->config["catalogos"]["regiones"];
+            if (is_array($regiones)) {
+                foreach ($regiones as $region) {
+                    $this->tpl->setCurrentBlock('blkRegIndividuoDiagnostico');
+                    $this->tpl->setVariable("valRegIndividuo", $region["id_region"]);
+                    $this->tpl->setVariable("opcRegIndividuo", htmlentities($region["nombre_region"]));
+
+                    if ($this->config["preselect"])
+                        $this->tpl->setVariable("selRegIndividuo", ($region["id_region"] == $this->config["data"]["individuo"]["idRegionDiagnostico"] ? 'selected="selected"' : ''));
+
+                    $this->tpl->parse('blkRegIndividuoDiagnostico');
                 }
             }
         }
@@ -137,6 +161,23 @@ class formVih extends page {
                 }
             }
         }
+
+        if (isset($this->config["data"]["individuo"]["idProvinciaDiagnostico"])) {
+            $distritos = $this->config["catalogos"]["distritos"];
+            if (is_array($distritos)) {
+                foreach ($distritos as $distrito) {
+                    $this->tpl->setCurrentBlock('blkDisIndividuoDiagnostico');
+                    $this->tpl->setVariable("valDisIndividuo", $distrito["id_distrito"]);
+                    $this->tpl->setVariable("opcDisIndividuo", htmlentities($distrito["nombre_distrito"]));
+
+                    if ($this->config["preselect"])
+                        $this->tpl->setVariable("selDisIndividuo", ($distrito["id_distrito"] == $this->config["data"]["individuo"]["idDistritoDiagnostico"] ? 'selected="selected"' : ''));
+
+                    $this->tpl->parse('blkDisIndividuoDiagnostico');
+                }
+            }
+        }
+
         if (isset($this->config["data"]["individuo"]["idDistrito"])) {
             $corregimientos = $this->config["catalogos"]["corregimientos"];
             if (is_array($corregimientos)) {
@@ -149,6 +190,22 @@ class formVih extends page {
                         $this->tpl->setVariable("selCorIndividuo", ($corregimiento["id_corregimiento"] == $this->config["data"]["individuo"]["idCorregimiento"] ? 'selected="selected"' : ''));
 
                     $this->tpl->parse('blkCorIndividuo');
+                }
+            }
+        }
+
+        if (isset($this->config["data"]["individuo"]["idDistritoDiagnostico"])) {
+            $corregimientos = $this->config["catalogos"]["corregimientos"];
+            if (is_array($corregimientos)) {
+                foreach ($corregimientos as $corregimiento) {
+                    $this->tpl->setCurrentBlock('blkCorIndividuoDiagnostico');
+                    $this->tpl->setVariable("valCorIndividuo", $corregimiento["id_corregimiento"]);
+                    $this->tpl->setVariable("opcCorIndividuo", htmlentities($corregimiento["nombre_corregimiento"]));
+
+                    if ($this->config["preselect"])
+                        $this->tpl->setVariable("selCorIndividuo", ($corregimiento["id_corregimiento"] == $this->config["data"]["individuo"]["idCorregimientoDiagnostico"] ? 'selected="selected"' : ''));
+
+                    $this->tpl->parse('blkCorIndividuoDiagnostico');
                 }
             }
         }
