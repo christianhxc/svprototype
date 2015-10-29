@@ -1,0 +1,16 @@
+ALTER TABLE `sisvigdb`.`tbl_persona` 
+ADD COLUMN `id_region_diagnostico` INT(11) NULL COMMENT '' AFTER `id_gpopoblacional`,
+ADD COLUMN `id_corregimiento_diagnostico` INT(11) NULL COMMENT '' AFTER `id_region_diagnostico`,
+ADD COLUMN `dir_referencia_diagnostico` VARCHAR(150) NULL COMMENT '' AFTER `id_corregimiento_diagnostico`;
+
+
+DELETE FROM `sisvigdb`.`cat_genero` WHERE `id_genero`='2';
+DELETE FROM `sisvigdb`.`cat_genero` WHERE `id_genero`='7';
+DELETE FROM `sisvigdb`.`cat_genero` WHERE `id_genero`='6';
+DELETE FROM `sisvigdb`.`cat_genero` WHERE `id_genero`='1';
+DELETE FROM `sisvigdb`.`cat_genero` WHERE `id_genero`='5';
+DELETE FROM `sisvigdb`.`cat_genero` WHERE `id_genero`='3';
+DELETE FROM `sisvigdb`.`cat_genero` WHERE `id_genero`='8';
+
+INSERT INTO `sisvigdb`.`cat_genero` (`id_genero`, `genero_nombre`, `status`) VALUES ('1', 'Hombre', '1');
+INSERT INTO `sisvigdb`.`cat_genero` (`id_genero`, `genero_nombre`, `status`) VALUES ('2', 'Mujer', '1');
