@@ -507,6 +507,7 @@ function individuo(tipoId,idP)
                 $("#nombre_responsable").val(partes[10]);
                 
                 $("#lugar_poblado").val(partes[15]);
+                $("#lugar_poblado_diagnostico").val(partes[26]);
                 $("#telefono").val(partes[19]);
                 
                 $("#ocupacion").val(partes[17]);
@@ -531,7 +532,17 @@ function individuo(tipoId,idP)
                 setRegionPersona(idProvincia, idRegion);
                 setDistritoPersona(idProvincia, idRegion, idDistrito);
                 setCorregimientoPersona(idDistrito, idCorregimiento);
-               
+
+                idProvinciaDiagnostico = partes[27];
+                idRegionDiagnostico = partes[28];
+                idDistritoDiagnostico = partes[29];
+                idCorregimientoDiagnostico = partes[30];
+                console.log(partes);
+                $("#drpProIndividuoDiagnostico").val(idProvinciaDiagnostico);
+                setRegionPersona(idProvinciaDiagnostico, idRegionDiagnostico,'drpRegIndividuoDiagnostico');
+                setDistritoPersona(idProvinciaDiagnostico, idRegionDiagnostico, idDistritoDiagnostico,'drpDisIndividuoDiagnostico');
+                setCorregimientoPersona(idDistritoDiagnostico, idCorregimientoDiagnostico,'drpCorIndividuoDiagnostico');
+
                 $("#resultadosBusqueda").html('');
                 $("#dialog-form").dialog('close');
                 found = true;
@@ -672,7 +683,7 @@ function setCorregimientoCascada(){
 }
 
 function setCorregimientoCascadaDiagnostico(){
-    setCorregimientoPersona($("#drpDisIndividuo").val(),-1,'drpCorIndividuoDiagnostico');
+    setCorregimientoPersona($("#drpDisIndividuoDiagnostico").val(),-1,'drpCorIndividuoDiagnostico');
 }
 
 function setCorregimientoPersona(idDistrito, idCorregimiento, idCorregimientoDestino)

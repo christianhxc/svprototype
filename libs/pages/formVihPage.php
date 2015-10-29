@@ -425,7 +425,10 @@ class formVih extends page {
             $this->tpl->setVariable('valSobrevidaSida', $this->config['read']['cond_sobrevida_sida']);
             $this->tpl->setVariable('valLugarDiagnostico', $this->config['read']['cond_lugar_diagnostico']);
             $this->tpl->setVariable('valLugarDiagnosticoSida', $this->config['read']['cond_lugar_diagnostico_sida']);
-            
+
+            if ($this->config["action"] == "R")
+                $this->tpl->setVariable('showResDiagnostico', 'readonly="readonly" disabled="disabled"');
+
             
             //Notificacion
             $unidadDisponible = $this->config['read']['unidad_disponible'];

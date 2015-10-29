@@ -437,11 +437,14 @@ class helperCatalogos {
 
     public static function getDatosPersona($tipoId, $id) {
         $sql = "select per.*, dis.id_distrito, dis.id_region, dis.id_provincia, ide.nombre_tipo, ocu.nombre_ocupacion,
-                date(per.fecha_nacimiento) as per_fecha_nacimiento, ocu.id_ocupacion, per.id_estado_civil, per.id_escolaridad    
+                date(per.fecha_nacimiento) as per_fecha_nacimiento, ocu.id_ocupacion, per.id_estado_civil, per.id_escolaridad,
+                dis_diag.id_region as id_region_diagnostico, dis_diag.id_provincia as id_provincia_diagnostico, dis_diag.id_distrito as id_distrito_diagnostico
                 from tbl_persona per
                 inner join cat_corregimiento cor on per.id_corregimiento = cor.id_corregimiento
                 inner join cat_distrito dis on cor.id_distrito = dis.id_distrito
                 inner join cat_tipo_identidad ide on per.tipo_identificacion = ide.id_tipo_identidad
+                left join cat_corregimiento cor_diag on per.id_corregimiento_diagnostico = cor_diag.id_corregimiento
+                left join cat_distrito dis_diag on cor_diag.id_distrito = dis_diag.id_distrito
                 left join cat_ocupacion ocu on per.id_ocupacion  = ocu.id_ocupacion
                 where tipo_identificacion = $tipoId and numero_identificacion = '$id'";
         $conn = new Connection();

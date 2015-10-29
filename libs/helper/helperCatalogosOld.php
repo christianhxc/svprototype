@@ -384,7 +384,7 @@ class helperCatalogos {
 
     public static function getDatosPersona($tipoId, $id) {
         $sql = "select per.*, dis.id_distrito, dis.id_region, dis.id_provincia, ide.nombre_tipo, ocu.nombre_ocupacion,
-                date(per.fecha_nacimiento) as per_fecha_nacimiento, ocu.id_ocupacion, per.id_estado_civil, per.id_escolaridad    
+                date(per.fecha_nacimiento) as per_fecha_nacimiento, ocu.id_ocupacion, per.id_estado_civil, per.id_escolaridad
                 from tbl_persona per
                 inner join cat_corregimiento cor on per.id_corregimiento = cor.id_corregimiento
                 inner join cat_distrito dis on cor.id_distrito = dis.id_distrito

@@ -35,7 +35,12 @@ if (is_array($personas)) {
                 . $persona["id_etnia"]. "#"  //23
                 . $persona["id_genero"]. "#" //24
                 . $persona["id_pais"]. "#"//25
-                . htmlentities($persona["tel_trabajo"])//26
+                . htmlentities($persona["tel_trabajo"]) //26
+                . htmlentities($persona["dir_referencia_diagnostico"]) . "#" //27
+                . $persona["id_provincia_diagnostico"] . "#" //28
+                . $persona["id_region_diagnostico"] . "#" //29
+                . $persona["id_distrito_diagnostico"] . "#" //30
+                . $persona["id_corregimiento_diagnostico"] . "#" //31
         );
     }
 }

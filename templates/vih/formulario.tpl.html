@@ -174,7 +174,7 @@
                         <tr>
                             <td><label >Provincia:<span class="mandatory">*</span></label></td>
                             <td >
-                                <select id="drpProIndividuoDiagnostico" name="data[individuo][provincia_diagnostico]" style="width:250px" onchange="setRegionCascadaDiagnostico()">
+                                <select id="drpProIndividuoDiagnostico" name="data[individuo][provincia_diagnostico]" style="width:250px" onchange="setRegionCascadaDiagnostico()" {{showResDiagnostico}}>
                                     <option value="0">Seleccione...</option>
                                     <!-- BEGIN blkProIndividuoDiagnostico -->
                                     <option value="{valProIndividuo}" {selProIndividuo}>{opcProIndividuo}</option>
@@ -184,7 +184,7 @@
                             </td>
                             <td><label >Regi&oacute;n:<span class="mandatory">*</span></label></td>
                             <td >
-                                <select id="drpRegIndividuoDiagnostico" name="data[individuo][region_diagnostico]" style="width:250px" onchange="setDistritoCascadaDiagnostico()">
+                                <select id="drpRegIndividuoDiagnostico" name="data[individuo][region_diagnostico]" style="width:250px" onchange="setDistritoCascadaDiagnostico()" {{showResDiagnostico}}>
                                     <option value="0">Seleccione...</option>
                                     <!-- BEGIN blkRegIndividuoDiagnostico -->
                                     <option value="{valRegIndividuo}" {selRegIndividuo}>{opcRegIndividuo}</option>
@@ -196,7 +196,7 @@
                         <tr>
                             <td><label >Distrito:<span class="mandatory">*</span></label></td>
                             <td >
-                                <select id="drpDisIndividuoDiagnostico" name="data[individuo][distrito_diagnostico]" style="width:250px" onchange="setCorregimientoCascadaDiagnostico()">
+                                <select id="drpDisIndividuoDiagnostico" name="data[individuo][distrito_diagnostico]" style="width:250px" onchange="setCorregimientoCascadaDiagnostico()" {{showResDiagnostico}}>
                                     <option value="0">Seleccione...</option>
                                     <!-- BEGIN blkDisIndividuoDiagnostico -->
                                     <option value="{valDisIndividuo}" {selDisIndividuo}>{opcDisIndividuo}</option>
@@ -206,7 +206,7 @@
                             </td>
                             <td><label >Corregimiento:<span class="mandatory">*</span></label></td>
                             <td >
-                                <select id="drpCorIndividuoDiagnostico" name="data[individuo][corregimiento_diagnostico]" style="width:250px">
+                                <select id="drpCorIndividuoDiagnostico" name="data[individuo][corregimiento_diagnostico]" style="width:250px" {{showResDiagnostico}}>
                                     <option value="0">Seleccione...</option>
                                     <!-- BEGIN blkCorIndividuoDiagnostico -->
                                     <option value="{valCorIndividuo}" {selCorIndividuo}>{opcCorIndividuo}</option>
@@ -218,7 +218,7 @@
                         <tr>
                             <td><label >Lugar poblado:</label></td>
                             <td colspan="3">
-                                <input type="text" id="lugar_pobladoDiagnostico" name="data[individuo][lugar_poblado_diagnostico]" value="{valLugarPobladoDiagnostico}" style="width:350px;" maxlength="150"/>&nbsp;&nbsp;
+                                <input type="text" id="lugar_poblado_diagnostico" name="data[individuo][lugar_poblado_diagnostico]" value="{valLugarPobladoDiagnostico}" style="width:350px;" maxlength="150" {{showResDiagnostico}} />&nbsp;&nbsp;
                             </td>
                         </tr>
                         <tr>
@@ -274,7 +274,7 @@
                         <tr>
                             <td><label >Lugar poblado:</label></td>
                             <td colspan="2">
-                                <input type="text" id="lugar_poblado" name="data[individuo][lugar_poblado]" value="{valLugarPoblado}" style="width:350px;" maxlength="150"/>&nbsp;&nbsp;                       
+                                <input type="text" id="lugar_poblado" name="data[individuo][lugar_poblado]" value="{valLugarPobladoDiagnostico}" style="width:350px;" maxlength="150"/>&nbsp;&nbsp;
                             </td>
                             <td>
                                 <label >Telefono:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
