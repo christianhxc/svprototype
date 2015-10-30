@@ -148,6 +148,7 @@ class helperVih {
         $individuo["segundo_apellido"] = (!isset($data["individuo"]["segundo_apellido"]) ? NULL : strtoupper($data["individuo"]["segundo_apellido"]));
 
         $individuo["fecha_nacimiento"] = (!isset($data["individuo"]["fecha_nacimiento"]) ? NULL : helperString::toDate($data["individuo"]["fecha_nacimiento"]));
+        $individuo["fecha_parto"] = (!isset($data["individuo"]["fecha_parto"]) ? NULL : helperString::toDate($data["individuo"]["fecha_parto"]));
 
         $individuo["edad"] = (!isset($data["individuo"]["edad"]) ? NULL : $data["individuo"]["edad"]);
         $individuo["tipo_edad"] = (!isset($data["individuo"]["tipo_edad"]) ? '4' : $data["individuo"]["tipo_edad"]);

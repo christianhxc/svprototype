@@ -458,8 +458,7 @@
                             </td>
                         </tr>
                         <tr id="divEmbarazo">
-                            
-                            <td  >
+                            <td>
                                 <label >Embarazada:</label>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <select id="drpEmbarazada" name="data[individuo][embarazada]" onchange="estaEmbarazada()">
                                     <option value="0">Sel...</option>
@@ -484,7 +483,13 @@
                                 <label >&nbsp;&nbsp;&nbsp;Emb. 3:</label>
                                 <input type="text" id="anio_emb3" name="data[individuo][anio_emb3]" value="{valAnioEmb3}" style="width: 60px;" maxlength="4"/>
                             </td>
-                            
+                        </tr>
+                        <tr id="trFechaParto">
+                            <td colspan="4">
+                                <label>Fecha Probable de Parto:</label>&nbsp;&nbsp;&nbsp;
+                                <input type="text" id="fecha_parto" name="data[individuo][fecha_parto]" value="{valFechaParto}" style="width: 135px;" maxlength="10""/>
+                                <span class="ui-datepicker-append"> dd/mm/aaaa</span>
+                            </td>
                         </tr>
                     </table>
                 </fieldset>

@@ -20,6 +20,7 @@ $(function() {
 $(function() {
     $( "#fecha_parto" ).datepicker({
         showOn: "both",
+        yearRange: "1900:"+new Date().getFullYear() ,
         buttonImage: urlprefix+"img/calendar.gif",
         buttonImageOnly: true,
         showAnim: "slideDown"
@@ -211,10 +212,13 @@ function iniciaDatosComportamiento(){
             $( "#divDonante" ).hide();
             $( "#divDonante1" ).hide();
         }
-        if($("#drpEmbarazada").val()==1)
-            $( "#divFechaParto" ).show();
-        else
-            $( "#divFechaParto" ).hide();
+        if($("#drpEmbarazada").val()==1) {
+            $("#divFechaParto").show();
+            $("#trFechaParto").show();
+        } else {
+            $("#divFechaParto").hide();
+            $("#trFechaParto").hide();
+        }
     }
     else if(action == "N"){
         $( "#labelUlcerativa" ).css( "display", "none" );
@@ -222,6 +226,7 @@ function iniciaDatosComportamiento(){
         $( "#divDonante" ).hide();
         $( "#divDonante1" ).hide();
         $( "#divFechaParto" ).hide();
+        $( "#trFechaParto" ).hide();
     }
 }
 
@@ -543,6 +548,8 @@ function individuo(tipoId,idP)
                 setDistritoPersona(idProvinciaDiagnostico, idRegionDiagnostico, idDistritoDiagnostico,'drpDisIndividuoDiagnostico');
                 setCorregimientoPersona(idDistritoDiagnostico, idCorregimientoDiagnostico,'drpCorIndividuoDiagnostico');
 
+                $("#fecha_parto").val((partes[31]==''?'':invFecha(1,partes[31])));
+
                 $("#resultadosBusqueda").html('');
                 $("#dialog-form").dialog('close');
                 found = true;
@@ -784,10 +791,13 @@ function sexoEmbarazo(){
 
 function estaEmbarazada(){
     embarazo = $('#drpEmbarazada').val();
-    if(embarazo == '1')
-        $( "#divFechaParto" ).show();
-    else
-        $( "#divFechaParto" ).hide();
+    if(embarazo == '1') {
+        $("#divFechaParto").show();
+        $("#trFechaParto").show();
+    }else {
+        $("#divFechaParto").hide();
+        $("#trFechaParto").hide();
+    }
 }
 
 //Relacionar Enfermedades

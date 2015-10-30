@@ -41,6 +41,7 @@ if (is_array($personas)) {
                 . $persona["id_region_diagnostico"] . "#" //29
                 . $persona["id_distrito_diagnostico"] . "#" //30
                 . $persona["id_corregimiento_diagnostico"] . "#" //31
+                . htmlentities($persona["per_fecha_parto"]) . "#" //32
         );
     }
 }
