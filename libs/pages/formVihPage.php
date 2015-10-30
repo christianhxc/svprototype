@@ -234,6 +234,7 @@ class formVih extends page {
             $this->tpl->setVariable('otraInstalacion', 'none');
             $this->tpl->setVariable('valNotificacionOtraUnidad', '');
             $this->tpl->setVariable('valDatoSilab', 0);
+            $this->tpl->setVariable('hideResDiagnostico', 'style="display: none;"');
 
             
         } else if ($lectura) {
@@ -429,7 +430,6 @@ class formVih extends page {
             if ($this->config["action"] == "R")
                 $this->tpl->setVariable('showResDiagnostico', 'readonly="readonly" disabled="disabled"');
 
-            
             //Notificacion
             $unidadDisponible = $this->config['read']['unidad_disponible'];
             if ($unidadDisponible == '1') {

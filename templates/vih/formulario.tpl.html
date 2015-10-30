@@ -165,13 +165,13 @@
                             <td><label >2do. Apellido:</label></td>
                             <td><input type="text" id="segundo_apellido" name="data[individuo][segundo_apellido]" value="{valSegundoApellido}" style="width: 300px; text-transform: uppercase;" maxlength="75"/></td>
                         </tr>
-                        <tr>
+                        <tr {hideResDiagnostico}>
                             <td colspan="4"><br></td>
                         </tr>
-                        <tr>
+                        <tr {hideResDiagnostico}>
                             <td colspan="4"><strong>Residencia al Diagnostico</strong></td>
                         </tr>
-                        <tr>
+                        <tr {hideResDiagnostico}>
                             <td><label >Provincia:<span class="mandatory">*</span></label></td>
                             <td >
                                 <select id="drpProIndividuoDiagnostico" name="data[individuo][provincia_diagnostico]" style="width:250px" onchange="setRegionCascadaDiagnostico()" {{showResDiagnostico}}>
@@ -193,7 +193,7 @@
                                 <input type="hidden" id="idRegDiagnostico" name="data[loaded][idReg_diagnostico]" value="{valIdRegDiagnostico}" />
                             </td>
                         </tr>
-                        <tr>
+                        <tr {hideResDiagnostico}>
                             <td><label >Distrito:<span class="mandatory">*</span></label></td>
                             <td >
                                 <select id="drpDisIndividuoDiagnostico" name="data[individuo][distrito_diagnostico]" style="width:250px" onchange="setCorregimientoCascadaDiagnostico()" {{showResDiagnostico}}>
@@ -215,7 +215,7 @@
                                 <input type="hidden" id="idCorDiagnostico" name="data[loaded][idCor_diagnostico]" value="{valIdCorDiagnostico}" />
                             </td>
                         </tr>
-                        <tr>
+                        <tr {hideResDiagnostico}>
                             <td><label >Lugar poblado:</label></td>
                             <td colspan="3">
                                 <input type="text" id="lugar_poblado_diagnostico" name="data[individuo][lugar_poblado_diagnostico]" value="{valLugarPobladoDiagnostico}" style="width:350px;" maxlength="150" {{showResDiagnostico}} />&nbsp;&nbsp;

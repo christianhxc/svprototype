@@ -537,7 +537,7 @@ function individuo(tipoId,idP)
                 idRegionDiagnostico = partes[28];
                 idDistritoDiagnostico = partes[29];
                 idCorregimientoDiagnostico = partes[30];
-                console.log(partes);
+
                 $("#drpProIndividuoDiagnostico").val(idProvinciaDiagnostico);
                 setRegionPersona(idProvinciaDiagnostico, idRegionDiagnostico,'drpRegIndividuoDiagnostico');
                 setDistritoPersona(idProvinciaDiagnostico, idRegionDiagnostico, idDistritoDiagnostico,'drpDisIndividuoDiagnostico');

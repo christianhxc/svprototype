@@ -75,7 +75,11 @@ class dalVih {
         $conn = new Connection();
         $conn->initConn();
         $conn->begin();
-        
+
+        $data["individuo"]["region_diagnostico"] = $data["individuo"]["region"];
+        $data["individuo"]["corregimiento_diagnostico"] = $data["individuo"]["corregimiento"];
+        $data["individuo"]["lugar_poblado_diagnostico"] = $data["individuo"]["lugar_poblado"];
+
         $individuo = helperVih::dataTblPersona($data);
         $vih = helperVih::dataVihForm($data);
         $tarv = helperVih::dataVihTarvForm($data);
@@ -172,6 +176,11 @@ class dalVih {
         $conn = new Connection();
         $conn->initConn();
         $conn->begin();
+
+        unset($data["individuo"]["region_diagnostico"]);
+        unset($data["individuo"]["corregimiento_diagnostico"]);
+        unset($data["individuo"]["lugar_poblado_diagnostico"]);
+
         $individuo = helperVih::dataTblPersona($data);
         $vih = array();
         $vih = helperVih::dataVihForm($data);

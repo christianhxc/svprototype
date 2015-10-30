@@ -168,9 +168,9 @@ class helperVih {
         $individuo["id_genero "] = (!isset($data["individuo"]["genero"]) ? NULL : strtoupper($data["individuo"]["genero"]));
         $individuo["id_ocupacion "] = (!isset($data["individuo"]["ocupacion_id"]) ? NULL : strtoupper($data["individuo"]["ocupacion_id"]));
 
-        $individuo["id_region_diagnostico"] = $data["individuo"]["region_diagnostico"];
-        $individuo["id_corregimiento_diagnostico"] = $data["individuo"]["corregimiento_diagnostico"];
-        $individuo["dir_referencia_diagnostico"] = (!isset($data["individuo"]["lugar_poblado_diagnostico"]) ? NULL : strtoupper($data["individuo"]["lugar_poblado_diagnostico"]));
+        if (isset($data["individuo"]["region_diagnostico"])) $individuo["id_region_diagnostico"] = $data["individuo"]["region_diagnostico"];
+        if (isset($data["individuo"]["corregimiento_diagnostico"])) $individuo["id_corregimiento_diagnostico"] = $data["individuo"]["corregimiento_diagnostico"];
+        if (isset($data["individuo"]["lugar_poblado_diagnostico"])) $individuo["dir_referencia_diagnostico"] = (!isset($data["individuo"]["lugar_poblado_diagnostico"]) ? NULL : strtoupper($data["individuo"]["lugar_poblado_diagnostico"]));
 
         return $individuo;
     }
