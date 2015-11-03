@@ -702,9 +702,23 @@
             <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divVigilancia" >
                 <fieldset class="ui-widget ui-widget-content ui-corner-all">
                     <legend>Vigilancia de Infeccion Materna - Infantil</legend>
-                    <table border="0" align="center">
+                    <table border="0" cellpadding="2" cellspacing="2" align="center" width="100%">
                         <tr>
-                            <td></td>
+                            <td colspan="2">Primer Niño(a):</td>
+                        </tr>
+                        <tr>
+                            <td width="20%">
+                                T&eacute;rmino del embarazo:
+                            </td>
+                            <td>
+                                <input type="radio" name="data[vigilancia][termino_embarazo_1]" value="1" {valVigilanciaTermino11}> Aborto &nbsp;
+                                <input type="radio" name="data[vigilancia][termino_embarazo_1]" value="2" {valVigilanciaTermino12}> Mortinato &nbsp;
+                                <input type="radio" name="data[vigilancia][termino_embarazo_1]" value="3" {valVigilanciaTermino13}> Vivo &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>N&uacute;mero de C&eacute;dula:</td>
+                            <td><input type="text" name="data[vigilancia][numero_cedula_1]" value="{valVigilanciaCedula1"> </td>
                         </tr>
                     </table>
                 </fieldset>
