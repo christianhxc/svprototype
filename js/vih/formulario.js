@@ -359,9 +359,21 @@ $(document).ready(function() {
         },
         autoFill:false
     });
-    
+
+    $("input[name='data[condicion][caso]']").change(function(){
+        mostrarRazonSida();
+    });
+    mostrarRazonSida();
     
 });
+
+function mostrarRazonSida(){
+    if($('#check_sida').is(':checked')){
+        $("#razonSida").show();
+    } else {
+        $("#razonSida").hide();
+    }
+}
 
 function borrarTabla(){
     $("#resultadosBusqueda").html('');

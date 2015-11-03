@@ -114,8 +114,10 @@
         <div id="tabs" class="">
             <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
                 <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#divIndividuo">Individuo</a></li>
-                <li class="ui-state-default ui-corner-top"><a href="#divAntecedentes">Modos de Transmision y Factores de Vulnerabilidad</a></li>
-                <li class="ui-state-default ui-corner-top"><a href="#divDatosClinicos">Condici&oacute;n Paciente y Notificaci&oacute;n</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#divAntecedentes">Mo. de Trans. y Fac. de Vulne.</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#divInfecciones">Inf. Oportunistas</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#divDatosClinicos">Cond. Paciente y Noti.</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#divVigilancia">Vig. Inf. Mat./Infantil</a></li>
                 <li class="ui-state-default ui-corner-top"><a href="#divDatosSilab">SILAB</a></li>
                 <li class="ui-state-default ui-corner-top"><a href="#divDatosTarv">Datos TARV</a></li>
             </ul>
@@ -497,7 +499,7 @@
 
             <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divAntecedentes" >
                 <fieldset class="ui-widget ui-widget-content ui-corner-all">
-                    <legend>Factores de riesgo</legend>
+                    <legend>Modos de Transmision y Factores de Vulnerabilidad</legend>
                     <table border="0" align="center">
                         <tr>
                             <td width="150px"><label>Grupo de Riesgo:</label></td>
@@ -533,7 +535,10 @@
                         
                     </table>
                 </fieldset>
-                <br/>
+
+            </div>
+
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divInfecciones" >
                 <fieldset class="ui-widget ui-widget-content ui-corner-all">
                     <legend>Enfermedades Oportunistas</legend>
                     <table border="0" align="center">
@@ -546,7 +551,7 @@
                             </td>
                             <td style="width:60px; text-align: center;">
                                 <a id="anadir" href="javascript:relacionarEnfOportunista();" class="ui-state-default ui-corner-all ui-button" title="A&ntilde;adir Enf. Oportunista"
-                                    onmouseover="RollOver(this)" onmouseout="RollOut(this)">A&ntilde;adir
+                                   onmouseover="RollOver(this)" onmouseout="RollOut(this)">A&ntilde;adir
                                 </a>
                             </td>
                         </tr>
@@ -557,7 +562,7 @@
                                 </div>
                             </td>
                         </tr>
-                        
+
                     </table>
                 </fieldset>
             </div>
@@ -612,6 +617,16 @@
                                     <label>Fecha de defunci&oacute;n:&nbsp;</label>
                                     <input type="text" id="fechaDefuncion" name="data[condicion][fecha_defuncion]" value="{valFechaDefuncion}" style="width: 100px;" maxlength="10" onchange="calcularSobrevidaSida()"/>
                                 </div>
+                            </td>
+                        </tr>
+                        <tr id="razonSida" style="display: none">
+                            <td>&nbsp;</td>
+                            <td>
+                                Razon de diagnostico de SIDA:
+                            </td>
+                            <td colspan="2">
+                                <input type="radio" name="data[condicion][razon_sida]" value="1" {valRazonSida1}> CD4 <= 200 &nbsp;
+                                <input type="radio" name="data[condicion][razon_sida]" value="2" {valRazonSida2}> Infeccion Oportunista
                             </td>
                         </tr>
                         <tr>
@@ -683,7 +698,18 @@
                     </table>
                 </fieldset>
             </div>
-            
+
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divVigilancia" >
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Vigilancia de Infeccion Materna - Infantil</legend>
+                    <table border="0" align="center">
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+
             <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divDatosSilab" >    
                 <fieldset class="ui-widget ui-widget-content ui-corner-all">
                     <legend>Muestras de laboratorio en SILAB:</legend>

@@ -405,6 +405,7 @@ class formVih extends page {
                     $this->tpl->setVariable('selCondicionDesc', 'selected="selected"');
                     break;
             }
+            $this->tpl->setVariable('valRazonSida'.$this->config['read']['razon_sida'], 'checked="checked"');
             $this->tpl->setVariable('valCondicionSida', ($this->config['read']['cond_sida'] == '1' ? 'checked="checked"' : ''));
             $this->tpl->setVariable('valFechaSida', helperString::toDateView($this->config['read']['cond_fecha_sida']));
             $this->tpl->setVariable('valEdadSida', $this->config['read']['cond_edad_sida']);

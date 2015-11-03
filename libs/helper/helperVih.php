@@ -443,11 +443,13 @@ class helperVih {
         //Condicion del paciente
         $vih["cond_vih"] = 0;
         $vih["cond_sida"] = 0;
+        $vih["razon_sida"] = 0;
         $condicion = (!isset($data["condicion"]["caso"]) ? NULL : $data["condicion"]["caso"]);
         if ($condicion != NULL){
             if ($condicion == 1){
                 $vih["cond_vih"] = 0;
                 $vih["cond_sida"] = 1;
+                $vih["razon_sida"] = $data["condicion"]["razon_sida"];
             }
             else if ($condicion == 2){
                 $vih["cond_vih"] = 1;

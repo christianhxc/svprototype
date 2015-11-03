@@ -17,3 +17,6 @@ INSERT INTO `sisvigdb`.`cat_genero` (`id_genero`, `genero_nombre`, `status`) VAL
 
 ALTER TABLE `sisvigdb`.`tbl_persona` 
 ADD COLUMN `fecha_parto` DATETIME NULL COMMENT '' AFTER `dir_referencia_diagnostico`;
+
+ALTER TABLE `sisvigdb`.`vih_form` 
+ADD COLUMN `razon_sida` INT(1) NULL COMMENT '' AFTER `epiInfo`;
