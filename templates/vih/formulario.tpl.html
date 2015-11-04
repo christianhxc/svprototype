@@ -701,16 +701,13 @@
 
             <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divVigilancia" >
                 <fieldset class="ui-widget ui-widget-content ui-corner-all">
-                    <legend>Vigilancia de Infeccion Materna - Infantil</legend>
+                    <legend>Primer Niño(a):</legend>
                     <table border="0" cellpadding="2" cellspacing="2" align="center" width="100%">
-                        <tr>
-                            <td colspan="2">Primer Niño(a):</td>
-                        </tr>
                         <tr>
                             <td width="20%">
                                 T&eacute;rmino del embarazo:
                             </td>
-                            <td>
+                            <td colspan="3">
                                 <input type="radio" name="data[vigilancia][termino_embarazo_1]" value="1" {valVigilanciaTermino11}> Aborto &nbsp;
                                 <input type="radio" name="data[vigilancia][termino_embarazo_1]" value="2" {valVigilanciaTermino12}> Mortinato &nbsp;
                                 <input type="radio" name="data[vigilancia][termino_embarazo_1]" value="3" {valVigilanciaTermino13}> Vivo &nbsp;
@@ -718,7 +715,179 @@
                         </tr>
                         <tr>
                             <td>N&uacute;mero de C&eacute;dula:</td>
-                            <td><input type="text" name="data[vigilancia][numero_cedula_1]" value="{valVigilanciaCedula1"> </td>
+                            <td colspan="3"><input type="text" name="data[vigilancia][numero_cedula_1]" value="{valVigilanciaCedula1}" style="width: 300px"> </td>
+                        </tr>
+                        <tr>
+                            <td>Nombre:</td>
+                            <td><input type="text" name="data[vigilancia][nombre_1]" value="{valVigilanciaNombre1}" style="width: 300px"> </td>
+                            <td>Apellido</td>
+                            <td><input type="text" name="data[vigilancia][apellido_1]" value="{valVigilanciaApellido1}" style="width: 300px"> </td>
+                        </tr>
+                        <tr>
+                            <td>Fecha de Nacimiento:</td>
+                            <td><input type="text" name="data[vigilancia][nacimiento_1]" id="nacimiento_1" value="{valVigilanciaNombre1}" style="width: 200px"> </td>
+                            <td>Sexo</td>
+                            <td>
+                                <input type="radio" name="data[vigilancia][sexo_1]" value="1" /> Ni&ntilde;o
+                                <input type="radio" name="data[vigilancia][sexo_1]" value="2" /> Ni&ntilde;a
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">Datos de Laboratorio</td>
+                        </tr>
+                        <tr>
+                            <td>Resultado del primero PCR:</td>
+                            <td>
+                                <input type="radio" name="data[vigilancia][pcr1_1]" value="1" /> Detectable
+                                <input type="radio" name="data[vigilancia][pcr1_1]" value="2" /> No Detectable
+                            <td>Fecha</td>
+                            <td>
+                                <input type="text" name="data[vigilancia][pcr1_fecha_1]" id="fecha_pcr1_1" value="{valVigilanciaFechaPcr11}" style="width: 200px"> </td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Resultado del segundo PCR:</td>
+                            <td>
+                                <input type="radio" name="data[vigilancia][pcr2_1]" value="1" /> Detectable
+                                <input type="radio" name="data[vigilancia][pcr2_1]" value="2" /> No Detectable
+                            <td>Fecha</td>
+                            <td>
+                                <input type="text" name="data[vigilancia][pcr2_fecha_1]" id="fecha_pcr2_1" value="{valVigilanciaFechaPcr21}" style="width: 200px"> </td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><span style="font-size: 11px; font-weight: bold">El ni&ntilde;o(a) es un nuevo caso de VIH y tiene que ser reportado</span></td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <br>
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Segundo Niño(a):</legend>
+                    <table border="0" cellpadding="2" cellspacing="2" align="center" width="100%">
+                        <tr>
+                            <td width="20%">
+                                T&eacute;rmino del embarazo:
+                            </td>
+                            <td colspan="3">
+                                <input type="radio" name="data[vigilancia][termino_embarazo_2]" value="1" {valVigilanciaTermino21}> Aborto &nbsp;
+                                <input type="radio" name="data[vigilancia][termino_embarazo_2]" value="2" {valVigilanciaTermino22}> Mortinato &nbsp;
+                                <input type="radio" name="data[vigilancia][termino_embarazo_2]" value="3" {valVigilanciaTermino23}> Vivo &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>N&uacute;mero de C&eacute;dula:</td>
+                            <td colspan="3"><input type="text" name="data[vigilancia][numero_cedula_2]" value="{valVigilanciaCedula2}" style="width: 300px"> </td>
+                        </tr>
+                        <tr>
+                            <td>Nombre:</td>
+                            <td><input type="text" name="data[vigilancia][nombre_2]" value="{valVigilanciaNombre2}" style="width: 300px"> </td>
+                            <td>Apellido</td>
+                            <td><input type="text" name="data[vigilancia][apellido_2]" value="{valVigilanciaApellido2}" style="width: 300px"> </td>
+                        </tr>
+                        <tr>
+                            <td>Fecha de Nacimiento:</td>
+                            <td><input type="text" name="data[vigilancia][nacimiento_2]" id="nacimiento_2" value="{valVigilanciaNombre2}" style="width: 200px"> </td>
+                            <td>Sexo</td>
+                            <td>
+                                <input type="radio" name="data[vigilancia][sexo_2]" value="1" /> Ni&ntilde;o
+                                <input type="radio" name="data[vigilancia][sexo_2]" value="2" /> Ni&ntilde;a
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">Datos de Laboratorio</td>
+                        </tr>
+                        <tr>
+                            <td>Resultado del primero PCR:</td>
+                            <td>
+                                <input type="radio" name="data[vigilancia][pcr1_2]" value="1" /> Detectable
+                                <input type="radio" name="data[vigilancia][pcr1_2]" value="2" /> No Detectable
+                            <td>Fecha</td>
+                            <td>
+                                <input type="text" name="data[vigilancia][pcr1_fecha_2]" id="fecha_pcr1_2" value="{valVigilanciaFechaPcr12}" style="width: 200px"> </td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Resultado del segundo PCR:</td>
+                            <td>
+                                <input type="radio" name="data[vigilancia][pcr2_2]" value="1" /> Detectable
+                                <input type="radio" name="data[vigilancia][pcr2_2]" value="2" /> No Detectable
+                            <td>Fecha</td>
+                            <td>
+                                <input type="text" name="data[vigilancia][pcr2_fecha_2]" id="fecha_pcr2_2" value="{valVigilanciaFechaPcr22}" style="width: 200px"> </td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><span style="font-size: 11px; font-weight: bold">El ni&ntilde;o(a) es un nuevo caso de VIH y tiene que ser reportado</span></td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <br>
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Tercer Niño(a):</legend>
+                    <table border="0" cellpadding="2" cellspacing="2" align="center" width="100%">
+                        <tr>
+                            <td width="20%">
+                                T&eacute;rmino del embarazo:
+                            </td>
+                            <td colspan="3">
+                                <input type="radio" name="data[vigilancia][termino_embarazo_3]" value="1" {valVigilanciaTermino31}> Aborto &nbsp;
+                                <input type="radio" name="data[vigilancia][termino_embarazo_3]" value="2" {valVigilanciaTermino32}> Mortinato &nbsp;
+                                <input type="radio" name="data[vigilancia][termino_embarazo_3]" value="3" {valVigilanciaTermino33}> Vivo &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>N&uacute;mero de C&eacute;dula:</td>
+                            <td colspan="3"><input type="text" name="data[vigilancia][numero_cedula_3]" value="{valVigilanciaCedula3}" style="width: 300px"> </td>
+                        </tr>
+                        <tr>
+                            <td>Nombre:</td>
+                            <td><input type="text" name="data[vigilancia][nombre_3]" value="{valVigilanciaNombre3}" style="width: 300px"> </td>
+                            <td>Apellido</td>
+                            <td><input type="text" name="data[vigilancia][apellido_3]" value="{valVigilanciaApellido3}" style="width: 300px"> </td>
+                        </tr>
+                        <tr>
+                            <td>Fecha de Nacimiento:</td>
+                            <td><input type="text" name="data[vigilancia][nacimiento_3]" id="nacimiento_3" value="{valVigilanciaNombre3}" style="width: 200px"> </td>
+                            <td>Sexo</td>
+                            <td>
+                                <input type="radio" name="data[vigilancia][sexo_3]" value="1" /> Ni&ntilde;o
+                                <input type="radio" name="data[vigilancia][sexo_3]" value="2" /> Ni&ntilde;a
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">Datos de Laboratorio</td>
+                        </tr>
+                        <tr>
+                            <td>Resultado del primero PCR:</td>
+                            <td>
+                                <input type="radio" name="data[vigilancia][pcr1_3]" value="1" /> Detectable
+                                <input type="radio" name="data[vigilancia][pcr1_3]" value="2" /> No Detectable
+                            <td>Fecha</td>
+                            <td>
+                                <input type="text" name="data[vigilancia][pcr1_fecha_3]" id="fecha_pcr1_3" value="{valVigilanciaFechaPcr13}" style="width: 200px"> </td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Resultado del segundo PCR:</td>
+                            <td>
+                                <input type="radio" name="data[vigilancia][pcr2_3]" value="1" /> Detectable
+                                <input type="radio" name="data[vigilancia][pcr2_3]" value="2" /> No Detectable
+                            <td>Fecha</td>
+                            <td>
+                                <input type="text" name="data[vigilancia][pcr2_fecha_3]" id="fecha_pcr2_3" value="{valVigilanciaFechaPcr23}" style="width: 200px"> </td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><span style="font-size: 11px; font-weight: bold">El ni&ntilde;o(a) es un nuevo caso de VIH y tiene que ser reportado</span></td>
                         </tr>
                     </table>
                 </fieldset>

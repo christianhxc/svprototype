@@ -144,6 +144,115 @@ $(function() {
     });
 });
 
+$(function() {
+    $( "#nacimiento_1" ).datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        maxDate: new Date(),
+        buttonImage: urlprefix+"img/calendar.gif",
+        buttonImageOnly: true,
+        showAnim: "slideDown"
+    });
+});
+$(function() {
+    $( "#fecha_pcr1_1" ).datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        maxDate: new Date(),
+        buttonImage: urlprefix+"img/calendar.gif",
+        buttonImageOnly: true,
+        showAnim: "slideDown"
+    });
+});
+$(function() {
+    $( "#fecha_pcr2_1" ).datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        maxDate: new Date(),
+        buttonImage: urlprefix+"img/calendar.gif",
+        buttonImageOnly: true,
+        showAnim: "slideDown"
+    });
+});
+$(function() {
+    $( "#nacimiento_2" ).datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        maxDate: new Date(),
+        buttonImage: urlprefix+"img/calendar.gif",
+        buttonImageOnly: true,
+        showAnim: "slideDown"
+    });
+});
+$(function() {
+    $( "#fecha_pcr1_2" ).datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        maxDate: new Date(),
+        buttonImage: urlprefix+"img/calendar.gif",
+        buttonImageOnly: true,
+        showAnim: "slideDown"
+    });
+});
+$(function() {
+    $( "#fecha_pcr2_2" ).datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        maxDate: new Date(),
+        buttonImage: urlprefix+"img/calendar.gif",
+        buttonImageOnly: true,
+        showAnim: "slideDown"
+    });
+});
+$(function() {
+    $( "#nacimiento_3" ).datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        maxDate: new Date(),
+        buttonImage: urlprefix+"img/calendar.gif",
+        buttonImageOnly: true,
+        showAnim: "slideDown"
+    });
+});
+$(function() {
+    $( "#fecha_pcr1_3" ).datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        maxDate: new Date(),
+        buttonImage: urlprefix+"img/calendar.gif",
+        buttonImageOnly: true,
+        showAnim: "slideDown"
+    });
+});
+$(function() {
+    $( "#fecha_pcr2_3" ).datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        maxDate: new Date(),
+        buttonImage: urlprefix+"img/calendar.gif",
+        buttonImageOnly: true,
+        showAnim: "slideDown"
+    });
+});
+
 function llenarFactoresRiesgo(){
     var factoresRiesgo = $( "#globalFactorRiesgoRelacionados" ).val().split("###");
     for(var i=0; i<factoresRiesgo.length;i++){
@@ -273,7 +382,7 @@ $(document).ready(function() {
         $("#tabs").tabs({
             selected:0, 
             select:function(event, ui){
-                if(ui.index==4)
+                if(ui.index==6)
                     $('#next').html("Inicio");
                 else
                     $('#next').html("Siguiente");
@@ -407,6 +516,16 @@ function siguienteTab()
     else if(getSelectedTabIndex()==3)
     {
         $("#tabs").tabs('select', 4);
+        $('#next').html("Siguiente");
+    }
+    else if(getSelectedTabIndex()==4)
+    {
+        $("#tabs").tabs('select', 5);
+        $('#next').html("Siguiente");
+    }
+    else if(getSelectedTabIndex()==5)
+    {
+        $("#tabs").tabs('select', 6);
         $('#next').html("Inicio");
     }
     else 

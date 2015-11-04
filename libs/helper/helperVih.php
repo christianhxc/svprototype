@@ -339,6 +339,23 @@ class helperVih {
         $vih["enfermedades"] = (!isset($data["enfermedades"]["globalEnfOportunistaRelacionados"]) ? NULL : explode("###",$data["enfermedades"]["globalEnfOportunistaRelacionados"]));
         return $vih;
     }
+
+    public static function dataVihVigilancia($vih, $data){
+        $vigilancia = $data["vigilancia"];
+        $vih = array_merge($vih, $vigilancia);
+
+        $vih["nacimiento_1"] = !isset($vih["nacimiento_1"]) ? NULL : helperString::toDate($vih["nacimiento_1"]);
+        $vih["pcr1_fecha_1"] = !isset($vih["pcr1_fecha_1"]) ? NULL : helperString::toDate($vih["pcr1_fecha_1"]);
+        $vih["pcr2_fecha_1"] = !isset($vih["pcr2_fecha_1"]) ? NULL : helperString::toDate($vih["pcr2_fecha_1"]);
+        $vih["nacimiento_2"] = !isset($vih["nacimiento_2"]) ? NULL : helperString::toDate($vih["nacimiento_2"]);
+        $vih["pcr1_fecha_2"] = !isset($vih["pcr1_fecha_2"]) ? NULL : helperString::toDate($vih["pcr1_fecha_2"]);
+        $vih["pcr2_fecha_2"] = !isset($vih["pcr2_fecha_2"]) ? NULL : helperString::toDate($vih["pcr2_fecha_2"]);
+        $vih["nacimiento_3"] = !isset($vih["nacimiento_3"]) ? NULL : helperString::toDate($vih["nacimiento_3"]);
+        $vih["pcr1_fecha_3"] = !isset($vih["pcr1_fecha_3"]) ? NULL : helperString::toDate($vih["pcr1_fecha_3"]);
+        $vih["pcr2_fecha_3"] = !isset($vih["pcr2_fecha_3"]) ? NULL : helperString::toDate($vih["pcr2_fecha_3"]);
+
+        return $vih;
+    }
     
     public static function dataVihFactorRiesgo($data) {
         $vih = array();

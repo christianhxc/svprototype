@@ -87,7 +87,10 @@ class dalVih {
         $factores = helperVih::dataVihFactorRiesgo($data);
         $muestras = helperVih::dataVihMuestrasSILAB($data);
         $pruebas = helperVih::dataVihPruebasSILAB($data);
-        
+
+        $vigilancia = $data["vigilancia"];
+        $vih = array_merge($vih, $vigilancia);
+
         //print_r($factores);exit;
 
         $yaExisteVih = helperVih::yaExisteVih($vih);
@@ -184,6 +187,8 @@ class dalVih {
         $individuo = helperVih::dataTblPersona($data);
         $vih = array();
         $vih = helperVih::dataVihForm($data);
+        $vih = helperVih::dataVihVigilancia($vih,$data);
+
         $vih["silab"] = 0;
         if ($data["notificacion"]["silab"] == 1)
             $vih["silab"] = 2;
@@ -207,6 +212,7 @@ class dalVih {
         $param = array();
         
         $totalFiltroVih = helperVih::dataVihForm($data);
+        $totalFiltroVih = helperVih::dataVihVigilancia($totalFiltroVih,$data);
 
         $filtro = array();
         $filtro["id_vih_form"] = $data["formulario"]["idVihForm"];
@@ -225,6 +231,7 @@ class dalVih {
         
         $totalFiltroVih["filter1"] = $filtro["id_vih_form"];
        // print_r($totalFiltroVih);exit;
+
         $param = dalVih::ActualizarTabla($conn, "vih_form", $vih, $filtro, $totalFiltroVih);
         $id = $param['id'];
         $ok = $param['ok'];

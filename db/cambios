@@ -20,3 +20,39 @@ ADD COLUMN `fecha_parto` DATETIME NULL COMMENT '' AFTER `dir_referencia_diagnost
 
 ALTER TABLE `sisvigdb`.`vih_form` 
 ADD COLUMN `razon_sida` INT(1) NULL COMMENT '' AFTER `epiInfo`;
+
+ALTER TABLE `sisvigdb`.`vih_form` 
+ADD COLUMN `termino_embarazo_1` INT(1) NULL COMMENT '' AFTER `razon_sida`,
+ADD COLUMN `numero_cedula_1` VARCHAR(45) NULL COMMENT '' AFTER `termino_embarazo_1`,
+ADD COLUMN `nombre_1` VARCHAR(45) NULL COMMENT '' AFTER `numero_cedula_1`,
+ADD COLUMN `apellido_1` VARCHAR(45) NULL COMMENT '' AFTER `nombre_1`,
+ADD COLUMN `nacimiento_1` DATE NULL COMMENT '' AFTER `apellido_1`,
+ADD COLUMN `sexo_1` INT(1) NULL COMMENT '' AFTER `nacimiento_1`,
+ADD COLUMN `pcr1_1` INT(1) NULL COMMENT '' AFTER `sexo_1`,
+ADD COLUMN `pcr1_fecha_1` DATE NULL COMMENT '' AFTER `pcr1_1`,
+ADD COLUMN `pcr2_1` INT(1) NULL COMMENT '' AFTER `pcr1_fecha_1`,
+ADD COLUMN `pcr2_fecha_1` DATE NULL COMMENT '' AFTER `pcr2_1`;
+
+ALTER TABLE `sisvigdb`.`vih_form` 
+ADD COLUMN `termino_embarazo_2` INT(1) NULL COMMENT '',
+ADD COLUMN `numero_cedula_2` VARCHAR(45) NULL COMMENT '',
+ADD COLUMN `nombre_2` VARCHAR(45) NULL COMMENT '',
+ADD COLUMN `apellido_2` VARCHAR(45) NULL COMMENT '',
+ADD COLUMN `nacimiento_2` DATE NULL COMMENT '',
+ADD COLUMN `sexo_2` INT(1) NULL COMMENT '',
+ADD COLUMN `pcr1_2` INT(1) NULL COMMENT '',
+ADD COLUMN `pcr1_fecha_2` DATE NULL COMMENT '',
+ADD COLUMN `pcr2_2` INT(1) NULL COMMENT '',
+ADD COLUMN `pcr2_fecha_2` DATE NULL COMMENT '';
+
+ALTER TABLE `sisvigdb`.`vih_form` 
+ADD COLUMN `termino_embarazo_3` INT(1) NULL COMMENT '',
+ADD COLUMN `numero_cedula_3` VARCHAR(45) NULL COMMENT '',
+ADD COLUMN `nombre_3` VARCHAR(45) NULL COMMENT '',
+ADD COLUMN `apellido_3` VARCHAR(45) NULL COMMENT '',
+ADD COLUMN `nacimiento_3` DATE NULL COMMENT '',
+ADD COLUMN `sexo_3` INT(1) NULL COMMENT '',
+ADD COLUMN `pcr1_3` INT(1) NULL COMMENT '',
+ADD COLUMN `pcr1_fecha_3` DATE NULL COMMENT '',
+ADD COLUMN `pcr2_3` INT(1) NULL COMMENT '',
+ADD COLUMN `pcr2_fecha_3` DATE NULL COMMENT '';
