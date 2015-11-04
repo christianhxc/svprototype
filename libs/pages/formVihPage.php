@@ -405,6 +405,20 @@ class formVih extends page {
                     $this->tpl->setVariable('selCondicionDesc', 'selected="selected"');
                     break;
             }
+
+            for ($i = 1; $i <= 3; $i++) {
+                $this->tpl->setVariable('valVigilanciaTermino'.$i . $this->config['read']['termino_embarazo_'.$i], 'checked="checked"');
+                $this->tpl->setVariable('valVigilanciaCedula'.$i, $this->config['read']['numero_cedula_'.$i]);
+                $this->tpl->setVariable('valVigilanciaNombre'.$i, $this->config['read']['nombre_'.$i]);
+                $this->tpl->setVariable('valVigilanciaApellido'.$i, $this->config['read']['apellido_'.$i]);
+                $this->tpl->setVariable('valVigilanciaNacimiento'.$i, helperString::toDateView($this->config['read']['nacimiento_'.$i]));
+                $this->tpl->setVariable('valVigilanciaSexo'.$i . $this->config['read']['sexo_'.$i], 'checked="checked"');
+                $this->tpl->setVariable('valVigilanciaPcr1'.$i . $this->config['read']['pcr1_'.$i], 'checked="checked"');
+                $this->tpl->setVariable('valVigilanciaPcr2'.$i . $this->config['read']['pcr2_'.$i], 'checked="checked"');
+                $this->tpl->setVariable('valVigilanciaFechaPcr1'.$i, helperString::toDateView($this->config['read']['pcr1_fecha_'.$i]));
+                $this->tpl->setVariable('valVigilanciaFechaPcr2'.$i, helperString::toDateView($this->config['read']['pcr2_fecha_'.$i]));
+            }
+
             $this->tpl->setVariable('valRazonSida'.$this->config['read']['razon_sida'], 'checked="checked"');
             $this->tpl->setVariable('valCondicionSida', ($this->config['read']['cond_sida'] == '1' ? 'checked="checked"' : ''));
             $this->tpl->setVariable('valFechaSida', helperString::toDateView($this->config['read']['cond_fecha_sida']));
