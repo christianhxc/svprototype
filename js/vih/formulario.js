@@ -470,17 +470,81 @@ $(document).ready(function() {
     });
 
     $("input[name='data[condicion][caso]']").change(function(){
-        mostrarRazonSida();
+        habilitarElmentoConRadio('check_sida','razonSida');
     });
-    mostrarRazonSida();
-    
+    habilitarElmentoConRadio('check_sida','razonSida');
+
+
+
+    $("input[name='data[vigilancia][termino_embarazo_1]']").change(function(){
+        habilitarElmentoConRadio('termino_embarazo_vivo_1','datos_nino_1');
+        habilitarElmentoConRadio('termino_embarazo_vivo_1','datos_cedula_1');
+        habilitarElmentoConRadio('termino_embarazo_vivo_1','datos_nacimiento_1');
+    });
+    habilitarElmentoConRadio('termino_embarazo_vivo_1','datos_nino_1');
+    habilitarElmentoConRadio('termino_embarazo_vivo_1','datos_cedula_1');
+    habilitarElmentoConRadio('termino_embarazo_vivo_1','datos_nacimiento_1');
+
+    $("input[name='data[vigilancia][pcr1_1]']").change(function(){
+        habilitarElmentoConRadios('pcr1_detectable_1','pcr2_detectable_1','nuevo_nino_1');
+    });
+    $("input[name='data[vigilancia][pcr2_1]']").change(function(){
+        habilitarElmentoConRadios('pcr1_detectable_1','pcr2_detectable_1','nuevo_nino_1');
+    });
+    habilitarElmentoConRadios('pcr1_detectable_1','pcr2_detectable_1','nuevo_nino_1');
+
+
+
+    $("input[name='data[vigilancia][termino_embarazo_2]']").change(function(){
+        habilitarElmentoConRadio('termino_embarazo_vivo_2','datos_nino_2');
+        habilitarElmentoConRadio('termino_embarazo_vivo_2','datos_cedula_2');
+        habilitarElmentoConRadio('termino_embarazo_vivo_2','datos_nacimiento_2');
+    });
+    habilitarElmentoConRadio('termino_embarazo_vivo_2','datos_nino_2');
+    habilitarElmentoConRadio('termino_embarazo_vivo_2','datos_cedula_2');
+    habilitarElmentoConRadio('termino_embarazo_vivo_2','datos_nacimiento_2');
+
+    $("input[name='data[vigilancia][pcr1_2]']").change(function(){
+        habilitarElmentoConRadios('pcr1_detectable_2','pcr2_detectable_2','nuevo_nino_2');
+    });
+    $("input[name='data[vigilancia][pcr2_2]']").change(function(){
+        habilitarElmentoConRadios('pcr1_detectable_2','pcr2_detectable_2','nuevo_nino_2');
+    });
+    habilitarElmentoConRadios('pcr1_detectable_2','pcr2_detectable_2','nuevo_nino_2');
+
+
+
+    $("input[name='data[vigilancia][termino_embarazo_3]']").change(function(){
+        habilitarElmentoConRadio('termino_embarazo_vivo_3','datos_nino_3');
+        habilitarElmentoConRadio('termino_embarazo_vivo_3','datos_cedula_3');
+        habilitarElmentoConRadio('termino_embarazo_vivo_3','datos_nacimiento_3');
+    });
+    habilitarElmentoConRadio('termino_embarazo_vivo_3','datos_nino_3');
+    habilitarElmentoConRadio('termino_embarazo_vivo_3','datos_cedula_3');
+    habilitarElmentoConRadio('termino_embarazo_vivo_3','datos_nacimiento_3');
+
+    $("input[name='data[vigilancia][pcr1_3]']").change(function(){
+        habilitarElmentoConRadios('pcr1_detectable_3','pcr2_detectable_3','nuevo_nino_3');
+    });
+    $("input[name='data[vigilancia][pcr2_3]']").change(function(){
+        habilitarElmentoConRadios('pcr1_detectable_3','pcr2_detectable_3','nuevo_nino_3');
+    });
+    habilitarElmentoConRadios('pcr1_detectable_3','pcr2_detectable_3','nuevo_nino_3');
 });
 
-function mostrarRazonSida(){
-    if($('#check_sida').is(':checked')){
-        $("#razonSida").show();
+function habilitarElmentoConRadio(radio, block){
+    if($('#' + radio).is(':checked')){
+        $("#" + block).show();
     } else {
-        $("#razonSida").hide();
+        $("#" + block).hide();
+    }
+}
+
+function habilitarElmentoConRadios(radio1, radio2, block){
+    if($('#' + radio1).is(':checked') || $('#' + radio2).is(':checked')){
+        $("#" + block).show();
+    } else {
+        $("#" + block).hide();
     }
 }
 
