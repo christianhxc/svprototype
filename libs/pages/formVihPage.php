@@ -487,7 +487,7 @@ class formVih extends page {
             
             //datos clinica TARV
             
-            
+
             if (isset($this->config['tarv'])){
                 //echo "hola ";
                 //print_r($this->config['tarv'][0]);exit;
@@ -501,6 +501,8 @@ class formVih extends page {
                 $this->tpl->setVariable('valResRecuento2Cd4', $this->config['tarv'][0]['tarv_res_cd4_200']);
                 $this->tpl->setVariable('valCargaViral', helperString::toDateView($this->config['tarv'][0]['tarv_fec_carga_viral']));
                 $this->tpl->setVariable('valResCargaViral', $this->config['tarv'][0]['tarv_res_carga_viral']);
+                $this->tpl->setVariable('valCargaViralReciente', helperString::toDateView($this->config['tarv'][0]['tarv_fec_carga_viral_reciente']));
+                $this->tpl->setVariable('valResCargaViralReciente', $this->config['tarv'][0]['tarv_res_carga_viral_reciente']);
             }
             
             //require_once ('libs/dal/vih/MuestraSilab.php');

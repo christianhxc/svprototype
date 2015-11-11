@@ -94,3 +94,6 @@ UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='8' WHERE `id_factor
 UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='8' WHERE `id_factor`='16';
 UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='8' WHERE `id_factor`='17';
 
+ALTER TABLE `sisvigdb`.`vih_tarv` 
+ADD COLUMN `tarv_fec_carga_viral_reciente` DATE NULL COMMENT '' AFTER `tarv_res_carga_viral`,
+ADD COLUMN `tarv_res_carga_viral_reciente` INT(3) NULL COMMENT '' AFTER `tarv_fec_carga_viral_reciente`;

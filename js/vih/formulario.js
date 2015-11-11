@@ -145,6 +145,19 @@ $(function() {
 });
 
 $(function() {
+    $( "#cargaViralReciente" ).datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        maxDate: new Date(),
+        buttonImage: urlprefix+"img/calendar.gif",
+        buttonImageOnly: true,
+        showAnim: "slideDown"
+    });
+});
+
+$(function() {
     $( "#nacimiento_1" ).datepicker({
         dateFormat: 'dd/mm/yy',
         changeMonth: true,

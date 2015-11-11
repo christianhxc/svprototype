@@ -544,6 +544,8 @@ class helperVih {
         $tarv["tarv_res_cd4_200"] = (!isset($data["tarv"]["resultado_recuento2_cd4"]) ? NULL : $data["tarv"]["resultado_recuento2_cd4"]);
         $tarv["tarv_fec_carga_viral"] = (!isset($data["tarv"]["carga_viral"]) ? NULL : helperString::toDate($data["tarv"]["carga_viral"]));
         $tarv["tarv_res_carga_viral"] = (!isset($data["tarv"]["resultado_carga_viral"]) ? NULL : $data["tarv"]["resultado_carga_viral"]);
+        $tarv["tarv_fec_carga_viral_reciente"] = (!isset($data["tarv"]["carga_viral_reciente"]) ? NULL : helperString::toDate($data["tarv"]["carga_viral_reciente"]));
+        $tarv["tarv_res_carga_viral_reciente"] = (!isset($data["tarv"]["resultado_carga_viral_reciente"]) ? NULL : $data["tarv"]["resultado_carga_viral_reciente"]);
         return $tarv;
     }
 
@@ -736,7 +738,7 @@ class helperVih {
             $sql = "select * from vih_tarv
                     inner join cat_clinica_tarv tarv on tarv.id_clinica_tarv = vih_tarv.id_clinica_tarv
                     WHERE 1 ". $filtro;
-            //echo $sql;
+//            echo $sql; exit;
             $conn->prepare($sql);
             $conn->execute();
             $data = $conn->fetch();
