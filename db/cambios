@@ -56,3 +56,41 @@ ADD COLUMN `pcr1_3` INT(1) NULL COMMENT '',
 ADD COLUMN `pcr1_fecha_3` DATE NULL COMMENT '',
 ADD COLUMN `pcr2_3` INT(1) NULL COMMENT '',
 ADD COLUMN `pcr2_fecha_3` DATE NULL COMMENT '';
+
+INSERT INTO `sisvigdb`.`cat_factor_riesgo` (`factor_nombre`, `id_grupo_factor`, `status`) VALUES ('Perinatal', '6', '1');
+INSERT INTO `sisvigdb`.`cat_factor_riesgo` (`factor_nombre`, `id_grupo_factor`, `status`) VALUES ('Exposicion Ocupacional', '6', '1');
+INSERT INTO `sisvigdb`.`cat_factor_riesgo` (`factor_nombre`, `id_grupo_factor`, `status`) VALUES ('No Especificado', '6', '1');
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `factor_nombre`='Abuso/Violacion Sexual' WHERE `id_factor`='16';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `factor_nombre`='Transfusion/Transplante' WHERE `id_factor`='8';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `status`='0' WHERE `id_factor`='13';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `status`='0' WHERE `id_factor`='0';
+
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `factor_nombre`='No Especificado', `status`='1' WHERE `id_factor`='0';
+DELETE FROM `sisvigdb`.`cat_factor_riesgo` WHERE `id_factor`='20';
+
+ALTER TABLE `sisvigdb`.`vih_factor_riesgo` 
+DROP FOREIGN KEY `fk_vih_grupo_factor`;
+
+INSERT INTO `sisvigdb`.`cat_grupo_factor_riesgo` (`grupo_factor_nombre`, `status`) VALUES ('Modos de Transmision', '1');
+INSERT INTO `sisvigdb`.`cat_grupo_factor_riesgo` (`grupo_factor_nombre`, `status`) VALUES ('Factores de Vulnerabilidad', '1');
+
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='7' WHERE `id_factor`='1';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='7' WHERE `id_factor`='2';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='7' WHERE `id_factor`='3';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='7' WHERE `id_factor`='10';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='7' WHERE `id_factor`='8';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='7' WHERE `id_factor`='9';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='7' WHERE `id_factor`='18';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='7' WHERE `id_factor`='0';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='7' WHERE `id_factor`='19';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='8' WHERE `id_factor`='4';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='8' WHERE `id_factor`='5';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='8' WHERE `id_factor`='6';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='8' WHERE `id_factor`='7';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='8' WHERE `id_factor`='11';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='8' WHERE `id_factor`='12';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='8' WHERE `id_factor`='14';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='8' WHERE `id_factor`='15';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='8' WHERE `id_factor`='16';
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `id_grupo_factor`='8' WHERE `id_factor`='17';
+

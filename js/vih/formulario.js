@@ -1111,10 +1111,12 @@ function validarVih(){
     var ErroresI = '';
     var ErroresC = '';
     var ErroresN = '';
+    var ErroresF = '';
     var ErrorIndividuo ='<br/>&nbsp; &nbsp;&nbsp; &nbsp;Individuo:';
     var ErrorCondicion ='<br/>&nbsp; &nbsp;&nbsp; &nbsp;Condici&oacute;n del paciente:';
     var ErrorNotificacion ='<br/>&nbsp; &nbsp;&nbsp; &nbsp;Datos Notificaci&oacute;n:';
-    
+    var ErrorFactores ='<br/>&nbsp; &nbsp;&nbsp; &nbsp;Modos de Transmision y Factores de Vulnerabilidad:';
+
     //Individuo
     aseguradoSi = $('#aseguradoSi').is(':checked');
     aseguradoNo = $('#aseguradoNo').is(':checked');
@@ -1200,11 +1202,26 @@ function validarVih(){
     }
     if(jQuery.trim($("#fechaNotificacion").val())=="")
         ErroresN+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar la fecha de notificacion.";
-    
+
+    var factoresModos = $("input[name='data[factores][modos][]']:checked").length;
+    if (factoresModos <= 0){
+        ErroresF+="<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe seleccinar al menos un modo de transmision";
+    } else {
+        if($('#factor_0').is(':checked') && factoresModos > 1){
+            ErroresF+="<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Si 'No Especificado' esta seleccionado, no puede seleccionar otros modos";
+        }
+    }
+
+    var factoresFactores = $("input[name='data[factores][factores][]']:checked").length;
+    if (factoresFactores <= 0){
+        ErroresF+="<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe seleccinar al menos un factor de vulnerabilidad";
+    }
+
     (ErroresI=="")? ErrorIndividuo="": ErrorIndividuo = ErrorIndividuo+ErroresI + "<br/>";
     (ErroresC=="")? ErrorCondicion="": ErrorCondicion = ErrorCondicion+ErroresC + "<br/>";
     (ErroresN=="")? ErrorNotificacion="": ErrorNotificacion = ErrorNotificacion+ErroresN + "<br/>";
-    Message = ErrorIndividuo + ErrorCondicion + ErrorNotificacion;
+    (ErroresF=="")? ErrorFactores="": ErrorFactores = ErrorFactores+ErroresF + "<br/>";
+    Message = ErrorIndividuo + ErrorFactores + ErrorCondicion + ErrorNotificacion;
     
     //Message= "";
     if(Message!="")

@@ -500,39 +500,27 @@
             <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divAntecedentes" >
                 <fieldset class="ui-widget ui-widget-content ui-corner-all">
                     <legend>Modos de Transmision y Factores de Vulnerabilidad</legend>
-                    <table border="0" align="center">
+                    <table width="100%">
                         <tr>
-                            <td width="150px"><label>Grupo de Riesgo:</label></td>
-                            <td >
-                                <select id="drpFactorRiesgo" name="data[factores][factorRiesgo]" style="width:250px" onchange="setFactorRiesgoCascada()">
-                                    <option value="0">Seleccione...</option>
-                                    <!-- BEGIN blkFactorRiesgo -->
-                                    <option value="{valFactorRiesgo}" {selFactorRiesgo}>{opcFactorRiesgo}</option>
-                                    <!-- END blkFactorRiesgo -->
-                                </select>
-                            </td>
-                            <td >
-                                <select id="drpSubFactorRiesgo" name="data[factores][SubFactorRiesgo]" style="width:250px">
-                                    <option value="0">Seleccione...</option>
-                                    <!-- BEGIN blkSubFactorRiesgo -->
-                                    <option value="{valSubFactorRiesgo}" {selSubFactorRiesgo}>{opcSubFactorRiesgo}</option>
-                                    <!-- END blkSubFactorRiesgo -->
-                                </select>
-                            </td>
-                            <td style="width:100px; text-align: center;">
-                                <a id="anadir" href="javascript:relacionarFactorRiesgo();" class="ui-state-default ui-corner-all ui-button" title="A&ntilde;adir factor de riesgo"
-                                    onmouseover="RollOver(this)" onmouseout="RollOut(this)">A&ntilde;adir
-                                </a>
-                            </td>
+                            <td width="50%"><strong>Modos de Transmision</strong></td>
+                            <td><strong>Factores de Vulnerabilidad</strong></td>
                         </tr>
-                        <tr><td colspan="4"><br/></td></tr>
                         <tr>
-                            <td colspan="4">
-                                <div id="divRelFactorRiesgo">
+                            <td>
+                                <div>
+                                    <!-- BEGIN blkFactoresModosVih -->
+                                    <div><input type="checkbox" {chkFactorVih} name="data[factores][modos][]" value="{id_factor}" id="factor_{id_factor}"/> {factor_nombre}</div>
+                                    <!-- END blkFactoresModosVih -->
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <!-- BEGIN blkFactoresVih -->
+                                    <div><input type="checkbox" {chkFactorVih} name="data[factores][factores][]" value="{id_factor}"/> {factor_nombre}</div>
+                                    <!-- END blkFactoresVih -->
                                 </div>
                             </td>
                         </tr>
-                        
                     </table>
                 </fieldset>
 
@@ -1001,7 +989,7 @@
                     <div style="margin-top:10px">
                         <input type="hidden" name="action" id="action" value="{action}" />
                         <input type="hidden" name="data[formulario][idVihForm]" id="idVihForm" value="{valIdVihForm}" />
-                        <input name="data[factores][globalFactorRiesgoRelacionados]" type="hidden" id="globalFactorRiesgoRelacionados" value="{valFactorRiesgoRelacionados}" />
+                        <input type="hidden" id="globalFactorRiesgoRelacionados" value="{valFactorRiesgoRelacionados}" />
                         <input name="data[enfermedades][globalEnfOportunistaRelacionados]" type="hidden" id="globalEnfOportunistaRelacionados" value="{valEnfOportunistaRelacionados}" />
                                                 
                         {botonGuardar}

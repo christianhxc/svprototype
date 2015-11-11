@@ -360,8 +360,8 @@ class dalVih {
                 $insertarFactor = array();
                 if (isset($factor[0])){
                     if($factor[0]!=""){
-                        $idGrupoFactor = $factor[0];
-                        $idFactor = ($factor[1]==-1)?0:$factor[1];
+                        $idFactor = $factor[0];
+                        $idGrupoFactor = ($factor[1]==-1)?0:$factor[1];
                         $insertarFactor["id_vih_form"] = $idFormVih;
                         $insertarFactor["id_grupo_factor"] = $idGrupoFactor;
                         $insertarFactor['id_factor'] = $idFactor;

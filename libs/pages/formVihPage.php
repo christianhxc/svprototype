@@ -58,6 +58,20 @@ class formVih extends page {
                 $this->tpl->parse('blkTipoId');
             }
         }
+
+        foreach ($this->config["catalogos"]["factores"] as $factor) {
+            $this->tpl->setCurrentBlock('blkFactoresVih');
+            $this->tpl->setVariable($factor);
+            $this->tpl->setVariable('chkFactorVih',$factor['sel'] != "-1" ? 'checked="checked"' : '');
+            $this->tpl->parse('blkFactoresVih');
+        }
+
+        foreach ($this->config["catalogos"]["modos"] as $factor) {
+            $this->tpl->setCurrentBlock('blkFactoresModosVih');
+            $this->tpl->setVariable($factor);
+            $this->tpl->setVariable('chkFactorVih',$factor['sel'] != "-1" ? 'checked="checked"' : '');
+            $this->tpl->parse('blkFactoresModosVih');
+        }
         
         $gruposFactorRiesgo = $this->config["catalogos"]["grupoFactorRiesgo"];
         if (is_array($gruposFactorRiesgo)) {

@@ -161,13 +161,14 @@ if (isset($_REQUEST["action"])) {
 
 $config["catalogos"]["provincias"] = helperLugar::getProvincias($config);
 $config["catalogos"]["tipoId"] = helperCatalogos::getTipoIdentificacion();
-$config["catalogos"]["grupoFactorRiesgo"] = helperCatalogos::getGrupoFactorRiesgo();
 $config["catalogos"]["etnia"] = helperCatalogos::getEtnia();
 $config["catalogos"]["genero"] = helperCatalogos::getGenero();
 $config["catalogos"]["clinicas"] = helperCatalogos::getClinicasTarv();
 $config["catalogos"]["regiones"] = "";
 $config["catalogos"]["distritos"] = "";
 $config["catalogos"]["corregimientos"] = "";
+$config["catalogos"]["factores"] = helperVih::catalogoVihFactores($idVihForm);
+$config["catalogos"]["modos"] = helperVih::catalogoVihFactoresModos($idVihForm);
 
 $page = new formVih($config);
 $page->displayPage();

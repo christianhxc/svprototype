@@ -360,12 +360,20 @@ class helperVih {
     public static function dataVihFactorRiesgo($data) {
         $vih = array();
         $factorRiesgo = array();
-        $vih["factores"] = (!isset($data["factores"]["globalFactorRiesgoRelacionados"]) ? 0 : explode("###",$data["factores"]["globalFactorRiesgoRelacionados"]));
+        $vih["factores"] = (!isset($data["factores"]["modos"]) ? 0 : $data["factores"]["modos"]);
         $max = sizeof($vih["factores"]);
         for ($i = 0; $i < $max; $i++) {
             $factor = explode("#-#",$vih["factores"][$i]);
-            $factorRiesgo[$i] = $factor;
+            $factorRiesgo[] = $factor;
         }
+
+        $vih["factores"] = (!isset($data["factores"]["factores"]) ? 0 : $data["factores"]["factores"]);
+        $max = sizeof($vih["factores"]);
+        for ($i = 0; $i < $max; $i++) {
+            $factor = explode("#-#",$vih["factores"][$i]);
+            $factorRiesgo[] = $factor;
+        }
+
         return $factorRiesgo;
     }
     
@@ -653,6 +661,36 @@ class helperVih {
             return $data;
         }
         return NULL;
+    }
+
+    public static function catalogoVihFactores($idVihForm) {
+        $conn = new Connection();
+        $conn->initConn();
+        $sql = "SELECT fr.id_factor, fr.factor_nombre, ifnull(vfr.id_factor, -1) as sel
+                FROM cat_factor_riesgo fr LEFT JOIN vih_factor_riesgo vfr ON vfr.id_factor = fr.id_factor
+                WHERE fr.status = '".$idVihForm."' AND (vfr.id_vih_form = 1 OR vfr.id_vih_form IS NULL)
+                AND fr.id_grupo_factor = 8
+                ORDER BY factor_nombre";
+        $conn->prepare($sql);
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+        return $data;
+    }
+
+    public static function catalogoVihFactoresModos($idVihForm) {
+        $conn = new Connection();
+        $conn->initConn();
+        $sql = "SELECT fr.id_factor, fr.factor_nombre, ifnull(vfr.id_factor, -1) as sel
+                FROM cat_factor_riesgo fr LEFT JOIN vih_factor_riesgo vfr ON vfr.id_factor = fr.id_factor
+                WHERE fr.status = '".$idVihForm."' AND (vfr.id_vih_form = 1 OR vfr.id_vih_form IS NULL)
+                AND fr.id_grupo_factor = 7
+                ORDER BY factor_nombre";
+        $conn->prepare($sql);
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+        return $data;
     }
     
     public static function buscarVihMuestrasSilab($formVih) {
