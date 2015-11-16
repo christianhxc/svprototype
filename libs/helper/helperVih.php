@@ -670,7 +670,7 @@ class helperVih {
         $conn->initConn();
         $sql = "SELECT fr.id_factor, fr.factor_nombre, ifnull(vfr.id_factor, -1) as sel
                 FROM cat_factor_riesgo fr LEFT JOIN vih_factor_riesgo vfr ON vfr.id_factor = fr.id_factor
-                WHERE fr.status = '".$idVihForm."' AND (vfr.id_vih_form = 1 OR vfr.id_vih_form IS NULL)
+                WHERE fr.status = 1 AND (vfr.id_vih_form = '".$idVihForm."' OR vfr.id_vih_form IS NULL)
                 AND fr.id_grupo_factor = 8
                 ORDER BY factor_nombre";
         $conn->prepare($sql);
@@ -685,7 +685,7 @@ class helperVih {
         $conn->initConn();
         $sql = "SELECT fr.id_factor, fr.factor_nombre, ifnull(vfr.id_factor, -1) as sel
                 FROM cat_factor_riesgo fr LEFT JOIN vih_factor_riesgo vfr ON vfr.id_factor = fr.id_factor
-                WHERE fr.status = '".$idVihForm."' AND (vfr.id_vih_form = 1 OR vfr.id_vih_form IS NULL)
+                WHERE fr.status = 1 AND (vfr.id_vih_form = '".$idVihForm."' OR vfr.id_vih_form IS NULL)
                 AND fr.id_grupo_factor = 7
                 ORDER BY factor_nombre";
         $conn->prepare($sql);
