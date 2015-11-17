@@ -137,5 +137,8 @@ class ConfigurationCAUS{
     Const vicItsExportarExcel = 102;
     Const vicItsFormLaboratorio = 107;
     Const matFormulario = 109;
+
+    // GRUPOS DE USUARIOS
+    Const vihGrupoRegional = 36;
 }
 ?>

@@ -1,3 +1,4 @@
+<input type="hidden" value="{valesRegional}" id="esRegional"/>
 <div class="Content" align="left">
     <!-- POPUP de BUSQUEDA !-->
     <div id="dialog-form" title="B&uacute;squeda de Personas" align="center">
@@ -509,14 +510,14 @@
                             <td>
                                 <div>
                                     <!-- BEGIN blkFactoresModosVih -->
-                                    <div><input type="checkbox" {chkFactorVih} name="data[factores][modos][]" value="{id_factor}" id="factor_{id_factor}"/> {factor_nombre}</div>
+                                    <div><input type="checkbox" {chkFactorVih} {disableFactorVih} name="data[factores][modos][]" value="{id_factor}" id="factor_{id_factor}"/> {factor_nombre}</div>
                                     <!-- END blkFactoresModosVih -->
                                 </div>
                             </td>
                             <td>
                                 <div>
                                     <!-- BEGIN blkFactoresVih -->
-                                    <div><input type="checkbox" {chkFactorVih} name="data[factores][factores][]" value="{id_factor}"/> {factor_nombre}</div>
+                                    <div><input type="checkbox" {chkFactorVih} {disableFactorVih} name="data[factores][factores][]" value="{id_factor}"/> {factor_nombre}</div>
                                     <!-- END blkFactoresVih -->
                                 </div>
                             </td>
@@ -651,27 +652,27 @@
                         <tr>
                             <td style="width: 180px;" ><label >Instalaci&oacute;n de salud:<span class="mandatory">*</span></label></td>
                             <td style="width: 350px;">
-                                <input type="text" id="notificacion_unidad" style="width:100%" value="{valNotificacionUnidad}"/>
+                                <input type="text" id="notificacion_unidad" style="width:100%" value="{valNotificacionUnidad}" {esRegionalDisable}/>
                                 <input type="hidden" name="data[notificacion][id_un]" id="notificacion_id_un" value="{valNotificacionIdUn}" />
                             </td>
                             <td colspan="2">
-                                <input type="checkbox" id="unidad_disponible" name="data[notificacion][unidad_disponible]" onchange="otraUnidad()" {valUnidadNoDisponible}/>
+                                <input type="checkbox" id="unidad_disponible" name="data[notificacion][unidad_disponible]" onchange="otraUnidad()" {valUnidadNoDisponible} {esRegionalDisable}/>
                                 <label >No Disponible</label>
                             </td>
                         </tr>
                         <tr style="">
                             <td style="display:{otraInstalacion};" id="otraUnidadLabel"><label >Otra instalaci&oacute;n de salud:<span class="mandatory">*</span></label></td>
                             <td style="display:{otraInstalacion};" id="otraUnidad">
-                                <input type="text" id="notificacion_otra_unidad" name="data[notificacion][otra_unidad]" style="width:100%" value="{valNotificacionOtraUnidad}"/>
+                                <input type="text" id="notificacion_otra_unidad" name="data[notificacion][otra_unidad]" style="width:100%" value="{valNotificacionOtraUnidad}" {esRegionalDisable}/>
                             </td>
                             <td colspan="2"></td>
                         </tr>
                         <tr >
                             <td >Nombre del investigador:<span class="mandatory">*</span></td>
-                            <td ><input type="text" id="nombreInvestigador" name="data[notificacion][nombreInvestigador]" style="width:100%" value="{valNombreInvestigador}"/></td>
+                            <td ><input type="text" id="nombreInvestigador" name="data[notificacion][nombreInvestigador]" style="width:100%" value="{valNombreInvestigador}" {esRegionalDisable}/></td>
                             <td >Fecha notificaci&oacute;n:<span class="mandatory">*</span></td>
                             <td>
-                                <input type="text" id="fechaNotificacion" name="data[notificacion][fecha_notificacion]" value="{valFechaNotificacion}" style="width: 80px;" maxlength="10"/>
+                                <input type="text" id="fechaNotificacion" name="data[notificacion][fecha_notificacion]" value="{valFechaNotificacion}" style="width: 80px;" maxlength="10" {esRegionalDisable}/>
                                 
                                 <input type="hidden" name="data[notificacion][silab]" id="datoSilab" value="{valDatoSilab}" />
                                 <input type="hidden" name="data[notificacion][epiInfo]" id="datoEpiInfo" value="{valDatoEpiInfo}" />

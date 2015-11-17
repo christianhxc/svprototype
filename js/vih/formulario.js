@@ -2,6 +2,8 @@ var globalFactorRiesgoRelacionados = new Array();
 var globalEnfOportunistaRelacionados = new Array();
 var globalMuestras = new Array();
 
+var globalEnfOportunistaAgregadas = [];
+
 var globalMuestrasSilab = new Array();
 var globalPruebasSilab = new Array();
 
@@ -61,14 +63,16 @@ $(function() {
 });
 
 $(function() {
-    $( "#fechaNotificacion" ).datepicker({
-        
-        changeYear: true,
-        showOn: "both",
-        buttonImage: urlprefix+"img/calendar.gif",
-        buttonImageOnly: true,
-        showAnim: "slideDown"
-    });
+    if ($("#esRegional").val() != 1) {
+        $("#fechaNotificacion").datepicker({
+
+            changeYear: true,
+            showOn: "both",
+            buttonImage: urlprefix + "img/calendar.gif",
+            buttonImageOnly: true,
+            showAnim: "slideDown"
+        });
+    }
 });
 
 $(function() {
@@ -377,7 +381,6 @@ function iniciarDatosCondicionPaciente(){
 }
 
 $(document).ready(function() {
-    
     individuo($("#drpTipoId").val(), $("#no_identificador").val());
     sexoEmbarazo();
     llenarFactoresRiesgo();
@@ -1078,6 +1081,7 @@ function relacionarEnfOportunista(){
         if (flag){
             enfOportunistaId = (tmpReg==0) ? enfOportunistaId : "###"+enfOportunistaId;
             globalEnfOportunistaRelacionados[tmpReg] = new Array(enfOportunistaId,enfOportunistaNombre);
+            globalEnfOportunistaAgregadas[enfOportunistaId] = true;
             $("#enfOportunista").val("");
             $("#enfOportunistaNombre").val("");
             $("#enfOportunistaId").val("");
@@ -1104,7 +1108,10 @@ function crearTablaEnfOportunista(){
         if(__isset(globalEnfOportunistaRelacionados[i])){
             tabla += '<tr>'+
             '<td class="fila" width="360px">'+globalEnfOportunistaRelacionados[i][1]+'</th>'+
-            '<td class="fila" width="40px" align="center"><a href="javascript:eliminarEnfOportunista('+i+')"><img src="'+urlprefix+'/img/Delete.png" title="Eliminar" border="0"/></a></th>'+
+            '<td class="fila" width="40px" align="center">';
+            tabla += ($("#esRegional").val() != 1 || globalEnfOportunistaAgregadas[globalEnfOportunistaRelacionados[i][0]])
+                ? '<a href="javascript:eliminarEnfOportunista('+i+')"><img src="'+urlprefix+'/img/Delete.png" title="Eliminar" border="0"/></a></th>' : '';
+            tabla += ''+
             '<tr>';
         }
     }

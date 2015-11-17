@@ -7,6 +7,7 @@ require_once ('libs/TemplateHelp.php');
 class formVih extends page {
 
     public $config;
+    private $esRegional;
 
     function __construct($data = null) {
         $this->config = $data;
@@ -59,10 +60,15 @@ class formVih extends page {
             }
         }
 
+        $this->esRegional = clsCaus::obtenerIdGrupo() == ConfigurationCAUS::vihGrupoRegional;
+        $this->tpl->setVariable('valesRegional',$this->esRegional);
+        $this->tpl->setVariable('esRegionalDisable',$this->esRegional ? 'disabled="disabled"' : '');
+
         foreach ($this->config["catalogos"]["factores"] as $factor) {
             $this->tpl->setCurrentBlock('blkFactoresVih');
             $this->tpl->setVariable($factor);
             $this->tpl->setVariable('chkFactorVih',$factor['sel'] != "-1" ? 'checked="checked"' : '');
+            $this->tpl->setVariable('disableFactorVih',$factor['sel'] != "-1" && $this->esRegional ? 'disabled="disabled"' : '');
             $this->tpl->parse('blkFactoresVih');
         }
 
@@ -70,6 +76,7 @@ class formVih extends page {
             $this->tpl->setCurrentBlock('blkFactoresModosVih');
             $this->tpl->setVariable($factor);
             $this->tpl->setVariable('chkFactorVih',$factor['sel'] != "-1" ? 'checked="checked"' : '');
+            $this->tpl->setVariable('disableFactorVih',$factor['sel'] != "-1" && $this->esRegional ? 'disabled="disabled"' : '');
             $this->tpl->parse('blkFactoresModosVih');
         }
         
