@@ -1,15 +1,18 @@
 
 $(document).ready(function() {
-//    borrarTabla();
-//    busquedatb();
-//    Tooltip_field();
+    
+    $("#id_tb_inicio").val("");
+
     $("#total_consultas_antepasado").change(function(){
-        sintomaticos_respiratorios();
+//        sintomaticos_respiratorios();
 //        buscarqtrSintResp();
     })
     $("#anio").change(function(){
-        sintomaticos_respiratorios();
-//        buscarqtrSintResp();
+        if ($(this).val() == "")  clearForm();
+        if ($(this).val() != "" && $( "#notificacion_unidad" ).val() != ""){
+            clearForm();
+            activeForm();
+        }
     })
     
     $("#drpCorIndividuo").change(function(){
@@ -28,6 +31,15 @@ $(document).ready(function() {
         
     });
 
+    $( "#notificacion_unidad" ).change(function(){
+        
+        if ($("#anio").val() == "") clearForm();
+            
+        if ($("#anio").val() != ""){
+            clearForm();
+            activeForm();
+        }
+    });
     
    $( "#notificacion_unidad" ).autocomplete(urlprefix + "js/dynamic/unidadNotificadora_id.php?corr=" + document.getElementById('drpCorIndividuo').value + "&",
     {
@@ -57,67 +69,31 @@ $(document).ready(function() {
 //        }
 //    });
 
+   clearForm();
+
 });
 
-//function Tooltip_field(){
-//    $('#filtro').qtip({
-//        position: {
-//            my: 'bottom left',  // Position my top left...
-//            at: 'top right' // at the bottom right of...            
-//        },
-//        style: {
-//            classes: 'qtip-green',
-//            tip: true
-//        },
-//        content: 'Esta palabra puede ser nombre de la instalaci&oacute;n de salud, regi&oacute;n, diagn&oacute;stico, identificaci&oacute;n del paciente o la semana epidemiol&oacute;gica.',
-//        show: 'mouseover',
-//        hide: 'mouseout'
-//    }); 
-//    
-//    $('#drpHospital').qtip({
-//        position: {
-//            my: 'bottom left',  // Position my top left...
-//            at: 'top right' // at the bottom right of...            
-//        },
-//        style: {
-//            classes: 'qtip-green',
-//            tip: true
-//        },
-//        content: 'Al seleccionar una opci&oacute;n en Hospital filtrar&aacute; la informaci&oacute;n con la opci&oacute;n escogida',
-//        show: 'mouseover',
-//        hide: 'mouseout'
-//    }); 
-//    
-//    
-//    
-//    
-//    $('#drpUceti').qtip({
-//        position: {
-//            my: 'bottom left',  // Position my top left...
-//            at: 'top right' // at the bottom right of...            
-//        },
-//        style: {
-//            classes: 'qtip-green',
-//            tip: true
-//        },
-//        content: 'Al seleccionar una opci&oacute;n en Formularios filtrar&aacute; la informaci&oacute;n con las opciones Pendientes, Finalizados o Todos',
-//        show: 'mouseover',
-//        hide: 'mouseout'
-//    }); 
-//    $('#drpSilab').qtip({
-//        position: {
-//            my: 'bottom left',  // Position my top left...
-//            at: 'top right' // at the bottom right of...            
-//        },
-//        style: {
-//            classes: 'qtip-green',
-//            tip: true
-//        },
-//        content: 'Al seleccionar una opci&oacute;n en Muestras Lab. Silab filtrar&aacute; la informaci&oacute;n con las opciones Pendientes, Confirmadas o Todas',
-//        show: 'mouseover',
-//        hide: 'mouseout'
-//    }); 
-//}
+function clearForm()
+{
+    $("#total_consultas_antepasado").val("");
+    $("#total_consultas_antepasado").attr("disabled",true);
+    $("input[id^='ident_']").val("");
+    $("input[id^='ident_']").attr("disabled",true);
+    $("input[id^='cap_']").val("");
+    $("input[id^='cap_']").attr("disabled",true);
+    $("input[id^='pos_']").val("");
+    $("input[id^='pos_']").attr("disabled",true);
+    $("#guardar").hide();
+}
+
+function activeForm()
+{
+    $("#total_consultas_antepasado").attr("disabled",false);
+    $("input[id^='ident_']").attr("disabled",false);
+    $("input[id^='cap_']").attr("disabled",false);
+    $("input[id^='pos_']").attr("disabled",false);
+    $("#guardar").show();
+}
 
 function clearSearch()
 {
@@ -172,6 +148,15 @@ function setRegionCascada(){
     
     setRegionPersona($("#drpProIndividuo").val(),-1);
     $("#drpRegIndividuo").val("");
+    setDistritoPersona(-1,-1);
+    $("#drpDisIndividuo").val("");
+    setCorregimientoPersona(-1,-1);
+    $("#drpCorIndividuo").val("");
+    
+    $("#notificacion_unidad").val("");
+    $("#notificacion_unidad").attr("disabled",true);
+    clearForm();
+    
 }
 
 function setRegionPersona(idProvincia, idRegion)
@@ -198,6 +183,13 @@ function setRegionPersona(idProvincia, idRegion)
 
 function setDistritoCascada(){
     setDistritoPersona($("#drpProIndividuo").val(),$("#drpRegIndividuo").val(),-1);
+    setCorregimientoPersona(-1,-1);
+    $("#drpCorIndividuo").val("");
+    
+    $("#notificacion_unidad").val("");
+    $("#notificacion_unidad").attr("disabled",true);
+    
+    clearForm();
 }
 
 function setDistritoPersona(idProvincia, idRegion, idDistrito)
@@ -225,6 +217,11 @@ function setDistritoPersona(idProvincia, idRegion, idDistrito)
 
 function setCorregimientoCascada(){
     setCorregimientoPersona($("#drpDisIndividuo").val(),-1);
+    
+    $("#notificacion_unidad").val("");
+    $("#notificacion_unidad").attr("disabled",true);
+    
+    clearForm();
 }
 
 function setCorregimientoPersona(idDistrito, idCorregimiento)
@@ -249,7 +246,7 @@ function setCorregimientoPersona(idDistrito, idCorregimiento)
     })
 }
 
-function sintomaticos_respiratorios()
+function sintomaticos_respiratorios(action)
 {
     
     if ($("#anio").val() == "") 
@@ -280,7 +277,57 @@ function sintomaticos_respiratorios()
         {alert("Por favor ingrese los datos de institucion de salud");
         return;
         }
-        
+    
+    $("#act").val(action);
+    
+    $.ajax({
+        type: "POST",
+        url: urlprefix + 'js/dynamic/tb/paginiciotb.php',
+        data: $("#formPagInicio").serialize(),
+        dataType: "json",
+        success: function(data)
+        {
+            if($("#act").val() == "C"){
+               
+               if (data.id_tb_inicio == null)  
+               {
+                   alert("No hay registros de este establecimiento, el siguiente paso es ingresarlos y guardarlos");
+                    activeForm();
+                   return;
+               }
+               activeForm();
+               $("#id_tb_inicio").val(data.id_tb_inicio);
+               $("#total_consultas_antepasado").val(data.total_consultas_medicas);
+               
+               $("#pos_1").val(data.CNBKP_1);
+               $("#pos_2").val(data.CNBKP_2);
+               $("#pos_3").val(data.CNBKP_3);
+               $("#pos_4").val(data.CNBKP_4);
+               
+               $("#cap_1").val(data.SRC_1);
+               $("#cap_2").val(data.SRC_2);
+               $("#cap_3").val(data.SRC_3);
+               $("#cap_4").val(data.SRC_4);
+               
+               $("#ident_1").val(data.SRId_1);
+               $("#ident_2").val(data.SRId_2);
+               $("#ident_3").val(data.SRId_3);
+               $("#ident_4").val(data.SRId_4);
+               
+            } else if ($("#act").val() == "G"){
+                
+                if (data > 0) {
+                   $("#id_tb_inicio").val(data); 
+                   alert("Datos guardados satisfactoriamente.");
+                } else{
+                    $("#id_tb_inicio").val("");
+                    alert("Error al guardar los datos por favor contacte con el administrador.");
+                }
+                
+            }
+            
+        } 
+    });
 
     if ($("#total_consultas_antepasado").val()!="")
         {
@@ -307,4 +354,6 @@ function sintomaticos_respiratorios()
             {
                 
             }
+            
+            
 }

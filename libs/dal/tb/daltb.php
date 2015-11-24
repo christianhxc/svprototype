@@ -279,12 +279,11 @@ class daltb {
 
     public static function GuardarTabla($conn, $tabla, $objeto) {
         $ok = true;
-
         $sql = Actions::AgregarQuery($tabla, $objeto);
-        $conn->prepare($sql);
 //        $comma_separated = "('" . implode("','", $objeto) . "')";
 //        echo $sql . " values " . $comma_separated."<br/>";
 //        exit;
+        $conn->prepare($sql);
         $conn->params($objeto);
         $conn->execute() ? null : $ok = false;
         $error = $conn->getError();
@@ -311,7 +310,7 @@ class daltb {
         $conn->params($total);
         
         // query pare revisar
-        
+//        echo "</pre>";print_r($filtro);echo "</pre> <br/>";
 //        echo "</pre>";print_r($objeto);echo "</pre> <br/>";
 //        $comma_separated = "('" . implode("','", $objeto) . "')";
 //        echo $sql . " values " . $comma_separated."<br/>";
@@ -405,8 +404,9 @@ class daltb {
     
     public static function GuardartbInmunodepresor($conn, $id_TB, $data) {
         $Inmunodepresores = $data;
+        self::BorrartbInmunodepresores($conn, $id_TB);
         if (is_array($Inmunodepresores)) {
-            self::BorrartbInmunodepresores($conn, $id_TB);
+            
             foreach ($Inmunodepresores as $Inmunodepresor) {
                 $insertarInmunodepresores;
                 $insertarInmunodepresores["id_tb"] = $id_TB;
@@ -425,9 +425,10 @@ class daltb {
 
     public static function GuardartbVisitas($conn, $id_TB, $data) {
         $visitas = $data;
+        self::BorrartbVisitas($conn, $id_TB);
         if (is_array($visitas)) {
             //echo "Tipo id: " . $tipoIdentificacion . " Numero id: " . $numeroIdentificacion . "<br/>";
-            self::BorrartbVisitas($conn, $id_TB);
+            
 
             foreach ($visitas as $visita) {
                 $insertarVisita = array();
@@ -450,9 +451,10 @@ class daltb {
 
     public static function GuardartbControles($conn, $id_TB, $data) {
         $controles = $data;
+        self::BorrartbControles($conn, $id_TB);
         if (is_array($controles)) {
             //echo "Tipo id: " . $tipoIdentificacion . " Numero id: " . $numeroIdentificacion . "<br/>";
-            self::BorrartbControles($conn, $id_TB);
+            
 
             foreach ($controles as $control) {
                 $insertarControl = array();
@@ -508,9 +510,10 @@ class daltb {
     // Ya modificado para guardar los MDR
     public static function GuardartbMDR($conn, $id_TB, $data) {
         $MDR = $data;
+        self::BorrartbMDR($conn, $id_TB);
         if (is_array($MDR)) {
             //echo "Tipo id: " . $tipoIdentificacion . " Numero id: " . $numeroIdentificacion . "<br/>";
-            self::BorrartbMDR($conn, $id_TB);
+            
 
             foreach ($MDR as $one_MDR) {
                 $insertarMDR = array();
@@ -591,6 +594,70 @@ class daltb {
         self::BorrarTabla($conn, "flureg_muestra_silab", $filtro);
         self::GuardarBitacora($conn, "3", "flureg_muestra_silab");
     }
+    
+    public static function Guardartb_inicio($data) {
+
+        $ok = true;
+        $conn = new Connection();
+        $conn->initConn();
+        $conn->begin();
+
+        // ---------------------------------------------------------------
+        // Guardar tabla de inicio
+        // ---------------------------------------------------------------
+
+        $data_tb_inicio = helpertb::datatbIniForm($data);
+        if ($data["pag_inicio"]["id_tb_inicio"] == '')
+        {
+            $param = self::GuardarTabla($conn, "tb_inicio", $data_tb_inicio);
+            $id = $param['id'];
+            $ok = $param['ok'];
+        } else
+        {
+            $TBfiltro = array();
+            $TBfiltro["id_tb_inicio"] = $data["pag_inicio"]["id_tb_inicio"];
+            $result_delete = self::BorrarTabla($conn, "tb_inicio", $TBfiltro);
+//            if ($result_delete["ok"])
+//                $conn->commit();
+//            else {
+//                $conn->rollback();
+//                $id = -1;
+//            }
+            $param = self::GuardarTabla($conn, "tb_inicio", $data_tb_inicio);
+            $id = $param['id'];
+            $ok = $param['ok'];
+//        echo "Guardar tabla";
+        }    
+        
+        if ($ok)
+                $conn->commit();
+            else {
+                $conn->rollback();
+                $id = -1;
+            }
+        
+        if ($data["pag_inicio"]["id_tb_inicio"] == '')
+        {
+            $param = self::GuardarBitacora($conn, "1", "tb_inicio");
+            $ok = $param['ok'];
+        } else {
+            $param = self::GuardarBitacora($conn, "2", "tb_inicio");
+            $ok = $param['ok'];
+        }
+        
+        
+        if ($ok)
+                $conn->commit();
+            else {
+                $conn->rollback();
+            }
+
+        $conn->closeConn();
+        return $id;
+
+        
+    }
+    
 
 }
 

@@ -182,8 +182,10 @@ class helpertb {
         (!isset($data["antecedentes"]["sanitation"]) ? NULL :  $tb["ant_sanitation"] = strtoupper($data["antecedentes"]["sanitation"]));
         (!isset($data["antecedentes"]["contactposi"]) ? NULL : $tb["ant_contactposi"] = strtoupper($data["antecedentes"]["contactposi"]));
         (!isset($data["antecedentes"]["BCG"]) ? NULL : $tb["ant_BCG"] = strtoupper($data["antecedentes"]["BCG"]));
-        (!isset($data["antecedentes"]["weight"]) ? NULL : $tb["ant_weight"] = strtoupper($data["antecedentes"]["weight"]));
-        (!isset($data["antecedentes"]["height"]) ? NULL : $tb["ant_height"] = strtoupper($data["antecedentes"]["height"]));
+        (!isset($data["antecedentes"]["weight"]) ? NULL : $tb["ant_weight"] = $data["antecedentes"]["weight"]);
+        (!isset($data["antecedentes"]["height"]) ? NULL : $tb["ant_height"] = $data["antecedentes"]["height"]);
+        (!isset($data["antecedentes"]["MDR_otro"]) ? NULL : $tb["ant_otro_MDR"] = $data["antecedentes"]["MDR_otro"]);
+        (!isset($data["antecedentes"]["inmunodepresor_otro"]) ? NULL : $tb["ant_otro_inmuno"] = $data["antecedentes"]["inmunodepresor_otro"]);
 
 // Metodo de diagnostico
         
@@ -201,6 +203,8 @@ class helpertb {
         (!isset($data["met_diag"]["metodo_WRD"]) ? NULL : $tb["mat_diag_metodo_WRD"] = strtoupper($data["met_diag"]["metodo_WRD"]));
         (!isset($data["met_diag"]["resultado_WRD"]) || ($data["met_diag"]["resultado_WRD"] == "") ? NULL : $tb["mat_diag_res_metodo_WRD"] = strtoupper($data["met_diag"]["resultado_WRD"]));
         $tb["mat_diag_fecha_res_WRD"] = (!isset($data["met_diag"]["fecha_WRD"]) ? NULL : helperString::toDate($data["met_diag"]["fecha_WRD"]));
+        (!isset($data["met_diag"]["resistencia_rifampicina"]) || ($data["met_diag"]["resistencia_rifampicina"] == "") ? NULL : $tb["mat_diag_res_rifampicina_WRD"] = strtoupper($data["met_diag"]["resistencia_rifampicina"]));
+        
         (!isset($data["met_diag"]["resultado_clinico"]) || ($data["met_diag"]["resultado_clinico"] == "") ? NULL : $tb["mat_diag_res_clinico"] = strtoupper($data["met_diag"]["resultado_clinico"]));
         $tb["mat_diag_fecha_clinico"] = (!isset($data["met_diag"]["fecha_clinico"]) ? NULL : helperString::toDate($data["met_diag"]["fecha_clinico"]));
         (!isset($data["met_diag"]["resultado_R-X"]) || ($data["met_diag"]["resultado_R-X"] == "") ? NULL : $tb["mat_diag_res_R_X"] = strtoupper($data["met_diag"]["resultado_R-X"]));
@@ -223,7 +227,7 @@ class helpertb {
             $tb["clasificacion_tb"] = 0;
         if ((isset($data["met_diag"]["resultado_cultivo"]) && $data["met_diag"]["resultado_cultivo"] == "2") )
             $tb["clasificacion_tb"] = 0;
-        if ((isset($data["met_diag"]["resultado_WRD"]) && $data["met_diag"]["resultado_WRD"] == "1") )
+        if ((isset($data["met_diag"]["resultado_WRD"]) && ( $data["met_diag"]["resultado_WRD"] == "1") || $data["met_diag"]["resultado_WRD"] == "2" || $data["met_diag"]["resultado_WRD"] == "3" || $data["met_diag"]["resultado_WRD"] == "4" || $data["met_diag"]["resultado_WRD"] == "5") )
             $tb["clasificacion_tb"] = 0;
         
 // Clasificación
@@ -231,6 +235,7 @@ class helpertb {
          (!isset($data["clasificacion"]["pulmonar_EP"]) ? NULL : $tb["clas_pulmonar_EP"] = strtoupper($data["clasificacion"]["pulmonar_EP"]));
          (!isset($data["clasificacion"]["lugar_EP"]) ? NULL : $tb["clas_lugar_EP"] = strtoupper($data["clasificacion"]["lugar_EP"]));
          (!isset($data["clasificacion"]["trat_previo"]) ? NULL : $tb["clas_trat_previo"] = strtoupper($data["clasificacion"]["trat_previo"]));
+         (!isset($data["clasificacion"]["lugar_EP_otra"]) ? NULL : $tb["clas_lugar_EP_otra"] = strtoupper($data["clasificacion"]["lugar_EP_otra"]));
 
         (!isset($data["clasificacion"]["recaida"]) ? NULL : $tb["clas_recaida"] = strtoupper($data["clasificacion"]["recaida"]));
         (!isset($data["clasificacion"]["postfracaso"]) ? NULL : $tb["clas_postfracaso"] = strtoupper($data["clasificacion"]["postfracaso"]));
@@ -262,7 +267,8 @@ class helpertb {
         // Tratamiento
         $tb["trat_referido"] = (!isset($data["tratamiento"]["referido"]) ? NULL : strtoupper($data["tratamiento"]["referido"]));
         $tb["trat_inst_salud_ref"] = (!isset($data["tratamiento"]["id_inst_salud_referencia"]) ? NULL : strtoupper($data["tratamiento"]["id_inst_salud_referencia"]));
-        
+        $tb["trat_lug_diag"] = (!isset($data["tratamiento"]["lug_diag"]) ? NULL : strtoupper($data["tratamiento"]["lug_diag"]));
+
         $tb["trat_fecha_inicio_tratF1"] = (!isset($data["tratamiento"]["fecha_inicio_tratF1"]) ? NULL : helperString::toDate($data["tratamiento"]["fecha_inicio_tratF1"]));
         if (isset($data["tratamiento"]["med_indF1"])) {
             
@@ -348,11 +354,6 @@ class helpertb {
 // Faltan
 
 //
-//
-//
-//
-//
-//
 //semana_epi
 //anio
 //nombre_toma_muestra
@@ -362,9 +363,7 @@ class helpertb {
 //source_entry
 
         // Hasta aquí
-        
-        
-        
+
 //mat_diag_resis_ninguna
 //mat_diag_mono_r
 //mat_diag_esp_MonoR
@@ -379,16 +378,36 @@ class helpertb {
 //mat_diag_XDR
 //mat_diag_TB-RR
 //mat_diag_desconocida  
-        
-        
  
-
         $tb["semana_epi"] = (!isset($data["datos_clinicos"]["semana_epi"]) ? NULL : $data["datos_clinicos"]["semana_epi"]);
         $tb["anio"] = (!isset($data["datos_clinicos"]["anio"]) ? NULL : $data["datos_clinicos"]["anio"]);
 
         return $tb;
     }
-
+    public static function buscartbID($config) {
+        $conn = new Connection();
+        $conn->initConn();
+        $filtro1 = "";
+        $filtro2 = "";
+        $read = false;
+        
+        $filtro2 = " AND tb.id_tb = " . $config["id_reg"] . " " ;
+        $read = true;
+    
+        $sql = "select * from tb_form tb
+                    inner join tbl_persona per on per.tipo_identificacion = tb.tipo_identificacion and per.numero_identificacion = tb.numero_identificacion
+                    left join cat_unidad_notificadora un on un.id_un = tb.id_un
+                    left join cat_region_salud re on re.id_region = un.id_region WHERE 1 "
+                    . $filtro1 . $filtro2 . self::filtro_sql($config). ' ';
+        
+        $conn->prepare($sql);
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+        return $data;
+        
+    }
+    
     // Obtiene el listado de tb
     public static function buscartb($config) {
         $conn = new Connection();
@@ -407,7 +426,7 @@ class helpertb {
             $sql = "select * from tb_form tb
                     inner join tbl_persona per on per.tipo_identificacion = tb.tipo_identificacion and per.numero_identificacion = tb.numero_identificacion
                     left join cat_unidad_notificadora un on un.id_un = tb.id_un
-                    left join cat_region_salud re on re.id_region = per.id_region
+                    left join cat_region_salud re on re.id_region = un.id_region
                     WHERE 1 ".self::filtro_sql($config);
         else {
             //echo "filtro ".$config["silab"];
@@ -426,14 +445,13 @@ class helpertb {
             $sql = "select * from tb_form tb
                     inner join tbl_persona per on per.tipo_identificacion = tb.tipo_identificacion and per.numero_identificacion = tb.numero_identificacion
                     left join cat_unidad_notificadora un on un.id_un = tb.id_un
-                    left join cat_region_salud re on re.id_region = per.id_region WHERE 1 "
+                    left join cat_region_salud re on re.id_region = un.id_region WHERE 1 "
                     . $filtro1 . $filtro2 . self::filtro_sql($config). ' order by id_tb desc';
             //. " limit " . $config["inicio"] . "," . $config["paginado"];
             if (!$read) {
                 $sql.= " limit " . $config["inicio"] . "," . $config["paginado"];
             }
         }
-
 //        print_r($sql);
 //        exit;
         $conn->prepare($sql);
@@ -448,8 +466,6 @@ class helpertb {
         $conn->initConn();
         $filtro1 = "";
 
-
-
         if ($config["filtro"] != "") {
             $filtro1 = " AND (un.nombre_un LIKE '%" . $config["filtro"] . "%'" .
                     " OR re.nombre_region LIKE '%" . $config["filtro"] . "%'" .
@@ -461,7 +477,7 @@ class helpertb {
         $sql = "select count(*) as total from tb_form tb
                     inner join tbl_persona per on per.tipo_identificacion = tb.tipo_identificacion and per.numero_identificacion = tb.numero_identificacion
                     left join cat_unidad_notificadora un on un.id_un = tb.id_un
-                    left join cat_region_salud re on re.id_region = per.id_region WHERE 1 "
+                    left join cat_region_salud re on re.id_region = un.id_region WHERE 1 "
                 . $filtro1 . self::filtro_sql($config);
 //        echo $sql;
         $conn->prepare($sql);
@@ -500,6 +516,25 @@ class helpertb {
         return $data;
     }
 
+    
+    public static function buscarPagIni($data) {
+        $conn = new Connection();
+        $conn->initConn();
+        $filtro1 = " AND id_provincia = " . $data["pag_inicio"]["provincia"] . " AND id_region = " . $data["pag_inicio"]["region"].
+                   " AND id_distrito = " . $data["pag_inicio"]["distrito"] . " AND id_corregimiento = " . $data["pag_inicio"]["corregimiento"] . 
+                   " AND id_un = " . $data["pag_inicio"]["id_un"] . " AND anio_eva = " . $data["pag_inicio"]["anio_eva"];
+        
+        $sql = "  SELECT * FROM `tb_inicio`
+                   WHERE 1 "
+                . $filtro1 ;
+//        echo $sql;
+        $conn->prepare($sql);
+        $conn->execute();
+        $result = $conn->fetchOne();
+        $conn->closeConn();
+        return $result;
+    }
+    
     public static function buscartbMDR($id_TB) {
         if (isset($id_TB) ) {
             $conn = new Connection();
@@ -617,5 +652,39 @@ class helpertb {
         }
         return NULL;
     }
+    
+        public static function datatbIniForm($data) {
+        $tb_ini = array();
+        
+        $tb_ini["id_provincia"] = $data["pag_inicio"]["provincia"];
+        $tb_ini["id_region"] = $data["pag_inicio"]["region"];
+        $tb_ini["id_distrito"] = $data["pag_inicio"]["distrito"];
+        $tb_ini["id_corregimiento"] = $data["pag_inicio"]["corregimiento"];
+        $tb_ini["id_un"] = $data["pag_inicio"]["id_un"];
+        $tb_ini["anio_eva"] = $data["pag_inicio"]["anio_eva"];
+        
+        (!isset($data["pag_inicio"]["id_tb_inicio"]) || $data["pag_inicio"]["id_tb_inicio"] == "") ? NULL : $tb_ini["id_tb_inicio"] = $data["pag_inicio"]["id_tb_inicio"];
+        
+        (!isset($data["casos_nuevos"]["pos_1"]) || $data["casos_nuevos"]["pos_1"] == "") ? NULL : $tb_ini["CNBKP_1"] = $data["casos_nuevos"]["pos_1"];
+        (!isset($data["casos_nuevos"]["pos_2"]) || $data["casos_nuevos"]["pos_2"] == "") ? NULL : $tb_ini["CNBKP_2"] = $data["casos_nuevos"]["pos_2"];
+        (!isset($data["casos_nuevos"]["pos_3"]) || $data["casos_nuevos"]["pos_3"] == "") ? NULL : $tb_ini["CNBKP_3"] = $data["casos_nuevos"]["pos_3"];
+        (!isset($data["casos_nuevos"]["pos_4"]) || $data["casos_nuevos"]["pos_4"] == "") ? NULL : $tb_ini["CNBKP_4"] = $data["casos_nuevos"]["pos_4"];
+        
+        (!isset($data["sint_resp"]["cap_1"]) || $data["sint_resp"]["cap_1"] == "") ? NULL : $tb_ini["SRC_1"] = $data["sint_resp"]["cap_1"];
+        (!isset($data["sint_resp"]["cap_2"]) || $data["sint_resp"]["cap_2"] == "") ? NULL : $tb_ini["SRC_2"] = $data["sint_resp"]["cap_2"];
+        (!isset($data["sint_resp"]["cap_3"]) || $data["sint_resp"]["cap_3"] == "") ? NULL : $tb_ini["SRC_3"] = $data["sint_resp"]["cap_3"];
+        (!isset($data["sint_resp"]["cap_4"]) || $data["sint_resp"]["cap_4"] == "") ? NULL : $tb_ini["SRC_4"] = $data["sint_resp"]["cap_4"];
+        
+        (!isset($data["sint_resp"]["ident_1"]) || $data["sint_resp"]["ident_1"] == "") ? NULL : $tb_ini["SRId_1"] = $data["sint_resp"]["ident_1"];
+        (!isset($data["sint_resp"]["ident_2"]) || $data["sint_resp"]["ident_2"] == "") ? NULL : $tb_ini["SRId_2"] = $data["sint_resp"]["ident_2"];
+        (!isset($data["sint_resp"]["ident_3"]) || $data["sint_resp"]["ident_3"] == "") ? NULL : $tb_ini["SRId_3"] = $data["sint_resp"]["ident_3"];
+        (!isset($data["sint_resp"]["ident_4"]) || $data["sint_resp"]["ident_4"] == "") ? NULL : $tb_ini["SRId_4"] = $data["sint_resp"]["ident_4"];
+        
+        (!isset($data["pag_inicio"]["total_con_med"])  || $data["pag_inicio"]["total_con_med"] == "") ? NULL : $tb_ini["total_consultas_medicas"] = $data["pag_inicio"]["total_con_med"];
+        
+        
+        return $tb_ini;
+        }
+        
 
 }

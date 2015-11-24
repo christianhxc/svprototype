@@ -42,6 +42,10 @@ $config["cssfiles"][] = "jquery.autocomplete";
 $config["jsfiles"][] = "tb/formulario.js";
 $config["jsfiles"][] = "tb/busquedaSilab.js";
 
+$config["search"]["search"]= $_REQUEST["search"];
+$config["search"]["pag"]= $_REQUEST["pag"];
+$config["search"]["search_comp"]= $_REQUEST["search"]["search_comp"];
+
 $config["info"] = $_REQUEST["info"];
 $config["action"] = "";
 $config["guardarPrevio"] = $_REQUEST["data"]["GuardarPrevio"]["Guardar"];
@@ -73,7 +77,10 @@ if (!isset($_REQUEST["action"])) {
         
         if ($mensaje == 1) {
             $config["info"] = Etiquetas::mensajeInfo;
-            header("location: index.php?info=" . $config["info"]);
+            if ($config["search"]["search"] != '')
+                $search_guardar = "&search=".$config["search"]["search"];
+            $pag_guardar= "&pag=".$config["search"]["pag"];
+            header("location: index.php?info=" . $config["info"].$search_guardar.$pag_guardar);
         } else if ($mensaje == 2) {
             $config["Merror"] = Etiquetas::mensajeError;
         }
@@ -126,39 +133,41 @@ if (isset($_REQUEST["action"])) {
             $config['numero_identificacion'] = $_REQUEST["id"];
             $data = helpertb::buscartb($config);
             $config['read'] = $data[0];
-            
-            
 
             $idTB = $config['read']['id_tb'];
             $MDR = helpertb::buscartbMDR($idTB);
             $config["MDR"]= $MDR;
             $Inmunodepresor = helpertb::buscartbInmunodepresor($idTB);
             $config["Inmunodepresor"]= $Inmunodepresor;
-//            print_r($config['MDR']);           
-            
-//            $vacunas = helpertb::buscartbVacunas($config['tipo_identificacion'], $config['numero_identificacion']);
-//            $config['vacunas'] = $vacunas;
-//            $muestras = helpertb::buscartbMuestrasSilab($idUceti);
-//            $config['muestras'] = $muestras;
-//            $tipoMuestras = helpertb::buscartbTipoMuestras($idUceti);
-//            $config['tipoMuestras'] = $tipoMuestras;
-//            print_r($config['enfermedades']);
-//            exit;
+
         } else {
             $config["data"] = $_POST["data"];
-            $config['tipo_identificacion'] = (!isset($config["data"]["individuo"]["tipoId"]) ? NULL : $config["data"]["individuo"]["tipoId"]);
-            $config['numero_identificacion'] = (!isset($config["data"]["individuo"]["identificador"]) ? NULL : $config["data"]["individuo"]["identificador"]);
-            $data = helpertb::buscartb($config);
+            $config["id_reg"] = $_REQUEST["reg"];
+            if ($_REQUEST["reg"] !=  ""){
+                $data = helpertb::buscartbID($config);
+            } else
+            {
+                $config['tipo_identificacion'] = (!isset($config["data"]["individuo"]["tipoId"]) ? NULL : $config["data"]["individuo"]["tipoId"]);
+                $config['numero_identificacion'] = (!isset($config["data"]["individuo"]["identificador"]) ? NULL : $config["data"]["individuo"]["identificador"]);
+                $data = helpertb::buscartb($config);
+            }    
+            
             $config['read'] = $data[0];
-            $idUceti = $config['read']['id_tb'];
+            
+            $idTB = $config['read']['id_tb'];
+            $MDR = helpertb::buscartbMDR($idTB);
+            $config["MDR"]= $MDR;
+            $Inmunodepresor = helpertb::buscartbInmunodepresor($idTB);
+            $config["Inmunodepresor"]= $Inmunodepresor;
+//            $idUceti = $config['read']['id_tb'];
 //            $enfermedades = helpertb::buscartbEnfermedad($config['tipo_identificacion'], $config['numero_identificacion']);
-            $config['enfermedades'] = $enfermedades;
-//            $vacunas = helpertb::buscartbVacunas($config['tipo_identificacion'], $config['numero_identificacion']);
-            $config['vacunas'] = $vacunas;
-//            $muestras = helpertb::buscartbMuestrasSilab($idUceti);
-            $config['muestras'] = $muestras;
-//            $tipoMuestras = helpertb::buscartbTipoMuestras($idUceti);
-            $config['tipoMuestras'] = $tipoMuestras;
+//            $config['enfermedades'] = $enfermedades;
+////            $vacunas = helpertb::buscartbVacunas($config['tipo_identificacion'], $config['numero_identificacion']);
+//            $config['vacunas'] = $vacunas;
+////            $muestras = helpertb::buscartbMuestrasSilab($idUceti);
+//            $config['muestras'] = $muestras;
+////            $tipoMuestras = helpertb::buscartbTipoMuestras($idUceti);
+//            $config['tipoMuestras'] = $tipoMuestras;
         }
     }
 } else if (isset($config["action"])) {

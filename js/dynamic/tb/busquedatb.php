@@ -89,7 +89,7 @@ if (is_array($data)) {
                                     ' . $estado_tb . '
                                 </td>
                                 <td class="dxgv" width="8%">
-                  <a href="formulario.php?action=R&tipo=' . $data["tipo_identificacion"] . '&id=' . $data["numero_identificacion"] . '" class="" title="Editar">'
+                  <a href="formulario.php?action=R&tipo=' . $data["tipo_identificacion"] . '&id=' . $data["numero_identificacion"] .'&search='.$config["filtro"].'&pag='.$config["page"]. '" class="" title="Editar">'
                 . '<img title="Editar" border=0 src="../img/edit.png"></a>' . $borrarUceti;
         if ($pendiente_uceti == '1') {
             $result .= '<a href="javascript:reporteUceti(' . $data["id_flureg"] . ')" class="" title="Descarga Formulario">'

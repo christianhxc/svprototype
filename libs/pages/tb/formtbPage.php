@@ -30,7 +30,10 @@ class formtb extends page {
 
         $this->tpl->addBlockFile('CONTENT', 'contentBlock', Configuration::templatesPath . 'tb/formulario.tpl.html');
         $this->tpl->setVariable('urlPrefix', Configuration::getUrlprefix());
-
+        
+        if ($this->config["search"]["search"] != "" || $this->config["search"]["pag"] != "") 
+          $this->tpl->setVariable("valSearch", '?search='.$this->config["search"]["search"].'&pag='.$this->config["search"]["pag"]);
+        
 //        $relleno = "";
 //        $totalCatalogos = helperCatalogos::getAntecedentesVacunalesTotalInfluenza()-2;
 //        for ($i = 0; $i < $totalCatalogos; $i++) {
@@ -57,6 +60,9 @@ class formtb extends page {
             $this->tpl->setVariable('mostrarError', 'none');
             $this->tpl->setVariable('valError', '');
         }
+        $this->tpl->setVariable("valIDTB", $this->config['read']['id_tb']);
+        
+        
 
         // Catalogo de poblaciones
         $poblaciones = $this->config["catalogos"]["poblacion"];
@@ -64,7 +70,7 @@ class formtb extends page {
             foreach ($poblaciones as $poblacion) {
                 $this->tpl->setCurrentBlock('blkPoblacion');
                 $this->tpl->setVariable("valPoblacion", $poblacion["id_gpopoblacional"]);
-                $this->tpl->setVariable("opcPoblacion", htmlentities($poblacion["nombre_gpopoblacional"]));
+                $this->tpl->setVariable("opcPoblacion", htmlentities($poblacion["nombre_gpopoblacional"],ENT_COMPAT,"ISO-8859-1"));
                 if ($this->config["read"])
                     $this->tpl->setVariable("selPoblacion", ($poblacion["id_gpopoblacional"] == $this->config["read"]["id_gpopoblacional"]) ? 'selected="selected"' : '');
 
@@ -78,7 +84,7 @@ class formtb extends page {
             foreach ($etnias as $etnia) {
                 $this->tpl->setCurrentBlock('blkEtnia');
                 $this->tpl->setVariable("valEtnia", $etnia["id_etnia"]);
-                $this->tpl->setVariable("opcEtnia", htmlentities($etnia["nombre_etnia"]));
+                $this->tpl->setVariable("opcEtnia", htmlentities($etnia["nombre_etnia"],ENT_COMPAT,"ISO-8859-1"));
                 if ($this->config["read"])
                     $this->tpl->setVariable("selEtnia", ($etnia["id_etnia"] == $this->config["read"]["id_etnia"]) ? 'selected="selected"' : '');
 
@@ -92,7 +98,7 @@ class formtb extends page {
             foreach ($profesiones as $profesion) {
                 $this->tpl->setCurrentBlock('blkProfesion');
                 $this->tpl->setVariable("valProfesion", $profesion["id_profesion"]);
-                $this->tpl->setVariable("opcProfesion", htmlentities($profesion["nombre_profesion"]));
+                $this->tpl->setVariable("opcProfesion", htmlentities($profesion["nombre_profesion"],ENT_COMPAT,"ISO-8859-1"));
                 if ($this->config["read"])
                     $this->tpl->setVariable("selProfesion", ($profesion["id_profesion"] == $this->config["read"]["id_profesion"]) ? 'selected="selected"' : '');
 
@@ -119,6 +125,8 @@ class formtb extends page {
                 $this->tpl->parse('blkGrupoMDR');
             }
         }
+        
+        $this->tpl->setVariable('valMDROtro', $this->config['read']['ant_otro_MDR']);
 
         // Inmunodepresor
         $Inmonodepresores = $this->config["catalogos"]["inmunodepresor"];
@@ -134,12 +142,14 @@ class formtb extends page {
             }
         }
         
+        $this->tpl->setVariable('valinmunodepresorOtro', $this->config['read']['ant_otro_inmuno']);
+        
         $provincias = $this->config["catalogos"]["provincias"];
         if (is_array($provincias)) {
             foreach ($provincias as $provincia) {
                 $this->tpl->setCurrentBlock('blkProIndividuo');
                 $this->tpl->setVariable("valProIndividuo", $provincia["provincia"]);
-                $this->tpl->setVariable("opcProIndividuo", htmlentities($provincia["descripcionProvincia"]));
+                $this->tpl->setVariable("opcProIndividuo", htmlentities($provincia["descripcionProvincia"],ENT_COMPAT,"ISO-8859-1"));
 
                 if ($this->config["preselect"])
                     $this->tpl->setVariable("selProIndividuo", ($provincia["id_provincia"] == $this->config["data"]["individuo"]["idProvincia"] ? 'selected="selected"' : ''));
@@ -153,7 +163,7 @@ class formtb extends page {
                 foreach ($regiones as $region) {
                     $this->tpl->setCurrentBlock('blkRegIndividuo');
                     $this->tpl->setVariable("valRegIndividuo", $region["id_region"]);
-                    $this->tpl->setVariable("opcRegIndividuo", htmlentities($region["nombre_region"]));
+                    $this->tpl->setVariable("opcRegIndividuo", htmlentities($region["nombre_region"],ENT_COMPAT,"ISO-8859-1"));
 
                     if ($this->config["preselect"])
                         $this->tpl->setVariable("selRegIndividuo", ($region["id_region"] == $this->config["data"]["individuo"]["idRegion"] ? 'selected="selected"' : ''));
@@ -168,7 +178,7 @@ class formtb extends page {
                 foreach ($distritos as $distrito) {
                     $this->tpl->setCurrentBlock('blkDisIndividuo');
                     $this->tpl->setVariable("valDisIndividuo", $distrito["id_distrito"]);
-                    $this->tpl->setVariable("opcDisIndividuo", htmlentities($distrito["nombre_distrito"]));
+                    $this->tpl->setVariable("opcDisIndividuo", htmlentities($distrito["nombre_distrito"],ENT_COMPAT,"ISO-8859-1"));
 
                     if ($this->config["preselect"])
                         $this->tpl->setVariable("selDisIndividuo", ($distrito["id_distrito"] == $this->config["data"]["individuo"]["idDistrito"] ? 'selected="selected"' : ''));
@@ -183,7 +193,7 @@ class formtb extends page {
                 foreach ($corregimientos as $corregimiento) {
                     $this->tpl->setCurrentBlock('blkCorIndividuo');
                     $this->tpl->setVariable("valCorIndividuo", $corregimiento["id_corregimiento"]);
-                    $this->tpl->setVariable("opcCorIndividuo", htmlentities($corregimiento["nombre_corregimiento"]));
+                    $this->tpl->setVariable("opcCorIndividuo", htmlentities($corregimiento["nombre_corregimiento"],ENT_COMPAT,"ISO-8859-1"));
 
                     if ($this->config["preselect"])
                         $this->tpl->setVariable("selDisIndividuo", ($corregimiento["id_corregimiento"] == $this->config["data"]["individuo"]["idCorregimiento"] ? 'selected="selected"' : ''));
@@ -220,11 +230,11 @@ class formtb extends page {
 
             $this->tpl->setVariable('valDisplayAutopsia', 'none');
             $this->tpl->setVariable('valDisplayOtraRegion', 'none');
-            $nombreUsuario = htmlentities(clsCaus::obtenerNombres()) . " " . htmlentities(clsCaus::obtenerApellidos());
+            $nombreUsuario = htmlentities(clsCaus::obtenerNombres(),ENT_COMPAT,"ISO-8859-1") . " " . htmlentities(clsCaus::obtenerApellidos(),ENT_COMPAT,"ISO-8859-1");
             if (isset($this->config["data"]["notificacion"]["nombreUsuario"]))
                 $nombreUsuario = $this->config["data"]["notificacion"]["nombreUsuario"];
             $this->tpl->setVariable('valNombreRegistra', $nombreUsuario);
-            $institucionUsuario = htmlentities(clsCaus::obtenerOrgCodigo());
+            $institucionUsuario = htmlentities(clsCaus::obtenerOrgCodigo(),ENT_COMPAT,"ISO-8859-1");
             if (isset($this->config["data"]["notificacion"]["institucionUsuario"]))
                 $institucionUsuario = $this->config["data"]["notificacion"]["institucionUsuario"];
             $this->tpl->setVariable('valInstitucionUsuario', $institucionUsuario);
@@ -240,7 +250,7 @@ class formtb extends page {
                 foreach ($tiposId as $tipoId) {
                     $this->tpl->setCurrentBlock('blkTipoId');
                     $this->tpl->setVariable("valTipoId", $tipoId["id_tipo_identidad"]);
-                    $this->tpl->setVariable("opcTipoId", htmlentities($tipoId["nombre_tipo"]));
+                    $this->tpl->setVariable("opcTipoId", htmlentities($tipoId["nombre_tipo"]),ENT_COMPAT,"ISO-8859-1");
                     if ($this->config["preselect"])
                         $this->tpl->setVariable("selTipoId", ($tipoId["id_tipo_identidad"] == $this->config["data"]["individuo"]["tipoId"] ? 'selected="selected"' : ''));
 
@@ -248,7 +258,7 @@ class formtb extends page {
 
                     $this->tpl->setCurrentBlock('blkPopTipoId');
                     $this->tpl->setVariable("valPopTipoId", $tipoId["id_tipo_identidad"]);
-                    $this->tpl->setVariable("opcPopTipoId", htmlentities($tipoId["nombre_tipo"]));
+                    $this->tpl->setVariable("opcPopTipoId", htmlentities($tipoId["nombre_tipo"],ENT_COMPAT,"ISO-8859-1"));
                     $this->tpl->setVariable("selPopTipoId", '');
                     $this->tpl->parse('blkPopTipoId');
                 }
@@ -270,7 +280,7 @@ class formtb extends page {
                 }
             }
 
-            $this->tpl->setVariable('valNotificacionUnidad', htmlentities($valNotificacionUnidad));
+            $this->tpl->setVariable('valNotificacionUnidad', htmlentities($valNotificacionUnidad,ENT_COMPAT,"ISO-8859-1"));
             $this->tpl->setVariable('valNotificacionIdUn', $valNotificacionIdUn);
             $this->tpl->setVariable('valUnidadNoDisponible', '');
             
@@ -288,7 +298,7 @@ class formtb extends page {
             //Notificacion
             $unidadDisponible = $this->config['read']['unidad_disponible'];
             if ($unidadDisponible == '1') {
-                $this->tpl->setVariable('valNotificacionUnidad', htmlentities($this->config['read']['nombre_un']));
+                $this->tpl->setVariable('valNotificacionUnidad', htmlentities($this->config['read']['nombre_un'],ENT_COMPAT,"ISO-8859-1"));
                 $this->tpl->setVariable('valNotificacionIdUn', $this->config['read']['id_un']);
                 $this->tpl->setVariable('valUnidadNoDisponible', '');
             } else {
@@ -299,8 +309,8 @@ class formtb extends page {
 
 
             $this->tpl->setVariable('valFechaFormulario', helperString::toDateView($this->config['read']['fecha_formulario']));
-            $this->tpl->setVariable('valNombreInvestigador', htmlentities($this->config['read']['nombre_investigador']));
-            $this->tpl->setVariable('valNombreRegistra', htmlentities($this->config['read']['nombre_registra']));
+            $this->tpl->setVariable('valNombreInvestigador', htmlentities($this->config['read']['nombre_investigador'],ENT_COMPAT,"ISO-8859-1"));
+            $this->tpl->setVariable('valNombreRegistra', htmlentities($this->config['read']['nombre_registra'],ENT_COMPAT,"ISO-8859-1"));
 
             $this->tpl->setVariable('valFechaNotificacion', helperString::toDateView($this->config["read"]["fecha_notificacion"]));
             
@@ -313,13 +323,13 @@ class formtb extends page {
                 foreach ($tiposId as $tipoId) {
                     $this->tpl->setCurrentBlock('blkTipoId');
                     $this->tpl->setVariable("valTipoId", $tipoId["id_tipo_identidad"]);
-                    $this->tpl->setVariable("opcTipoId", htmlentities($tipoId["nombre_tipo"]));
+                    $this->tpl->setVariable("opcTipoId", htmlentities($tipoId["nombre_tipo"],ENT_COMPAT,"ISO-8859-1"));
                     $this->tpl->setVariable("selTipoId", ($tipoId["id_tipo_identidad"] == $this->config["read"]["tipo_identificacion"] ? 'selected="selected"' : ''));
                     $this->tpl->parse('blkTipoId');
 
                     $this->tpl->setCurrentBlock('blkPopTipoId');
                     $this->tpl->setVariable("valPopTipoId", $tipoId["id_tipo_identidad"]);
-                    $this->tpl->setVariable("opcPopTipoId", htmlentities($tipoId["nombre_tipo"]));
+                    $this->tpl->setVariable("opcPopTipoId", htmlentities($tipoId["nombre_tipo"],ENT_COMPAT,"ISO-8859-1"));
                     $this->tpl->setVariable("selPopTipoId", ($tipoId["id_tipo_identidad"] == $this->config["read"]["tipo_identificacion"] ? 'selected="selected"' : ''));
                     $this->tpl->parse('blkPopTipoId');
                 }
@@ -343,6 +353,8 @@ class formtb extends page {
             
             // Embarazo
             $this->tpl->setVariable('selEmbarazo'.$this->config['read']['riesgo_embarazo'], 'selected="selected"');
+            $this->tpl->setVariable('valsemana_gestacional', $this->config['read']['riesgo_semana']);
+            
             
             $this->tpl->setVariable('valResponsable', $this->config['read']['per_nombre_referencia']);
             $this->tpl->setVariable('valParentesco', $this->config['read']['per_parentesco']);
@@ -391,6 +403,7 @@ class formtb extends page {
             $this->tpl->setVariable('selMetWRD'.$this->config['read']['mat_diag_metodo_WRD'], 'selected="selected"');
             $this->tpl->setVariable('selResWRD'.($this->config['read']['mat_diag_res_metodo_WRD'] >= 0  ?  $this->config['read']['mat_diag_res_metodo_WRD'] : 'S'  ), 'selected="selected"'); 
             $this->tpl->setVariable('valFechaWRD', helperString::toDateView($this->config['read']['mat_diag_fecha_res_WRD']));
+            $this->tpl->setVariable('selResRifam'.($this->config['read']['mat_diag_res_rifampicina_WRD'] >= 0  ?  $this->config['read']['mat_diag_res_rifampicina_WRD'] : 'S'  ), 'selected="selected"'); 
             
             // Clinico
 //            $this->tpl->setVariable('selResClinico'.$this->config['read']['mat_diag_res_clinico'], 'selected="selected"'); 
@@ -409,15 +422,21 @@ class formtb extends page {
             
             // Clasificiacion
             
-            $this->tpl->setVariable('chkEP'.$this->config['read']['clas_pulmonar_EP'], 'checked=checked"');
+            $this->tpl->setVariable('selLocAnatoEP'.$this->config['read']['clas_pulmonar_EP'], 'selected="selected"');
             $this->tpl->setVariable('selLugarEP'.$this->config['read']['clas_lugar_EP'], 'selected="selected"'); 
+            $this->tpl->setVariable('selLugarEPOtra'.$this->config['read']['clas_lugar_EP_otra'], 'selected="selected"');
  
-            $this->tpl->setVariable('chkHisto'.$this->config['read']['clas_trat_previo'], 'checked=checked"');
+            $this->tpl->setVariable('chkHisto'.$this->config['read']['clas_trat_previo'], 'checked="checked"');
             
-            $this->tpl->setVariable('selRecaida'.$this->config['read']['clas_recaida'], 'selected="selected"'); 
-            $this->tpl->setVariable('selPostFra'.$this->config['read']['clas_postfracaso'], 'selected="selected"');
-            $this->tpl->setVariable('selPerSeg'.$this->config['read']['clas_perdsegui'], 'selected="selected"');
-            $this->tpl->setVariable('selOtrAT'.$this->config['read']['clas_otros_antestratado'], 'selected="selected"');
+//            $this->tpl->setVariable('selRecaida'.$this->config['read']['clas_recaida'], 'selected="selected"'); 
+//            $this->tpl->setVariable('selPostFra'.$this->config['read']['clas_postfracaso'], 'selected="selected"');
+//            $this->tpl->setVariable('selPerSeg'.$this->config['read']['clas_perdsegui'], 'selected="selected"');
+//            $this->tpl->setVariable('selOtrAT'.$this->config['read']['clas_otros_antestratado'], 'selected="selected"');
+            
+            $this->tpl->setVariable('chkRecaida'.$this->config['read']['clas_recaida'], 'checked="checked"'); 
+            $this->tpl->setVariable('chkPostFra'.$this->config['read']['clas_postfracaso'], 'checked="checked"');
+            $this->tpl->setVariable('chkPerSeg'.$this->config['read']['clas_perdsegui'], 'checked="checked"');
+            $this->tpl->setVariable('chkOtrAT'.$this->config['read']['clas_otros_antestratado'], 'checked="checked"');
             
             $this->tpl->setVariable('selDiagVIH'.$this->config['read']['clas_diag_VIH'], 'selected="selected"');
             $this->tpl->setVariable('valFechaDiagVIH', helperString::toDateView($this->config['read']['clas_fecha_diag_VIH']));
@@ -455,6 +474,7 @@ class formtb extends page {
             
             $this->tpl->setVariable('selReferido'.$this->config['read']['trat_referido'], 'selected="selected"');
             $this->tpl->setVariable('valInstSaludRef', $this->config['read']['trat_inst_salud_ref']);
+            $this->tpl->setVariable('selLugDiag'.$this->config['read']['trat_lug_diag'], 'selected="selected"');
 
             $this->tpl->setVariable('valFechaIniF1', helperString::toDateView($this->config['read']['trat_fecha_inicio_tratF1']));
             
@@ -508,7 +528,7 @@ class formtb extends page {
                     $this->tpl->setVariable("visita_indice", $visita["id_tb_visita"]);
                     $this->tpl->setVariable("id_tipo_visita", $visita["id_tipo_visita"]);
                     $this->tpl->setVariable("id_tb_visita", $visita["id_tb_visita"]);
-                    $this->tpl->setVariable("nombre_visita", htmlentities($visita["nombre_tipo_visita"]));
+                    $this->tpl->setVariable("nombre_visita", htmlentities($visita["nombre_tipo_visita"],ENT_COMPAT,"ISO-8859-1"));
                     $this->tpl->setVariable("fecha_visita",helperString::toDateView($visita["fecha_visita"]) );
                     $this->tpl->parse('blkVisitaDetalle');
                 }
@@ -605,7 +625,7 @@ class formtb extends page {
 
         $this->tpl->setVariable("botonGuardar", '<a href="javascript:validartb();" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Guardar</a>&nbsp;');
 //        $this->tpl->setVariable("botonGuardar", '<a href="javascript:pruebadeguardar();" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Guardar</a>&nbsp;');
-        $this->tpl->setVariable("botonCancelar", '<a href="index.php" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Cancelar</a>');
+        $this->tpl->setVariable("botonCancelar", '<a href="index.php?search='.$this->config["search"]["search"].'&pag='.$this->config["search"]["pag"].'" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Cancelar</a>');
         
         $this->tpl->touchBlock('contentBlock');
     }

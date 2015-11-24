@@ -8,6 +8,7 @@ var globalPruebasSilab = new Array();
 
 // Inicializacion fechas
 
+
 $(function() {
     $( "#fecha_nacimiento" ).datepicker({
         dateFormat: 'dd/mm/yy',
@@ -471,46 +472,6 @@ $(document).ready(function() {
     
     $("table[id='insert_control']").toggle(false);
     $("#cancelar_Ctrl").css("display","none");
-    relacionempleado();
-    GrupoPoblacional();
-    semanaOblig();
-    sexoEmbarazo();
-    privacionLibertad();
-    privacionLibertadAntes();
-    clasificacionBK1();
-    clasificacionBK2();
-    clasificacionBK3();
-    clasificacionTB();
-    clasificacionBKControl();
-    clasificacionPresoControl();
-    ControlReaAdv();
-    otroRX();
-    otroWRD();
-    Pulmonar_EP();
-    Antes_Tratado();
-    TB_VIH();
-//    ContactEdad();  // Desactivado por requerimiento de DO
-    EdadEscolaridad();
-    Egreso_excl();
-    Res_VIH();
-    Ref_Inst();
-    Res_med();
-    Tab_VIH();
-    Cul_Ctrl();
-    
-    cotrimoVIH_sin();
-    TARVrefVIH_sin();
-    TARViniVIH_sin();
-    
-    cotrimoVIH_con();
-    TARViniVIH_con();
-    
-    label_MDR_message();
-    Tooltip_field();
-    individuo($("#drpTipoId").val(), $("#no_identificador").val());
-
-// Popup de búsqueda
-    $( "#dialog:ui-dialog" ).dialog( "destroy" );
     
     // Divide en tabs el ingreso de los datos
     $(function() {
@@ -524,6 +485,55 @@ $(document).ready(function() {
             }
         });
     });
+//    sexoEmbarazo();
+    relacionempleado();
+    GrupoPoblacional();
+    privacionLibertad();
+    privacionLibertadAntes();
+    clasificacionBK1();
+    clasificacionBK2();
+    clasificacionBK3();
+    clasificacionTB();
+    clasificacionBKControl();
+    clasificacionPresoControl();
+    ControlReaAdv();
+    otroRX();
+    otroWRD();
+    Pulmonar_EP();
+    Pulmonar_EP_Otra();
+    Antes_Tratado();
+    TB_VIH();
+    Prueba_VIH_act();
+//    ContactEdad();  // Desactivado por requerimiento de DO
+    EdadEscolaridad();
+    Egreso_excl();
+    Res_VIH();
+    Ref_Inst();
+    Ref_Trat_Fam();
+    Res_med();
+    Tab_VIH();
+    Cul_Ctrl();
+    
+    cotrimoVIH_sin();
+    TARVrefVIH_sin();
+    TARViniVIH_sin();
+    
+    cotrimoVIH_con();
+    TARViniVIH_con();
+    
+    label_MDR_message();
+    Res_MDR();
+    Res_Inmuno();
+    Tooltip_field();
+    individuo($("#drpTipoId").val(), $("#no_identificador").val());
+
+    semanaOblig();
+// Popup de búsqueda
+    $( "#dialog:ui-dialog" ).dialog( "destroy" );
+    
+
+    
+    
     
     $( "#dialog-form" ).dialog({
         autoOpen: false,
@@ -848,13 +858,23 @@ $(document).ready(function() {
     
     // Pulmonar - Extra Pulmonar
     
-    $("#pulmonar").change(function(){
+    $("#drplocanato").change(function(){
         Pulmonar_EP();
-    });       
+    });
     
-    $("#EP").change(function(){
-        Pulmonar_EP();
-    });    
+    $("#drplugar_EP").change(function(){
+        Pulmonar_EP_Otra();
+    }); 
+    
+    
+  //    Historia de tratamiento previo - Antes tratado  
+    
+    
+    $("#postfracaso, #recaida, #perdsegui, #otros_antestratado").change(function(){
+        
+        $("#postfracaso, #recaida, #perdsegui, #otros_antestratado ").attr("checked",false);
+        $(this).attr("checked",true);
+    });
     
     // Antes tratado
 
@@ -877,6 +897,12 @@ $(document).ready(function() {
         Res_VIH();
     });
     
+    
+    $("#drprealizada_VIH").change(function(){
+        Prueba_VIH_act();
+    });
+    
+    
     // Egreso
     
     $("#drpcond_egreso").change(function(){
@@ -884,6 +910,13 @@ $(document).ready(function() {
     });
 
 
+    $("input[id='MDR']").change(function(){
+        Res_MDR();
+    });
+    
+    $("input[id='inmunodepresor']").change(function(){
+        Res_Inmuno();
+    });
     
     // Clasi.
     
@@ -952,6 +985,12 @@ $(document).ready(function() {
     $('#drpreferido').change(function(){
         Ref_Inst();
     });
+    
+    
+    $('#drpadministracionF1').change(function(){
+        Ref_Trat_Fam();
+    });
+    
     
     
     // Control
@@ -1175,16 +1214,29 @@ function clasificacionBK3(){
 function clasificacionTB(){
     
         // Cuando la profesion es otros - AM
+        if ($("#drpres_WRD").val() == "2" && $("#drpmetodo_WRD").val() == "1" )
+        {
+            $("#tdMTBdet").show();
+        } else
+        {
+            $("#tdMTBdet").hide();
+            $("#drpres_rifampicina").val("");
+        }
         
         
         if ($("#drpres_BK1").val()=="1" || 
             $("#drpres_BK2").val()=="1" || 
             $("#drpres_BK3").val()=="1" ||  
             $("#drpres_cultivo").val()=="2" ||
-                    $("#drpres_WRD").val()=="1" )
+                    $("#drpres_WRD").val()=="1" ||
+                    $("#drpres_WRD").val()=="2" ||
+                    $("#drpres_WRD").val()=="3" ||
+                    $("#drpres_WRD").val()=="4" ||
+                    $("#drpres_WRD").val()=="5")
         {
                 $("#conf_bacteriol" ).css( "display", ""  );
                 $("#conf_clinico" ).css( "display", "none" );
+                $("#tabs").tabs("enable",4)
         } 
         else if (   $("#drpres_clinico").val()=="1" ||
                     $("#drpres_R-X").val()=="1" ||
@@ -1193,11 +1245,13 @@ function clasificacionTB(){
         {
                 $("#conf_bacteriol" ).css( "display", "none"  );
                 $("#conf_clinico" ).css( "display", "" );
+                $("#tabs").tabs("enable",4)
         }
             
         else{
                 $("#conf_bacteriol" ).css( "display", "none"  );
                 $("#conf_clinico" ).css( "display", "none" );
+                $( "#tabs" ).tabs("disable", 4);
         }
 }
 
@@ -1511,6 +1565,7 @@ function individuo(tipoId,idP)
     $.ajax({
         type: "POST",
         url: urlprefix + 'js/dynamic/datosPersonatb.php',
+        async: "false",
         data: "tipo_id="+tipoId+"&id="+ idP,
         success: function(data)
         {
@@ -1585,6 +1640,8 @@ function individuo(tipoId,idP)
                 found = true;
                 calcularEdad();
                 sexoEmbarazo();
+                EdadEscolaridad();
+                
             }
             else
                 found = false;
@@ -2050,13 +2107,25 @@ function privacionLibertadAntes(){
 // Pulmonar - Extra Pulmonar
 
 function Pulmonar_EP(){
-    pulmonar_EP = $('#EP').is(':checked');
-    if(pulmonar_EP){
+
+    if($('#drplocanato').val() == "2"){
         $( "#tr_EP" ).css( "display", "" );
     }
     else{
         $( "#tr_EP" ).css( "display", "none" );
         $( "#drplugar_EP" ).val("");
+        
+        
+    }
+}
+function Pulmonar_EP_Otra(){
+
+    if($('#drplugar_EP').val() == "2"){
+        $( "#tr_EP_Otra" ).css( "display", "" );
+    }
+    else{
+        $( "#tr_EP_Otra" ).css( "display", "none" );
+        $( "#drplugar_EP_otra" ).val("");
         
         
     }
@@ -2071,6 +2140,8 @@ function Antes_Tratado(){
     }
     else{
         $( "#table_antes_tratado" ).css( "display", "none" );
+        $("#postfracaso, #recaida, #perdsegui, #otros_antestratado ").attr("checked",false);
+        
     }
 }
 
@@ -2082,7 +2153,9 @@ function TB_VIH(){
         $( "#field_sin_prueba" ).css( "display", "none" );
         $( "#field_prueba" ).css( "display", "none" );
         $( "#field_prueba_no" ).css( "display", "" );
-        $( "#drpsolicitud_VIH" ).val("");   
+        $( "#drpsolicitud_VIH" ).val("");  
+        $("#td_label_fecha_VIH, #td_fecha_VIH").hide();
+        $("#fecha_diag_VIH").val("");
     }
     else if( Prueba_VIH == "1")
     {
@@ -2090,11 +2163,16 @@ function TB_VIH(){
         $( "#field_prueba" ).css( "display", "" );
         $( "#field_prueba_no" ).css( "display", "none" );
         $( "#drpsolicitud_VIH" ).val("");
+        $("#td_label_fecha_VIH, #td_fecha_VIH").show();
+        
+        
     }
     else{
         $( "#field_sin_prueba" ).css( "display", "" );
         $( "#field_prueba" ).css( "display", "none" );
-        $( "#field_prueba_no" ).css( "display", "none" );        
+        $( "#field_prueba_no" ).css( "display", "none" );
+        $("#td_label_fecha_VIH, #td_fecha_VIH").show();
+        
     }
 }
 
@@ -2160,14 +2238,40 @@ function Egreso_excl(){
 function Res_VIH(){
     Result_VIH = $('#drpdiag_VIH').val();
 //    if(Result_VIH != "1"){
-        $( "#td_label_fecha_VIH" ).css( "visibility", "hidden" );
-        $( "#td_fecha_VIH" ).css( "visibility", "hidden" );
+//        $( "#td_label_fecha_VIH" ).css( "visibility", "hidden" );
+//        $( "#td_fecha_VIH" ).css( "visibility", "hidden" );
 //    }
 //    else 
 //        {
 //        $( "#td_label_fecha_VIH" ).css( "visibility", "" );
 //        $( "#td_fecha_VIH" ).css( "visibility", "" );
 //        }
+    
+}
+
+function Prueba_VIH_act(){
+    Result_VIH = $('#drprealizada_VIH').val();
+    if(Result_VIH != "0"){
+        $( "#fecha_muestra_VIH" ).attr( "disabled", false );
+        $( "#drpres_VIH" ).attr( "disabled", false );
+        $( "#drpaseso_VIH" ).attr( "disabled", false );
+        $( "#drpTARV" ).attr( "disabled", false );
+        $( "#fecha_TARV" ).attr( "disabled", false );
+    }
+    else 
+        {
+            $( "#fecha_muestra_VIH" ).val("");
+            $( "#fecha_muestra_VIH" ).attr( "disabled", true );
+            $( "#drpres_VIH" ).val("");
+            $( "#drpres_VIH" ).attr( "disabled", true );
+            $( "#drpaseso_VIH" ).val("");
+            $( "#drpaseso_VIH" ).attr( "disabled", true );
+            $( "#drpTARV" ).val("");
+            $( "#drpTARV" ).attr( "disabled", true );
+            $( "#fecha_TARV" ).val("");
+            $( "#fecha_TARV" ).attr( "disabled", true );
+            
+        }
     
 }
 
@@ -2187,7 +2291,15 @@ function Ref_Inst(){
     
 }
 
-
+function Ref_Trat_Fam(){
+    Ref_Trat = $('#drpadministracionF1').val();
+    if(Ref_Trat == "2"){
+        $( "#tr_adm_fam" ).show();
+    } else {
+        $( "#tr_adm_fam" ).hide();
+    }
+    
+}
 
 
 function Tab_VIH(){
@@ -2234,20 +2346,45 @@ function Tab_VIH(){
 
         $( "#drpacepto_VIH" ).attr("disabled", false);
         $( "#drprealizada_VIH" ).attr("disabled", false);
-        $( "#fecha_muestra_VIH" ).attr("disabled", false);
-        $( "#drpres_VIH" ).attr("disabled", false);
-        $( "#drpaseso_VIH" ).attr("disabled", false);
-        $( "#drpcotrimoxazol" ).attr("disabled", false);
-        $( "#fecha_cotrimoxazol" ).attr("disabled", false);
-        $( "#drpTARV" ).attr("disabled", false);
-        $( "#fecha_TARV" ).attr("disabled", false);
-        $( "#drpinicio_TARV" ).attr("disabled", false);
-        $( "#fecha_inicio_TARV" ).attr("disabled", false);
-        $( "#lug_adm_TARV" ).attr("disabled", false);
-        $( "#drpesq_TARV" ).attr("disabled", false);        
+//        $( "#fecha_muestra_VIH" ).attr("disabled", false);
+//        $( "#drpres_VIH" ).attr("disabled", false);
+//        $( "#drpaseso_VIH" ).attr("disabled", false);
+//        $( "#drpcotrimoxazol" ).attr("disabled", false);
+//        $( "#fecha_cotrimoxazol" ).attr("disabled", false);
+//        $( "#drpTARV" ).attr("disabled", false);
+//        $( "#fecha_TARV" ).attr("disabled", false);
+//        $( "#drpinicio_TARV" ).attr("disabled", false);
+//        $( "#fecha_inicio_TARV" ).attr("disabled", false);
+//        $( "#lug_adm_TARV" ).attr("disabled", false);
+//        $( "#drpesq_TARV" ).attr("disabled", false);        
 
         }
     
+}
+
+
+function Res_MDR(){
+    if ($("input[id='MDR'][value='7']").is(":checked"))
+    {
+        $("#MDRotro").show();
+    }else {
+        $("#MDRotro").hide();
+        $("#MDRotro").val("");
+    }
+        
+
+}
+
+function Res_Inmuno(){
+    if ($("input[id='inmunodepresor'][value='3']").is(":checked"))
+    {
+        $("#inmunodepresorotro").show();
+    }else {
+        $("#inmunodepresorotro").hide();
+        $("#inmunodepresorotro").val("");
+    }
+        
+
 }
 
 function Res_med(){
@@ -2540,8 +2677,17 @@ function otroWRD(){
     otrorx = $('#drpmetodo_WRD').val();
     if(otrorx == ''){
         $( "#tdResWRD" ).css( "visibility", "hidden" );
+        $("#drpres_WRD, #fecha_WRD, #drpres_rifampicina").val("");
+        $("#drpres_rifampicina").hide();
     }
     else{
+        if (otrorx == "1" && $("#drpres_WRD").val() == "2") { 
+            $("#tdMTBdet").show();
+        } else
+        {
+            $("#drpres_rifampicina").val("");
+            $("#tdMTBdet").hide(); 
+        }
         $( "#tdResWRD" ).css( "visibility", "" );
     }
 }
@@ -2786,11 +2932,11 @@ function validartb(){
     
 // Desactivado por requerimiento de DO
     
-//    MDR_ = $("input:checkbox[id='MDR']:checked");
-//    
-//    if (MDR_.length == 0) {
-//        ErroresA+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe seleccionar una opci&oacute;n de 'Grupo de riesgo MDR'.";
-//    }    
+    MDR_ = $("input:checkbox[id='MDR']:checked");
+    
+    if (MDR_.length == 0) {
+        ErroresA+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe seleccionar una opci&oacute;n de 'Grupo de riesgo MDR'.";
+    }    
 
 
 //    Metodo de diagnostico  -> ErroresM 
@@ -2949,10 +3095,10 @@ function validartb(){
 
 //    Clasificacion -> ErroresCl 
 
-     if (!($("#pulmonar").is(":checked")) && !($("#EP").is(":checked")))
+     if ($("#drplocanato").val() == "" )
        ErroresCl+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe escoger una de las opciones de Localizaci&oacute;n Anat&oacute;mica ";  
      
-     if ($("#EP").is(":checked") && $("#drplugar_EP").val()=="")
+     if ($("#drplocanato").val() == "2" && $("#drplugar_EP").val()=="")
        ErroresCl+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar una opci&oacute;n en Lugar EP";  
 
      if (!($("#nuevo").is(":checked")) && !($("#antes_tratado").is(":checked")) && !($("#historia_desconocida").is(":checked")))
@@ -3052,29 +3198,29 @@ if (jQuery.trim($("#action").val()) == "M" || jQuery.trim($("#action").val()) ==
 
 //   Contacto -> ErroresCon 
 
-if (jQuery.trim($("#action").val()) == "M" || jQuery.trim($("#action").val()) == "R"){
-        if($("#identificados5min").val()=="")
-            ErroresCon+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos identificados.";
-        if($("#sinto_resp5min").val()=="")
-            ErroresCon+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos sintom&aacute;ticos respiratorios .";   
-        if($("#evaluados5min").val()=="")
-            ErroresCon+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos evaluados.";
-        if($("#quimioprofilaxis5min").val()=="")
-            ErroresCon+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos con Quimioprofilaxis.";
-        if($("#TB5min").val()=="")
-            ErroresCon+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos con TB.";
-        if($("#identificados5pl").val()=="")
-            ErroresCon+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos identificados.";
-        if($("#sinto_resp5pl").val()=="")
-            ErroresCon+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos sintom&aacute;ticos respiratorios .";   
-        if($("#evaluados5pl").val()=="")
-            ErroresCon+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos evaluados.";
-        if($("#quimioprofilaxis5pl").val()=="")
-            ErroresCon+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos con Quimioprofilaxis.";
-        if($("#TB5pl").val()=="")
-            ErroresCon+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos con TB.";       
+    if (jQuery.trim($("#action").val()) == "M" || jQuery.trim($("#action").val()) == "R") {
+        if ($("#identificados5min").val() == "")
+            ErroresCon += "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos identificados.";
+        if ($("#sinto_resp5min").val() == "")
+            ErroresCon += "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos sintom&aacute;ticos respiratorios .";
+        if ($("#evaluados5min").val() == "")
+            ErroresCon += "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos evaluados.";
+        if ($("#quimioprofilaxis5min").val() == "")
+            ErroresCon += "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos con Quimioprofilaxis.";
+        if ($("#TB5min").val() == "")
+            ErroresCon += "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos con TB.";
+        if ($("#identificados5pl").val() == "")
+            ErroresCon += "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos identificados.";
+        if ($("#sinto_resp5pl").val() == "")
+            ErroresCon += "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos sintom&aacute;ticos respiratorios .";
+        if ($("#evaluados5pl").val() == "")
+            ErroresCon += "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos evaluados.";
+        if ($("#quimioprofilaxis5pl").val() == "")
+            ErroresCon += "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos con Quimioprofilaxis.";
+        if ($("#TB5pl").val() == "")
+            ErroresCon += "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Total de contactos con TB.";
 
-}
+    }
 
 //   Visitas -> ErroresVi 
 
@@ -3087,28 +3233,35 @@ if (jQuery.trim($("#action").val()) == "M" || jQuery.trim($("#action").val()) ==
 //             ErroresE+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar la 'Fecha de egreso' y la 'Condici&oacute;n de egreso' obligatoriamente cuando modifica un registro.";
 //         }
 
-    if(jQuery.trim($("#fecha_egreso").val())=="" && jQuery.trim($("#fecha_fin_tratF2").val())!="")
-    {
-        ErroresE+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar la Fecha de egreso.";
-    }
-    else
-    {
-        if(!isDate($("#fecha_egreso").val().toString())  && jQuery.trim($("#fecha_fin_tratF2").val())!="")
-            ErroresE+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- La fecha de egreso no tiene el formato adecuado.";
-        else{
-            if(comparacionFechas($("#fecha_egreso").val().toString(),fechaActualString())  && jQuery.trim($("#fecha_fin_tratF2").val())!="")
-                ErroresE+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- La fecha de egreso no puede ser una fecha futura.";
+//&& jQuery.trim($("#fecha_fin_tratF2").val())!=""
+//&& jQuery.trim($("#fecha_fin_tratF2").val())!=""
+
+    if (jQuery.trim($("#action").val()) == "M" || jQuery.trim($("#action").val()) == "R") {
+
+        if ($("#fecha_fin_tratF2").val() != "") {
+            if (jQuery.trim($("#fecha_egreso").val()) == "")
+            {
+                ErroresE += "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar la Fecha de egreso.";
+            }
+            else
+            {
+                if (!isDate($("#fecha_egreso").val().toString()))
+                    ErroresE += "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- La fecha de egreso no tiene el formato adecuado.";
+                else {
+                    if (comparacionFechas($("#fecha_egreso").val().toString(), fechaActualString()) && jQuery.trim($("#fecha_fin_tratF2").val()) != "")
+                        ErroresE += "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- La fecha de egreso no puede ser una fecha futura.";
+                }
+            }
+
+            if (jQuery.trim($("#drpcond_egreso").val()) == "" && jQuery.trim($("#fecha_egreso").val()) != "")
+                ErroresE += "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar la Condici&oacute;n de egreso.";
+
+
+            if (jQuery.trim($("#drpcond_egreso").val()) == "7" && jQuery.trim($("#drpmotivo_exclusion").val()) == "")
+                ErroresE += "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Motivo de Exclusi&oacute;n.";
         }
     }
-
-    if(jQuery.trim($("#drpcond_egreso").val())=="" && jQuery.trim($("#fecha_egreso").val())!="")
-        ErroresE+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar la Condici&oacute;n de egreso.";
     
-    
-    if(jQuery.trim($("#drpcond_egreso").val())=="7" && jQuery.trim($("#drpmotivo_exclusion").val())=="")
-        ErroresE+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el Motivo de Exclusi&oacute;n.";
-
-
     (ErroresN=="")? ErroresNotificacion="": ErroresNotificacion = ErroresNotificacion+ErroresN + "<br/>";
     (ErroresI=="")? ErroresIndividuo="": ErroresIndividuo = ErroresIndividuo+ErroresI + "<br/>";
     (ErroresA=="")? ErroresAntecedentes="": ErroresAntecedentes = ErroresAntecedentes+ErroresA + "<br/>";

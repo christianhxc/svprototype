@@ -165,16 +165,20 @@
         <div id="resultadosBusquedaSilab" align="center"></div>
     </div>
 
-    <form id="frmContenido" class="niceform" action="{urlprefix}tb/formulario.php" method="POST" donsubmit="return validartb();" donsubmit="return pruebadeguardar();">
+    <form id="frmContenido" class="niceform" action="{urlprefix}tb/formulario.php{valSearch}" method="POST" donsubmit="return validartb();" donsubmit="return pruebadeguardar();">
         <table width="100%">
             <tr>
                 <td>
                     <h2>Formulario de Tuberculosis <img title="Tuberculosis" border=0 src="../img/TB-Logo.png">&nbsp;<span style="font-size:10px;">M&oacute;dulo financiado por la OPS</span>&nbsp;<img title="Tuberculosis" border=0 src="../img/OPS_logo_p.png"> </h2>
                 </td>
                 <td align="right">
-                    <div style="color: #A4BC2B;">
+                    <span style="color: #A4BC2B;">
+                        Registro TB: 
+                        <label style="color: red">{valIDTB}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
+                    </span>
+                    <div style="color: #A4BC2B; display: inline-block;">
                         Regresar
-                        <a href="index.php" class="" style="text-decoration: none; font-weight:bold;">
+                        <a href="index.php{valSearch}" class="" style="text-decoration: none; font-weight:bold;">
                             <img title="Regresar" border=0 src="../img/back.png"></a>
                     </div>
                 </td>
@@ -225,10 +229,10 @@
                                 <input type="text" id="notificacion_unidad" style="width:100%" value="{valNotificacionUnidad}"/>
                                 <input type="hidden" name="data[notificacion][id_un]" id="notificacion_id_un" value="{valNotificacionIdUn}" />
                             </td>
-                            <td >
+                            <!-- td >
                                 <input type="checkbox" id="unidad_disponible" name="data[notificacion][unidad_disponible]" {valUnidadNoDisponible} onchange="otraUnidad()"/>
                                        <label >No Disponible</label>
-                            </td>
+                            </td -->
                         </tr>
                         <tr >
                             <td>Nombre de quien notifica: <span class="mandatory">*</span></td>
@@ -575,6 +579,7 @@
                                            <label for="inmunodepresor">{nombre_inmunodepresor}</label>
                                 </div>
                                 <!-- END blkInmunodepresor -->
+                                <input id="inmunodepresorotro" name="data[antecedentes][inmunodepresor_otro]" value="{valinmunodepresorOtro}" style="width:120px" maxlength="150" type="text">&nbsp;&nbsp;
                             </td>
                         </tr> 
                         <tr>
@@ -689,7 +694,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td width="150">Grupo de riesgo MDR: </td>
+                            <td width="150">Grupo de riesgo MDR: <span class="mandatory">*</span> </td>
                             <td colspan="3">
                                 <!-- BEGIN blkGrupoMDR -->
                                 <div class="floatDiv listMDR">
@@ -697,7 +702,9 @@
                                            <label for="grupomdr">{nombre_MDR}</label>
                                 </div>
                                 <!-- END blkGrupoMDR -->
+                                <input id="MDRotro" name="data[antecedentes][MDR_otro]" value="{valMDROtro}" style="width:200px" maxlength="150" type="text">&nbsp;&nbsp;
                             </td>
+                            
                         </tr>
                         <tr id="alert_MDR">
                             <td colspan="4" align="center">
@@ -733,10 +740,11 @@
                                     <label id="label_clasiBK1">Clasificaci&oacute;n BK1:<span class="mandatory">*</span></label>&nbsp;&nbsp;
                                     <select id="drpcla_BK1" name="data[met_diag][clasificacion_BK1]" >
                                         <option value="">Sel...</option>
+                                        <option value="4" {selClasBK14}>de 0 a 9 BK/100 C</option>
                                         <option value="1" {selClasBK11}>1&plus;</option>
                                         <option value="2" {selClasBK12}>2&plus;</option>
                                         <option value="3" {selClasBK13}>3&plus;</option>
-                                        <option value="4" {selClasBK14}>de 0 a 9 BK/100 C</option>
+                                        
                                     </select>
                                 </td>
                             </tr>
@@ -758,10 +766,10 @@
                                     <label id="label_clasiBK2">Clasificaci&oacute;n BK2:<span class="mandatory">*</span></label>&nbsp;&nbsp;
                                     <select id="drpcla_BK2" name="data[met_diag][clasificacion_BK2]" >
                                         <option selected value="">Seleccione...</option>
+                                        <option value="4" {selClasBK24}>de 0 a 9 BK/100 C</option>
                                         <option value="1" {selClasBK21}>1&plus;</option>
                                         <option value="2" {selClasBK22}>2&plus;</option>
                                         <option value="3" {selClasBK23}>3&plus;</option>
-                                        <option value="4" {selClasBK24}>de 0 a 9 BK/100 C</option>
                                     </select>
                                 </td>
                             </tr>
@@ -783,10 +791,10 @@
                                     <label id="label_clasiBK3" >Clasificaci&oacute;n BK3:<span class="mandatory">*</span></label>&nbsp;&nbsp;
                                     <select id="drpcla_BK3" name="data[met_diag][clasificacion_BK3]" >
                                         <option selected value="">Seleccione...</option>
+                                        <option value="4" {selClasBK34}>de 0 a 9 BK/100 C</option>
                                         <option value="1" {selClasBK31}>1&plus;</option>
                                         <option value="2" {selClasBK32}>2&plus;</option>
                                         <option value="3" {selClasBK33}>3&plus;</option>
-                                        <option value="4" {selClasBK34}>de 0 a 9 BK/100 C</option>
                                     </select>
                                 </td>
                             </tr>
@@ -833,12 +841,27 @@
                                         <option value="" {selResWRDS}>Seleccione...</option>
                                         <option {selResWRD1} value="1">Positivo</option>
                                         <option {selResWRD0} value="0">Negativo</option>
+                                        <option {selResWRD2} value="2">MTB Detectado</option>
+                                        <option {selResWRD3} value="3">MTB No Detectado</option>
+                                        <option {selResWRD4} value="4">Indeterminado</option>
+                                        <option {selResWRD5} value="5">Desconocido</option>
                                     </select>
                                     <label>Fecha:</label>
                                     <input id="fecha_WRD" name="data[met_diag][fecha_WRD]" style="width: 100px;" maxlength="10"  type="text" value="{valFechaWRD}">
                                     <span class="ui-datepicker-append"> dd/mm/aaaa</span>
-                                </td>							
-                            </tr>						
+                                </td>
+                                
+                            </tr>
+                            <tr id="tdMTBdet">
+                                <td colspan="2">
+                                    <label>Resistencia Rifampicina:</label>&nbsp;&nbsp;
+                                    <select id="drpres_rifampicina" name="data[met_diag][resistencia_rifampicina]" >
+                                        <option value="" {selResRifamS}>Seleccione...</option>
+                                        <option {selResRifam1} value="1">Sensible</option>
+                                        <option {selResRifam0} value="0">Resistente</option>
+                                    </select>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </fieldset>
@@ -910,8 +933,8 @@
                             <tr>
 
                                 <td>
-                                    <div id="conf_bacteriol">TB bacteriol&oacute;gicamente confirmada</div>  
-                                    <div id="conf_clinico"> TB cl&iacute;nicamente diagnosticada</div> 
+                                    <div id="conf_bacteriol">Bacteriol&oacute;gicamente confirmado</div>  
+                                    <div id="conf_clinico">Cl&iacute;nicamente diagnosticado</div> 
                                 </td>
                             </tr>
                         </tbody>
@@ -926,25 +949,53 @@
                     <table dalign="center" border="0" width="40%">
                         <tbody>
                             <tr>
-                                <td><label>Pulmonar:<span class="mandatory">*</span></label></td>
-                                <td width="20%" align="left">
+                                <td><label><nobr>Localizaci&oacute;n anat&oacute;mica:</nobr><span class="mandatory">*</span></label></td>
+                                <!--td width="20%" align="left">
                                     <input type="radio" name="data[clasificacion][pulmonar_EP]" id="pulmonar" value="1" {chkEP1} />
                                 </td>
                                 <td><label>Extrapulmonar (EP):<span class="mandatory">*</span></label></td>
                                 <td width="20%" align="left">
                                     <input type="radio" name="data[clasificacion][pulmonar_EP]" id="EP" value="2" {chkEP2} />
+                                </td -->
+                                <td>
+                                    <select id="drplocanato" name="data[clasificacion][pulmonar_EP]" >
+                                        <option value="">Seleccione...</option>
+                                        <option value="1" {selLocAnatoEP1}>Pulmonar</option>
+                                        <option value="2" {selLocAnatoEP2}>Extrapulmonar (EP)</option>
+                                    </select>
                                 </td>
 
                             </tr>
                             <tr id ="tr_EP">
 
                                 <td id="label_lugarEP"><label>Lugar EP:<span class="mandatory">*</span></label></td>
-                                <td id="drp_lugarEP" colspan="2">
+                                <td id="drp_lugarEP" >
                                     <select id="drplugar_EP" name="data[clasificacion][lugar_EP]" >
                                         <option value="">Seleccione...</option>
                                         <option value="1" {selLugarEP1}>Meningea</option>
                                         <option value="2" {selLugarEP2}>Otra</option>
-                                    </select>&nbsp;&nbsp;
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr id ="tr_EP_Otra">
+
+                                <td id="label_lugarEP_Otra"><label>Indique Lugar EP:<span class="mandatory">*</span></label></td>
+                                <td id="drp_lugarEP_Otra" >
+                                    <select id="drplugar_EP_otra" name="data[clasificacion][lugar_EP_otra]" >
+                                        <option value="">Seleccione...</option>
+                                        <option value="1" {selLugarEPOtra1}>Derrame pleural tuberculoso</option>
+                                        <option value="2" {selLugarEPOtra2}>Linfoadenopatía tuberculosa intratoracica</option>
+                                        <option value="3" {selLugarEPOtra3}>Tb de Pleura</option>
+                                        <option value="4" {selLugarEPOtra4}>Tb de ganglios linfáticos</option>
+                                        <option value="5" {selLugarEPOtra5}>Tb del tracto gastrointestinal</option>
+                                        <option value="6" {selLugarEPOtra6}>Tb del tracto genitourinario</option>
+                                        <option value="7" {selLugarEPOtra7}>Tb de piel</option>
+                                        <option value="8" {selLugarEPOtra8}>Tb de oído</option>
+                                        <option value="9" {selLugarEPOtra9}>Tb de ojo</option>
+                                        <option value="10" {selLugarEPOtra10}>Tb de columna vertebral</option>
+                                        <option value="11" {selLugarEPOtra11}>Tb huesos y/o articulaciones</option>
+                                        <option value="12" {selLugarEPOtra12}>Tb de otros órganos</option>
+                                    </select>
                                 </td>
                             </tr>
                         </tbody>
@@ -980,47 +1031,49 @@
                                 <td><label>Reca&iacute;da:<span class="mandatory">*</span></label>
                                 </td>
                                 <td>
-                                    <select id="drprecaida" name="data[clasificacion][recaida]" >
+                                    <input type="radio" name="data[clasificacion][recaida]"  id="recaida" value="1" {chkRecaida1} /> &nbsp;&nbsp;
+                                    <!-- select id="drprecaida" name="data[clasificacion][recaida]" >
                                         <option value="">Sel...</option>
                                         <option value="1" {selRecaida1}>Si</option>
                                         <option value="0" {selRecaida0}>No</option>
-                                    </select>&nbsp;&nbsp;
+                                    </select> -->
                                 </td>
                                 <td ><label>Tratado Post fracaso:<span class="mandatory">*</span></label>
                                 </td>
                                 <td>
-                                    <select id="drppostfracaso" name="data[clasificacion][postfracaso]" >
+                                    <input type="radio" name="data[clasificacion][postfracaso]"  id="postfracaso" value="1" {chkPostFra1} /> &nbsp;&nbsp;
+                                    <!-- select id="drppostfracaso" name="data[clasificacion][postfracaso]" >
                                         <option selected value="">Sel...</option>
                                         <option value="1" {selPostFra1}>Si</option>
                                         <option value="0" {selPostFra0}>No</option>
-                                    </select>&nbsp;&nbsp;
+                                    </select>&nbsp;&nbsp; -->
                                 </td>
                             </tr>
                             <tr>
                                 <td ><label>Despu&eacute;s de p&eacute;rdida en el seguimiento:<span class="mandatory">*</span></label>
                                 </td>
-                                <td>
-                                    <select id="drpperdsegui" name="data[clasificacion][perdsegui]" >
+                                <td> <input type="radio" name="data[clasificacion][perdsegui]"  id="perdsegui" value="1" {chkPerSeg1} /> &nbsp;&nbsp;
+                                    <!-- select id="drpperdsegui" name="data[clasificacion][perdsegui]" >
                                         <option selected value="">Sel...</option>
                                         <option value="1" {selPerSeg1}>Si</option>
                                         <option value="0" {selPerSeg0}>No</option>
-                                    </select>&nbsp;&nbsp;
+                                    </select>&nbsp;&nbsp; -->
                                 </td>
                                 <td ><label>Otros:<span class="mandatory">*</span></label>
                                 </td>
-                                <td>
-                                    <select id="drpotros_antestratado" name="data[clasificacion][otros_antestratado]" >
+                                <td> <input type="radio" name="data[clasificacion][otros_antestratado]"  id="otros_antestratado" value="1" {chkOtrAT1} /> &nbsp;&nbsp;
+                                    <!-- select id="drpotros_antestratado" name="data[clasificacion][otros_antestratado]" >
                                         <option selected value="">Sel...</option>
                                         <option value="1" {selOtrAT1}>Si</option>
                                         <option value="0" {selOtrAT0}>No</option>
-                                    </select>&nbsp;&nbsp;
+                                    </select>&nbsp;&nbsp; -->
                                 </td>
                             </tr>						
                         </tbody>
                     </table>
                 </fieldset>
                 <fieldset class="ui-widget ui-widget-content ui-corner-all">
-                    <legend>Condici&oacute;n de VIH (al momento del diagn&oacute;stico de TB)</legend>
+                    <legend>Condici&oacute;n de VIH (previo al diagn&oacute;stico de TB)</legend>
                     <table dalign="center" border="0" cellpadding="2" cellspacing="2" width="80%">
                         <tr>
                             <td><label>Resultado<span class="mandatory">*</span></label></td>
@@ -1033,7 +1086,7 @@
                                 </select>&nbsp;&nbsp;
                             </td>
                             <td id="td_label_fecha_VIH">
-                                <label>Fecha: <span class="mandatory">*</span></label>
+                                <label>Fecha de resultado: <span class="mandatory">*</span></label>
                             </td>
                             <td id="td_fecha_VIH">
                                 <input id="fecha_diag_VIH" name="data[clasificacion][fecha_diag_VIH]" value="{valFechaDiagVIH}" style="width: 100px;" maxlength="10"  type="text">
@@ -1166,7 +1219,7 @@
 
             <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset ui-tabs-hide" id="divTratamiento">
                 <fieldset class="ui-widget ui-widget-content ui-corner-all">
-                    <legend>Referencia del paciente</legend>
+                    <legend>Referencia del paciente / Lugar de Diagnóstico</legend>
                     <table dalign="center" border="0" cellpadding="2" cellspacing="2">
                         <tbody>
                             <tr> 
@@ -1177,12 +1230,23 @@
                                         <option value="0" {selReferido0}>No</option>
                                     </select>&nbsp;&nbsp;</td>
                                 <td id="labelInstaRef">
-                                    Instalaci&oacute;n de salud de referencia:
+                                    Instalaci&oacute;n de salud que lo refiri&oacute;:
                                 </td>
                                 <td id="inputInstaRef">
                                     <input id="inst_salud_referencia" name="data[tratamiento][inst_salud_referencia]" style="width:280px;" maxlength="150" type="text" {valIntSaludReferencia}>&nbsp;&nbsp;
                                     <input id="id_inst_salud_referencia" name="data[tratamiento][id_inst_salud_referencia]" value="{valInstSaludRef}" type="hidden" >
                                 </td>
+                            </tr>
+                            <tr> 
+                                <td>Lugar de Diagnóstico</td>   
+                                <td colspan="2"><select id="drlugdiag" name="data[tratamiento][lug_diag]" >
+                                        <option value="">Sel...</option>
+                                        <option value="1" {selLugDiag1}>Primer nivel MINSA (Centro de Salud)</option>
+                                        <option value="2" {selLugDiag2}>Primer nivel CSS (Policlínicas, ULAPS, CAPS)</option>
+                                        <option value="3" {selLugDiag3}>Hospitales MINSA</option>
+                                        <option value="4" {selLugDiag4}>Hospitales CSS</option>
+                                        <option value="5" {selLugDiag5}>Instalaciones de Salud Privada</option>
+                                    </select></td>
                             </tr>
                         </tbody>
                     </table>
@@ -1232,6 +1296,9 @@
                                         <option value="4" {selAdmF14}>Comunitario</option>
                                     </select>&nbsp;&nbsp;
                                 </td>
+                            </tr>
+                            <tr id="tr_adm_fam">
+                                <td colspan="8"><div style="font-size:9px;"><spam style="color:red;">Recuerde que según la norma el tratamiento debe ser administrado ‘Estrictamente Supervisado’</spam> </div></td>
                             </tr>
                             <tr>
                                 <td colspan="8">
@@ -1403,14 +1470,14 @@
                         <tr>
                             <td>Fecha de egreso: <span class="mandatory">*</span></td>
                             <td>
-                                <input id="fecha_egreso" name="data[egreso][fecha_egreso]" value="{valFechaEgreso}" style="width: 100px;" maxlength="10" type="text" disabled>
+                                <input id="fecha_egreso" name="data[egreso][fecha_egreso]" value="{valFechaEgreso}" style="width: 100px;" maxlength="10" type="text" ddisabled>
                                 <span class="ui-datepicker-append"> dd/mm/aaaa</span> &nbsp;&nbsp;
                             </td>
                             <td>
                                 Condicion egreso: <span class="mandatory">*</span>
                             </td>
                             <td>
-                                <select id="drpcond_egreso" name="data[egreso][cond_egreso]" disabled>
+                                <select id="drpcond_egreso" name="data[egreso][cond_egreso]" ddisabled>
                                     <option value="">Seleccione...</option>
                                     <option value="1" {selCondEgreso1}>Curado</option>
                                     <option value="2" {selCondEgreso2}>Termino tratamiento</option>

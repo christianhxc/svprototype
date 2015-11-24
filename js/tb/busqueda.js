@@ -1,8 +1,48 @@
+var pagina = 1;
+
 $(document).ready(function() {
     borrarTabla();
-    busquedatb();
     Tooltip_field();
+    memorySearch();
+    
+    
 });
+
+function getUrlParams(url) {
+    var params = {};
+    url.substring(1).replace(/[?&]+([^=&]+)=([^&]*)/gi,
+            function (str, key, value) {
+                 params[key] = value;
+            });
+    return params;
+}
+
+function memorySearch (){
+    var url = window.location.href;
+    var params = getUrlParams(url); 
+
+     var search= params["search"];
+     var pag= params["pag"];
+     
+        
+     if (search!="" && typeof search != 'undefined' && pag!="" &&  typeof pag != 'undefined')
+     {
+         $("#filtro").val(search);
+        pagina=pag;
+        buscartb();
+        return;
+     }
+     
+    if (pag!="1" && pag!="" &&  typeof pag != 'undefined')
+     {
+        pagina=pag;
+        buscartb();
+        return;
+     }
+     
+     busquedatb();
+    
+}
 
 function Tooltip_field(){
     $('#filtro').qtip({
@@ -111,6 +151,17 @@ function buscartb()
             $("#resultadosBusqueda").html(data);
         }
     });
+}
+
+function cargarregistro()
+{
+    if ($("#reg").val()) {
+        window.location.assign("formulario.php?action=R&reg=" + $("#reg").val());
+    } else
+    {
+        alert ("Ingrese su número de registro");
+    }
+    
 }
 
 function borrarUceti(idUceti){
