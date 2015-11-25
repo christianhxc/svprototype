@@ -115,12 +115,13 @@
         <div id="tabs" class="">
             <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
                 <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="#divIndividuo">Individuo</a></li>
-                <li class="ui-state-default ui-corner-top"><a href="#divAntecedentes">Mo. de Trans. y Fac. de Vulne.</a></li>
-                <li class="ui-state-default ui-corner-top"><a href="#divInfecciones">Inf. Oportunistas</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#divAntecedentes">Mo. de Trans. y Fac.</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#divInfecciones">Inf. Oport.</a></li>
                 <li class="ui-state-default ui-corner-top"><a href="#divDatosClinicos">Cond. Paciente y Noti.</a></li>
                 <li class="ui-state-default ui-corner-top"><a href="#divVigilancia">Vig. Inf. Mat./Infantil</a></li>
                 <li class="ui-state-default ui-corner-top"><a href="#divDatosSilab">SILAB</a></li>
                 <li class="ui-state-default ui-corner-top"><a href="#divDatosTarv">Datos TARV</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="#divObservaciones">Observ.</a></li>
             </ul>
 
             <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divIndividuo" >
@@ -650,7 +651,7 @@
                     <legend>Datos de notificaci&oacute;n</legend>
                     <table border="0" cellpadding="2" cellspacing="2" align="center">
                         <tr>
-                            <td style="width: 180px;" ><label >Instalaci&oacute;n de salud:<span class="mandatory">*</span></label></td>
+                            <td style="width: 195px;" ><label >Instalaci&oacute;n de salud:<span class="mandatory">*</span></label></td>
                             <td style="width: 350px;">
                                 <input type="text" id="notificacion_unidad" style="width:100%" value="{valNotificacionUnidad}" {esRegionalDisable}/>
                                 <input type="hidden" name="data[notificacion][id_un]" id="notificacion_id_un" value="{valNotificacionIdUn}" />
@@ -668,9 +669,9 @@
                             <td colspan="2"></td>
                         </tr>
                         <tr >
-                            <td >Nombre del investigador:<span class="mandatory">*</span></td>
+                            <td >Nombre del investigador VIH:<span class="mandatory"></span></td>
                             <td ><input type="text" id="nombreInvestigador" name="data[notificacion][nombreInvestigador]" style="width:100%" value="{valNombreInvestigador}" {esRegionalDisable}/></td>
-                            <td >Fecha notificaci&oacute;n:<span class="mandatory">*</span></td>
+                            <td >Fecha notificaci&oacute;n:<span class="mandatory"></span></td>
                             <td>
                                 <input type="text" id="fechaNotificacion" name="data[notificacion][fecha_notificacion]" value="{valFechaNotificacion}" style="width: 80px;" maxlength="10" {esRegionalDisable}/>
                                 
@@ -678,6 +679,16 @@
                                 <input type="hidden" name="data[notificacion][epiInfo]" id="datoEpiInfo" value="{valDatoEpiInfo}" />
                             </td>
                         </tr>
+
+                        <tr >
+                            <td >Nombre del investigador SIDA:<span class="mandatory"></span></td>
+                            <td ><input type="text" id="nombreInvestigadorsida" name="data[notificacion][nombreInvestigadorSida]" style="width:100%" value="{valNombreInvestigadorSida}" {esRegionalDisable}/></td>
+                            <td >Fecha notificaci&oacute;n:<span class="mandatory"></span></td>
+                            <td>
+                                <input type="text" id="fechaNotificacionSida" name="data[notificacion][fecha_notificacion_sida]" value="{valFechaNotificacionSida}" style="width: 80px;" maxlength="10" {esRegionalDisable}/>
+                            </td>
+                        </tr>
+
                         <tr>
                             <td >Nombre de quien registra:</td>
                             <td ><input type="text" id="nombreRegistra" name="data[notificacion][nombreRegistra]" style="width:100%" value="{valNombreRegistra}" readonly="readonly" disabled="disabled" /></td>   
@@ -974,7 +985,21 @@
                     </table>
                 </fieldset>
             </div>
-            
+
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divObservaciones" >
+                <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Observaciones</legend>
+                    <table width="100%">
+                        <tr>
+                            <td>
+                                <textarea rows="10" style="width: 100%" name="data[notificacion][observaciones]">{valVihFormObservaciones}</textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+
+            </div>
+
             <div align="right">
                 <table>
                     <tr><td>

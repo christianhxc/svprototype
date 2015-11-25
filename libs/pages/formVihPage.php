@@ -481,10 +481,13 @@ class formVih extends page {
                 $this->tpl->setVariable('otraInstalacion', '');
                 $this->tpl->setVariable('valNotificacionOtraUnidad', $this->config['read']['otro_nombre_un']);
             }
-                        
-            
+
+
+            $this->tpl->setVariable('valVihFormObservaciones', $this->config['read']['observaciones']);
             $this->tpl->setVariable('valNombreInvestigador', $this->config['read']['nombre_notifica']);
             $this->tpl->setVariable('valFechaNotificacion', helperString::toDateView($this->config['read']['fecha_notificacion']));
+            $this->tpl->setVariable('valNombreInvestigadorSida', $this->config['read']['nombre_notifica_sida']);
+            $this->tpl->setVariable('valFechaNotificacionSida', helperString::toDateView($this->config['read']['fecha_notificacion_sida']));
             $this->tpl->setVariable('valSemanaEpi', $this->config['read']['semana_epi']);
             $this->tpl->setVariable('valNotificacionAnio', $this->config['read']['anio']);
             $this->tpl->setVariable('valNombreRegistra', $this->config['read']['nombre_registra']);

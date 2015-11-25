@@ -513,6 +513,11 @@ class helperVih {
         }
         $vih["nombre_notifica"] = (!isset($data["notificacion"]["nombreInvestigador"]) ? NULL : $data["notificacion"]["nombreInvestigador"]);
         $vih["fecha_notificacion"] = (!isset($data["notificacion"]["fecha_notificacion"]) ? NULL : helperString::toDate($data["notificacion"]["fecha_notificacion"]));
+
+        $vih["nombre_notifica_sida"] = (!isset($data["notificacion"]["nombreInvestigadorSida"]) ? NULL : $data["notificacion"]["nombreInvestigadorSida"]);
+        $vih["fecha_notificacion_sida"] = (!isset($data["notificacion"]["fecha_notificacion_sida"]) ? NULL : helperString::toDate($data["notificacion"]["fecha_notificacion_sida"]));
+
+        $vih["observaciones"] = (!isset($data["notificacion"]["observaciones"]) ? NULL : $data["notificacion"]["observaciones"]);
         
         $vih["semana_epi"] = (!isset($data["notificacion"]["semana_epi"]) ? NULL : $data["notificacion"]["semana_epi"]);
         $vih["anio"] = (!isset($data["notificacion"]["anio"]) ? NULL : $data["notificacion"]["anio"]);

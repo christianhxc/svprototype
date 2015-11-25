@@ -76,6 +76,19 @@ $(function() {
 });
 
 $(function() {
+    if ($("#esRegional").val() != 1) {
+        $("#fechaNotificacionSida").datepicker({
+
+            changeYear: true,
+            showOn: "both",
+            buttonImage: urlprefix + "img/calendar.gif",
+            buttonImageOnly: true,
+            showAnim: "slideDown"
+        });
+    }
+});
+
+$(function() {
     $( "#fechaTarv" ).datepicker({
         dateFormat: 'dd/mm/yy',
         changeMonth: true,
