@@ -1253,7 +1253,7 @@
                 </fieldset>
                 <fieldset class="ui-widget ui-widget-content ui-corner-all">
                     <legend>Datos del tratamiento</legend>
-                    <table dalign="center" border="0" width="80%">
+                    <table dalign="center" border="0" width="100%">
                         <tbody>
                             <tr>
                                 <td colspan="8">
@@ -1275,7 +1275,8 @@
                                     <input id="trat_med_indF1" type="checkbox" name="data[tratamiento][med_indF1][R]" value="3" {chkTratF1_R}>R&nbsp;&nbsp;
                                     <input id="trat_med_indF1" type="checkbox" name="data[tratamiento][med_indF1][E]" value="4" {chkTratF1_E}>E&nbsp;&nbsp;
                                     <input id="trat_med_indF1" type="checkbox" name="data[tratamiento][med_indF1][S]" value="5" {chkTratF1_S}>S&nbsp;&nbsp;
-                                    <input id="trat_med_indF1" type="checkbox" name="data[tratamiento][med_indF1][Otr]" value="6" {chkTratF1_Otr}>Otros
+                                    <input id="trat_med_indF1" type="checkbox" name="data[tratamiento][med_indF1][Otr]" value="6" {chkTratF1_Otr}>Otros&nbsp;&nbsp;
+                                    <input id="trat_med_indF1_otro_val" name="data[tratamiento][med_indF1][otro_val]" value="{valMedIndF1OtroVal}" style="width:120px" maxlength="150" type="text">
                                 </td>
                             </tr>
                             <tr>
@@ -1319,7 +1320,8 @@
                                     <input id="trat_med_indF2" type="checkbox" name="data[tratamiento][med_indF2][H]" value="1" {chkTratF2_H}>H&nbsp;&nbsp;
                                     <input id="trat_med_indF2" type="checkbox" name="data[tratamiento][med_indF2][R]" value="2" {chkTratF2_R}>R&nbsp;&nbsp;
                                     <input id="trat_med_indF2" type="checkbox" name="data[tratamiento][med_indF2][E]" value="3" {chkTratF2_E}>E&nbsp;&nbsp;
-                                    <input id="trat_med_indF2" type="checkbox" name="data[tratamiento][med_indF2][Otr]" value="4" {chkTratF2_Otr}>Otros
+                                    <input id="trat_med_indF2" type="checkbox" name="data[tratamiento][med_indF2][Otr]" value="4" {chkTratF2_Otr}>Otros&nbsp;&nbsp;
+                                    <input id="trat_med_indF2_otro_val" name="data[tratamiento][med_indF2][otro_val]" value="{valMedIndF2OtroVal}" style="width:120px" maxlength="150" type="text">
                                 </td>
                             </tr>
                             <tr>
@@ -1485,7 +1487,8 @@
                                     <option value="4" {selCondEgreso4}>Muerte</option>
                                     <option value="5" {selCondEgreso5}>Fracaso</option>
                                     <option value="6" {selCondEgreso6}>No evaluado</option>
-                                    <option value="7" {selCondEgreso7}>Exclusion</option>
+                                    <option value="7" {selCondEgreso7}>Exclusión</option>
+                                    <option value="9" {selCondEgreso9}>Exclusión por drogo resistencia</option>
                                 </select>
                             </td>
                         </tr>
@@ -1504,6 +1507,19 @@
                             </td>
                             <td></td>
                             <td></td>
+                        </tr>
+                        <tr id="motivo_exclusion_drogo">
+                            <td colspan="2">
+                                <input id="egr_trat_seg_linea" type="checkbox" name="data[egreso][trat_seg_linea]" value="1" {chkEgresoSegLin1}>&nbsp;&nbsp; Inicia tratamiento segunda línea
+                            </td>
+                            <td id="td_fecha_seg_lin_1">Fecha inicio tratamiento segunda línea: </td>
+                            <td id="td_fecha_seg_lin_2"><input id="egr_fecha_trat_seg_linea" name="data[egreso][fecha_trat_seg_linea]" value="{valFechaTratSegLinea}" style="width: 100px;" maxlength="10" type="text" ddisabled>
+                                <span class="ui-datepicker-append"> dd/mm/aaaa</span> &nbsp;&nbsp;</td>
+                        </tr>
+                        <tr id="egreso_fecha_trat">
+                            <td colspan="4">
+                                <div style="font-size:9px;"><spam style="color:red;">Verifique si fecha de fin del tratamiento está llena (Pestaña Trat.)</spam> </div>
+                            </td>
                         </tr>
                     </table>
                 </fieldset>

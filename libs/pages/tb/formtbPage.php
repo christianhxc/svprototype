@@ -491,6 +491,8 @@ class formtb extends page {
             if ($this->config['read']['trat_med_otros_F1'] != "")
                 $this->tpl->setVariable('chkTratF1_Otr', 'checked=checked"');
             
+            $this->tpl->setVariable("valMedIndF1OtroVal", htmlentities($this->config['read']["trat_med_otros_val_F1"],ENT_COMPAT,"ISO-8859-1"));
+            
             $this->tpl->setVariable('valFechaFinF1', helperString::toDateView($this->config['read']['trat_fecha_fin_tratF1']));
             $this->tpl->setVariable('selAdmF1'.$this->config['read']['id_adm_tratamiento_F1'], 'selected="selected"');
             
@@ -505,6 +507,8 @@ class formtb extends page {
                 $this->tpl->setVariable('chkTratF2_E', 'checked=checked"');
             if ($this->config['read']['trat_med_otros_F2'] != "")
                 $this->tpl->setVariable('chkTratF2_Otr', 'checked=checked"');
+            
+            $this->tpl->setVariable("valMedIndF2OtroVal", htmlentities($this->config['read']["trat_med_otros_val_F2"],ENT_COMPAT,"ISO-8859-1"));
             
             $this->tpl->setVariable('valFechaFinF2', helperString::toDateView($this->config['read']['trat_fecha_fin_tratF2']));
             $this->tpl->setVariable('selAdmF2'.$this->config['read']['id_adm_tratamiento_F2'], 'selected="selected"');   
@@ -538,6 +542,8 @@ class formtb extends page {
             $this->tpl->setVariable('valFechaEgreso', helperString::toDateView($this->config['read']['egreso_fecha_egreso']));
             $this->tpl->setVariable('selCondEgreso'.$this->config['read']['egreso_cond_egreso'], 'selected="selected"');
             $this->tpl->setVariable('selMotExcl'.$this->config['read']['egreso_motivo_exclusion'], 'selected="selected"');
+            $this->tpl->setVariable('chkEgresoSegLin'.$this->config['read']['egreso_trat_seg_linea'], 'checked="checked"');
+            $this->tpl->setVariable('valFechaTratSegLinea', helperString::toDateView($this->config['read']['egreso_fecha_trat_seg_linea']));
             
 //
 //            $this->tpl->setVariable('valFechaEgreso', helperString::toDateView($this->config['read']['fecha_egreso']));

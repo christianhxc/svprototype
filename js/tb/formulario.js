@@ -438,6 +438,19 @@ $(function() {
 });
 
 $(function() {
+    $( "#egr_fecha_trat_seg_linea" ).datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        yearRange: "2010:"+new Date().getFullYear(),
+        buttonImage: urlprefix+"img/calendar.gif",
+        buttonImageOnly: true,
+        showAnim: "slideDown"
+    });
+});
+
+$(function() {
     $( "#fecha_reac_adv" ).datepicker({
         dateFormat: 'dd/mm/yy',
         changeMonth: true,
@@ -496,6 +509,8 @@ $(document).ready(function() {
     clasificacionTB();
     clasificacionBKControl();
     clasificacionPresoControl();
+    resultadoBKControl();
+    resultadoCultivoControl();
     ControlReaAdv();
     otroRX();
     otroWRD();
@@ -507,6 +522,7 @@ $(document).ready(function() {
 //    ContactEdad();  // Desactivado por requerimiento de DO
     EdadEscolaridad();
     Egreso_excl();
+    Egreso_fecha_seg_lin();
     Res_VIH();
     Ref_Inst();
     Ref_Trat_Fam();
@@ -524,6 +540,8 @@ $(document).ready(function() {
     label_MDR_message();
     Res_MDR();
     Res_Inmuno();
+    Trat_Med_F1();
+    Trat_Med_F2();
     Tooltip_field();
     individuo($("#drpTipoId").val(), $("#no_identificador").val());
 
@@ -804,8 +822,16 @@ $(document).ready(function() {
         clasificacionTB();
     });
 
+    $("#fecha_control_BK").change(function(){
+        resultadoBKControl();
+    });
+
     $("#drpcontrol_BK").change(function(){
         clasificacionBKControl();
+    });
+    
+    $("#fecha_cultivo_control").change(function(){
+        resultadoCultivoControl();
     });
     
     $("#drpantespreso").change(function(){
@@ -908,6 +934,9 @@ $(document).ready(function() {
     $("#drpcond_egreso").change(function(){
         Egreso_excl();
     });
+    $("#egr_trat_seg_linea").change(function(){
+        Egreso_fecha_seg_lin();
+    });
 
 
     $("input[id='MDR']").change(function(){
@@ -916,6 +945,14 @@ $(document).ready(function() {
     
     $("input[id='inmunodepresor']").change(function(){
         Res_Inmuno();
+    });
+    
+    $("input[id='trat_med_indF1']").change(function(){
+        Trat_Med_F1();
+    });
+    
+    $("input[id='trat_med_indF2']").change(function(){
+        Trat_Med_F2();
     });
     
     // Clasi.
@@ -1253,6 +1290,30 @@ function clasificacionTB(){
                 $("#conf_clinico" ).css( "display", "none" );
                 $( "#tabs" ).tabs("disable", 4);
         }
+}
+// Resultado BK Control
+
+function resultadoBKControl(){
+    if ($("#fecha_control_BK").val() == "" ){
+        $("#drpcontrol_BK").val("");
+        $("#drpcontrol_BK").attr("disabled",true);
+        clasificacionBKControl();
+        
+    }else{
+        $("#drpcontrol_BK").attr("disabled",false);
+    }
+}
+
+// Resultado Cultivo Control
+
+function resultadoCultivoControl(){
+    if ($("#fecha_cultivo_control").val() == "" ){
+        $("#drpres_cul_contr").val("");
+        $("#drpres_cul_contr").attr("disabled",true);
+        
+    }else{
+        $("#drpres_cul_contr").attr("disabled",false);
+    }
 }
 
 // Clasificación BK en control
@@ -2223,16 +2284,47 @@ function LimitesEdades(){
 
 function Egreso_excl(){
     Egreso_e = $('#drpcond_egreso').val();
+    
+    if ($("#fecha_fin_tratF2").val() == "" ||  $("#fecha_fin_tratF1").val() == "" ){
+        $("#egreso_fecha_trat").show();
+    } else {
+        $("#egreso_fecha_trat").hide();
+    }
+    
     if(Egreso_e == "7"){
-        $( "#motivo_exclusion" ).css( "display", "" );
-        
+        $( "#motivo_exclusion" ).css( "display", "" );  
     }
     else 
         {
-        $( "#motivo_exclusion" ).css( "display", "none" );
-        $( "#drpmotivo_exclusion" ).val("");
+            $( "#motivo_exclusion" ).css( "display", "none" );
+            $( "#drpmotivo_exclusion" ).val("");
+            if (Egreso_e == "9"){
+                $( "#motivo_exclusion_drogo" ).show();
+                $( "#egr_trat_seg_linea" ).attr("disabled",false);
+            } else{
+                $( "#motivo_exclusion_drogo" ).hide();
+                $( "#egr_trat_seg_linea" ).val("");
+                $( "#egr_trat_seg_linea" ).attr("disabled",true);
+                
+            }
+            
+        
         }
     
+}
+
+function Egreso_fecha_seg_lin(){
+    
+    if ($("#egr_trat_seg_linea").is(":checked")){
+        $("#td_fecha_seg_lin_1").show();
+        $("#td_fecha_seg_lin_2").show();
+    } else
+    {
+        $("#td_fecha_seg_lin_1").hide();
+        $("#td_fecha_seg_lin_2").hide();
+        $("#egr_fecha_trat_seg_linea").val("");
+        
+    }
 }
 
 function Res_VIH(){
@@ -2382,6 +2474,30 @@ function Res_Inmuno(){
     }else {
         $("#inmunodepresorotro").hide();
         $("#inmunodepresorotro").val("");
+    }
+        
+
+}
+
+function Trat_Med_F1(){
+    if ($("input[id='trat_med_indF1'][value='6']").is(":checked"))
+    {
+        $("#trat_med_indF1_otro_val").show();
+    }else {
+        $("#trat_med_indF1_otro_val").hide();
+        $("#trat_med_indF1_otro_val").val("");
+    }
+        
+
+}
+
+function Trat_Med_F2(){
+    if ($("input[id='trat_med_indF2'][value='4']").is(":checked"))
+    {
+        $("#trat_med_indF2_otro_val").show();
+    }else {
+        $("#trat_med_indF2_otro_val").hide();
+        $("#trat_med_indF2_otro_val").val("");
     }
         
 

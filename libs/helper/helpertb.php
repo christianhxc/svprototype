@@ -278,6 +278,8 @@ class helpertb {
              $tb["trat_med_E_F1"] = (!isset($data["tratamiento"]["med_indF1"]["E"]) ? NULL : strtoupper($data["tratamiento"]["med_indF1"]["E"]));
              $tb["trat_med_S_F1"] = (!isset($data["tratamiento"]["med_indF1"]["S"]) ? NULL : strtoupper($data["tratamiento"]["med_indF1"]["S"]));
              $tb["trat_med_otros_F1"] = (!isset($data["tratamiento"]["med_indF1"]["Otr"]) ? NULL : strtoupper($data["tratamiento"]["med_indF1"]["Otr"]));
+             $tb["trat_med_otros_val_F1"] = (!isset($data["tratamiento"]["med_indF1"]["otro_val"]) ? NULL : strtoupper($data["tratamiento"]["med_indF1"]["otro_val"]));
+             
         }
         $tb["trat_fecha_fin_tratF1"] = (!isset($data["tratamiento"]["fecha_fin_tratF1"]) ? NULL : helperString::toDate($data["tratamiento"]["fecha_fin_tratF1"]));
         $tb["id_adm_tratamiento_F1"] = (!isset($data["tratamiento"]["administracionF1"]) ? NULL : strtoupper($data["tratamiento"]["administracionF1"]));
@@ -289,6 +291,7 @@ class helpertb {
              (!isset($data["tratamiento"]["med_indF2"]["R"]) ? NULL : $tb["trat_med_R_F2"] = strtoupper($data["tratamiento"]["med_indF2"]["R"]));
              (!isset($data["tratamiento"]["med_indF2"]["E"]) ? NULL : $tb["trat_med_E_F2"] = strtoupper($data["tratamiento"]["med_indF2"]["E"]));
              (!isset($data["tratamiento"]["med_indF2"]["Otr"]) ? NULL : $tb["trat_med_otros_F2"] = strtoupper($data["tratamiento"]["med_indF2"]["Otr"]));
+             (!isset($data["tratamiento"]["med_indF2"]["otro_val"]) ? NULL : $tb["trat_med_otros_val_F2"] = strtoupper($data["tratamiento"]["med_indF2"]["otro_val"]));
         }
         $tb["trat_fecha_fin_tratF2"] = (!isset($data["tratamiento"]["fecha_fin_tratF2"]) ? NULL : helperString::toDate($data["tratamiento"]["fecha_fin_tratF2"]));
         $tb["id_adm_tratamiento_F2"] = (!isset($data["tratamiento"]["administracionF2"]) ? NULL : strtoupper($data["tratamiento"]["administracionF2"]));
@@ -350,6 +353,8 @@ class helpertb {
         (!isset($data["egreso"]["fecha_egreso"]) ? NULL : $tb["egreso_fecha_egreso"] = helperString::toDate($data["egreso"]["fecha_egreso"]));
         (!isset($data["egreso"]["cond_egreso"]) ? NULL : $tb["egreso_cond_egreso"] = strtoupper($data["egreso"]["cond_egreso"]));
         (!isset($data["egreso"]["motivo_exclusion"]) ? NULL : $tb["egreso_motivo_exclusion"] = strtoupper($data["egreso"]["motivo_exclusion"]));
+        (!isset($data["egreso"]["trat_seg_linea"]) ? NULL : $tb["egreso_trat_seg_linea"] = strtoupper($data["egreso"]["trat_seg_linea"]));
+        (!isset($data["egreso"]["fecha_trat_seg_linea"]) ? NULL : $tb["egreso_fecha_trat_seg_linea"] = helperString::toDate($data["egreso"]["fecha_trat_seg_linea"]));
 
 // Faltan
 
