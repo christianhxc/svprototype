@@ -2293,6 +2293,9 @@ function Egreso_excl(){
     
     if(Egreso_e == "7"){
         $( "#motivo_exclusion" ).css( "display", "" );  
+        $( "#motivo_exclusion_drogo" ).hide();
+        $( "#egr_trat_seg_linea" ).attr("selected",false);
+        $( "#egr_trat_seg_linea" ).attr("disabled",true);
     }
     else 
         {
@@ -2303,7 +2306,7 @@ function Egreso_excl(){
                 $( "#egr_trat_seg_linea" ).attr("disabled",false);
             } else{
                 $( "#motivo_exclusion_drogo" ).hide();
-                $( "#egr_trat_seg_linea" ).val("");
+                $( "#egr_trat_seg_linea" ).attr("selected",false);
                 $( "#egr_trat_seg_linea" ).attr("disabled",true);
                 
             }
