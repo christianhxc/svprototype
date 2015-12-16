@@ -639,6 +639,21 @@
                             <td><label>Lugar diagn&oacute;stico SIDA:</label></td>
                             <td colspan="3"><input type="text" id="lugarDiagnosticoSida" name="data[condicion][lugar_diagnostico_sida]"  style="width:450px" value="{valLugarDiagnosticoSida}"/></td>
                         </tr>
+                        <tr>
+                            <td><label>Recibe terapia antirretroviral (TAR):</label></td>
+                            <td>
+                                <input type="radio" name="data[condicion][tar]" value="1" {valTar1} onchange="mostrarFechaTar()"/> No
+                                <input type="radio" name="data[condicion][tar]" id="tar2" value="2" {valTar2} onchange="mostrarFechaTar()"/> Si
+                            </td>
+                            <td>
+                                <span id="fecha_tar_lbl">Fecha de inicio de TAR:</span>
+                            </td>
+                            <td>
+                                <div id="fecha_tar_div">
+                                    <input type="text" id="fechaTar" name="data[condicion][fecha_tar]" value="{valFechaTar}" style="width: 100px;" maxlength="10" />
+                                </div>
+                            </td>
+                        </tr>
                         <tr><td colspan="4">&nbsp;</td></tr>
                         <tr><td colspan="4" style="text-align:right;"><label>** El campo edad hace referencia a la edad del paciente en el momento que le diagnosticaron el caso</label></td></tr>
                         <tr><td colspan="4" style="text-align:right;"><label>** La sobrevida se calcula con la resta de la fecha de diagnostico entre VIH y Sida</label></td></tr>
@@ -701,7 +716,7 @@
 
             <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" id="divVigilancia" >
                 <fieldset class="ui-widget ui-widget-content ui-corner-all">
-                    <legend>Primer Niño(a):</legend>
+                    <legend>Primer Niï¿½o(a):</legend>
                     <table border="0" cellpadding="2" cellspacing="2" align="center" width="100%">
                         <tr>
                             <td width="20%">
@@ -765,7 +780,7 @@
                 </fieldset>
                 <br>
                 <fieldset class="ui-widget ui-widget-content ui-corner-all">
-                    <legend>Segundo Niño(a):</legend>
+                    <legend>Segundo Niï¿½o(a):</legend>
                     <table border="0" cellpadding="2" cellspacing="2" align="center" width="100%">
                         <tr>
                             <td width="20%">
@@ -829,7 +844,7 @@
                 </fieldset>
                 <br>
                 <fieldset class="ui-widget ui-widget-content ui-corner-all">
-                    <legend>Tercer Niño(a):</legend>
+                    <legend>Tercer Niï¿½o(a):</legend>
                     <table border="0" cellpadding="2" cellspacing="2" align="center" width="100%">
                         <tr>
                             <td width="20%">

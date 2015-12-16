@@ -501,6 +501,10 @@ class helperVih {
             }
         } 
         $vih["cond_lugar_diagnostico"] = (!isset($data["condicion"]["lugar_diagnostico"]) ? NULL : $data["condicion"]["lugar_diagnostico"]);
+
+        $vih["fecha_tar"] = (!isset($data["condicion"]["fecha_tar"]) ? NULL : helperString::toDate($data["condicion"]["fecha_tar"]));
+        $vih["tar"] = (!isset($data["condicion"]["tar"]) ? NULL : $data["condicion"]["tar"]);
+
         //Notificacion
         if (isset($data["notificacion"]["unidad_disponible"])) {
             $vih["id_un"] = NULL;
@@ -677,7 +681,7 @@ class helperVih {
                 FROM cat_factor_riesgo fr LEFT JOIN vih_factor_riesgo vfr ON vfr.id_factor = fr.id_factor
                 WHERE fr.status = 1 AND (vfr.id_vih_form = '".$idVihForm."' OR vfr.id_vih_form IS NULL)
                 AND fr.id_grupo_factor = 8
-                ORDER BY factor_nombre";
+                ORDER BY fr.order";
         $conn->prepare($sql);
         $conn->execute();
         $data = $conn->fetch();
@@ -692,7 +696,7 @@ class helperVih {
                 FROM cat_factor_riesgo fr LEFT JOIN vih_factor_riesgo vfr ON vfr.id_factor = fr.id_factor
                 WHERE fr.status = 1 AND (vfr.id_vih_form = '".$idVihForm."' OR vfr.id_vih_form IS NULL)
                 AND fr.id_grupo_factor = 7
-                ORDER BY factor_nombre";
+                ORDER BY fr.order";
         $conn->prepare($sql);
         $conn->execute();
         $data = $conn->fetch();

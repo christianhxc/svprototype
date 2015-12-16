@@ -41,6 +41,17 @@ $(function() {
     });
 });
 $(function() {
+    $( "#fechaTar" ).datepicker({
+
+        changeYear: true,
+        showOn: "both",
+        yearRange: "1980:"+new Date().getFullYear() ,
+        buttonImage: urlprefix+"img/calendar.gif",
+        buttonImageOnly: true,
+        showAnim: "slideDown"
+    });
+});
+$(function() {
     $( "#fechaSida" ).datepicker({
         
         changeYear: true,
@@ -391,6 +402,13 @@ function iniciarDatosCondicionPaciente(){
         $( "#labelSobrevidaSida" ).css( "display", "none" );
         $( "#sobrevidaSida" ).css( "display", "none" );
     }
+
+    mostrarFechaTar();
+}
+
+function mostrarFechaTar(){
+    habilitarElmentoConRadio('tar2','fecha_tar_lbl');
+    habilitarElmentoConRadio('tar2','fecha_tar_div');
 }
 
 $(document).ready(function() {

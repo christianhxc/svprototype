@@ -101,3 +101,28 @@ ADD COLUMN `tarv_res_carga_viral_reciente` INT(3) NULL COMMENT '' AFTER `tarv_fe
 ALTER TABLE `sisvigdb`.`vih_form` CHANGE COLUMN `nombre_notifica` `nombre_notifica` VARCHAR(100) CHARACTER SET 'cp1250' NULL COMMENT 'Nombre de la persona que notifica'  , CHANGE COLUMN `fecha_notificacion` `fecha_notificacion` DATE NULL COMMENT 'Fecha en que se notifica el caso de VIH/SIDA'  , ADD COLUMN `nombre_notifica_sida` VARCHAR(100) NULL  AFTER `pcr2_fecha_3` , ADD COLUMN `fecha_notificacion_sida` DATE NULL  AFTER `nombre_notifica_sida` ;
 
 ALTER TABLE `sisvigdb`.`vih_form` ADD COLUMN `observaciones` TEXT NULL  AFTER `fecha_notificacion_sida` ;
+
+ALTER TABLE sisvigdb.cat_factor_riesgo ADD `order` INT(2);
+
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 9 WHERE id_factor = 0;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 2 WHERE id_factor = 1;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 1 WHERE id_factor = 2;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 3 WHERE id_factor = 3;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 7 WHERE id_factor = 4;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 8 WHERE id_factor = 5;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 3 WHERE id_factor = 6;
+UPDATE sisvigdb.cat_factor_riesgo SET status = 0 WHERE id_factor = 7;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 5 WHERE id_factor = 8;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 6 WHERE id_factor = 9;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 4 WHERE id_factor = 10;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 2 WHERE id_factor = 11;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 9 WHERE id_factor = 12;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 5 WHERE id_factor = 14;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 6 WHERE id_factor = 15;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 1 WHERE id_factor = 16;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 4 WHERE id_factor = 17;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 7 WHERE id_factor = 18;
+UPDATE sisvigdb.cat_factor_riesgo SET `order` = 8 WHERE id_factor = 19;
+
+ALTER TABLE sisvigdb.vih_form ADD tar INT;
+ALTER TABLE sisvigdb.vih_form ADD fecha_tar DATE;

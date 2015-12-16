@@ -440,6 +440,9 @@ class formVih extends page {
                 $this->tpl->setVariable('valVigilanciaFechaPcr2'.$i, helperString::toDateView($this->config['read']['pcr2_fecha_'.$i]));
             }
 
+            $this->tpl->setVariable('valTar'.$this->config['read']['tar'], 'checked="checked"');
+            $this->tpl->setVariable('valFechaTar', helperString::toDateView($this->config['read']['fecha_tar']));
+
             $this->tpl->setVariable('valRazonSida'.$this->config['read']['razon_sida'], 'checked="checked"');
             $this->tpl->setVariable('valCondicionSida', ($this->config['read']['cond_sida'] == '1' ? 'checked="checked"' : ''));
             $this->tpl->setVariable('valFechaSida', helperString::toDateView($this->config['read']['cond_fecha_sida']));
