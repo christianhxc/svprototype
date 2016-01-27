@@ -1340,7 +1340,7 @@ function validarVih(){
                 nuevo = 'A continuaci\xf3n se ingresar\xe1 los datos del Formulario de VIH/SIDA, \xbfdesea continuar?';
             if(confirm(nuevo)){
                 $("#dSummaryErrors").css('display','none');
-                $('#divAntecedentes input:checkbox').removeAttr("disabled");
+                $('#frmContenido input').removeAttr("disabled");
                 $('#frmContenido').submit();
             }
         }
