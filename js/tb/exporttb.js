@@ -443,10 +443,19 @@ function validarReporte()
         var anioFinF1 = $("#anio_fin_f1").val();   
         
         if (anioIniF1 != ""){
+            
             if(anioIniF1 < anioFinF1){
-                Filtro += "&P_FECHA_INI_F1="+anioIniF1;
-                if (anioFinF1 != "") 
-                    Filtro +="&P_FECHA_FIN_F1="+anioFinF1;
+                
+                if ($("#drpReporte").val() == "8" || $("#drpReporte").val() == "7") {
+                    Filtro += "&P_FECHA_INI=" + anioIniF1;
+                    if (anioFinF1 != "")
+                        Filtro += "&P_FECHA_FIN=" + anioFinF1;
+                } else {
+                    Filtro += "&P_FECHA_INI_F1=" + anioIniF1;
+                    if (anioFinF1 != "")
+                        Filtro += "&P_FECHA_FIN_F1=" + anioFinF1;
+                }
+                
             }
             else
                 Message+="<br/> - El a&ntilde;o de inicio debe ser menor que el a&ntilde;o de fin";
