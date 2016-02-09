@@ -69,6 +69,7 @@ $(document).ready(function() {
     $("#divRegion").hide();
     $("#divDistrito").hide();
     $("#divCorregimiento").hide();
+    $("#anio_listado_tb").hide();
     
     $( "#nombre_un" ).autocomplete(urlprefix + "js/dynamic/unidadNotificadora_id.php",
     {
@@ -102,6 +103,7 @@ $(document).ready(function() {
             }
            $("#divSisvig").css( "visibility", "" ); 
            $("#fh_fase1").css( "visibility", "hidden" );
+           $("#anio_listado_tb").show();
        }else
            {
            if(x[x.length-1].value != "6"){
@@ -318,6 +320,7 @@ function borrarFiltro(){
     $("#semana_fin2").val("");
     $("#anio_ini2").val("");
     $("#anio_fin2").val("");
+     $("#anio_listado").val("");
     destruirTabla(tablaUN);
 }
 
@@ -441,6 +444,13 @@ function validarReporte()
             
         }else{
             Message+="<br/> - Debe ingresar la fecha de inicio de la Fase 1";
+        }
+        
+        if ($("#drpReporte").val()!="" ){
+
+                Filtro += "&P_FECHA_INI_F1="+anioIniF1;
+        else{
+            Message+="<br/> - Debe ingresar el año que necesita el reporte";
         }
             
         
