@@ -95,14 +95,14 @@ $(document).ready(function() {
    $("#drpReporte").change(function(){
        var x = document.getElementById("drpNivelUn");
        if ($(this).val() == "4"){
-           $("#divSisvig").css( "visibility", "hidden" );
+           $("#divSisvig").hide();
            
        }else if($(this).val() == "3"){
             if(x[x.length-1].value == "6"){
                 x.remove(x.length-1)
             }
-           $("#divSisvig").css( "visibility", "" ); 
-           $("#fh_fase1").css( "visibility", "hidden" );
+           $("#divSisvig").show(); 
+           $("#fh_fase1").hide();
            $("#anio_listado_tb").show();
        }else
            {
@@ -117,8 +117,9 @@ $(document).ready(function() {
                 x.add(elOptNew); // IE only
                 }
             }
-            $("#divSisvig").css( "visibility", "" ); 
-            $("#fh_fase1").css( "visibility", "" );
+            $("#divSisvig").show(); 
+            $("#fh_fase1").show();
+            $('#anio_listado_tb').hide();
            }
    });
     
@@ -446,7 +447,7 @@ function validarReporte()
             Message+="<br/> - Debe ingresar la fecha de inicio de la Fase 1";
         }
         
-        if ($("#anio_listado").val()!="" ){
+        if ($("#anio_listado").val()!="" && $("#drpReporte").val()=="3" ){
 
                 Filtro += "&P_ANIO="+$("#anio_listado").val();
             }
