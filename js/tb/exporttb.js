@@ -446,9 +446,10 @@ function validarReporte()
             Message+="<br/> - Debe ingresar la fecha de inicio de la Fase 1";
         }
         
-        if ($("#drpReporte").val()!="" ){
+        if ($("#anio_listado").val()!="" ){
 
-                Filtro += "&P_FECHA_INI_F1="+anioIniF1;
+                Filtro += "&P_ANIO="+$("#anio_listado").val();
+            }
         else{
             Message+="<br/> - Debe ingresar el año que necesita el reporte";
         }
