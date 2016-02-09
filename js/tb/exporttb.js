@@ -70,6 +70,7 @@ $(document).ready(function() {
     $("#divDistrito").hide();
     $("#divCorregimiento").hide();
     $("#anio_listado_tb").hide();
+    $("#nivel_geografico").hide();
     
     $( "#nombre_un" ).autocomplete(urlprefix + "js/dynamic/unidadNotificadora_id.php",
     {
@@ -103,12 +104,13 @@ $(document).ready(function() {
             }
            $("#divSisvig").show(); 
            $("#fh_fase1").hide();
+           $("#nivel_geografico").show();
            $("#anio_listado_tb").show();
        
        }else if($(this).val() == "6"){
             
            $("#divSisvig").show(); 
-//           $("#nivel_geografico").show();
+           $("#nivel_geografico").hide();
            $('#drpNivelUn').val('1')
            $("#fh_fase1").show();
            $("#anio_listado_tb").hide();
@@ -126,7 +128,8 @@ $(document).ready(function() {
                 x.add(elOptNew); // IE only
                 }
             }
-            $("#divSisvig").show(); 
+            $("#divSisvig").show();
+            $("#nivel_geografico").show();
             $("#fh_fase1").show();
             $('#anio_listado_tb').hide();
            }
