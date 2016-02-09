@@ -499,6 +499,7 @@ function generarReporte(filtro, lugar, condicion){
     $("#error").html(' ');
 //        alert (filtro + "\n -" + lugar + " \n -" + condicion );
 
+
     if ($("#drpReporte").val() == "4"){
     
      stReport = "http://190.34.154.87/sisvig2/reportes/tb/Indicadores_TB_SISVIG.xls"
@@ -526,6 +527,7 @@ function generarReporte(filtro, lugar, condicion){
     
     }
 //    alert(stReport);
+    console.log(stReport);
     window.open(stReport, 'Reporte',"toolbar=yes, status=yes, status=yes, scrollbars=yes, resizable=yes, menubar=yes, width=400, height=400");
 }
 
