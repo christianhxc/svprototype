@@ -104,7 +104,16 @@ $(document).ready(function() {
            $("#divSisvig").show(); 
            $("#fh_fase1").hide();
            $("#anio_listado_tb").show();
-       }else
+       
+       }else if($(this).val() == "6"){
+            
+           $("#divSisvig").show(); 
+//           $("#nivel_geografico").show();
+           $('#drpNivelUn').val('1')
+           $("#fh_fase1").show();
+           $("#anio_listado_tb").hide();
+       }
+       else
            {
            if(x[x.length-1].value != "6"){
                 var elOptNew = document.createElement('option');
@@ -447,13 +456,15 @@ function validarReporte()
             Message+="<br/> - Debe ingresar la fecha de inicio de la Fase 1";
         }
         
-        if ($("#anio_listado").val()!="" && $("#drpReporte").val()=="3" ){
+        if ($("#drpReporte").val()=="3") {
+            if ($("#anio_listado").val() != "") {
 
-                Filtro += "&P_ANIO="+$("#anio_listado").val();
-            }
-        else{
-            Message+="<br/> - Debe ingresar el año que necesita el reporte";
+                Filtro += "&P_ANIO=" + $("#anio_listado").val();
+            } else {
+                Message += "<br/> - Debe ingresar el año que necesita el reporte";
+            }  
         }
+        
             
         
     }
