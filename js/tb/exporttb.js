@@ -491,6 +491,12 @@ function generarReporte(filtro, lugar, condicion){
          stReport += "LISTADO_PACIENTES_TB_NO_FORM";
     if ($("#drpReporte").val() == "5") 
          stReport += "exportar_tb_excel_encabezado";
+     if ($("#drpReporte").val() == "6") 
+         stReport += "consolidado_tipo_region";
+     if ($("#drpReporte").val() == "7") 
+         stReport += "AnualOMS";
+     if ($("#drpReporte").val() == "8") 
+         stReport += "Cohortes";
      
     stReport += filtro;
     stReport += "&j_username=jasURL&j_password=jasURLMinsa&output=xlsx";
