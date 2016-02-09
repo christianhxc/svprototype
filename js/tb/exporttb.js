@@ -107,7 +107,7 @@ $(document).ready(function() {
            $("#nivel_geografico").show();
            $("#anio_listado_tb").show();
        
-       }else if($(this).val() == "6"){
+       }else if($(this).val() == "6" || $(this).val() == "7" || $(this).val() == "9"){
             
            $("#divSisvig").show(); 
            $("#nivel_geografico").hide();
@@ -449,7 +449,7 @@ function validarReporte()
             
             if(anioIniF1 < anioFinF1){
                 
-                if ($("#drpReporte").val() == "8" || $("#drpReporte").val() == "7") {
+                if ( $("#drpReporte").val() == "9" || $("#drpReporte").val() == "8" || $("#drpReporte").val() == "7") {
                     Filtro += "&P_FECHA_INI=" + anioIniF1;
                     if (anioFinF1 != "")
                         Filtro += "&P_FECHA_FIN=" + anioFinF1;
@@ -533,6 +533,9 @@ function generarReporte(filtro, lugar, condicion){
          stReport += "AnualOMS";
      if ($("#drpReporte").val() == "8") 
          stReport += "Cohortes";
+     if ($("#drpReporte").val() == "9") 
+         stReport += "Informe_General_Region";
+     
      
     stReport += filtro;
     stReport += "&j_username=jasURL&j_password=jasURLMinsa&output=xlsx";
