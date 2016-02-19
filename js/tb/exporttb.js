@@ -69,6 +69,8 @@ $(document).ready(function() {
     $("#divRegion").hide();
     $("#divDistrito").hide();
     $("#divCorregimiento").hide();
+    $("#anio_listado_tb").hide();
+    $("#nivel_geografico").hide();
     
     $( "#nombre_un" ).autocomplete(urlprefix + "js/dynamic/unidadNotificadora_id.php",
     {
@@ -94,15 +96,26 @@ $(document).ready(function() {
    $("#drpReporte").change(function(){
        var x = document.getElementById("drpNivelUn");
        if ($(this).val() == "4"){
-           $("#divSisvig").css( "visibility", "hidden" );
+           $("#divSisvig").hide();
            
        }else if($(this).val() == "3"){
             if(x[x.length-1].value == "6"){
                 x.remove(x.length-1)
             }
-           $("#divSisvig").css( "visibility", "" ); 
-           $("#fh_fase1").css( "visibility", "hidden" );
-       }else
+           $("#divSisvig").show(); 
+           $("#fh_fase1").hide();
+           $("#nivel_geografico").show();
+           $("#anio_listado_tb").show();
+       
+       }else if($(this).val() == "6" || $(this).val() == "7" || $(this).val() == "9"){
+            
+           $("#divSisvig").show(); 
+           $("#nivel_geografico").hide();
+           $('#drpNivelUn').val('1')
+           $("#fh_fase1").show();
+           $("#anio_listado_tb").hide();
+       }
+       else
            {
            if(x[x.length-1].value != "6"){
                 var elOptNew = document.createElement('option');
@@ -115,8 +128,10 @@ $(document).ready(function() {
                 x.add(elOptNew); // IE only
                 }
             }
-            $("#divSisvig").css( "visibility", "" ); 
-            $("#fh_fase1").css( "visibility", "" );
+            $("#divSisvig").show();
+            $("#nivel_geografico").show();
+            $("#fh_fase1").show();
+            $('#anio_listado_tb').hide();
            }
    });
     
@@ -318,6 +333,7 @@ function borrarFiltro(){
     $("#semana_fin2").val("");
     $("#anio_ini2").val("");
     $("#anio_fin2").val("");
+     $("#anio_listado").val("");
     destruirTabla(tablaUN);
 }
 
@@ -430,10 +446,19 @@ function validarReporte()
         var anioFinF1 = $("#anio_fin_f1").val();   
         
         if (anioIniF1 != ""){
+            
             if(anioIniF1 < anioFinF1){
-                Filtro += "&P_FECHA_INI_F1="+anioIniF1;
-                if (anioFinF1 != "") 
-                    Filtro +="&P_FECHA_FIN_F1="+anioFinF1;
+                
+                if ( $("#drpReporte").val() == "9" || $("#drpReporte").val() == "8" || $("#drpReporte").val() == "7") {
+                    Filtro += "&P_FECHA_INI=" + anioIniF1;
+                    if (anioFinF1 != "")
+                        Filtro += "&P_FECHA_FIN=" + anioFinF1;
+                } else {
+                    Filtro += "&P_FECHA_INI_F1=" + anioIniF1;
+                    if (anioFinF1 != "")
+                        Filtro += "&P_FECHA_FIN_F1=" + anioFinF1;
+                }
+                
             }
             else
                 Message+="<br/> - El a&ntilde;o de inicio debe ser menor que el a&ntilde;o de fin";
@@ -442,6 +467,16 @@ function validarReporte()
         }else{
             Message+="<br/> - Debe ingresar la fecha de inicio de la Fase 1";
         }
+        
+        if ($("#drpReporte").val()=="3") {
+            if ($("#anio_listado").val() != "") {
+
+                Filtro += "&P_ANIO=" + $("#anio_listado").val();
+            } else {
+                Message += "<br/> - Debe ingresar el año que necesita el reporte";
+            }  
+        }
+        
             
         
     }
@@ -476,6 +511,7 @@ function generarReporte(filtro, lugar, condicion){
     $("#error").html(' ');
 //        alert (filtro + "\n -" + lugar + " \n -" + condicion );
 
+
     if ($("#drpReporte").val() == "4"){
     
      stReport = "http://190.34.154.87/sisvig2/reportes/tb/Indicadores_TB_SISVIG.xls"
@@ -491,12 +527,22 @@ function generarReporte(filtro, lugar, condicion){
          stReport += "LISTADO_PACIENTES_TB_NO_FORM";
     if ($("#drpReporte").val() == "5") 
          stReport += "exportar_tb_excel_encabezado";
+     if ($("#drpReporte").val() == "6") 
+         stReport += "consolidado_tipo_region";
+     if ($("#drpReporte").val() == "7") 
+         stReport += "AnualOMS";
+     if ($("#drpReporte").val() == "8") 
+         stReport += "Cohortes";
+     if ($("#drpReporte").val() == "9") 
+         stReport += "Informe_General_Region";
+     
      
     stReport += filtro;
     stReport += "&j_username=jasURL&j_password=jasURLMinsa&output=xlsx";
     
     }
 //    alert(stReport);
+    console.log(stReport);
     window.open(stReport, 'Reporte',"toolbar=yes, status=yes, status=yes, scrollbars=yes, resizable=yes, menubar=yes, width=400, height=400");
 }
 

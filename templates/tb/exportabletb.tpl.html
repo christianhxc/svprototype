@@ -20,12 +20,17 @@
                             <label style="color:#000000; font-weight:normal;">Reporte: <span class="mandatory">*</span></label>&nbsp;&nbsp;&nbsp;&nbsp;
                             <select id="drpReporte" name="search[sistema]" style="width:250px" ">
                                     <option value="">Seleccione...</option>
-                                    <option value="1">Exportaci&oacute;n de variables</option>
                                     <option value="5">Exportaci&oacute;n de variables - encabezados </option>  
-                                    <option value="2">Distribuci&oacute;n X Sexo Y Edad</option>
-                                    <option value="3">Listado TB otros modulos SISVIG</option>
+                                    <option value="2">Consolidado por sexo y edad de los casos de TB</option>
+                                    <option value="6">Consolidado por tipo y región de los casos de TB</option>
                                     <option value="4">Indicadores TB - SISVIG</option>
+                                    <option value="3">Listado TB otros modulos SISVIG</option>
+                                    <option value="7">Anual OMS</option>
+                                    <option value="8">Cohortes</option>
+                                    <option value="9">Informe general región</option>
+                                    
                             </select>
+                            
                         </td>
                         <td colspan="2" align="right">
                            <a onmouseout="RollOut(this)" title="Borrar filtro" onmouseover="RollOver(this)" style="text-decoration: none; font-weight: bold;" class="ui-state-default ui-corner-all ui-button" href="javascript:borrarFiltro();">Borrar Filtro</a>
@@ -34,7 +39,7 @@
                 </table>
                 <div id="divSisvig">
                     <table width="90%" border="0 cellpadding="2" cellspacing="2" align="center">                    
-                        <tr>
+                        <tr id="nivel_geografico">
                             <td colspan="4">
                                 <label style="color:#000000; font-weight:normal;">Nivel geogr&aacute;fico del paciente: <span class="mandatory">*</span></label>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <select id="drpNivelUn" name="search[nivel]" style="width:250px" onchange="setNivelUn()">
@@ -122,6 +127,12 @@
                                 <input type="text" id="anio_ini_f1" style="width: 80px;" maxlength="8"  />
                                 <label > Fecha fin: </label>
                                 <input type="text" id="anio_fin_f1" style="width: 80px;" maxlength="8"  />
+                            </td>
+                        </tr>
+                        <tr id="anio_listado_tb">
+                            <td colspan="4">
+                                <label >Año: </label>
+                                <input type="text" id="anio_listado" style="width: 80px;" maxlength="4"  />
                             </td>
                         </tr>
                         <tr><td colspan="4" style="text-align:right;"><label>** Si se quiere traer todos los a&ntilde;os se deja en blanco lo campos de a&ntildeo</label></td></tr>

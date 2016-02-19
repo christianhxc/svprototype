@@ -1248,8 +1248,34 @@
                                         <option value="5" {selLugDiag5}>Instalaciones de Salud Privada</option>
                                     </select></td>
                             </tr>
+                            <tr> 
+                                <td>Transferido</td>   
+                                <td><select id="drptransferido" name="data[tratamiento][referido]" >
+                                        <option value="">Sel...</option>
+                                        <option value="1" {selTransferido1}>Si</option>
+                                        <option value="0" {selTransferido0}>No</option>
+                                    </select>&nbsp;&nbsp;</td>
+                                <td id="labelInstaTrans">
+                                    Lugar de transferencia:
+                                </td>
+                                <td id="inputInstaTrans">
+                                    <input id="inst_salud_transferencia" name="data[tratamiento][inst_salud_transferencia]" style="width:280px;" maxlength="150" type="text" {valIntSaludTransferencia}>&nbsp;&nbsp;
+                                    <input id="id_inst_salud_transferencia" name="data[tratamiento][id_inst_salud_transferencia]" value="{valInstSaludTransf}" type="hidden" >
+                                </td>
+                                <td id="labelFechaTrans"><label>Fecha Transf:<span class="mandatory">*</span></label></td>
+                                <td id="inputFechaTrans">
+                                    <input id="fecha_transf" name="data[tratamiento][fecha_transf]" value="{valFechaTransf}" style="width: 100px;" maxlength="10"  type="text">
+                                    <span class="ui-datepicker-append"> dd/mm/aaaa</span>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
+                    <br>
+                    <div style="font-size:9px;">
+                        <spam style="color:red;">Referencia:</spam> Es el proceso de traslado en el lugar más cercano al hogar del paciente con diagnóstico de TB ya confirmado, para comenzar el tratamiento. <br>
+                        <spam style="color:red;">Transferencia:</spam> Se refiere cuando una instalación de salud traslada a un paciente con TB y ya registrado en el programa a otra área, para continuar su tratamiento.
+
+                    </div>
                 </fieldset>
                 <fieldset class="ui-widget ui-widget-content ui-corner-all">
                     <legend>Datos del tratamiento</legend>
