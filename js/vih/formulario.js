@@ -733,7 +733,7 @@ function individuo(tipoId,idP)
         data: "tipo_id="+tipoId+"&id="+ idP,
         success: function(data)
         {
-            var partes = data.toString().split('#');
+            var partes = data.toString().trim().split('#');
            
             if(data.toString().length>0)
             {
