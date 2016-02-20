@@ -161,7 +161,8 @@ if (isset($_REQUEST["action"])) {
 
 $config["catalogos"]["provincias"] = helperLugar::getProvincias($config);
 $config["catalogos"]["tipoId"] = helperCatalogos::getTipoIdentificacion();
-$config["catalogos"]["etnia"] = helperCatalogos::getEtnia();
+$config["catalogos"]["etnia"] = helperCatalogos::getEtniaVih();
+$config["catalogos"]["grupo_indigena"] = helperCatalogos::getGrupoIndigena();
 $config["catalogos"]["genero"] = helperCatalogos::getGenero();
 $config["catalogos"]["clinicas"] = helperCatalogos::getClinicasTarv();
 $config["catalogos"]["regiones"] = "";

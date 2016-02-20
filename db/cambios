@@ -126,3 +126,39 @@ UPDATE sisvigdb.cat_factor_riesgo SET `order` = 8 WHERE id_factor = 19;
 
 ALTER TABLE sisvigdb.vih_form ADD tar INT;
 ALTER TABLE sisvigdb.vih_form ADD fecha_tar DATE;
+
+CREATE TABLE `cat_etnia_vih` (
+  `id_etnia` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre_etnia` varchar(100) NOT NULL,
+  `status` int(1) unsigned DEFAULT NULL,
+  `orden` int(1) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id_etnia`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+INSERT INTO `sisvigdb`.`cat_etnia_vih` (`nombre_etnia`, `status`, `orden`) VALUES ('NEGRA', '1', '1');
+INSERT INTO `sisvigdb`.`cat_etnia_vih` (`nombre_etnia`, `status`, `orden`) VALUES ('BLANCA', '1', '2');
+INSERT INTO `sisvigdb`.`cat_etnia_vih` (`nombre_etnia`, `status`, `orden`) VALUES ('MESTIZO', '1', '3');
+INSERT INTO `sisvigdb`.`cat_etnia_vih` (`nombre_etnia`, `status`, `orden`) VALUES ('ORIENTAL', '1', '4');
+INSERT INTO `sisvigdb`.`cat_etnia_vih` (`nombre_etnia`, `status`, `orden`) VALUES ('INDIGENA', '1', '5');
+INSERT INTO `sisvigdb`.`cat_etnia_vih` (`nombre_etnia`, `status`, `orden`) VALUES ('OTROS', '1', '6');
+INSERT INTO `sisvigdb`.`cat_etnia_vih` (`nombre_etnia`, `status`, `orden`) VALUES ('N.E.', '1', '7');
+
+CREATE TABLE `cat_grupo_indigena` (
+  `id_grupo_indigena` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre_grupo_indigena` varchar(100) NOT NULL,
+  `status` int(1) unsigned DEFAULT NULL,
+  `orden` int(1) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id_grupo_indigena`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+INSERT INTO `sisvigdb`.`cat_grupo_indigena` (`nombre_grupo_indigena`, `status`, `orden`) VALUES ('EMBERA', '1', '1');
+INSERT INTO `sisvigdb`.`cat_grupo_indigena` (`nombre_grupo_indigena`, `status`, `orden`) VALUES ('BRI-BRI', '1', '2');
+INSERT INTO `sisvigdb`.`cat_grupo_indigena` (`nombre_grupo_indigena`, `status`, `orden`) VALUES ('BUGLE', '1', '3');
+INSERT INTO `sisvigdb`.`cat_grupo_indigena` (`nombre_grupo_indigena`, `status`, `orden`) VALUES ('NGABE', '1', '4');
+INSERT INTO `sisvigdb`.`cat_grupo_indigena` (`nombre_grupo_indigena`, `status`, `orden`) VALUES ('KUNA', '1', '5');
+INSERT INTO `sisvigdb`.`cat_grupo_indigena` (`nombre_grupo_indigena`, `status`, `orden`) VALUES ('NASO', '1', '6');
+INSERT INTO `sisvigdb`.`cat_grupo_indigena` (`nombre_grupo_indigena`, `status`, `orden`) VALUES ('WOUNAAN', '1', '7');
+
+ALTER TABLE `sisvigdb`.`tbl_persona` 
+ADD COLUMN `id_grupo_indigena` INT(11) NULL COMMENT '' AFTER `fecha_parto`;
+

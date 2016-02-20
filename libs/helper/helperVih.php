@@ -166,6 +166,7 @@ class helperVih {
         $individuo["id_escolaridad "] = (!isset($data["individuo"]["escolaridad"]) ? NULL : strtoupper($data["individuo"]["escolaridad"]));
         $individuo["id_estado_civil "] = (!isset($data["individuo"]["estado_civil"]) ? NULL : strtoupper($data["individuo"]["estado_civil"]));
         $individuo["id_etnia "] = (!isset($data["individuo"]["etnia"]) ? NULL : strtoupper($data["individuo"]["etnia"]));
+        $individuo["id_grupo_indigena "] = (!isset($data["individuo"]["grupo_indigena"]) ? NULL : strtoupper($data["individuo"]["grupo_indigena"]));
         $individuo["id_genero "] = (!isset($data["individuo"]["genero"]) ? NULL : strtoupper($data["individuo"]["genero"]));
         $individuo["id_ocupacion "] = (!isset($data["individuo"]["ocupacion_id"]) ? NULL : strtoupper($data["individuo"]["ocupacion_id"]));
 

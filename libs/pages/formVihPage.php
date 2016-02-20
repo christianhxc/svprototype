@@ -101,6 +101,19 @@ class formVih extends page {
                 $this->tpl->parse('blkEtnia');
             }
         }
+
+        $grupos_indigena = $this->config["catalogos"]["grupo_indigena"];
+        if (is_array($grupos_indigena)) {
+            foreach ($grupos_indigena as $grupo_indigena) {
+                $this->tpl->setCurrentBlock('blkGrupoIndigena');
+                $this->tpl->setVariable("valGrupoIndigena", $grupo_indigena["id_grupo_indigena"]);
+                $this->tpl->setVariable("opcGrupoIndigena", htmlentities($grupo_indigena["nombre_grupo_indigena"]));
+                if ($this->config["preselect"])
+                    $this->tpl->setVariable("selGrupoIndigena", ($grupo_indigena["id_grupo_indigena"] == $this->config["data"]["individuo"]["grupo_indigena"] ? 'selected="selected"' : ''));
+
+                $this->tpl->parse('blkGrupoIndigena');
+            }
+        }
         
         $generos = $this->config["catalogos"]["genero"];
         if (is_array($generos)) {

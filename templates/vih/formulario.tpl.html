@@ -334,7 +334,7 @@
                             </td>
                             <td><label >Etnia:</label></td>
                             <td >
-                                <select id="drpEtnia" name="data[individuo][etnia]" style="width:300px">
+                                <select id="drpEtnia" name="data[individuo][etnia]" style="width:300px" onChange="mostrarGrupoIndigena();">
                                     <option value="0">Seleccione...</option>
                                     <!-- BEGIN blkEtnia -->
                                     <option value="{valEtnia}" {selEtnia}>{opcEtnia}</option>
@@ -342,6 +342,20 @@
                                 </select>
                             </td>
                             
+                        </tr>
+                        <tr id="tr_grupo_indigena" style="display: none">
+                            <td></td>
+                            <td></td>
+                            <td><label>Grupo Indigena:</label></td>
+                            <td >
+                                <select id="drpGrupoIndigena" name="data[individuo][grupo_indigena]" style="width:300px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkGrupoIndigena -->
+                                    <option value="{valGrupoIndigena}" {selGrupoIndigena}>{opcGrupoIndigena}</option>
+                                    <!-- END blkGrupoIndigena -->
+                                </select>
+                            </td>
+
                         </tr>
                         <tr>
                             <td><label >Estado Civil:<span class="mandatory">*</span></label></td>
@@ -360,15 +374,15 @@
                             <td >
                                 <select id="drpEscolaridad" name="data[individuo][escolaridad]" style="width:300px">
                                     <option value="0">Seleccione...</option>
-                                    <option value="1" {selEscolaridad1}>Primaria Completa</option>
+                                    <option value="9" {selEscolaridad8}>Ninguna</option>
                                     <option value="2" {selEscolaridad2}>Primaria Incompleta</option>
-                                    <option value="3" {selEscolaridad3}>Secundaria Completa</option>
+                                    <option value="1" {selEscolaridad1}>Primaria Completa</option>
                                     <option value="4" {selEscolaridad4}>Secundaria Incompleta</option>
-                                    <option value="5" {selEscolaridad5}>Universidad Completa</option>
+                                    <option value="3" {selEscolaridad3}>Secundaria Completa</option>
                                     <option value="6" {selEscolaridad6}>Universidad Incompleta</option>
+                                    <option value="5" {selEscolaridad5}>Universidad Completa</option>
                                     <option value="7" {selEscolaridad7}>Vocacional</option>
                                     <option value="8" {selEscolaridad9}>No especificada</option>
-                                    <option value="9" {selEscolaridad8}>Ninguna</option>
                                 </select>
                             </td>
                         </tr>

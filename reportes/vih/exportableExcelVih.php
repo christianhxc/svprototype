@@ -38,7 +38,7 @@
     $config["search"]["inicio"] = ($config['page'] - 1) * $config["search"]["paginado"];
     
     $config["catalogos"]["provincias"] = helperLugar::getProvincias($config);
-    $config["catalogos"]["etnia"] = helperCatalogos::getEtnia();
+    $config["catalogos"]["etnia"] = helperCatalogos::getEtniaVih();
     $config["catalogos"]["genero"] = helperCatalogos::getGenero();
 
     $page = new exportableExcelVihPage($config);

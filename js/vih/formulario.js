@@ -579,6 +579,14 @@ $(document).ready(function() {
     habilitarElmentoConRadios('pcr1_detectable_3','pcr2_detectable_3','nuevo_nino_3');
 });
 
+function mostrarGrupoIndigena(){
+    if($('#drpEtnia').val() == 5){
+        $("#tr_grupo_indigena").show();
+    } else {
+        $("#tr_grupo_indigena").hide();
+    }
+}
+
 function habilitarElmentoConRadio(radio, block){
     if($('#' + radio).is(':checked')){
         $("#" + block).show();
@@ -762,6 +770,7 @@ function individuo(tipoId,idP)
                 
                 $("#drpGenero").val(partes[24]);
                 $("#drpEtnia").val(partes[23]);
+                $("#drpGrupoIndigena").val(partes[32]);
                 $("#drpEstadoCivil").val(partes[21]);
                 $("#drpEscolaridad").val(partes[22]);
 
@@ -797,6 +806,7 @@ function individuo(tipoId,idP)
                 found = true;
                 calcularEdad();
                 sexoEmbarazo();
+                mostrarGrupoIndigena();
             }
             else
                 found = false;

@@ -104,6 +104,34 @@ class helperCatalogos {
 
         return $data;
     }
+
+    public static function getEtniaVih() {
+        $sql = "select * from cat_etnia_vih where status = 1 order by orden asc";
+        $conn = new Connection();
+
+        $conn->initConn();
+        $conn->prepare($sql);
+        //$conn->param();
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+
+        return $data;
+    }
+
+    public static function getGrupoIndigena() {
+        $sql = "select * from cat_grupo_indigena where status = 1 order by orden asc";
+        $conn = new Connection();
+
+        $conn->initConn();
+        $conn->prepare($sql);
+        //$conn->param();
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+
+        return $data;
+    }
     
         public static function getEtniatb() {
         $sql = "select * from cat_etnia_tb order by orden asc";
