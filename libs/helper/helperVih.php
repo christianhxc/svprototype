@@ -445,6 +445,13 @@ class helperVih {
         //Comportamiento
         $vih["comp_its_ultimo"] = (!isset($data["individuo"]["itsUltimo"]) ? NULL : $data["individuo"]["itsUltimo"]);
         $vih["comp_its_ulcerativa"] = (!isset($data["individuo"]["itsUlcerativa"]) ? NULL : $data["individuo"]["itsUlcerativa"]);
+
+        $vih["comp_its_sifilis"] = (!isset($data["individuo"]["comp_its_sifilis"]) ? NULL : $data["individuo"]["comp_its_sifilis"]);
+        $vih["comp_its_gonorrea"] = (!isset($data["individuo"]["comp_its_gonorrea"]) ? NULL : $data["individuo"]["comp_its_gonorrea"]);
+        $vih["comp_its_hepatitisb"] = (!isset($data["individuo"]["comp_its_hepatitisb"]) ? NULL : $data["individuo"]["comp_its_hepatitisb"]);
+        $vih["comp_its_hepatitisc"] = (!isset($data["individuo"]["comp_its_hepatitisc"]) ? NULL : $data["individuo"]["comp_its_hepatitisc"]);
+        $vih["comp_its_otras"] = (!isset($data["individuo"]["comp_its_otras"]) ? NULL : $data["individuo"]["comp_its_otras"]);
+
         $vih["comp_edad_inicio_sexual"] = (!isset($data["individuo"]["vida_sexual"]) ? NULL : $data["individuo"]["vida_sexual"]);
         //$vih["comp_uso_condon"] = (!isset($data["individuo"]["condonRel"]) ? NULL : $data["individuo"]["condonRel"]);
         $vih["comp_trabajador_sexual"] = (!isset($data["individuo"]["trabajoSexual"]) ? NULL : $data["individuo"]["trabajoSexual"]);

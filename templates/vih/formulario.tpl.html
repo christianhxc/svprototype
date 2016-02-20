@@ -400,20 +400,23 @@
                         </tr>
                         <tr>
                             <td ><label >ITS en el &uacute;ltimo a&ntilde;o?:</label></td>
-                            <td>
+                            <td colspan="3">
                                 <select id="drpItsUltimo" name="data[individuo][itsUltimo]" onchange="ulcerativa()">
                                     <option value="0">Sel...</option>
                                     <option value="1" {selItsUltimoSi}>Si</option>
                                     <option value="2" {selItsUltimoNo}>No</option>
                                     <option value="3" {selItsUltimoDesc}>Desc</option>
                                 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label id="labelUlcerativa">Ulcerativa?:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <select id="drpItsUlcerativa" name="data[individuo][itsUlcerativa]">
-                                    <option value="0">Sel...</option>
-                                    <option value="1" {selItsUlcerativaSi}>Si</option>
-                                    <option value="2" {selItsUlcerativaNo}>No</option>
-                                    <option value="3" {selItsUlcerativaDesc}>Desc</option>
-                                </select>
+                                <input type="checkbox" class="check_its" name="data[individuo][comp_its_sifilis]" {valItsSifilis}/> <label class="check_its">Sifilis</label>
+                                <input type="checkbox" class="check_its" name="data[individuo][comp_its_gonorrea]" {valItsGonorrea}/> <label class="check_its">Gonorrea</label>
+                                <input type="checkbox" class="check_its" name="data[individuo][comp_its_hepatitisb]" {valItsHepatitisB}/> <label class="check_its">Hepatitis B</label>
+                                <input type="checkbox" class="check_its" name="data[individuo][comp_its_hepatitisc]" {valItsHepatitisC}/> <label class="check_its">Hepatitis C</label>
+                                <input type="checkbox" class="check_its" name="data[individuo][comp_its_otras]" {valItsOtras}/> <label class="check_its">Otras</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td ></td>
+                            <td>
                             </td>
                             <td colspan="2">
                                 <label >Edad de inicio de vida sexual activa:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -473,7 +473,13 @@ class formVih extends page {
                 $this->tpl->setVariable('valIdUnDefuncion', $this->config['read']['cond_id_un_defuncion']);
             else if ($this->config['read']['cond_otro_defuncion']!="")
                 $this->tpl->setVariable('valOtroDefuncion', 'checked="checked"');
-                         
+
+            if (is_numeric($this->config['read']['comp_its_sifilis'])) $this->tpl->setVariable('valItsSifilis', 'checked="checked"');
+            if (is_numeric($this->config['read']['comp_its_gonorrea'])) $this->tpl->setVariable('valItsGonorrea', 'checked="checked"');
+            if (is_numeric($this->config['read']['comp_its_hepatitisb'])) $this->tpl->setVariable('valItsHepatitisB', 'checked="checked"');
+            if (is_numeric($this->config['read']['comp_its_hepatitisc'])) $this->tpl->setVariable('valItsHepatitisC', 'checked="checked"');
+            if (is_numeric($this->config['read']['comp_its_otras'])) $this->tpl->setVariable('valItsOtras', 'checked="checked"');
+
                        
             $this->tpl->setVariable('valSobrevidaSida', $this->config['read']['cond_sobrevida_sida']);
             $this->tpl->setVariable('valLugarDiagnostico', $this->config['read']['cond_lugar_diagnostico']);

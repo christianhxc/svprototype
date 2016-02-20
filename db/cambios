@@ -162,3 +162,9 @@ INSERT INTO `sisvigdb`.`cat_grupo_indigena` (`nombre_grupo_indigena`, `status`, 
 ALTER TABLE `sisvigdb`.`tbl_persona` 
 ADD COLUMN `id_grupo_indigena` INT(11) NULL COMMENT '' AFTER `fecha_parto`;
 
+ALTER TABLE `sisvigdb`.`vih_form` 
+ADD COLUMN `comp_its_sifilis` INT NULL COMMENT '' AFTER `fecha_tar`,
+ADD COLUMN `comp_its_gonorrea` INT NULL COMMENT '' AFTER `comp_its_sifilis`,
+ADD COLUMN `comp_its_hepatitisb` INT NULL COMMENT '' AFTER `comp_its_gonorrea`,
+ADD COLUMN `comp_its_hepatitisc` INT NULL COMMENT '' AFTER `comp_its_hepatitisb`,
+ADD COLUMN `comp_its_otras` INT NULL COMMENT '' AFTER `comp_its_hepatitisc`;

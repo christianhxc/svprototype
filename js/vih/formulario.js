@@ -413,6 +413,7 @@ function mostrarFechaTar(){
 
 $(document).ready(function() {
     individuo($("#drpTipoId").val(), $("#no_identificador").val());
+    ulcerativa();
     sexoEmbarazo();
     llenarFactoresRiesgo();
     llenarEnfOportunistas();
@@ -1357,14 +1358,17 @@ function validarVih(){
 }
 
 function ulcerativa(){
+    $(".check_its").hide();
     ulcera = $('#drpItsUltimo').val();
     if(ulcera == '1'){
         $( "#labelUlcerativa" ).css( "display", "" );
         $( "#drpItsUlcerativa" ).css( "display", "" );
+        $(".check_its").show();
     }
     else{
         $( "#labelUlcerativa" ).css( "display", "none" );
         $( "#drpItsUlcerativa" ).css( "display", "none" );
+        $(".check_its").hide();
     }
 }
 
