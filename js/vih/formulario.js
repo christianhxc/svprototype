@@ -739,9 +739,8 @@ function individuo(tipoId,idP)
         type: "POST",
         url: urlprefix + 'js/dynamic/datosPersona.php',
         data: "tipo_id="+tipoId+"&id="+ idP,
-        success: function(data)
-        {
-            var partes = data.toString().split('#');
+        success: function(data) {
+            var partes = data.toString().trim().split('#');
            
             if(data.toString().length>0)
             {

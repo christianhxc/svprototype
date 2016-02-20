@@ -165,6 +165,19 @@ $(function() {
     });
 });
 
+$(function() {
+    $( "#fecha_transf" ).datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        yearRange: "2010:"+new Date().getFullYear(),
+        buttonImage: urlprefix+"img/calendar.gif",
+        buttonImageOnly: true,
+        showAnim: "slideDown"
+    });
+});
+
 
 $(function() {
     $( "#fecha_inicio_tratF1" ).datepicker({
@@ -525,6 +538,7 @@ $(document).ready(function() {
     Egreso_fecha_seg_lin();
     Res_VIH();
     Ref_Inst();
+    Ref_Transferencia();
     Ref_Trat_Fam();
     Res_med();
     Tab_VIH();
@@ -600,6 +614,21 @@ $(document).ready(function() {
         onItemSelect:function(li){
             $("#inst_salud_referencia").val($("<div>").html(li.selectValue).text());
             $("#id_inst_salud_referencia").val(li.extra[0]);
+//            $("#label_valor_region1").html(li.extra[1]);
+        },
+        autoFill:false
+    });
+    
+    $( "#inst_salud_transferencia" ).autocomplete(urlprefix + "js/dynamic/unidadNotificadora.php",
+    {
+        delay:10,
+        minChars:3,
+        matchSubset:1,
+        matchContains:1,
+        cacheLength:10,
+        onItemSelect:function(li){
+            $("#inst_salud_transferencia").val($("<div>").html(li.selectValue).text());
+            $("#id_inst_salud_transferencia").val(li.extra[0]);
 //            $("#label_valor_region1").html(li.extra[1]);
         },
         autoFill:false
@@ -1021,6 +1050,10 @@ $(document).ready(function() {
     
     $('#drpreferido').change(function(){
         Ref_Inst();
+    });
+    
+    $('#drptransferido').change(function(){
+        Ref_Transferencia();
     });
     
     
@@ -2382,6 +2415,27 @@ function Ref_Inst(){
         {
         $( "#labelInstaRef" ).css( "visibility", "" );
         $( "#inputInstaRef" ).css( "visibility", "" );
+        }
+    
+}
+
+function Ref_Transferencia(){
+    Ref_Insta = $('#drptransferido').val();
+    if(Ref_Insta != "1"){
+        $( "#labelInstaTrans" ).css( "visibility", "hidden" );
+        $( "#inputInstaTrans" ).css( "visibility", "hidden" );
+        $( "#labelFechaTrans" ).css( "visibility", "hidden" );
+        $( "#inputFechaTrans" ).css( "visibility", "hidden" );
+        $( "#inst_salud_transferencia" ).val("");
+        $( "#id_inst_salud_transferencia" ).val("");
+        $( "#fecha_transf" ).val("");
+    }
+    else 
+        {
+        $( "#labelInstaTrans" ).css( "visibility", "" );
+        $( "#inputInstaTrans" ).css( "visibility", "" );
+        $( "#labelFechaTrans" ).css( "visibility", "" );
+        $( "#inputFechaTrans" ).css( "visibility", "" );
         }
     
 }
