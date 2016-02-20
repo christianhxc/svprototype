@@ -399,6 +399,9 @@ class formVih extends page {
                 case '4':
                     $this->tpl->setVariable('selEmbCaptadaDesc', 'selected="selected"');
                     break;
+                case '5':
+                    $this->tpl->setVariable('selEmbCaptadaParto', 'selected="selected"');
+                    break;
             }
             $this->tpl->setVariable('valAnioEmb1', $this->config['read']['comp_emb_1']);
             $this->tpl->setVariable('valAnioEmb2', $this->config['read']['comp_emb_2']);
