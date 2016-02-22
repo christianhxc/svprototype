@@ -1,0 +1,115 @@
+<div ng-controller="reportesController">
+    <div class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; margin-top: 5px;" ng-show="errores.length > 0">
+        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+        <label><strong>No se puede continuar por lo siguiente:</strong></label><br>
+        <label data-ng-repeat="error in errores">- {{error}}<br></label>
+    </div>
+
+    <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset">
+        <fieldset class="ui-widget ui-widget-content ui-corner-all" style="margin: 10px;">
+            <legend>Configuracion del Reporte</legend>
+            <table cellspacing="2" cellpadding="2" border="0" align="center" style="width: 100%">
+                <tbody>
+                <tr>
+                    <td>
+                        <label>Nombre del Reporte:<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <input type="text" maxlength="45" style="width: 400px; text-align:center;" ng-model="form.nombre">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Escenario:<span class="mandatory">*</span></label></td>
+                    <td>
+                        <select style="width:250px"
+                                name="escenarios" id="escenarios" ng-model="escenario"
+                                ng-options = "data.nombre_esquema for data in escenarios"
+                                ng-change = "cargarVacunas();">
+                            <option value="" class="">--</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Numerador:<span class="mandatory">*</span></label></td>
+                    <td>
+                        <select style="width:250px"
+                                name="vacuna" id="vacuna" ng-model="vacuna"
+                                ng-options = "data.nombre_vacuna for data in catVacunas"
+                                ng-change = "cargarDosis();" ng-disabled="!catVacunas">
+                            <option value="" class="">-- VACUNA --</option>
+                        </select>
+                        <select style="width:250px" ng-disabled="!catDosis"
+                                name="dosis" id="dosis" ng-model="dosis"
+                                ng-options = "('Dosis #' + data.num_dosis_refuerzo) for data in catDosis">
+                            <option value="" class="">-- DOSIS --</option>
+                        </select>
+                        <a ng-click="agregarVacuna()" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Agregar</a>
+                    </td>
+                </tr>
+                <tr ng-show="vacunas.length > 0">
+                    <td>&nbsp;</td>
+                    <td>
+                        <table align="left" border="0" cellpadding="2" cellspacing="2">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <table id="fdg_1" border="0" cellpadding="4" cellspacing="1" width="450">
+                                            <tbody>
+                                                <tr>
+                                                    <th width="300" class="dxgvHeader_PlasticBlue">Vacuna</th>
+                                                    <th width="100" class="dxgvHeader_PlasticBlue">Dosis</th>
+                                                    <th width="50" class="dxgvHeader_PlasticBlue">&nbsp;</th>
+                                                </tr>
+                                                <tr data-ng-repeat="vac in vacunas">
+                                                    <td class="fila" width="67">{{vac.dosis.nombre_vacuna}}</td>
+                                                    <td class="fila" width="182">Dosis #{{vac.dosis.num_dosis_refuerzo}}</td>
+                                                    <td class="fila" style="text-align:center" width="116">
+                                                        <a data-ng-click="borrarVacuna(vac)">
+                                                            <img src="/sisvig2/img/Delete.png" title="Eliminar" border="0">
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Denominador:<span class="mandatory">*</span></label></td>
+                    <td>
+                        <select style="width:250px"
+                                name="grupoEdad" id="grupoEdad" ng-model="grupoEdad"
+                                ng-options = "data.descripcion for data in gruposEdad">
+                            <option value="" class="">--</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Tasa de desercion:<span class="mandatory">*</span></label></td>
+                    <td>
+                        <input type="radio" value="1" ng-model="form.tasa" /> Si
+                        <input type="radio" value="0" ng-model="form.tasa" /> No
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+
+    <table align="center">
+        <tr>
+            <td>
+                <div style="margin-top:10px">
+                    <p align="center" ng-show="procesando">Guardando ...</p>
+                    <a ng-click="guardar()" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Guardar</a>
+                    <a href="configuraciones.php" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Cancelar</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

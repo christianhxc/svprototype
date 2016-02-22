@@ -3,7 +3,7 @@
 
     <div class ="contenedor" align="left">
         <div class = "cuadro11">
-            <div class="notificacion">Vigilancia Rutinaria<h6>formularios que se deben llenar de manera rutinaria.</h6></div>
+            <div class="notificacion">Vigilancia Rutinaria<h6>Formularios que se deben llenar de manera rutinaria.</h6></div>
             <div class="listados">
                 <ul>
                     <li class="{iniMenuEno}"><a id="eno"><span>Notificaci&oacute;n obligatoria - ENO</span></a></li>
@@ -42,11 +42,47 @@
             </div>
         </div>
         <div class = "cuadro2">
-            <div class="brotes">Vigilancia en Brotes<h6>descripci&oacute;n del cuadro.</h6></div>
+            <div class="brotes">Otros Programas<h6>Formularios de otros programas del MINSA.</h6></div>
             <div class="listados">
                 <ul>
-                    <li class="{iniMenuBrotes}"><a href='#' >Notificaci&oacute;n de Brotes</a></li>
-                    <li class="{iniMenuBrotes}"><a href='#' >Investigaci&oacute;n de Brotes</a></li>
+                    <li class="{iniMenuVIH}"><a id="vih"><span>VIH / SIDA</span></a></li>
+                    <li class="autocomplete" id="divVih">
+                        <ul>
+                            <li style="display: {iniVihFormulario}"><a href='{urlprefix}vih/index.php' >Formulario</a></li>
+                            <li style="display: {iniVihRepExcel}"><a href='{urlprefix}reportes/vih/exportableExcelVih.php' >Exportar Excel</a></li>
+                            <li style="display: {iniVihRepConsolidado}"><a href='{urlprefix}reportes/vih/consolidadoVih.php' >Rep. consolidado</a></li>
+                            <li style="display: {iniVihRepRegiones}"><a href='{urlprefix}reportes/vih/regionesVih.php' >Rep. por regiones</a></li>
+                            <li style="display: {iniVihRepFactorRiesgo}"><a href='{urlprefix}reportes/vih/factorRiesgoVih.php' >Rep. factor riesgo</a></li>
+                            <li style="display: {iniVihRepEnfermedad}"><a href='{urlprefix}reportes/vih/enfermedadVih.php' >Rep. Enf. Oportunista</a></li>
+                            <li style="display: {iniVihSincronizarSilab}"><a href='{urlprefix}vih/sincronizarSilab.php' >Sincronizar SILAB</a></li>
+                            <li style="display: {iniVihSincronizarEpiInfo}"><a href='{urlprefix}vih/sincronizarEpiInfo.php' >Sincronizar EpiInfo</a></li>
+                        </ul>
+                    </li>
+                    <li class="{iniMenuVacunas}"><a id="vac"><span>PAI</span></a></li>
+                    <li class="autocomplete" id="divVacunas">
+                        <ul>
+                            <li style="display: {iniVacRegistroDiario}"><a href='{urlprefix}vacunas/listadoRegistroDiario.php' >Registro Diario</a></li>
+                            <li style="display: {iniVacLdbi}"><a href='{urlprefix}LDBI/index.php' >LDBI</a></li>
+                            <li style="display: {iniVacReportes}"><a href='{urlprefix}vacunas/reportes/reporteCobertura.php' >Reportes</a></li>
+                            <li style="display: {iniVacDenominador}"><a href='{urlprefix}vacunas/listadoDenominadores.php' >Denominadores</a></li>
+                            <li style="display: {iniVacFormulario}"><a href='{urlprefix}vacunas/index.php' >Escenarios Vacunas</a></li>
+                            <li style="display: {iniVacCargarDeno}"><a href='{urlprefix}vacunas/CargarArchivo.php' >Cargar Archivo Denominadores</a></li>
+                        </ul>
+                    </li>
+                    <li class="{iniMenuMat}"><a id="mat" ><span>Alerta temprana - MAT</span></a></li>
+                    <li class="autocomplete" id="divMat">
+                        <ul>
+                            <li style="display: {iniMatFormulario}"><a href='{urlprefix}mat/formulario.php' >Formulario</a></li>
+                        </ul>
+                    </li>
+                    <li><a href='#' id="tb"><span >Tuberculosis</span></a></li>
+                    <li class="autocomplete" id="divtb">
+                        <ul>
+                            <li><a href='{urlprefix}tb/principal.php' >P&aacute;gina inicio</a></li>
+                            <li><a href='{urlprefix}tb/index.php' >Formulario</a></li>
+                            <li><a href='{urlprefix}reportes/tb/exportabletb.php' >Reportes</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -68,7 +104,7 @@
             </div>
         </div>
         <div class = "cuadro4">
-            <div class="centinela">Vigilancia centinela<h6>descripci&oacute;n del cuadro de Vigilancia Centinela</h6></div>
+            <div class="centinela">Vigilancia centinela<h6>Formularios de progamas que tienen Vigilancia Centinela</h6></div>
             <div class="listados">
                 <ul>
                     <li class="{iniMenuFluReg}"><a id="fluReg"><span>Influenza</span></a></li>
@@ -95,25 +131,6 @@
             <div class="especiales">Investigaci&oacute;n de casos especiales<h6>descripci&oacute;n del cuadro de Vigilancias Especiales</h6></div>
             <div class="listados1">
                 <ul>
-                    <li class="{iniMenuVIH}"><a id="vih"><span>VIH / SIDA</span></a></li>
-                    <li class="autocomplete" id="divVih">
-                        <ul>
-                            <li style="display: {iniVihFormulario}"><a href='{urlprefix}vih/index.php' >Formulario</a></li>
-                            <li style="display: {iniVihRepExcel}"><a href='{urlprefix}reportes/vih/exportableExcelVih.php' >Exportar Excel</a></li>
-                            <li style="display: {iniVihRepConsolidado}"><a href='{urlprefix}reportes/vih/consolidadoVih.php' >Rep. consolidado</a></li>
-                            <li style="display: {iniVihRepRegiones}"><a href='{urlprefix}reportes/vih/regionesVih.php' >Rep. por regiones</a></li>
-                            <li style="display: {iniVihRepFactorRiesgo}"><a href='{urlprefix}reportes/vih/factorRiesgoVih.php' >Rep. factor riesgo</a></li>
-                            <li style="display: {iniVihRepEnfermedad}"><a href='{urlprefix}reportes/vih/enfermedadVih.php' >Rep. Enf. Oportunista</a></li>
-                            <li style="display: {iniVihSincronizarSilab}"><a href='{urlprefix}vih/sincronizarSilab.php' >Sincronizar SILAB</a></li>
-                            <li style="display: {iniVihSincronizarEpiInfo}"><a href='{urlprefix}vih/sincronizarEpiInfo.php' >Sincronizar EpiInfo</a></li>
-                        </ul>
-                    </li>
-                    <li class="{iniMenuMat}"><a id="mat" ><span>Alerta temprana - MAT</span></a></li>
-                    <li class="autocomplete" id="divMat">
-                        <ul>
-                            <li style="display: {iniMatFormulario}"><a href='{urlprefix}mat/formulario.php' >Formulario</a></li>
-                        </ul>
-                    </li>
                     <li class="{iniMenuSarampion}"><a href='#' >Sarampi&oacute;n y rub&eacute;ola</a></li>
                     <li class="{iniMenuSinRubeola}"><a href='#' >S&iacute;ndrome de rub&eacute;ola cong&eacute;nita</a></li>
                     <li class="{iniMenuParalisis}"><a href='#' >Par&aacute;lisis fl&aacute;cida aguada en menores de 15</a></li>
@@ -122,25 +139,7 @@
             </div>
             <div class="listados1">
                 <ul>
-                    <li class="{iniMenuTB}"><a href='#' id="tb"><span >Tuberculosis</span></a></li>
-                    <li class="autocomplete" id="divtb">
-                        <ul>
-                            <li style="display: {iniMenuTBPagInicio}"><a href='{urlprefix}tb/principal.php' >P&aacute;gina inicio</a></li>
-                            <li style="display: {iniMenuTBRegFormulario}"><a href='{urlprefix}tb/index.php' >Formulario</a></li>
-                            <li style="display: {iniMenuTBReportes}"><a href='{urlprefix}reportes/tb/exportabletb.php' >Reportes</a></li>
-                        </ul>
-                    </li>
-                    <li class="{iniMenuPrimates}"><a href='#' >Vigilancia en primates no humanos</a></li>
-                    <li class="{iniMenuEVASIS}"><a href='#' >EVASIS</a></li>
                     <li class="{iniMenuSifilis}"><a href='#' >S&iacute;filis cong&eacute;nita</a></li>
-                    <li class="{iniMenuMalformacion}"><a id="mal"><span>Malformacion</span></a></li>
-                    <li class="autocomplete" id="divMal">
-                        <ul>
-                            <li style="display: {iniMenuMalFormulario}"><a href='{urlprefixViejo}Malformacion/formulario.html' >Formulario</a></li>
-                            <li style="display: {iniMenuMalNacFormulario}"><a href='{urlprefixViejo}Malformacion/formulario_nacidos.html' >Formulario Nacidos</a></li>
-                            <li style="display: {iniMenuMalReportes}"><a href='{urlprefixViejo}Malformacion/reportes.html' >Reportes</a></li>
-                        </ul>
-                    </li>
                     <li class="{iniMenuNoTrasmisibles}"><a href='#' >Enfermedades no trasmisibles</a></li>
                     <li class="{iniMenuIntoxiaciones}"><a href='#' >Intoxicaciones agudas por plaguicidas</a></li>
                 </ul>

@@ -1,0 +1,13 @@
+<configuration xmlns="http://logging.apache.org/log4php/">
+    <appender name="notificaciones" class="LoggerAppenderDailyFile">
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date [%logger] [%level] %message%newline" />
+        </layout>
+        <param name="file" value="logs/notificaciones-%s.log" />
+        <param name="datePattern" value="Y-m-d" />
+    </appender>
+    <root>
+        <level value="INFO" />
+        <appender_ref ref="notificaciones" />
+    </root>
+</configuration>

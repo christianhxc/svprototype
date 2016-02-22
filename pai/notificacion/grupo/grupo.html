@@ -1,0 +1,134 @@
+<br>
+<div ng-controller="notificacionGrupoEditController">
+    <table width="100%">
+        <tr>
+            <td>
+                <h2>Modulo de Notificaciones PAI - Grupos</h2>
+            </td>
+            <td align="right">
+                <div style="color: #A4BC2B;">
+                    Regresar
+                    <a href="index.php" class="" style="text-decoration: none; font-weight:bold;">
+                        <img title="Regresar" border=0 src="../../../img/back.png"></a>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; margin-top: 5px;" ng-show="errores.length > 0">
+        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+        <label><strong>No se puede continuar por lo siguiente:</strong></label><br>
+        <label data-ng-repeat="error in errores">- {{error}}<br></label>
+    </div>
+
+    <table align="center" ng-show="cargando">
+        <tr>
+            <td>
+                <div style="margin-top:10px">
+                    <p align="center">Cargando ...</p>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" ng-show="!cargando">
+        <fieldset class="ui-widget ui-widget-content ui-corner-all" style="margin: 10px;">
+            <legend>Datos del Grupo</legend>
+            <table cellspacing="2" cellpadding="2" border="0" align="center" style="width: 100%">
+                <tbody>
+                <tr>
+                    <td width="100">
+                        <label>Nombre:<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <input type="text" maxlength="45" style="width: 400px; text-transform: uppercase;" ng-model="form.nombre" value="{{form.nombre}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top">
+                        <label>Contacto:<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <angucomplete-alt id="contactoSelected"
+                                          placeholder="Buscar contacto"
+                                          pause="400"
+                                          selected-object="contacto"
+                                          remote-url="/sisvig2/api/modulos/vacunas/notificacioncontacto/get.php?s="
+                                          remote-url-data-field=""
+                                          title-field="nombre"
+                                          input-class="form-control form-control-small"/>
+                    </td>
+                </tr>
+                <tr ng-show="contacto">
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        <div class="parrafoLista">
+                            <p><strong>NOMBRE:</strong> {{contacto.originalObject.nombre}}</p>
+                            <p><strong>EMAIL:</strong> {{contacto.originalObject.email}}</p>
+                            <p><strong>TELEFONO:</strong> {{contacto.originalObject.telefono}}</p>
+                        </div>
+                        <div style="margin-top: 10px; margin-bottom: 5px;">
+                            <a href="#" ng-click="agregar()" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Agregar</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-show="contactos.length > 0">
+                    <td>&nbsp;</td>
+                    <td>
+                        <table align="left" border="0" cellpadding="2" cellspacing="2">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <table id="fdg_1" border="0" cellpadding="4" cellspacing="1" width="700">
+                                            <tbody>
+                                            <tr>
+                                                <th width="650" class="dxgvHeader_PlasticBlue">Nombre</th>
+                                                <th width="400" class="dxgvHeader_PlasticBlue">Email</th>
+                                                <th width="100" class="dxgvHeader_PlasticBlue">Telefono</th>
+                                                <th width="30" class="dxgvHeader_PlasticBlue">&nbsp;</th>
+                                            </tr>
+                                            <tr data-ng-repeat="con in contactos">
+                                                <td class="fila" width="67">{{con.data.nombre}}</td>
+                                                <td class="fila" width="67">{{con.data.email}}</td>
+                                                <td class="fila" width="67">{{con.data.telefono}}</td>
+                                                <td class="fila" style="text-align:center" width="116">
+                                                    <a data-ng-click="borrar(con)">
+                                                        <img src="/sisvig2/img/Delete.png" title="Eliminar" border="0">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Activo:</label></td>
+                    <td>
+                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="form.status" ng-checked="form.status == 1" />
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+
+    <table align="center">
+        <tr>
+            <td>
+                <div style="margin-top:10px">
+                    <p align="center" ng-show="procesando">Guardando ...</p>
+                    <a href="#" ng-click="guardar()" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Guardar</a>
+                    <a href="index.php" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Cancelar</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

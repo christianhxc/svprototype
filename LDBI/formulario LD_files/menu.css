@@ -1,0 +1,102 @@
+.menu
+{
+    border:none;
+    border:1px;
+    margin:0px;
+    padding:0px;
+    font:14px "Trebuchet MS",Sans-Serif !important;
+    width: 990px;
+}
+
+.menu ul
+{
+    height:35px;
+    list-style:none;
+    margin:0;
+    padding:0;
+    background: #237324 url("../img/men.png") repeat-x;
+    font-weight: bold;
+}
+
+.menu li
+{
+    float:left;
+    padding:0px;
+}
+
+.menu li a
+{
+    color:#000000;
+    display:block;
+    font-weight:normal;
+    line-height:35px;
+    margin:0px;
+    padding:0px 25px;
+    text-align:center;
+    text-decoration:none;
+    background: #237324 url("../img/men.png") repeat-x;
+}
+.menu li a:hover, .menu ul li:hover a
+{
+    background: #d9f6d5;
+}
+
+.menu li ul
+{
+    background: #FFFFFF;
+    display:none;
+    height:auto;
+    padding:0px;
+    margin:0px;
+    border:0px;
+    position:absolute;
+    width:245px;
+    z-index:200;
+}
+
+.menu li:hover ul
+{
+    display:block;
+}
+
+.menu li li
+{
+    /*background:url('images/sub_sep.gif') bottom left no-repeat;*/
+    display:block;
+    float:none;
+    margin:0px;
+    padding:0px;
+    width:245px;
+}
+
+.menu li:hover li a
+{
+    background:none;
+}
+
+.menu li ul a
+{
+    display:block;
+    height:35px;
+    font-size:13px;
+    margin:0px;
+    padding:0px 10px 0px 15px;
+    text-align:left;
+    border: 1px solid #237324;
+    border-top: none;
+}
+
+.menu li ul a:hover, .menu li ul li:hover a
+{
+    background: #75aa76;
+    color:#ffffff;
+    text-decoration:none;
+    font-weight: bold;
+	border: 1px solid #237324;
+	border-top: none;
+}
+
+.menu ul li ul li
+{
+    
+}

@@ -20,6 +20,8 @@
     $config["jsfiles"][] = "uceti/busqueda.js";
     $config["jsfiles"][] = "jquery.qtip-1.0.0.min.js";
     $config["jsfiles"][] = "Utils.js";
+    $config["jsfiles"][] = "jquery.autocomplete.js";
+    $config["cssfiles"][] = "jquery.autocomplete";
     $config["info"] = $_REQUEST["info"];
 
     if(isset($_REQUEST["a"]) && isset($_REQUEST["cod"]))

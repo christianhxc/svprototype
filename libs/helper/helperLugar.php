@@ -48,11 +48,21 @@ class helperLugar {
     }
     
     // Obtiene los provincia 
-    public static function getProvinciasUceti() {
+    public static function getProvinciasUceti($config) {
 
+        // Filtrar los resultados
+//        $lista = clsCaus::obtenerUbicacion(ConfigurationCAUS::Provincia, $config["id_provincia"]);
+//        if (is_array($lista)) {
+//            $temporal = implode("','", $lista);
+//            if ($temporal != "") {
+//                $filtro .= " where id_provincia in ('" . $temporal . "')";
+//            }
+//        }
+        $filtro = "";
         $sql = "select id_provincia as provincia, nombre_provincia as descripcionProvincia
 				from cat_provincia 
-                                order by id_provincia";
+                                " . $filtro . " 
+				order by id_provincia";
 
         $conn = new Connection();
         $conn->initConn();
@@ -97,7 +107,8 @@ class helperLugar {
 
         $sql = "select id_region as codigoRegion, id_provincia as codigoRegionProvincia, nombre_region as nombreRegion
                     from cat_region_salud
-                    where id_provincia = " . $config["id_provincia"] . " 
+                    where 1
+                    " . (isset($config["id_provincia"]) ? "and id_provincia = " . $config["id_provincia"] : "") . "
                     " . $filtro . "
                     order by nombre_region";
         //echo $sql;exit;
@@ -267,7 +278,53 @@ class helperLugar {
         $conn->closeConn();
         return $data;
     }
-    
+
+    public static function getBodegas() {
+        $sql = "select id_bodega as bodega, nombre_bodega as descripcionBodega
+				from cat_bodega
+				order by nombre_bodega";
+
+        $conn = new Connection();
+        $conn->initConn();
+        $conn->prepare($sql);
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+
+        return $data;
+    }
+
+    public static function getProveedores() {
+        $sql = "select id_proveedor as proveedor, nombre_proveedor as descripcionProveedor
+				from cat_proveedor_LDBI
+				order by nombre_proveedor";
+
+        $conn = new Connection();
+        $conn->initConn();
+        $conn->prepare($sql);
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+
+        return $data;
+    }
+
+    public static function getRazones() {
+        $sql = "select concat(id_razon,'_',movimiento) as razon, descripcion as descripcionRazon
+				from cat_razon_LDBI
+				order by descripcion";
+
+        $conn = new Connection();
+        $conn->initConn();
+        $conn->prepare($sql);
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+
+        return $data;
+    }
+
+
     public static function obtenerIdCorregimientos($disId){
         $data1=array();
         $cont=0;

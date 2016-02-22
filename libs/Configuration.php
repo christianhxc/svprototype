@@ -80,5 +80,8 @@ class Configuration
         }
         return $pageURL . "/sisvig2/";
     }
+
+    const smtpEmail = 'sisvigpai';
+    const smtpPass = 'panama2015$';
 }
 ?>

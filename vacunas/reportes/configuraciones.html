@@ -1,0 +1,54 @@
+<div ng-controller="reportesConfiguracionesController">
+    <table width="100%">
+        <tr>
+            <td>
+                <h2>Configuraciones para Reportes de Cobertura - Registro Diario</h2>
+            </td>
+            <td align="right">
+                <div style="color: #A4BC2B;">
+                    Nueva configuracion
+                    <a href="configuracion.php" class="" style="text-decoration: none; font-weight:bold;" title="Ingresar nueva configuracion">
+                        <img width="30px" height="30px" title="Nueva configuracion" border=0 src="../../img/add_small.png"></a>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <fieldset class="ui-widget ui-widget-content ui-corner-all">
+        <div align="left">
+            <table border="0" width="100%">
+                <tr>
+                    <td width="20%">
+                        <label>Ingrese una palabra:</label>
+                    </td>
+                    <td>
+                        <input type="text" ng-model="filtro" value="" class="" style="width: 95%" maxlength="45"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label>Si quiere traer todo el listado dejar en blanco el filtro.</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+
+    <div align="center">
+        <table class="dxgvControl_PlasticBlue" rules="all" cellspacing="0" border="0" width="100%" style="border-collapse: collapse; margin: 5px;">
+            <tr>
+                <th class="dxgvHeader_PlasticBlue" width="5%">N.</th>
+                <th class="dxgvHeader_PlasticBlue" scope="">Nombre</th>
+                <th style="text-align: center" class="dxgvHeader_PlasticBlue" width="8%">Acciones</th>
+            </tr>
+            <tr class="dxgvDataRow_PlasticBlue" data-ng-repeat="conf in configuraciones | filter:filtro">
+                <td class="dxgv">{{conf.id_configuracion}}</td>
+                <td class="dxgv">{{conf.nombre}}</td>
+                <td class="dxgv">
+                    <a href="/sisvig2/vacunas/reportes/configuracion.php?id={{conf.id_configuracion}}" title="Editar"><img title="Editar" border=0 src="../../img/edit.png"></a>
+                    <a ng-click="borrar(conf)" title="Borrar"><img title="Borrar" border=0 src="../../img/Delete.png"></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

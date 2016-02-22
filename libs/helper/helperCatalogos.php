@@ -77,6 +77,19 @@ class helperCatalogos {
 
         return $data;
     }
+    public static function getZonas() {
+        $sql = "select * from cat_vac_zona where status = 1 order by id_zona asc";
+        $conn = new Connection();
+
+        $conn->initConn();
+        $conn->prepare($sql);
+        //$conn->param();
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+
+        return $data;
+    }
     
     public static function getControles($id_tb) {
         $sql = "select tbv.* from tb_control tbv where id_tb_form =".$id_tb." order by id_tb_control";
@@ -392,6 +405,36 @@ class helperCatalogos {
         $conn->closeConn();
         return $data;
     }
+    
+    public static function getTipoDenominador() {
+        $sql = "SELECT T1.id_grupo_esp as id_denominador, T1.nombre_grupo_esp as nombre_denominador, 1 as tipo
+                FROM cat_grupo_esp T1
+                WHERE T1.status = 1
+                UNION 
+                SELECT T2.id_rango as id_denominador, T2.nombre_rango as nombre_denominador, 2 as tipo
+                FROM cat_vac_rango T2
+                WHERE T2.status = 1";
+        $conn = new Connection();
+        $conn->initConn();
+        $conn->prepare($sql);
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+        return $data;
+    }
+    
+    public static function getGrupoEspPoblacion() {
+        $sql = "select id_condicion, nombre_condicion
+                from cat_vac_condicion
+                where status = 1 order by nombre_condicion asc";
+        $conn = new Connection();
+        $conn->initConn();
+        $conn->prepare($sql);
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+        return $data;
+    }
 
     // Obtiene los eventos del área de análisis seleccionada
     public static function getEventosAuto($search) {
@@ -535,6 +578,66 @@ class helperCatalogos {
         $data = $conn->fetch();
         $conn->closeConn();
         return $data;
+    }
+    
+    public static function buscarPersonasVacunas($config) {
+        $conn = new Connection();
+        $conn->initConn();
+        $flag = 0;
+
+        foreach ($config as $valor) {
+            if ($valor != "")
+                $flag++;
+        }
+
+        if ($flag == 0)
+            $sql = "select * from tbl_persona order by ind_primer_nombre asc";
+        else {
+            $sql = "select * from tbl_persona WHERE 1 "
+                    . ($config["identificador"] != "" ? " AND numero_identificacion LIKE '%" . $config["identificador"] . "%'" : "")
+                    . ($config["nombre"] != "" ? " AND primer_nombre  LIKE '%" . $config["nombre"] . "%'" : "")
+                    . ($config["nombre_2"] != "" ? " AND segundo_nombre  LIKE '%" . $config["nombre_2"] . "%'" : "")
+                    . ($config["apellido"] != "" ? " AND primer_apellido  LIKE '%" . $config["apellido"] . "%'" : "")
+                    . ($config["apellido_2"] != "" ? " AND segundo_apellido  LIKE '%" . $config["apellido_2"] . "%'" : "")
+                    . ($config["edad_desde"] != "" ? " AND edad >= " . $conn->scapeString($config["edad_desde"]) : "")
+                    . ($config["edad_hasta"] != "" ? " AND edad <= " . $conn->scapeString($config["edad_hasta"]) : "")
+                    . ($config["tipo_edad"] == '' ? " " : " AND tipo_edad = " . $config["tipo_edad"])
+                    . ($config["tipo_id"] == '' ? " " : " AND tipo_identificacion = " . $config["tipo_id"])
+                    . ($config["sexo"] != "" ? " AND sexo = '" . $config["sexo"] . "'" : "") . ' order by primer_nombre desc'
+                    . " limit " . $config["inicio"] . "," . $config["paginado"];
+        }
+        
+        //echo "SQL: ".$sql;exit;
+        
+        $conn->prepare($sql);
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+        return $data;
+    }
+    
+    public static function buscarPersonasCantidadVac($config) {
+        $conn = new Connection();
+        $conn->initConn();
+
+        $sql = "select count(*) as total from tbl_persona WHERE 1 "
+                . ($config["identificador"] != "" ? " AND numero_identificacion LIKE '%" . $config["identificador"] . "%'" : "")
+                . ($config["nombre"] != "" ? " AND primer_nombre  LIKE '%" . $config["nombre"] . "%'" : "")
+                . ($config["nombre_2"] != "" ? " AND segundo_nombre  LIKE '%" . $config["nombre_2"] . "%'" : "")
+                . ($config["apellido"] != "" ? " AND primer_apellido  LIKE '%" . $config["apellido"] . "%'" : "")
+                . ($config["apellido_2"] != "" ? " AND segundo_apellido  LIKE '%" . $config["apellido_2"] . "%'" : "")
+                . ($config["edad_desde"] != "" ? " AND edad >= " . $conn->scapeString($config["edad_desde"]) : "")
+                . ($config["edad_hasta"] != "" ? " AND edad <= " . $conn->scapeString($config["edad_hasta"]) : "")
+                . ($config["tipo_edad"] == '' ? " " : " AND tipo_edad = " . $config["tipo_edad"])
+                . ($config["tipo_id"] == '' ? " " : " AND tipo_identificacion = " . $config["tipo_id"])
+                . ($config["sexo"] != "" ? " AND sexo = '" . $config["sexo"] . "'" : "");
+
+        //echo $sql;
+        $conn->prepare($sql);
+        $conn->execute();
+        $data = $conn->fetchOne();
+        $conn->closeConn();
+        return $data["total"];
     }
 
     public static function buscarPersonasCantidad($config) {
@@ -958,7 +1061,7 @@ class helperCatalogos {
         return $data;
     }
     
-    public static function getGrupoEdad(){
+        public static function getGrupoEdad(){
             $conn = new Connection();
             $conn->initConn();
 
@@ -970,6 +1073,24 @@ class helperCatalogos {
             $conn->closeConn();
 
             return $data;        
+    }
+
+    public static function getInsumosLDBI($search) {
+        $sql = "SELECT cat.id_insumo, cat.nombre_insumo, cat.unidad_presentacion, cat.codigo_insumo, cat.orden
+                FROM cat_insumos_LDBI cat
+                WHERE cat.status = 1
+                and (nombre_insumo like '%" . $search . "%' or codigo_insumo like '%" . $search . "%')
+                order by nombre_insumo asc";
+
+        $conn = new Connection();
+        $conn->initConn();
+        mysql_set_charset('utf8', $conn);
+        $conn->prepare($sql);
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+
+        return $data;
     }
     
     

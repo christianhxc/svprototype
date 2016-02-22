@@ -42,6 +42,7 @@ class ConfigurationCAUS{
     const Borrar = 3;
     const Consultar = 4;
     const Reportes = 5;
+    const Especiales = 6;
 
     // Niveles de Ubicaciones
     const Provincia = 1;
@@ -64,7 +65,8 @@ class ConfigurationCAUS{
     // Secciones
     Const invCasos = 84; //falta
     Const influenza = 88; //falta
-    Const TB = 110; 
+    Const TB = 110;
+    Const Vacunas = 114;
     Const brotes = -1;
     Const vigmor = 2;
     Const eno = 3;
@@ -138,7 +140,28 @@ class ConfigurationCAUS{
     Const vicItsFormLaboratorio = 107;
     Const matFormulario = 109;
 
+    Const VacEsquema = 115;
+    Const VacFormulario = 115;
+    Const VacRegistroDiario = 116;
+    Const VacDenominadores = 117;
+    Const VacCargarDeno = 118;
+    Const VacReportes = 119;
+    Const VacLdbi = 120;
+    Const catVacunas = 121;
+    Const catCondiciones = 122;
+
+
     // GRUPOS DE USUARIOS
     Const vihGrupoRegional = 36;
+    Const catModalidades = 121;
+    Const catGrupoEspecialVacunas = 123;
+    Const VacNotificacion = 125;
+    Const VacExportar = 126;
+    Const VacImportar = 127;
+
+//    Const VacRegistroDiario = 117;
+//    Const catModalidades = 118;
+//    Const VacDenominadores = 119;
+//    Const catGrupoEspecialVacunas = 121;
 }
 ?>

@@ -1,0 +1,504 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+	<title>SISVIG .::. Sistema de vigilancia en salud publica Panamá</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="robots" content="none">
+<link href="formulario%20LD_files/default.css" rel="stylesheet" type="text/css">
+<link href="formulario%20LD_files/jquery-ui-1.css" rel="stylesheet" type="text/css">
+<link href="formulario%20LD_files/menu.css" rel="stylesheet" type="text/css">
+<link href="formulario%20LD_files/styles.css" rel="stylesheet" type="text/css">
+<link href="formulario%20LD_files/style_new.css" rel="stylesheet" type="text/css">
+<link href="formulario%20LD_files/style.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" src="formulario%20LD_files/jquery-1.js" type="text/JavaScript"></script>
+<script language="JavaScript" src="formulario%20LD_files/jquery-ui-1.js" type="text/JavaScript"></script>
+<script language="JavaScript" src="formulario%20LD_files/ui.js" type="text/JavaScript"></script>
+<script language="JavaScript" src="formulario%20LD_files/jquery_005.js" type="text/JavaScript"></script>
+<script language="JavaScript" src="formulario%20LD_files/jquery_003.js" type="text/JavaScript"></script>
+<script language="JavaScript" src="formulario%20LD_files/jquery.js" type="text/JavaScript"></script>
+<script language="JavaScript" src="formulario%20LD_files/jquery_006.js" type="text/JavaScript"></script>
+<script language="JavaScript" src="formulario%20LD_files/menu.js" type="text/JavaScript"></script>
+<script language="JavaScript" src="formulario%20LD_files/Utils.js" type="text/JavaScript"></script>
+
+<link href="formulario%20LD_files/jquery.css" rel="stylesheet" type="text/css">
+
+
+<script language="JavaScript" src="formulario%20LD_files/comun.js" type="text/JavaScript"></script>
+
+<script language="JavaScript" src="formulario%20LD_files/Utils.js" type="text/JavaScript"></script>
+
+<script language="JavaScript" src="formulario%20LD_files/ajax.js" type="text/JavaScript"></script>
+
+<script language="JavaScript" src="formulario%20LD_files/jquery_004.js" type="text/JavaScript"></script>
+
+<script language="JavaScript" src="formulario%20LD_files/jquery_002.js" type="text/JavaScript"></script>
+
+<script language="JavaScript" src="formulario%20LD_files/formulario.js" type="text/JavaScript"></script>
+
+<script language="JavaScript" src="formulario%20LD_files/busquedaSilab.js" type="text/JavaScript"></script>
+</head>
+<body>
+    <div align="center">
+        <div id="container.24">
+<div id="logo"><img src="formulario%20LD_files/vigilab.png" alt="s" height="90" width="200"></div>
+
+<!-- Start css3menu.com BODY section id=1 -->
+        <ul id="css3menu1" class="topmenu">
+            <li class="topfirst"><a href="http://190.34.154.87/sisvig2/" title="Inicio" style="width:70px;height:16px;line-height:16px;">Inicio</a></li>
+            <li style="display: "><a href="#" style="width:100px;height:16px;line-height:16px;"><span>V. Rutinaria</span></a>
+                <ul>
+                    <li style="display: "><a><span>Notificación obligatoria - ENO</span></a>
+                        <ul>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig/ENO/formulario.html">Formulario</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig/ENO/cargar.html">Cargar</a></li>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig/ENO/reporte.html">Reportes</a></li>
+                        </ul>
+                    </li>
+                    <li style="display: "><a><span>Notificación individual</span></a>
+                        <ul>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig/NOTIC/formulario.html">Formulario</a></li>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig/NOTIC/reporte_individual.html">Reporte individual</a></li>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig/NOTIC/reporte_consolidado.html">Reporte consolidado</a></li>
+                        </ul>
+                    </li>
+                    <li style="display: "><a href="#"><span>Investigación individual</span></a>
+                        <ul>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig2/investigacion_caso/formulario.php">Formulario</a></li>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig2/investigacion_caso/reporte_individual.html">Reporte individual</a></li>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig2/investigacion_caso/reporte.html">Reporte consolidado</a></li>
+                        </ul>
+                    </li>
+                    <li style="display: "><a><span>Registro de admisión y egreso</span></a>
+                        <ul>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig/RAE/formulario.html">Formulario</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig/RAE/reporte_individual.html">Reporte individual</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig/RAE/reporte_tipo_paciente.html">Reporte según servicio de hospitalización</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig/RAE/reporte_morbilidad.html">Reporte morbolidad por grupo de edad</a></li>
+                        </ul>
+                    </li>
+                    <li style="display: none"><a href="#">Monitoreo</a></li>
+                </ul>
+            </li>
+            <li style="display: "><a href="#" style="width:100px;height:16px;line-height:16px;"><span>V. Mortalidad</span></a>
+                <ul>
+                    <li style="display: "><a href="#"><span>VIGMOR</span></a>
+                        <ul>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig/VIGMOR/formulario.html">Formulario</a></li>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig/VIGMOR/reporte_individual.html">Reporte individual</a></li>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig/VIGMOR/reporte.html">Reporte consolidado</a></li>
+                        </ul>
+                    </li>
+                    <li style="display: none"><a href="#">Mortalidad materna</a></li>
+                    <li style="display: none"><a href="#">Mortalidad perinatal</a></li>
+                    <li style="display: none"><a href="#">M. en niños menores de 5 años</a></li>
+                </ul>
+            </li>
+            <li style="display: "><a href="#" style="width:100px;height:16px;line-height:16px;"><span>V. Brotes</span></a>
+                <ul style="display: none">
+                    <li style="display: none"><a href="#">Brotes</a></li>
+                </ul>
+            </li>
+            <li style="display: "><a href="#" style="width:100px;height:16px;line-height:16px;"><span>V. Centinela</span></a>
+                <ul>
+                    <li style="display: "><a href="#"><span>Influenza</span></a>
+                        <ul>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig2/uceti/index.php">Formulario</a></li>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig2/reportes/uceti/exportableUceti.php">Exportación de variables</a></li>
+                        </ul>
+                    </li>
+                    <li style="display: none"><a href="#"><span>Flu Laboratorio</span></a>
+                        <ul>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig2/influenza/laboratorio/formulario.html">Formulario</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig2/influenza/laboratorio/reporte_individual.html">Reporte individual</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig2/influenza/laboratorio/reporte.html">Reporte consolidado</a></li>
+                        </ul>
+                    </li>
+                    <li style="display: "><a href="#"><span>VICITS</span></a>
+                        <ul>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig2/vicits/index.php">Formulario</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig2/vicits/indexFormLaboratorio.php">Formulario Laboratorio</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig2/reportes/vicits/ReportesConsolidadosVicits.php">Reportes consolidados</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig2/vicits/exportableExcel.php">Exportar variables a Excel</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li style="display: "><a href="#" style="width:100px;height:16px;line-height:16px;"><span>Inv. especial</span></a>
+                <ul>
+                    <li style="display: none"><a href="#"><span>VIH / SIDA</span></a>
+                        <ul>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig2/vih/index.php">Formulario</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig2/reportes/vih/exportableExcelVih.php">Exportar Excel</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig2/reportes/vih/consolidadoVih.php">Rep. consolidado</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig2/reportes/vih/regionesVih.php">Rep. por regiones</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig2/reportes/vih/factorRiesgoVih.php">Rep. factor riesgo</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig2/reportes/vih/enfermedadVih.php">Rep. Enf. Oportunista</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig2/vih/sincronizarSilab.php">Sincronizar SILAB</a></li>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig2/vih/sincronizarEpiInfo.php">Sincronizar EpiInfo</a></li>
+                        </ul>
+                    </li>
+                    <li style="display: none"><a href="#">Alerta temprana - MAT</a>
+                        <ul>
+                            <li style="display: none"><a href="http://190.34.154.87/sisvig2/mat/formulario.php">Formulario</a></li>
+                        </ul>
+                    </li>
+                    <li style="display: none"><a href="#">Sarampión y rubéola</a></li>
+                    <li style="display: none"><a href="#">Síndrome de rubéola congénita</a></li>
+                    <li style="display: none"><a href="#">Parálisis flácida aguada en menores de 15</a></li>
+                    <li style="display: none"><a href="#">Tosferina / Síndrome coqueluchoide</a></li>
+                    <li style="display: none"><a href="#">Vigilancia en primates no humanos</a></li>
+                    <li style="display: none"><a href="#">EVASIS</a></li>
+                    <li style="display: none"><a href="#">Sífilis congénita</a></li>
+                    <li style="display: "><a href="#"><span>Malformacion</span></a>
+                        <ul>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig/Malformacion/formulario.html">Formulario</a></li>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig/Malformacion/formulario_nacidos.html">Formulario Nacidos</a></li>
+                            <li style="display: "><a href="http://190.34.154.87/sisvig/Malformacion/reportes.html">Reportes</a></li>
+                        </ul>
+                    </li>
+                    <li style="display: none"><a href="#">Enfermedades no trasmisibles</a></li>
+                    <li style="display: none"><a href="#">Intoxicaciones agudas por plaguicidas</a></li>
+                </ul>
+            </li>
+            <li style="display: "><a href="#" title="Catálogos" style="width:70px;height:16px;line-height:16px;"><span>Catálogos</span></a>
+                <ul>
+                    <li style="display: "><a href="http://190.34.154.87/sisvig2/catalogos/antecedenteVacunal.php">Antecedentes vacunales</a></li>
+                    <li style="display: "><a href="http://190.34.154.87/sisvig2/catalogos/enfermedadCronica.php">Enfermedades crónicas</a></li>
+                    <li style="display: "><a href="http://190.34.154.87/sisvig2/catalogos/antibiotico.php">Antibioticos</a></li>
+                    <li style="display: "><a href="http://190.34.154.87/sisvig2/catalogos/antiviral.php">Antivirales</a></li>
+                    <li style="display: "><a href="http://190.34.154.87/sisvig2/catalogos/tipoMuestra.php">Tipos de muestra</a></li>
+                    <li style="display: none"><a href="http://190.34.154.87/sisvig/Catalogos/cargo.html">Cargo</a></li>
+                    <li style="display: none"><a href="http://190.34.154.87/sisvig/ENO/eventos.html">Eventos</a></li>
+                    <li style="display: none"><a href="http://190.34.154.87/sisvig/Catalogos/examenes.html">Exámenes</a></li>
+                    <li style="display: none"><a href="http://190.34.154.87/sisvig/ENO/grupo_eventos.html">Grupo eventos</a></li>
+                    <li style="display: none"><a href="http://190.34.154.87/sisvig/Operaciones/instalaciones.html">Instalaciones de salud</a></li>
+                    <li style="display: none"><a href="http://190.34.154.87/sisvig/Catalogos/ocupacion.html">Ocupación</a></li>
+                    <li style="display: none"><a href="http://190.34.154.87/sisvig/Catalogos/personal_medico.html">Personal médico</a></li>
+                    <li style="display: none"><a href="http://190.34.154.87/sisvig/Catalogos/servicios.html">Servicios</a></li>
+                    <li style="display: none"><a href="http://190.34.154.87/sisvig/Catalogos/servicios_rae.html">Servicios RAE</a></li>
+                    <li style="display: none"><a href="http://190.34.154.87/sisvig/Catalogos/sintomas.html">Sintomas</a></li>
+                    <li style="display: none"><a href="http://190.34.154.87/sisvig/Catalogos/tipo_identidad.html">Tipo de idetinficación</a></li>
+                    <li style="display: none"><a href="http://190.34.154.87/sisvig/Catalogos/tipo_muestras.html">Tipo de muestras</a></li>
+                </ul>
+            </li>
+            <li style="display:  "><a href="#" title="Ayuda" style="width:70px;height:16px;line-height:16px;"><span>Ayuda</span></a>
+                <ul>
+                    <li><a href="http://190.34.154.87/sisvig/Manual_usuario.htm" target="_blank" onclick="window.open(this.href, this.target, 'width=750,height=400'); return false;">Manual en línea</a></li>
+                    <li><a href="http://190.34.154.87/sisvig/descargar_manual.php">Descargar Manual en PDF</a></li>
+                    <li><a href="#">Acerca de SISVIG</a></li>
+                </ul>
+            </li>
+            <li style="display: "><a href="http://190.34.154.87/sisvig2/login.php?logout=true" title="Salir" style="width:70px;height:16px;line-height:16px;"><span>Salir</span></a></li>
+        </ul>
+
+<p style="display:none"><a href="http://css3menu.com/">CSS Button Font Size Css3Menu.com</a></p>
+<!-- End css3menu.com BODY section -->
+
+</div>
+<div class="nombreUsuario">
+    <p>    </p><table align="right" width="100%"><tbody><tr><td align="right"><strong>USUARIO: </strong>Logística y Distribución&nbsp;</td></tr></tbody></table>
+    <p></p>
+</div>
+        <br>
+<br>
+        <div class="Content" align="left">
+
+    
+
+    <form id="frmContenido" class="niceform" action="http://190.34.154.87/sisvig2/uceti/formulario.php" method="POST" onsubmit="return validarUceti();">
+        <table width="100%">
+            <tbody><tr>
+                <td>
+                    <h2>&nbsp;</h2>
+                    <h2>Formulario de ingreso de envíos según requesición </h2></td>
+                <td align="right">
+                    <div style="color: #A4BC2B;">
+                        Regresar
+                        <a href="listado_envios.htm" class="" style="text-decoration: none; font-weight:bold;">
+                            <img src="formulario LD_files/back.png" width="16" height="16" border="0" title="Regresar"></a>                    </div>
+                </td>
+            </tr>
+        </tbody></table>
+      
+	  <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+	  
+	  	<fieldset class="ui-widget ui-widget-content ui-corner-all">
+                    <legend>Datos del envío </legend>
+                    <input name="data[individuo][id_individuo]" id="id_individuo" value="" type="hidden">
+                    <table align="center" border="0" cellpadding="2" cellspacing="2">
+                        <tbody>
+                        <tr>
+                          <td width="130"><label>No. del envío:<span class="mandatory">*</span></label></td>
+                          <td width="241"><input kl_virtual_keyboard_secure_input="on" class="dxgvDisabled_PlasticBlue" id="data[individuo][identificador]" name="data[individuo][identificador]2" value="NE-75980" style="width: 200px; text-align:center;" maxlength="45" type="text" /></td>
+                          <td width="134"><label>Requisición:<span class="mandatory">*</span></label></td>
+                          <td width="260"><input kl_virtual_keyboard_secure_input="on" class="" id="no_identificador" name="data[individuo][identificador]" value="RE-992" style="width: 200px; text-align:center;" maxlength="45" type="text"></td> <td width="146" >
+                            <a href="javascript:busquedaUceti();" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Carga datos</a></td>
+                        </tr>
+                        <tr>
+                            <td><label>Fecha del envío :<span class="mandatory">*</span></label></td>
+                            <td><input kl_virtual_keyboard_secure_input="on" class="hasDatepicker" id="data[individuo][fecha_nacimiento]" name="data[individuo][fecha_nacimiento]2" value="01-01-2015" style="width: 135px;" maxlength="10" onblur="calcularEdadUceti();" type="text" />
+                            <img title="..." alt="..." src="http://190.34.154.87/sisvig2/img/calendar.gif" class="ui-datepicker-trigger" /> <span class="ui-datepicker-append"> dd/mm/aaaa</span></td>
+                            <td>Bodega de despacho:<span class="mandatory">*</span></td>
+                            <td><input kl_virtual_keyboard_secure_input="on" class="" id="data[individuo][identificador]2" name="data[individuo][identificador]3" value="Deposito Nacional de biológicos" style="width: 250px; text-align:center;" maxlength="45" type="text" /></td>
+                        </tr>
+                        <tr>
+                            <td >Fecha de despacho </td>
+							<td ><input kl_virtual_keyboard_secure_input="on" class="hasDatepicker" id="data[individuo][fecha_nacimiento]2" name="data[individuo][fecha_nacimiento]22" value="01-03-2015" style="width: 135px;" maxlength="10" onblur="calcularEdadUceti();" type="text" />
+                              <img title="..." alt="..." src="http://190.34.154.87/sisvig2/img/calendar.gif" class="ui-datepicker-trigger" /> <span class="ui-datepicker-append"> dd/mm/aaaa</span></td>
+                            <td><label>Fecha de ingreso:</label></td>
+                          <td>
+                                <input  class="dxgvDisabled_PlasticBlue"  name="data[individuo][fecha_nacimiento]" value="01/01/2015" style="width: 135px;" maxlength="10" onblur="calcularEdadUceti();" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><label>Nombre responsable:</label></td>
+                            <td ><input kl_virtual_keyboard_secure_input="on" id="nombre_responsable" name="data[individuo][nombre_responsable]" value="" style="width: 200px; text-transform: uppercase;" maxlength="200" type="text"></td>
+							<td><label>Estatus del envío:</label></td>
+                          <td><select id="drpReg" name="search[region]" style="width:200px" onchange="setDistritoCascada()">
+                            <option value="0" selected="selected">Seleccione...</option>
+                            <option value="1">En evaluación</option>
+                            <option value="2">En tránsito</option>
+                            <option value="3">Entregado</option>
+                          </select>
+                          </td>
+                        </tr>
+                    </tbody></table>
+      </fieldset>					
+	  	<fieldset class="ui-widget ui-widget-content ui-corner-all">						
+	  
+                    <legend>Cantidades enviadas a regionales </legend>
+                    <table align="center" border="0" cellpadding="2" cellspacing="2">
+                        <tbody>
+                        <tr>
+                            <td width="870">
+                                <br>
+                                <div id="tablaTiposMuestras"><table id="fdg_1" border="0" cellpadding="4" cellspacing="1" width="100%"><tbody><tr>
+                                  <th class="dxgvHeader_PlasticBlue">Código </th>
+                                  <th class="dxgvHeader_PlasticBlue">Nombre producto </th>
+                                  <th class="dxgvHeader_PlasticBlue" style="text-align:center">Unidad de presentación</th>
+                                  <th class="dxgvHeader_PlasticBlue" style="text-align:center">Solicitada</th>
+                                  <th class="dxgvHeader_PlasticBlue" style="text-align:center">Enviada</th>
+                                  <th class="dxgvHeader_PlasticBlue" style="text-align:center">Fecha de vencimiento </th>
+                                  <th class="dxgvHeader_PlasticBlue" style="text-align:center">Número de lote</th>
+                                  </tr><tr></tr>
+								  <tr>
+                                    <td class="fila" width="67">V-DPT2 </td>
+                                    <td class="fila" width="182"><strong>VACUNA  D.P.T (20)</strong></td>
+                                    <td class="fila" style="text-align:center" width="116">Frasco de 20 dosis </td>
+                                    <td class="fila" style="text-align:center" width="61">10</td>
+                                    <td class="fila" style="text-align:center" width="67"><input name="data[muestras_laboratorio][fecha_tipoMuestra_toma]3" value="" style="width: 65px;" maxlength="10" type="text" /></td>
+                                    <td class="fila" style="text-align:center" width="118"><input kl_virtual_keyboard_secure_input="on" class="hasDatepicker" id="data[individuo][fecha_nacimiento]22" name="data[individuo][fecha_nacimiento]222" style="width: 100px;" maxlength="10" onblur="calcularEdadUceti();" type="text" />
+                                      <img title="..." alt="..." src="http://190.34.154.87/sisvig2/img/calendar.gif" class="ui-datepicker-trigger" /></td>
+                                    <td class="fila" style="text-align:center" width="137"><input kl_virtual_keyboard_secure_input="on" id="data[muestras_laboratorio][fecha_tipoMuestra_toma]2" name="data[muestras_laboratorio][fecha_tipoMuestra_toma]22" value="" style="width: 135px;" maxlength="10" type="text" /></td>
+                                  </tr><tr>
+								 </tr>
+<tr>
+                                    <td class="fila" width="67">V-MMR1</td>
+                                    <td width="182" class="fila"><strong>VACUNA MMR (10 DOSIS)</strong></td>
+                      <td class="fila" style="text-align:center" width="116">Frasco de 10 dosis </td>
+                                    <td class="fila" style="text-align:center" width="61">20</td>
+                                    <td class="fila" style="text-align:center" width="67"><input name="data[muestras_laboratorio][fecha_tipoMuestra_toma]4" value="" style="width: 65px;" maxlength="10" type="text" /></td>
+                                    <td class="fila" style="text-align:center" width="118"><span class="fila" style="text-align:center">
+                                      <input kl_virtual_keyboard_secure_input="on" class="hasDatepicker" id="data[individuo][fecha_nacimiento]222" name="data[individuo][fecha_nacimiento]2222" style="width: 100px;" maxlength="10" onblur="calcularEdadUceti();" type="text" />
+                                      <img title="..." alt="..." src="http://190.34.154.87/sisvig2/img/calendar.gif" class="ui-datepicker-trigger" /></span></td>
+                                    <td class="fila" style="text-align:center" width="137"><span class="fila" style="text-align:center">
+                                      <input kl_virtual_keyboard_secure_input="on" id="data[muestras_laboratorio][fecha_tipoMuestra_toma]22" name="data[muestras_laboratorio][fecha_tipoMuestra_toma]222" value="" style="width: 135px;" maxlength="10" type="text" />
+                                    </span></td>
+                                  </tr><tr>
+								 </tr></tbody></table>
+                                </div>
+                                <br>                            </td>
+                        </tr>
+                    </tbody></table>
+
+                
+
+        </form>
+<table align="center">
+            <tbody><tr>
+                <td>
+                  <div style="margin-top:10px">
+                        <input name="action" id="action" value="N" type="hidden">
+                        <input name="data[formulario][id_uceti]" id="id_uceti" value="" type="hidden">
+                        <input name="data[GuardarPrevio][Guardar]" id="guardarPrevio" value="0" type="hidden">
+                        <input name="data[GuardarPrevio][UpdateMuestra]" id="updateMuestra" value="" type="hidden">
+                        <input name="data[enfermedades][globalEnfermedadesRelacionados]" id="globalEnfermedadesRelacionados" value="4-99-Alcoholismo###12-99-Cancer###15-99-Condiciones neurologicas cronicas###19-99-Desnutricion moderada a severa###2-99-Diabetes###8-99-Enfermedad cardiaca###10-99-Enfermedad hepatica, incluyendo cirrosis###9-99-Enfermedad renal###7-99-Enfermedad respiratoria cronica###14-99-Hemoglobinopatia###1-99-Hipertension arterial###6-99-Inmunosuprimido###5-99-Obesidad###17-99-Otra condicion neurologicas o neuromusculares###18-99-Prematurez en el caso de ni?os###16-99-Retraso en el desarrollo severo###3-99-Tabaquismo###13-99-Transplante de organo" type="hidden">
+                        <input name="data[vacunas][globalVacunasRelacionados]" id="globalVacunasRelacionados" value="2--99--Anti Influenza###3--99--Neumococo 7 valente###4--99--Neumococo 10 valente###5--99--Neumococo 13 valente###6--99--Neumococo 23 valente###7--99--Anti Meningococcica###1--99--Hemofilus I.B." type="hidden">
+                        <input name="data[muestras_laboratorio][globalMuestrasUceti]" id="globalMuestrasUceti" value="" type="hidden">
+
+                      <a href="javascript:validarUceti();" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Guardar</a>&nbsp;
+                      <a href="javascript:guardadoPrevioUceti(0);" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Guardado Previo</a>&nbsp;                    </div>
+                </td>
+            </tr>
+        </tbody></table>
+</div>
+
+
+
+        <div class="foot">
+    <div class="centro" style="left; padding-top:15px;">
+        <h5>© Dirección General de Salud del Ministerio de Salud de Panamá<br>Sistema de vigilancia en salud pública Panamá, Centroamérica, 2013 </h5>
+    </div>
+</div>
+
+    </div>
+
+<div aria-labelledby="ui-dialog-title-dialog-form" role="dialog" tabindex="-1" class="ui-dialog ui-widget ui-widget-content ui-corner-all " style="display: none; position: absolute; overflow: hidden; z-index: 1000; outline: 0px none;"><div style="-moz-user-select: none;" unselectable="on" class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span style="-moz-user-select: none;" unselectable="on" id="ui-dialog-title-dialog-form" class="ui-dialog-title">Búsqueda de Personas</span><a style="-moz-user-select: none;" unselectable="on" role="button" class="ui-dialog-titlebar-close ui-corner-all" href="#"><span style="-moz-user-select: none;" unselectable="on" class="ui-icon ui-icon-closethick">close</span></a></div>
+<div class="ui-dialog-content ui-widget-content" id="dialog-form" align="center">
+        <form id="formDialog" action="" method="">
+            <div class="ui-state-error ui-corner-all" id="pErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px; width: 50%">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <div id="pDetalle" style="margin-top: 0px; margin-bottom: 0px;"></div>
+            </div>
+            <fieldset style="width:800px; text-align: left">
+                <legend>Filtro</legend>
+                <div align="left">
+                    <table border="0">
+                        <tbody><tr id="notFoundFilter">
+                            <td colspan="4" align="right">
+                                <a href="javascript:useSearched();" class="" title="Usar criterios de búsqueda para ingreso de nuevo individuo" style="text-decoration: none; font-weight:bold; display: none" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Usar estos datos</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>No. Identificador:</label></td>
+                            <td><input name="popid" id="id" class="" style="width: 250px; text-align:center;" maxlength="45" type="text"></td>
+                            <td>
+                                <label>Sistema:</label>
+                            </td>
+                            <td>
+                                <select id="drpSistema" name="popSistema" style="width:250px">
+                                    <option selected="selected" value="0">Sisvig</option>
+                                    <option value="1">Silab Por defecto: I. C. Gorgas</option>
+                                    <option value="2">Silab Instituto Conmemorativo Gorgas</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Nombres:</label></td>
+                            <td><input name="popn1" id="n" class="" style="width: 250px; text-transform: uppercase;" maxlength="45" type="text"></td>
+                            <td><label>Apellidos:</label></td>
+                            <td><input name="popp1" id="p" class="" style="width: 250px; text-transform: uppercase;" maxlength="45" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1" valign="bottom">
+                                <label>Edad:</label>
+                            </td>
+                            <td>
+                                <select id="drpPopTipo" name="poptipoE" onchange="validarEdadPop();">
+                                    <option selected="selected" value="0">Tipo</option>
+                                    <option value="1">Días</option>
+                                    <option value="2">Meses</option>
+                                    <option value="3">Años</option>
+                                </select>
+                                Desde: <input id="ed" name="popEdesde" style="width: 40px; text-align:center;" maxlength="3" onkeypress="return numbersonly(event, false);" onchange="validarEdadPop();" type="text">
+                                Hasta: <input id="ed2" name="popEhasta" style="width: 40px; text-align:center;" maxlength="3" onkeypress="return numbersonly(event, false);" onchange="validarEdadPop();" type="text">
+                            </td>
+                            <td colspan="1" valign="bottom">
+                                <label>Sexo:</label>
+                            </td>
+                            <td>
+                                <select id="drpsexoP" name="popSexo" style="width:250px">
+                                    <option selected="selected" value="0">Seleccionar</option>
+                                    <option value="M">Hombre</option>
+                                    <option value="F">Mujer</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                        <tr>
+                            <td colspan="2" align="right">
+                                <a href="javascript:validarPopupP();" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                    Filtrar                                </a>                            </td>
+                            <td colspan="2" align="right">
+                                <table>
+                                    <tbody><tr>
+                                        <td>
+                                            <div>
+                                                <a href="javascript:nuevo();" class="" style="text-decoration: none; font-weight:bold; display: none" title="Ingresar nuevo individuo" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Nuevo</a>
+                                            </div>
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <div>
+                                                <a href="javascript:clearSearch();" class="" style="text-decoration: none; font-weight:bold;" title="Borrar criterios de búsqueda" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Borrar filtro</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+            </fieldset>
+        </form>
+        <br>
+        <div id="resultadosBusqueda" align="center"></div>
+  </div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><button class="ui-state-default ui-corner-all" type="button">Salir</button></div></div><div class="ac_results" style="display: none; position: absolute;"></div><div class="ac_results" style="display: none; position: absolute;"></div><div class="ac_results" style="display: none; position: absolute;"></div><div class="ac_results" style="display: none; position: absolute;"></div><div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all ui-helper-hidden-accessible"></div>
+  <div aria-labelledby="ui-dialog-title-dialog-form-silab" role="dialog" tabindex="-1" class="ui-dialog ui-widget ui-widget-content ui-corner-all " style="display: none; position: absolute; overflow: hidden; z-index: 1000; outline: 0px none;"><div style="-moz-user-select: none;" unselectable="on" class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span style="-moz-user-select: none;" unselectable="on" id="ui-dialog-title-dialog-form-silab" class="ui-dialog-title">Búsqueda de Muestras en Silab</span><a style="-moz-user-select: none;" unselectable="on" role="button" class="ui-dialog-titlebar-close ui-corner-all" href="#"><span style="-moz-user-select: none;" unselectable="on" class="ui-icon ui-icon-closethick">close</span></a></div>
+  <div class="ui-dialog-content ui-widget-content" id="dialog-form-silab" align="center">
+        <form id="formDialogSilab" action="" method="">
+            <div class="ui-state-error ui-corner-all" id="pErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px; width: 50%">
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+                <div id="pDetalle" style="margin-top: 0px; margin-bottom: 0px;"></div>
+            </div>
+            <fieldset style="width:800px; text-align: left">
+                <legend>Filtro Muestras Lab. Silab</legend>
+                <div align="left">
+                    <table border="0">
+                        <tbody><tr id="notFoundFilter">
+                            <td colspan="4" align="right">
+                                <a href="javascript:useSearched();" class="" title="Usar criterios de búsqueda para muestras en Silab" style="text-decoration: none; font-weight:bold; display: none" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Usar estos datos</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>No. Identificador:</label></td>
+                            <td><input name="popidSilab" id="idSilab" class="" style="width: 250px; text-align:center;" maxlength="45" type="text"></td>
+                            <td>
+                                <label>Silab:</label>
+                            </td>
+                            <td>
+                                <select id="tSilab" name="popSilab" style="width:250px">
+                                    <option selected="selected" value="1">Instituto Conmemorativo Gorgas</option>
+                                    <option value="0">Por defecto: I. C. Gorgas</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label>Nombres:</label></td>
+                            <td><input name="popn1Silab" id="nSilab" class="" style="width: 250px; text-transform: uppercase;" maxlength="45" type="text"></td>
+                            <td><label>Apellidos:</label></td>
+                            <td><input name="popp1Silab" id="pSilab" class="" style="width: 250px; text-transform: uppercase;" maxlength="45" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td><label>Sección:</label></td>
+                            <td><label><strong>Virología y Biotecnología</strong></label></td>
+                            <td><label>Evento:</label></td>
+                            <td><label><strong>Virus Respiratorios</strong></label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="right">
+                                <a href="javascript:validarSilab();" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                    Filtrar                                </a>                            </td>
+                            <td colspan="2" align="right">
+                                <table>
+                                    <tbody><tr>
+                                        <td>&nbsp;
+                                            
+                                        </td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <div>
+                                                <a href="javascript:clearSearchSilab();" class="" style="text-decoration: none; font-weight:bold;" title="Borrar criterios de búsqueda" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Borrar filtro</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            </td>
+                        </tr>
+                    </tbody></table>
+                </div>
+            </fieldset>
+        </form>
+        <br>
+        <div id="resultadosBusquedaSilab" align="center"></div>
+    </div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><button class="ui-state-default ui-corner-all" type="button">Salir</button></div></div></body></html>

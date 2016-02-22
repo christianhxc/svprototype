@@ -65,7 +65,28 @@ $(document).ready(function() {
         },
         autoFill:false
     });
+
+    sumTotalCasosH();
+    sumTotalCasosM();
 });
+
+function sumTotalCasosH(){
+    var suma = 0;
+    for (var i=1;i<=12;i++){
+        if ($("#total_homRango"+i).val()!=="")
+            suma = (parseInt(suma)+parseInt($("#total_homRango"+i).val()));
+    }
+    $("#total_hom").val(suma)
+}
+
+function sumTotalCasosM(){
+    var suma = 0;
+    for (var i=1;i<13;i++){
+        if ($("#total_mujRango"+i).val()!=="")
+            suma = (parseInt(suma)+parseInt($("#total_mujRango"+i).val()));
+    }
+    $("#total_muj").val(suma)
+}
 
 function sumCasosH(){
     var suma = 0;

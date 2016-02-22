@@ -1,0 +1,117 @@
+<div class="Content" align="left">
+    <form id="frmContenido" class="niceform" action="{urlprefix}LDBI/kardex.php" method="POST" onsubmit="return guardar();">
+        <table width="100%">
+            <tr>
+                <td>
+                    <h2>M&oacute;dulo de Log&iacute;stica y Distribuci&oacute;n - Kardex</h2>
+                </td>
+                <td align="right">
+                    <div style="color: #A4BC2B;">
+                        Regresar
+                        <a href="index.php" class="" style="text-decoration: none; font-weight:bold;">
+                            <img title="Regresar" border=0 src="../img/back.png"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div id="ErrorGuardar" class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; display:{disError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{mensajeErrorGeneral}</label><br/>
+        </div>
+        <div class="ui-state-highlight ui-corner-all"
+             style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;" align="left">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{desInfo}</label>
+        </div>
+
+        <div class="ui-state-error ui-corner-all" id="dSummaryErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>El kardex no se puede generar debido a lo siguiente:</label>
+            <p id="pSummaryErrors" style="margin-top: 0px; margin-bottom: 0px;" class="summaryErrores"></p>
+        </div>
+        <div  class="">
+
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" >
+                <br>
+                    <table cellspacing="2" cellpadding="2" border="0" align="center" style="width: 97%">
+                        <tbody>
+                        <tr>
+                            <td width="125">
+                                <input type="hidden" id="central" name="data[envio][bodega_central]" value="{valBodegaCentral}">
+                                <input type="checkbox" id="bodega_central" {valBodegaCentralCheck}> Bodega Central
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr id="region_origen_sec">
+                            <td>
+                                <label>Regi&oacute;n:</label>
+                            </td>
+                            <td colspan="3">
+                                <select id="id_region" style="width: 95%;" name="data[envio][id_region_origen]">
+                                    <option value="-1"></option>
+                                    <!-- BEGIN blkRegionOrigen -->
+                                    <option value="{valRegionOrigen}" {selRegionOrigen}>{opcRegionOrigen}</option>
+                                    <!-- END blkRegionOrigen -->
+                                </select>
+                            </td>
+                        </tr>
+                        <tr id="unidad_origen_sec">
+                            <td>
+                                <label>Instalaci&oacute;n de Salud:</label>
+                            </td>
+                            <td colspan="3">
+                                <input type="text" id="notificacion_unidad_origen" style="width:94.5%;" value="{valNotificacionUnidadOrigen}"/>
+                                <input type="hidden" name="data[envio][id_un]" id="notificacion_id_un_origen" value="{valNotificacionIdUnOrigen}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Insumo o Vacuna:<span class="mandatory">*</span></label>
+                            </td>
+                            <td colspan="3">
+                                <input type="text" name="nombre_prod" value="" style="width:94.5%" id="nombre_prod"  kl_virtual_keyboard_secure_input="on">
+                                <input type="hidden" name="id_prod" value="" style="width:350px" id="id_prod"  kl_virtual_keyboard_secure_input="on">
+                            </td>
+                        </tr>
+                            <tr>
+                                <td>
+                                    <label>Fecha inicio:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <input type="text" maxlength="10" style="width: 135px;" name="data[envio][fh_inicio]" id="fh_inicio" dclass="hasDatepicker" >
+                                </td>
+                                <td>
+                                    <label>Fecha fin:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <input type="text" maxlength="10" style="width: 135px;" name="data[envio][fh_fin]" id="fh_fin" dclass="hasDatepicker" >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <br>
+            </div>
+        </div>
+
+        <table align="center">
+            <tr>
+                <td>
+                    <div style="margin-top:10px">
+                        <input type="hidden" name="action" id="action" value="{action}" />
+                        <input name="data[formulario][id_uceti]" type="hidden" id="id_uceti" value="{valIdUceti}" />
+                        <input name="data[GuardarPrevio][Guardar]" type="hidden" id="guardarPrevio" value="0" />
+                        <input name="data[GuardarPrevio][UpdateMuestra]" type="hidden" id="updateMuestra" value="{updateMuestra}" />
+                        <input name="data[enfermedades][globalEnfermedadesRelacionados]" type="hidden" id="globalEnfermedadesRelacionados" value="{valEnfermedadesRelacionados}" />
+                        <input name="data[vacunas][globalVacunasRelacionados]" type="hidden" id="globalVacunasRelacionados" value="{valVacunasRelacionados}" />
+                        <input name="data[muestras_laboratorio][globalMuestrasUceti]" type="hidden" id="globalMuestrasUceti" value="{valMuestrasUceti}" />
+
+                        {botonGuardar}
+                        {botonCancelar}
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <div id="resultadosBusqueda" align="center"></div>
+    </form>
+</div>

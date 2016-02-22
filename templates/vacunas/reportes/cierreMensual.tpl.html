@@ -1,0 +1,64 @@
+<div class="Content" align="left">
+    <form id="formCierre"  method="POST" action="http://173.201.187.40/sisvig2/vacunas/reportes/grabarcierre.php">
+        <h1>Cierre Mensual</h1>
+
+        <!--<div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">-->
+            <!--<span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>-->
+            <!--<p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>-->
+        <!--</div>-->
+        <div class="ui-state-highlight ui-corner-all" id="result-cierremensual" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px;"></p>
+        </div>
+        <div id="filtro" >
+            <table><tr style="height: 0.95em"><td></td></tr></table>
+            <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                <legend>PARAMETROS</legend>
+                <table width="90%" border="0" cellpadding="2" cellspacing="2" align="center">
+                <tr>
+                    <td><label >Seleccione mes: </label></td>
+                    <td >
+                        <select name="search[mes]" style="width:250px">
+                            <!-- BEGIN blkMeses -->
+                            <option value="{mesValue}" {selectedMes}>{mesDesc}</option>
+                            <!-- END blkMeses -->
+                        </select>
+                    </td>
+                    <td ><label > Seleccione a&ntilde;o: </label></td>
+                    <td >
+                        <select name="search[anio]" style="width:250px">
+                            <!-- BEGIN blkAnios -->
+                            <option value="{anioValue}" {selectedAnio}>{anioDesc}</option>
+                            <!-- END blkAnios -->
+                        </select>
+                    </td>
+                </tr>
+                </table>
+            </fieldset>
+        </div>
+        <table align="center">
+            <tr>
+                <td>
+                    {botonGenerar} &nbsp;
+                </td>
+            </tr>
+        </table>
+        <br/>
+    </form>
+    <h2>Historial de Cierres Mensuales</h2>
+    <table id="historial-cierres" class="dxgvControl_PlasticBlue" rules="all" cellspacing="0"
+           border="0" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="background-color: #A2CE43; color: white">
+                <th class="dxgvHeader_PlasticBlue">Id</th>
+                <th class="dxgvHeader_PlasticBlue">Mes/A&ntilde;o</th>
+                <th class="dxgvHeader_PlasticBlue">Total de registros</th>
+                <th class="dxgvHeader_PlasticBlue">Fecha de aplicacion</th>
+                <th class="dxgvHeader_PlasticBlue">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {historial}
+        </tbody>
+    </table>
+</div>

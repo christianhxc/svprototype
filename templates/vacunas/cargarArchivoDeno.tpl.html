@@ -1,0 +1,45 @@
+<br/>
+<br/>
+<div class="Content" align="left">
+        <table width="100%">
+            <tr>
+                <td>
+                    <h2>Importar archivo de poblaciones (.csv)</h2>
+                </td>
+            </tr>
+        </table>
+        <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+        </div>
+        <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+        </div>
+        <fieldset class="ui-widget ui-widget-content ui-corner-all">
+            <legend>Cargar Archivo</legend>
+            <div align="center">
+                <form action="{urlPrefix}js/dynamic/vacunas/cargarArchivo.php" method="post" enctype="multipart/form-data" target="ifrResultado">
+                    <table>
+                        <tr >
+                            <td>Seleccione el Archivo: </td>
+                            <td><input type="file" name="flArchivo" id="flArchivo" size="70"/></td>
+                        </tr>
+                        <tr >
+                            <td colspan="2" style="text-align:center;"><input type="submit" name="btnCargar" id="btnCargar" value="Cargar" /></td>
+                        </tr>
+                        <tr><td colspan="2"><br/></td></tr>
+                        <tr>
+                            <td colspan="2">
+                                <label>Por favor solo dar clic una vez en el boton cargar datos y esperar a que carguen todos los datos, este proceso puede tardar unos minutos.</label>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <iframe id="ifrResultado" name="ifrResultado" style="border:none; border-width:0px;" frameborder="0" width="100%" height="400"></iframe>
+            </div>
+        </fieldset>
+    <br/>
+    <div id="resultadoscargar" align="center"></div>
+    
+</div>

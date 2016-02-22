@@ -1,0 +1,282 @@
+<div class="Content" align="left">
+        <form id="frmContenido" class="niceform" action="{urlprefix}vacunas/denominadores.php" method="POST" onsubmit="return validarDenominador();">
+        <table width="100%">
+            <tr>
+                <td>
+                    <h2>Catalago para la creaci&oacute;n de Denominadores</h2>
+                </td>
+                <td align="right">
+                    <div style="color: #A4BC2B;">
+                        Regresar
+                        <a href="listadoDenominadores.php" class="" style="text-decoration: none; font-weight:bold;">
+                            <img title="Regresar" border=0 src="../img/back.png"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div id="ErrorGuardar" class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; display:{disError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{mensajeErrorGeneral}</label><br/>
+        </div>
+        <div class="ui-state-highlight ui-corner-all"
+             style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;" align="left">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{desInfo}</label>
+        </div>
+
+        <div class="ui-state-error ui-corner-all" id="dSummaryErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>Los datos no se pueden guardar debido a lo siguiente:</label>
+            <p id="pSummaryErrors" style="margin-top: 0px; margin-bottom: 0px;"></p>
+        </div>
+        <div >
+            
+            </table>
+        <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+        </div>
+        <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+        </div>
+        <fieldset class="ui-widget ui-widget-content ui-corner-all">
+            <legend>Importar archivo de poblaciones .CSV</legend>
+            <div align="center">
+                <form action="{urlPrefix}js/dynamic/vacunas/cargarArchivo.php" method="post" enctype="multipart/form-data" target="ifrResultado">
+                  Introduzca el año de la poblacion a importar: <input id="anio" name="data[distribucion][anio]" value="{valAnio}" size="4" maxlength="4" style="text-align:center;" onKeyPress="return numbersonly(event, false);"/>
+                    <br/> <br/>
+                    Seleccione el Archivo que desea importar: </td>
+                            <td><input type="file" name="sel_file" id="flArchivo" size="70"/>
+                               <br/> <br/> 
+                            <td colspan="2" style="text-align:center;"><input type="submit" name="submit" id="btnCargar" value="Cargar" /></td>
+                       <br/> <br/> 
+                                            <label>Por favor solo dar clic una vez en el boton cargar datos y esperar a que carguen todos los datos, este proceso puede tardar unos minutos.</label>
+                           
+                                                          </form>
+                <iframe id="ifrResultado" name="ifrResultado" style="border:none; border-width:0px;" frameborder="0" width="100%" height="30"></iframe>
+            </div>
+        </fieldset>
+    <br/>
+    <div id="resultadosSincronizar" align="center"></div>
+            
+            
+            
+            
+            
+            
+         <!--     <h1>Importando archivo CSV</h1>
+  <form action='<?php echo $_SERVER["PHP_SELF"];?>' method='post' enctype="multipart/form-data">
+       Introduzca el año de la poblacion a importar: <input id="anio" name="data[distribucion][anio]" value="{valAnio}" size="4" maxlength="4" style="text-align:center;" onKeyPress="return numbersonly(event, false);"/>
+        <br/> <br/>
+       Importar Archivo : <input type='file' name='sel_file' size='20'>
+   <input type='submit' name='submit' value='submit'>
+  </form>
+         <!-->    
+            <fieldset>
+                <legend>Encabezado</legend>
+
+                <table border="0" cellpadding="2" cellspacing="2" align="center">
+                    <tr>
+                        <td colspan="3"><label >Seleccione el nivel que quiere ingresar:<span class="mandatory">*</span></label></td>
+                        <td colspan="3">
+                            <select id="drpNivel" name="data[distribucion][nivel]" style="width:150px" onchange="setNivel()">
+                                <option value="0">Seleccione...</option>
+                                <option value="1">Nacional</option>
+                                <option value="2">Provincia</option>
+                                <option value="3">Region Salud</option>
+                                <option value="4">Distrito</option>
+                                <option value="5">Corregimiento</option>
+                                <option value="6">Instalaci&oacute;n de salud</option>
+                            </select>
+                            <input type="hidden" id="idNivel" name="data[loaded][idNivel]" value="{valIdNivel}" />
+                            <label >&nbsp;&nbsp;&nbsp;&nbsp;A&ntilde;o: <span class="mandatory">*</span> (YYYY)&nbsp;&nbsp;</label>
+                            <input id="anio" name="data[distribucion][anio]" value="{valAnio}" size="4" maxlength="4" style="text-align:center;" onKeyPress="return numbersonly(event, false);"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="divPolitica1"><label >Provincia:<span class="mandatory">*</span></label></td>
+                        <td id="divPolitica2" colspan="2">
+                            <select id="drpPro" name="data[distribucion][provincia]" style="width:250px" onchange="setRegionCascada()">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkPro -->
+                                <option value="{valPro}" {selPro}>{opcPro}</option>
+                                <!-- END blkPro -->
+                            </select>
+                            <input type="hidden" id="idPro" name="data[loaded][idPro]" value="{valIdPro}" />
+                        </td>
+                        <td id="divPolitica3"><label >Regi&oacute;n:<span class="mandatory">*</span></label></td>
+                        <td id="divPolitica4" colspan="2">
+                            <select id="drpReg" name="data[distribucion][region]" style="width:250px" onchange="setDistritoCascada()">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkReg -->
+                                <option value="{valReg}" {selReg}>{opcReg}</option>
+                                <!-- END blkReg -->
+                            </select>
+                            <input type="hidden" id="idReg" name="data[loaded][idReg]" value="{valIdReg}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="divPolitica5"><label >Distrito:<span class="mandatory">*</span></label></td>
+                        <td id="divPolitica6" colspan="2">
+                            <select id="drpDis" name="data[distribucion][distrito]" style="width:250px" onchange="setCorregimientoCascada()">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkDis -->
+                                <option value="{valDis}" {selDis}>{opcDis}</option>
+                                <!-- END blkDis -->
+                            </select>
+                            <input type="hidden" id="idDis" name="data[loaded][idDis]" value="{valIdDis}" />
+                        </td>
+                        <td id="divPolitica7"><label >Corregimiento:<span class="mandatory">*</span></label></td>
+                        <td id="divPolitica8" colspan="2">
+                            <select id="drpCor" name="data[distribucion][corregimiento]" style="width:250px">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkCor -->
+                                <option value="{valCor}" {selCor}>{opcCor}</option>
+                                <!-- END blkCor -->
+                            </select>
+                            <input type="hidden" id="idCor" name="data[loaded][idCor]" value="{valIdCor}" />
+                        </td>
+                    </tr>
+                    <tr id="divPolitica9">
+                        <td ><label >Instalaci&oacute;n de salud:<span class="mandatory">*</span></label></td>
+                        <td colspan="5">
+                            <input type="text" id="nombre_un" style="width: 550px;" value="{valNotificacionUnidad}"/>
+                            <input type="hidden" name="data[distribucion][id_un]" id="id_un" value="{valNotificacionIdUn}" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+        <table align="center">
+            <tr>
+                <td>
+                    <div style="margin-top:10px">
+                        <input type="hidden" name="action" id="action" value="{action}" />
+                        <input type="hidden" name="data[distribucion][idForm]" id="idForm" value="{valIdForm}" />                
+                        <input type="hidden" name="data[detalle][globalGruposRelacionados]" id="globalGruposRelacionados" value="{valGruposRelacionados}" />
+                        {botonGuardar}
+                        {botonCancelar}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+        
+    <div id="divDetalle">
+        <fieldset>
+            <legend>Grupos de poblaci&oacute;n</legend>
+            <table border="0" cellpadding="2" cellspacing="2" align="center">
+                <tr>
+                    <td ><label >Grupos Especiales:</label></td>
+                    <td colspan="2">
+                        <select id="drpGrupo" name="data[distribucion][grupo]" style="width:250px">
+                            <option value="0">Seleccione...</option>
+                            <!-- BEGIN blkGrupo -->
+                            <option value="{valGrupo}" {selGrupo}>{opcGrupo}</option>
+                            <!-- END blkGrupo -->
+                        </select>
+                    </td>
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td><label >Hombre:</label></td>
+                                <td><input id="homGrupo" class="num" size="6" onKeyPress="return numbersonly(event, false);"/></td>
+                                <td rowspan="2"><a href="javascript:relacionarGrupos();" id="btnGrupoGrabar" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Add</a></td>
+                            </tr>
+                            <tr>
+                                <td><label >Mujer:</label></td>
+                                <td><input id="mujGrupo" class="num" size="6" onKeyPress="return numbersonly(event, false);"/></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr><td colspan="6"><div id="divTablaGrupos"></div></td></tr>
+                <tr><td colspan="6">&nbsp;</td></tr>
+                <tr><td colspan="6"><label>Grupos por Quinquenios de Edad:</label></td></tr>
+                <tr>
+                    <td colspan="6">
+                        <table id="detalle">
+                            <tr class="fila">
+                                <td>Sexo</td>
+                                <td>< de 1</td>
+                                <td>01-04</td>
+                                <td>05-09</td>
+                                <td>10-14</td>
+                                <td>15-19</td>
+                                <td>20-24</td>
+                                <td>25-29</td>
+                                <td>30-34</td>
+                                <td>35-39</td>
+                                <td>40-44</td>
+                                <td>45-49</td>
+                                <td>50-54</td>
+                                <td>55-59</td>
+                                <td>60-64</td>
+                                <td>65-69</td>
+                                <td>70-74</td>
+                                <td>75 o +</td>
+                                <td>Total</td>
+                            </tr>
+                            <tr >
+                               <td>Hombre:</td>
+                               <td><input id="homRango1" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango2" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango3" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango4" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango5" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango6" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango7" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango8" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango9" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango10" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango11" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango12" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango13" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango14" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango15" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango16" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango17" class="num" size="4" onchange="javascript:sumCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="homRango18" class="num" size="4" value="0" readonly/></td>
+                            </tr>
+                            <tr >
+                               <td>Mujer:</td>
+                               <td><input id="mujRango1" class="num1" size="4" onkeyup="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango2" class="num1" size="4" onkeyup="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango3" class="num1" size="4" onkeyup="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango4" class="num1" size="4" onkeyup="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango5" class="num1" size="4" onkeyup="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango6" class="num1" size="4" onkeyup="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango7" class="num1" size="4" onkeyup="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango8" class="num1" size="4" onkeyup="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango9" class="num1" size="4" onkeyup="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango10" class="num1" size="4" onkeyup="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango11" class="num1" size="4" onkeyup="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango12" class="num1" size="4" onkeyup="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango13" class="num1" size="4" onchange="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango14" class="num1" size="4" onchange="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango15" class="num1" size="4" onchange="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango16" class="num1" size="4" onchange="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango17" class="num1" size="4" onchange="javascript:sumCasosM()" onKeyPress="return numbersonly(event, false);"/></td>
+                               <td><input id="mujRango18" class="num1" size="4" value="0" readonly/></td>
+                            </tr>
+                            <tr >
+                                <td colspan="19" style="text-align:center">
+                                    <a href="javascript:grabarDetalle();" id="btnDetalleAdd" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Guardar Detalle</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <br/>
+    <div id="divDetalleRelacion">
+        <fieldset>
+            <legend>Grupos de poblaci&oacute;n Guardado</legend>
+            <div id="tablaDetalleGrupos"></div>
+            <div id="tablaDetalleRangos"></div>            
+        </fieldset>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<br>
+<div ng-controller="notificacionAlertasController">
+    <table width="100%">
+        <tr>
+            <td>
+                <h2>Modulo de Notificaciones PAI - Alertas</h2>
+            </td>
+            <td align="right">
+                <div style="color: #A4BC2B;">
+                    Nueva Alerta
+                    <a href="alerta.php" class="" style="text-decoration: none; font-weight:bold;" title="Ingresar nuevo">
+                        <img width="30px" height="30px" title="Nuevo" border=0 src="../../../img/add_small.png"></a>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <fieldset class="ui-widget ui-widget-content ui-corner-all">
+        <div align="left">
+            <table border="0" width="100%">
+                <tr>
+                    <td width="20%">
+                        <label>Ingrese una palabra:</label>
+                    </td>
+                    <td>
+                        <input type="text" ng-model="filtro" value="" class="" style="width: 95%" maxlength="45"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label>Si quiere traer todo el listado dejar en blanco el filtro.</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+
+    <div align="center">
+        <table class="dxgvControl_PlasticBlue" rules="all" cellspacing="0" border="0" width="100%" style="border-collapse: collapse; margin: 5px;">
+            <tr>
+                <th class="dxgvHeader_PlasticBlue" width="5%">N.</th>
+                <th class="dxgvHeader_PlasticBlue" width="50%">Nombre</th>
+                <th class="dxgvHeader_PlasticBlue" scope="">Tipo</th>
+                <th style="text-align: center" class="dxgvHeader_PlasticBlue" width="8%">Acciones</th>
+            </tr>
+            <tr class="dxgvDataRow_PlasticBlue" data-ng-repeat="alerta in alertas | filter:filtro">
+                <td class="dxgv">{{alerta.id_notificacion}}</td>
+                <td class="dxgv">{{alerta.nombre | uppercase}}</td>
+                <td class="dxgv">{{alerta.tipo | uppercase}}</td>
+                <td class="dxgv">
+                    <a ng-click="editar(alerta)" title="Editar"><img title="Editar" border=0 src="../../../img/edit.png"></a>
+                    <a ng-click="borrar(alerta)" title="Borrar"><img title="Borrar" border=0 src="../../../img/Delete.png"></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

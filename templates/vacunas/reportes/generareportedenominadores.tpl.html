@@ -1,0 +1,49 @@
+<div class="Content" align="left">
+    <table width="100%" id="Exportar_a_Excel" cellpadding="2">
+        <tr>
+            <td width="100%" align="center"><h2>{title}</h2></td>
+        </tr>
+        <tr>
+            <td width="100%">
+                <table width="100%" border="1" style="border: 1px solid black; border-collapse: collapse">
+                    <tr style="background-color: cornflowerblue">
+                        {headers}
+                    </tr>
+                    {data}
+                </table>
+            </td>
+        </tr>
+    </table>
+    <table width="100%">
+        <tr>
+            <td align="right">
+                <a href="#" class="botonExcel" title="Exportar a Excel">
+                    <img width="32px" src="http://icons.iconarchive.com/icons/graphicloads/filetype/128/excel-xls-icon.png">
+                </a>&nbsp;
+                <a href="#" class="botonPdf" alt="Exportar a PDF" title="Exportar a PDF">
+                    <img width="32px" src="http://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png">
+                </a>&nbsp;
+                <a href="http://173.201.187.40/sisvig2/vacunas/reportes/reporteVacunacion.php" alt="Regresar" title="Regresar">
+                    <img width="32px" src="https://cdn0.iconfinder.com/data/icons/customicondesignoffice5/128/go-back.png">
+                </a>
+            </td>
+        </tr>
+    </table>
+    <form action="#" method="post" target="_blank" id="FormularioExportacion">
+        <input type="hidden" id="datos_a_enviar" name="datos_a_enviar" />
+    </form>
+</div>
+<script language="javascript">
+    $(document).ready(function() {
+        $(".botonExcel").click(function(event) {
+            $("#datos_a_enviar").val( $("<div>").append( $("#Exportar_a_Excel").eq(0).clone()).html());
+            $("#FormularioExportacion").attr("action", "http://173.201.187.40/sisvig2/vacunas/reportes/reporteexcel.php")
+            $("#FormularioExportacion").submit();
+        });
+        $(".botonPdf").click(function(event) {
+            $("#datos_a_enviar").val( $("<div>").append( $("#Exportar_a_Excel").eq(0).clone()).html());
+            $("#FormularioExportacion").attr("action", "http://173.201.187.40/sisvig2/vacunas/reportes/reportepdf.php")
+            $("#FormularioExportacion").submit();
+        });
+    });
+</script>

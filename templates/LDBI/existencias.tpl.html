@@ -1,0 +1,161 @@
+<div class="Content" align="left">
+    <form id="frmContenido" class="niceform" action="{urlprefix}LDBI/existencias.php" method="POST" onsubmit="return guardar();">
+        <table width="100%">
+            <tr>
+                <td>
+                    <h2>Recepci&oacute;n Bodega Centro Nacional</h2>
+                </td>
+                <td align="right">
+                    <div style="color: #A4BC2B;">
+                        Regresar
+                        <a href="index.php" class="" style="text-decoration: none; font-weight:bold;">
+                            <img title="Regresar" border=0 src="../img/back.png"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div id="ErrorGuardar" class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; display:{disError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{mensajeErrorGeneral}</label><br/>
+        </div>
+        <div class="ui-state-highlight ui-corner-all"
+             style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;" align="left">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{desInfo}</label>
+        </div>
+
+        <div class="ui-state-error ui-corner-all" id="dSummaryErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>Los datos no se pueden guardar debido a lo siguiente:</label>
+            <p id="pSummaryErrors" style="margin-top: 0px; margin-bottom: 0px;" class="summaryErrores"></p>
+        </div>
+        <div  class="">
+
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" >
+                <fieldset class="ui-widget ui-widget-content ui-corner-all" style="margin: 10px">
+                    <legend>Datos del documento</legend>
+                    <table cellspacing="2" cellpadding="2" border="0" align="center">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="hidden" value="{valEnvioId}" name="data[envio][id_envio]" />
+                                    <label>No. del documento:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <input type="text" maxlength="45" style="width: 250px; text-align:center;" value="{valEnvioNoEnvio}" name="data[envio][no_envio]" id="no_envio" disabled >
+                                </td>
+                                <td><label>Proveedor:<span class="mandatory">*</span></label></td>
+                                <td>
+                                    <select id="proveedor" name="data[envio][id_proveedor]" style="width:250px">
+                                        <option value="0">--</option>
+                                        <!-- BEGIN blkProveedor -->
+                                        <option value="{valProveedor}" {selProveedor}>{opcProveedor}</option>
+                                        <!-- END blkProveedor -->
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>No. del documento (original) :<span class="mandatory">*</span></label></td>
+                                <td><input type="text" maxlength="10" style="width: 250px;" value="{valEnvioReferencia}" name="data[envio][no_referencia]" dclass="hasDatepicker" ></td>
+                                <td><label>Fecha del documento :</label></td>
+                                <td><input type="text" maxlength="10" style="width: 135px;" value="{valEnvioFechaEnvio}" name="data[envio][fh_envio]" id="fecha_envio" dclass="hasDatepicker" ></td>
+                            </tr>
+                            <tr>
+                                <td><label>Fecha de ingreso:</label></td>
+                                <td>
+                                    <label id="label_fecha_formulario" >{valFechaFormulario}</label>
+                                    <input name="data[envio][fh_ingreso]" type="hidden" id="fecha_ingreso_envio" value="{valFechaFormulario}" />
+                                </td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td><label>Nombre responsable:</label></td>
+                                <td colspan="3"><input type="text" maxlength="512" style="width: 625px; text-transform: uppercase;" value="{valNombreRegistra}" name="data[envio][nombre_registra]" id="nombre_registra" kl_virtual_keyboard_secure_input="on"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+                <fieldset class="ui-widget ui-widget-content ui-corner-all" style="margin: 10px">
+                              <legend>Ingreso de existencias </legend>
+                                    <input type="hidden" id="existencias_json" value="{valExistencias}" />
+                                    <table cellspacing="2" cellpadding="2" border="0" align="center">
+                                        <tbody><tr>
+                                            <td width="280">
+                                                <label>Nombre &oacute; c&oacute;digo del producto :</label>                            </td>
+                                            <td>
+                                                <label>Cantidad </label></td>
+                                            <td width="160">
+                                                <label>Fecha de vencimiento </label></td>
+                                            <td width="150">N&uacute;mero de lote  </td>
+                                            <td width="80">
+                                                <label>Costo unitario </label></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr id="insert_existencia">
+                                            <td style="text-align:center;">
+                                                <input type="text" name="nombre_prod" value="" style="width:350px" id="nombre_prod"  kl_virtual_keyboard_secure_input="on">
+                                                <input type="hidden" name="id_prod" value="" style="width:350px" id="id_prod"  kl_virtual_keyboard_secure_input="on">
+                                                <input type="hidden" name="unidad_presentacion" value="" style="width:350px" id="unidad_presentacion"  kl_virtual_keyboard_secure_input="on">
+                                                <input type="hidden" name="codigo_insumo" value="" style="width:350px" id="codigo_insumo"  kl_virtual_keyboard_secure_input="on">
+                                            </td>
+                                            <td><input type="text" maxlength="10" style="width: 65px;" value="" name="cantidad" id="cantidad" kl_virtual_keyboard_secure_input="on"></td>
+                                            <td width="160"><input type="text" maxlength="10" style="width: 135px;" value="" name="fh_vencimiento" id="fh_vencimiento"  kl_virtual_keyboard_secure_input="on"></td>
+                                            <td width="150"><input type="text" maxlength="10" style="width: 135px;" value="" name="no_lote" id="no_lote" kl_virtual_keyboard_secure_input="on"></td>
+                                            <td width="80"><input type="text" maxlength="10" style="width: 65px;" value="" name="costo_unitario" id="costo_unitario" kl_virtual_keyboard_secure_input="on"></td>
+                                            <td style="text-align:center;">
+                                                <a onmouseout="RollOut(this)" onmouseover="RollOver(this)" title="A&nacute;adir existencia" class="ui-state-default ui-corner-all ui-button" href="javascript:anadir_existencia();" id="anadir">A&nacute;adir</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">
+                                                <br>
+                                                <div id="tablaDescripcionEnvio">
+                                                    <table width="100%" cellspacing="1" cellpadding="4" border="0" id="desc_envio">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="dxgvHeader_PlasticBlue">C&oacutedigo </th>
+                                                                <th class="dxgvHeader_PlasticBlue">Nombre producto </th>
+                                                                <th style="text-align:center" class="dxgvHeader_PlasticBlue">Unidad de presentaci&oacuten</th>
+                                                                <th style="text-align:center" class="dxgvHeader_PlasticBlue">Cantidad </th>
+                                                                <th style="text-align:center" class="dxgvHeader_PlasticBlue">Costo unitario </th>
+                                                                <th style="text-align:center" class="dxgvHeader_PlasticBlue">Fecha de vencimiento </th>
+                                                                <th style="text-align:center" class="dxgvHeader_PlasticBlue">N&uacutemero de lote</th>
+                                                                <th style="text-align:center" class="dxgvHeader_PlasticBlue">Eliminar</th>
+                                                            </tr>
+                                                            <tr>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <br>
+                                            </td>
+                                        </tr>
+                                    </tbody></table>
+                </fieldset>
+            </div>
+        </div>
+
+        <table align="center">
+            <tr>
+                <td>
+                    <div style="margin-top:10px">
+                        <input type="hidden" name="action" id="action" value="{action}" />
+                        <input name="data[formulario][id_uceti]" type="hidden" id="id_uceti" value="{valIdUceti}" />
+                        <input name="data[GuardarPrevio][Guardar]" type="hidden" id="guardarPrevio" value="0" />
+                        <input name="data[GuardarPrevio][UpdateMuestra]" type="hidden" id="updateMuestra" value="{updateMuestra}" />
+                        <input name="data[enfermedades][globalEnfermedadesRelacionados]" type="hidden" id="globalEnfermedadesRelacionados" value="{valEnfermedadesRelacionados}" />
+                        <input name="data[vacunas][globalVacunasRelacionados]" type="hidden" id="globalVacunasRelacionados" value="{valVacunasRelacionados}" />
+                        <input name="data[muestras_laboratorio][globalMuestrasUceti]" type="hidden" id="globalMuestrasUceti" value="{valMuestrasUceti}" />
+
+                        {botonGuardar}
+                        {botonCancelar}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

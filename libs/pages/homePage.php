@@ -44,8 +44,6 @@ class HomePage extends page
                 $this->tpl->setVariable('iniMenuVicIts','block');
                 
                 // menuEspeciales
-                $this->tpl->setVariable('iniMenuVIH','block');
-                $this->tpl->setVariable('iniMenuMat','block');
                 $this->tpl->setVariable('iniMenuSarampion','block');
                 $this->tpl->setVariable('iniMenuSinRubeola','block');
                 $this->tpl->setVariable('iniMenuParalisis','block');
@@ -57,6 +55,11 @@ class HomePage extends page
                 $this->tpl->setVariable('iniMenuNoTrasmisibles','block');
                 $this->tpl->setVariable('iniMenuIntoxiaciones','block');
                 $this->tpl->setVariable('iniMenuTB','block');
+                
+                //menuProgramas
+                $this->tpl->setVariable('iniMenuVIH','block');
+                $this->tpl->setVariable('iniMenuMat','block');
+                $this->tpl->setVariable('iniMenuVacunas','block');
                 
                 // menuRutinaria - Submenu Eno
                 $this->tpl->setVariable('iniMenuEnoFormulario','none');
@@ -116,6 +119,14 @@ class HomePage extends page
                 $this->tpl->setVariable('iniVicItsFormLaboratorio','none');
                 $this->tpl->setVariable('iniVicItsRepExcel','none');
                 
+                // menuEspeciales - Submenu Vacunas
+                $this->tpl->setVariable('iniVacFormulario','none');
+                $this->tpl->setVariable('iniVacRegistroDiario','none');
+                $this->tpl->setVariable('iniVacDenominador','none');
+                $this->tpl->setVariable('iniVacReportes','none');
+                $this->tpl->setVariable('iniVacCargarDeno','none');
+                $this->tpl->setVariable('iniVacLdbi','none');
+
                 // menuEspeciales - Submenu MAT
                 $this->tpl->setVariable('iniMatFormulario','none');
 
@@ -263,6 +274,8 @@ class HomePage extends page
                                     break;
                                 case ConfigurationCAUS::TB:
                                     $this->tpl->setVariable('iniMenuTB','');
+                                case ConfigurationCAUS::Vacunas:
+                                    $this->tpl->setVariable('iniMenuVacunas','');
                                     break;
                             }
                         }
@@ -484,7 +497,40 @@ class HomePage extends page
                             }
                         }
                     }
-                    
+
+                    // Mostrar las opciones del Submenu Malformacion que puede acceder
+                    $secciones = clsCaus::obtenerSecciones(ConfigurationCAUS::Vacunas);
+//echo "<pre>".var_dump($_SESSION["user"]["secciones"][74]["secciones"])."</pre>"; exit;
+                    if(count($secciones)){
+                        foreach($secciones as $c=>$seccion)
+                        {
+                            switch($c)
+                            {
+                                case ConfigurationCAUS::VacEsquema:
+                                    $this->tpl->setVariable('iniVacFormulario','');
+                                    break;
+                                case ConfigurationCAUS::VacFormulario:
+                                    $this->tpl->setVariable('iniVacFormulario','');
+                                    break;
+                                case ConfigurationCAUS::VacRegistroDiario:
+                                    $this->tpl->setVariable('iniVacRegistroDiario','');
+                                    break;
+                                case ConfigurationCAUS::VacDenominadores:
+                                    $this->tpl->setVariable('iniVacDenominador','');
+                                    break;
+                                case ConfigurationCAUS::VacCargarDeno:
+                                    $this->tpl->setVariable('iniVacVac_CargarDeno','');
+                                    break;
+                                case ConfigurationCAUS::VacReportes:
+                                    $this->tpl->setVariable('iniVacReportes','');
+                                    break;
+                                case ConfigurationCAUS::VacLdbi:
+                                    $this->tpl->setVariable('iniVacLdbi','');
+                                    break;
+                            }
+                        }
+                    }
+
                     $secciones = clsCaus::obtenerSecciones(ConfigurationCAUS::TB);
 
                     if(count($secciones)){

@@ -1,0 +1,186 @@
+<br>
+<div ng-controller="notificacionAlertaEditController">
+    <table width="100%">
+        <tr>
+            <td>
+                <h2>Modulo de Notificaciones PAI - Alertas</h2>
+            </td>
+            <td align="right">
+                <div style="color: #A4BC2B;">
+                    Regresar
+                    <a href="index.php" class="" style="text-decoration: none; font-weight:bold;">
+                        <img title="Regresar" border=0 src="../../../img/back.png"></a>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; margin-top: 5px;" ng-show="errores.length > 0">
+        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+        <label><strong>No se puede continuar por lo siguiente:</strong></label><br>
+        <label data-ng-repeat="error in errores">- {{error}}<br></label>
+    </div>
+
+    <table align="center" ng-show="cargando">
+        <tr>
+            <td>
+                <div style="margin-top:10px">
+                    <p align="center">Cargando ...</p>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" ng-show="!cargando">
+        <fieldset class="ui-widget ui-widget-content ui-corner-all" style="margin: 10px;">
+            <legend>Configuracion Alerta</legend>
+            <table cellspacing="2" cellpadding="2" border="0" align="center" style="width: 100%">
+                <tbody>
+                <tr>
+                    <td width="125">
+                        <label>Tipo:<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <select style="width:600px" ng-model="tipo" ng-options = "data.id_notificacion_tipo as data.nombre for data in tipos">
+                            <option value="" class="">--</option>
+                        </select>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Nombre:<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <input type="text" maxlength="45" style="width: 600px; text-transform: uppercase;" ng-model="form.nombre" value="{{form.nombre}}">
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr ng-show="tipo != 1">
+                    <td style="vertical-align: top">
+                        <label>Contacto:<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <angucomplete-alt id="contactoSelected"
+                                          placeholder="Buscar contacto"
+                                          pause="400"
+                                          selected-object="contacto"
+                                          remote-url="/sisvig2/api/modulos/vacunas/notificacioncontacto/get.php?s="
+                                          remote-url-data-field=""
+                                          title-field="nombre"
+                                          initial-value="contactoInit"
+                                          input-class="form-control form-control-small"/>
+                    </td>
+                    <td><a href="../contacto/">[ Administrar Contactos ]</a></td>
+                </tr>
+                <tr ng-show="tipo != 1">
+                    <td style="vertical-align: top">
+                        <label>Grupo:<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <angucomplete-alt id="grupoSelected"
+                                          placeholder="Buscar grupo"
+                                          pause="400"
+                                          selected-object="grupo"
+                                          remote-url="/sisvig2/api/modulos/vacunas/notificaciongrupo/get.php?s="
+                                          remote-url-data-field=""
+                                          title-field="nombre"
+                                          initial-value="grupoInit"
+                                          input-class="form-control form-control-small"/>
+                    </td>
+                    <td><a href="../grupo/">[ Administrar Grupos ]</a></td>
+                </tr>
+                <tr ng-show="tipo == 2">
+                    <td style="vertical-align: top">
+                        <label>Insumo:<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <angucomplete-alt id="insumoSelected"
+                                          placeholder="Buscar insumo"
+                                          pause="400"
+                                          selected-object="insumo"
+                                          remote-url="/sisvig2/api/common/ldbiinsumos.php?s="
+                                          remote-url-data-field=""
+                                          title-field="nombre"
+                                          initial-value="insumoInit"
+                                          input-class="form-control form-control-small"/>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr ng-show="tipo == 1">
+                    <td style="vertical-align: top">
+                        <label>Vacuna:<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <angucomplete-alt id="vacunaSelected"
+                                          placeholder="Buscar vacuna"
+                                          pause="400"
+                                          selected-object="vacuna"
+                                          remote-url="/sisvig2/api/common/rnvvacunas.php?s="
+                                          remote-url-data-field=""
+                                          title-field="nombre"
+                                          initial-value="vacunaInit"
+                                          input-class="form-control form-control-small"/>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr ng-show="tipo == 3">
+                    <td>
+                        <label>No. Lote:<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <input type="text" maxlength="45" style="width: 600px; text-transform: uppercase;" ng-model="form.no_lote" value="{{form.no_lote}}">
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr ng-show="tipo == 3">
+                    <td>
+                        <label>Anticipacion (dias):<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <input type="text" maxlength="45" style="width: 600px; text-transform: uppercase;" ng-model="form.anticipacion_dias" value="{{form.anticipacion_dias}}">
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr ng-show="tipo == 4">
+                    <td>
+                        <label>Fecha Envio:<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <input type="text" maxlength="10" style="width: 135px;" dclass="hasDatepicker" ng-model="form.fecha_envio" value="{{form.fecha_envio}}" id="fecha_envio">
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr ng-show="tipo == 4">
+                    <td style="vertical-align: top">
+                        <label>Mensaje:<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <textarea style="width: 600px" rows="10" ng-model="form.mensaje">{{form.mensaje}}</textarea>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td><label>Activo:</label></td>
+                    <td>
+                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="form.status" ng-checked="form.status == 1" />
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+
+    <table align="center">
+        <tr>
+            <td>
+                <div style="margin-top:10px">
+                    <p align="center" ng-show="procesando">Guardando ...</p>
+                    <a href="#" ng-click="guardar()" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Guardar</a>
+                    <a href="index.php" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Cancelar</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

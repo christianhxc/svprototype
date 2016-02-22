@@ -1,0 +1,98 @@
+<div class="Content" align="left">
+    <form id="frmContenido" class="niceform" action="{urlprefix}LDBI/data/import.php" method="POST" enctype="multipart/form-data">
+        <table width="100%">
+            <tr>
+                <td>
+                    <h2>M&oacute;dulo de Log&iacute;stica y Distribuci&oacute;n - Exportar/Importar Datos</h2>
+                </td>
+                <td align="right">
+                    <div style="color: #A4BC2B;">
+                        Regresar
+                        <a href="index.php" class="" style="text-decoration: none; font-weight:bold;">
+                            <img title="Regresar" border=0 src="../img/back.png"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div id="ErrorGuardar" class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; display:{disError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{mensajeErrorGeneral}</label><br/>
+        </div>
+        <div class="ui-state-highlight ui-corner-all"
+             style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;" align="left">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{desInfo}</label>
+        </div>
+
+        <div class="ui-state-error ui-corner-all" id="dSummaryErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>No se puede generar debido a lo siguiente:</label>
+            <p id="pSummaryErrors" style="margin-top: 0px; margin-bottom: 0px;" class="summaryErrores"></p>
+        </div>
+        <div  class="">
+
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" >
+                <br>
+                    <table cellspacing="2" cellpadding="2" border="0" align="center" style="width: 97%">
+                        <tbody>
+                        <tr>
+                            <td width="125">
+                                <label>Acci&oacute;n:</label>
+                            </td>
+                            <td colspan="3">
+                                <select id="id_tipo" style="width: 95%;">
+                                    <option value="1">Exportacion de datos</option>
+                                    <option value="2">Importacion de datos</option>
+                                </select>
+                            </td>
+                        </tr>
+                            <tr id="exportar">
+                                <td>
+                                    <label>Fecha inicio:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <input type="text" maxlength="10" style="width: 135px;" name="data[envio][fh_inicio]" id="fh_inicio" dclass="hasDatepicker" >
+                                </td>
+                                <td>
+                                    <label>Fecha fin:<span class="mandatory">*</span></label>
+                                </td>
+                                <td>
+                                    <input type="text" maxlength="10" style="width: 135px;" name="data[envio][fh_fin]" id="fh_fin" dclass="hasDatepicker" >
+                                </td>
+                            </tr>
+                        <tr id="importar" style="display: none">
+                            <td width="125">
+                                <label>Archivo:</label>
+                            </td>
+                            <td colspan="3">
+                                <input type="file" id="file" name="file"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                <br>
+            </div>
+        </div>
+
+        <table align="center">
+            <tr>
+                <td>
+                    <div style="margin-top:10px">
+                        <input type="hidden" name="action" id="action" value="{action}" />
+                        <input name="data[formulario][id_uceti]" type="hidden" id="id_uceti" value="{valIdUceti}" />
+                        <input name="data[GuardarPrevio][Guardar]" type="hidden" id="guardarPrevio" value="0" />
+                        <input name="data[GuardarPrevio][UpdateMuestra]" type="hidden" id="updateMuestra" value="{updateMuestra}" />
+                        <input name="data[enfermedades][globalEnfermedadesRelacionados]" type="hidden" id="globalEnfermedadesRelacionados" value="{valEnfermedadesRelacionados}" />
+                        <input name="data[vacunas][globalVacunasRelacionados]" type="hidden" id="globalVacunasRelacionados" value="{valVacunasRelacionados}" />
+                        <input name="data[muestras_laboratorio][globalMuestrasUceti]" type="hidden" id="globalMuestrasUceti" value="{valMuestrasUceti}" />
+
+                        {botonGuardar}
+                        {botonCancelar}
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <div id="resultadosBusqueda" align="center"></div>
+    </form>
+</div>

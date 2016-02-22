@@ -6,20 +6,22 @@ require_once("libs/Configuration.php");
 
 $config["identificador"] = $_REQUEST["id"];
 $config["nombre"] = $_REQUEST["n"];
+$config["nombre_2"] = $_REQUEST["n2"];
 $config["apellido"] = $_REQUEST["p"];
+$config["apellido_2"] = $_REQUEST["p2"];
 $config["edad_desde"] = $_REQUEST["ed"];
 $config["edad_hasta"] = $_REQUEST["ed2"];
 $config["tipo_edad"] = $_REQUEST["ted"];
 $config["sexo"] = $_REQUEST["sx"];
-$config["tipo_id"] = $_REQUEST["tipoid"];
+$config["tipo_id"] = ( $_REQUEST["tipoid"] != 0 ) ? $_REQUEST["tipoid"] : "";
 
 // PAGINADO
 $config["paginado"] = Configuration::paginado;
 $config["page"] = $_REQUEST["pagina"] != "" ? $_REQUEST["pagina"] : 1; // Pagina de resultados a mostrar
 $config["inicio"] = ($config["page"] - 1) * $config["paginado"]; // Inicio del set de datos
 
-$data = helperCatalogos::buscarPersonas($config);
-$config["total"] = helperCatalogos::buscarPersonasCantidad($config);
+$data = helperCatalogos::buscarPersonasVacunas($config);
+$config["total"] = helperCatalogos::buscarPersonasCantidadVac($config);
 
 $result = $extra . '<table id="resultados" class="dxgvControl_PlasticBlue" rules="all" cellspacing="0"
                   border="0" style="width: 100%; border-collapse: collapse;">';

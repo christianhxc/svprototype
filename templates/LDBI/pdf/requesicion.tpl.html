@@ -1,0 +1,129 @@
+<input type="hidden" id="existencias_json" value="{valExistencias}"/>
+<input type="hidden" id="nodelete" value="true"/>
+<form method="POST" action="reportepdf.php" id="form" style="display: none;">
+    <input type="hidden" name="datos_a_enviar" id="datos_a_enviar"/>
+
+    <div class="Content" align="left" id="printable">
+        <table style="width: 400px">
+            <tr>
+                <td align="center"><img src="{urlprefix}img/logo.png"/></td>
+                <td align="center">
+                    <span style="color:#237324; font-size: 18px; font-weight: bold">REPUBLICA DE PANAMA</span><br>
+                    <span style="font-weight: bold">MINISTERIO DE SALUD - CAJA DEL SEGURO SOCIAL - INSTITUCIONES PRIVADAS</span><br>
+                    Módulo de Logística y Distribución<br>
+                    Formulario para requisiciones de vacunas e insumos<br>
+                </td>
+                <td align="center">
+                    <img src="{urlprefix}img/vigilab.png" style="border: 0px; width: 150px; height: 100px"/>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <div style="border: 1px solid black; padding: 5px">
+            <div style="width: 760px; background-color: #e2ee97; padding: 5px;">
+                <span style="color:#237324; font-weight: bold; text-transform: uppercase;">Datos de Requesicion</span>
+            </div>
+            <table cellspacing="2" cellpadding="2" border="0" style="width: 770px">
+                <tbody>
+                <tr>
+                    <td><label>Región:</label></td>
+                    <td colspan="3">
+                        {valNotificacionRegion}
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Instalación de salud:</label></td>
+                    <td colspan="3">
+                        {valNotificacionUnidad}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Requesición:</label>
+                    </td>
+                    <td style="width: 300px">
+                        {valRequesicionNoRequesicion}
+                    </td>
+                    <td><label>Fecha de ingreso:</label></td>
+                    <td>
+                        {valFechaFormulario}
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Fecha de requesición:</label></td>
+                    <td>{valRequesicionFechaRequesicion}</td>
+                    <td>Estatus:</td>
+                    <td>
+                        {valRequesicionEstatus}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fecha de envío:</td>
+                    <td>{valRequesicionFechaEnvio}</td>
+                    <td>No. Envio</td>
+                    <td>{valRequesicionNoEnvio}</td>
+                </tr>
+                <tr>
+                    <td>Fecha de despacho:</td>
+                    <td>{valRequesicionFechaDespacho}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Fecha de entrega:</td>
+                    <td>{valRequesicionFechaEntrega}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label>Nombre responsable:</label></td>
+                    <td colspan="3"><span style="text-transform: uppercase;">{valNombreRegistra}</span></td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+            <br>
+            <div style="border: 1px solid black; padding: 5px">
+                <div style="width: 760px; background-color: #e2ee97; padding: 5px;">
+                    <span style="color:#237324; font-weight: bold; text-transform: uppercase;">Existencias</span>
+                </div>
+                <table cellspacing="2" cellpadding="2" border="0" style="width: 770px">
+                    <tbody>
+                    <tr>
+                        <td colspan="6">
+                            <br>
+
+                            <div id="tablaDescripcionEnvio">
+                                <table cellspacing="1" cellpadding="4" border="0" id="desc_envio" style="width: 770px">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 50px">Codigo</th>
+                                        <th style="width: 175px">Nombre Producto</th>
+                                        <th style="width: 200px;">Unidad de presentación </th>
+                                        <th style="width: 75px;">Solicitada</th>
+                                        <th style="width: 75px;">Enviado</th>
+                                    </tr>
+                                    <tr>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+</form>
+<script>
+    $("body").hide();
+    $(document).ready(function () {
+        $("#datos_a_enviar").val($("#printable").html());
+        $("#form").submit();
+    });
+</script>

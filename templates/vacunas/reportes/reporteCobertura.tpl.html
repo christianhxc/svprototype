@@ -1,0 +1,160 @@
+<div class="Content" align="left">
+    <form id="formReportes"  method="POST" action="">
+        <input type="hidden" id="form-action" name="form-action" value="">
+        <h1> <br/>Reporte de Registro Diario</h1>
+
+        <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+        </div>
+        <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+        </div>
+        <div id="filtro" >
+            <table><tr style="height: 0.95em"><td></td></tr></table>
+            <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                <legend>FILTROS</legend>
+                <table width="90%" border="0" cellpadding="2" cellspacing="2" align="center">
+                    <tr>
+                        <td ><label style="color:#000000; font-weight:normal;">Seleccione tipo de reporte: <span class="mandatory">*</span></label></td>
+                        <td colspan="3">
+                            <select id="drpReporteTipo" name="search[tipo]" style="width:250px">
+                                <option value="Cobertura" >Reporte de Cobertura</option>
+                                <option value="Produccion" >Reporte de Produccion</option>
+                                <option value="CoberturaProduccion" >Reporte de Cobertura vs Produccion</option>
+                                <option value="Denominadores" >Exportacion de denominadores</option>
+                                <option value="Vacunacion" >Listado de Vacunación</option>
+                                <option value="Programacion" >Listado de programación de vacunación</option>
+                                <option value="Inasistentes" >Listado de inasistentes</option>
+                                <option value="RegistroDiario" >Reporte de registro diario</option>
+                                <option value="ExportacionVariables" >Exportación de variables</option>
+                            </select>
+                        </td>
+                    </tr>
+                <tr id="filtroReporte">
+                    <td ><label style="color:#000000; font-weight:normal;">Seleccione el reporte: <span class="mandatory">*</span></label></td>
+                    <td colspan="3">
+                        <select id="drpReporte" name="search[configuracion]" style="width:250px">
+                            <option value="0" >Seleccione...</option>
+                            <!-- BEGIN blkConfiguraciones -->
+                            <option value="{valConfiguracion}">{opcConfiguracion}</option>
+                            <!-- END blkConfiguraciones -->
+                        </select>
+                    </td>
+                </tr>
+                <tr  id="filtroCierre">
+                    <td ><label style="color:#000000; font-weight:normal;">Seleccione opci&oacute;n: <span class="mandatory">*</span></label></td>
+                    <td colspan="3">
+                        <select id="drpReporteTipoRango" name="search[tipocorte]" style="width:250px">
+                            <option value="alcierre" >Al cierre</option>
+                            <option value="aldia" >Al dia</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr  id="filtroGeografico">
+                    <td ><label style="color:#000000; font-weight:normal;">Nivel geogr&aacute;fico: <span class="mandatory">*</span></label></td>
+                    <td>
+                        <select id="drpNivelUn" name="search[nivel]" style="width:250px" onchange="setNivelUn()">
+                            <option value="0" >Seleccione...</option>
+                            <!--<option value="1" >Nacional</option>-->
+                            <option value="2" >Provincia</option>
+                            <option value="3" >Region</option>
+                            <option value="4" >Distrito</option>
+                            <option value="5" >Corregimiento</option>
+                            <option value="6" >Unidad notificadora</option>
+                        </select>
+                    </td>
+                    <td ><label style="color:#000000; font-weight:normal;">De quien: <span class="mandatory">*</span></label></td>
+                    <td>
+                        <select id="drpTipoNivel" name="search[tipoNivel]" style="width:250px">
+                            <option value="0" >Seleccione...</option>
+                            <option value="1" >Instalaci&oacute;n de salud</option>
+                            <option value="2" >Persona</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr  id="filtroProvincia">
+                    <td colspan="2">
+                        <div id="divProvincia">
+                            <label >Provincia:<span class="mandatory">*</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <select id="drpPro" name="search[provincia]" style="width:250px" onchange="setRegionCascada()">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkPro -->
+                                <option value="{valPro}" {selPro}>{opcPro}</option>
+                                <!-- END blkPro -->
+                            </select>
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <div id="divRegion">
+                            <label >Regi&oacute;n:<span class="mandatory">*</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <select id="drpReg" name="search[region]" style="width:250px" onchange="setDistritoCascada()">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkReg -->
+                                <option value="{valReg}" {selReg}>{opcReg}</option>
+                                <!-- END blkReg -->
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr  id="filtroDistrito">
+                    <td colspan="2">
+                        <div id="divDistrito">
+                            <label >Distrito:<span class="mandatory">*</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <select id="drpDis" name="search[distrito]" style="width:250px" onchange="setCorregimientoCascada()">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkDis -->
+                                <option value="{valDis}" {selDis}>{opcDis}</option>
+                                <!-- END blkDis -->
+                            </select>
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <div id="divCorregimiento">
+                            <label >Corregimiento:<span class="mandatory">*</span></label>&nbsp;&nbsp;
+                            <select id="drpCor" name="search[corregimiento]" style="width:250px">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkCor -->
+                                <option value="{valCor}" {selCor}>{opcCor}</option>
+                                <!-- END blkCor -->
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr  id="filtroUnidad">
+                    <td colspan="4">
+                        <div id="divInstalacion">
+                            <label >Unidad notificadora:<!-- span class="mandatory">*</span --></label>
+                            <input type="text" id="nombre_un" style="width: 500px;" value="{valUnidad}"/>
+                            <input type="hidden" name="search[id_un]" id="id_un" value="{valIdUn}" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label >Rango de fechas: </label></td>
+                    <td >
+                        <label >Fecha inicial: </label>
+                        <input type="text" id="fecha_ini" name="search[fecini]" style="width: 100px;" />
+                    </td>
+                    <td ><label > Fecha final: </label></td>
+                    <td ><input type="text" id="fecha_fin" name="search[fecfin]" style="width: 100px;" /></td>
+                </tr>
+                <tr><td colspan="4" style="text-align:right;"><label>** Si se quiere traer todos los a&ntilde;os se deja en blanco lo campos de rango de fechas</label></td></tr>
+                </table>
+            </fieldset>
+        </div>
+        <table align="center">
+            <tr>
+                <td>
+                    {botonGenerar} &nbsp;
+                    <a href="configuraciones.php" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Configuraciones</a>
+                </td>
+            </tr>
+        </table>
+        <br/>
+    </form>
+</div>
+<div id="reporte-resultado">
+
+</div>

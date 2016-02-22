@@ -97,9 +97,6 @@ class page
                 $this->tpl->setVariable('menuVicIts','none');
                 
                 // menuEspeciales
-                $this->tpl->setVariable('menuVih','none');
-                $this->tpl->setVariable('menuMat','none');
-                $this->tpl->setVariable('menuTB','none');
                 $this->tpl->setVariable('menuSarampion','none');
                 $this->tpl->setVariable('menuSinRubeola','none');
                 $this->tpl->setVariable('menuParalisis','none');
@@ -110,6 +107,12 @@ class page
                 $this->tpl->setVariable('menuMalformacion','none');
                 $this->tpl->setVariable('menuNoTrasmisibles','none');
                 $this->tpl->setVariable('menuIntoxiaciones','none');
+                
+                
+                //menuProgramanas
+                $this->tpl->setVariable('menuVih','none');
+                $this->tpl->setVariable('menuMat','none');
+                $this->tpl->setVariable('menuVacunas','none');
                 
                 // menuCatalogos
                 $this->tpl->setVariable('menuCatAntecedenteVacunal','none');
@@ -126,6 +129,10 @@ class page
                 $this->tpl->setVariable('menuCatSintomas','none');
                 $this->tpl->setVariable('menuCatTipoIdentidad','none');
                 $this->tpl->setVariable('menuCatTipoMuestras','none');
+                $this->tpl->setVariable('menuCatVacunas','none');
+                $this->tpl->setVariable('menuCatCondicion','none');
+                $this->tpl->setVariable('menuCatModalidades','none');
+                $this->tpl->setVariable('menuCatGrupoEsp','none');
                                 
                 // menuRutinaria - Submenu Eno
                 $this->tpl->setVariable('menuEnoFormulario','none');
@@ -193,6 +200,17 @@ class page
                 $this->tpl->setVariable('menuTBPagInicio','none');
                 $this->tpl->setVariable('menuTBReportes','none');
                                 
+                // menuEspeciales - Submenu Vacunas
+                $this->tpl->setVariable('menuVacFormulario','none');
+                $this->tpl->setVariable('menuVacRegistroDiario','none');
+                $this->tpl->setVariable('menuVacReportes','none');
+                $this->tpl->setVariable('menuVacDenominador','none');
+                $this->tpl->setVariable('menuVacCargarDeno','none');
+                $this->tpl->setVariable('menuVacLdbi','none');
+                $this->tpl->setVariable('menuVacNotificacion','none');
+                $this->tpl->setVariable('menuVacExportar','none');
+                $this->tpl->setVariable('menuVacImportar','none');
+
                 if(clsCaus::validarSession())
                 {
                     // Mostrar las opciones del menú principal que puede accederse
@@ -333,6 +351,8 @@ class page
                                     break;
                                 case ConfigurationCAUS::TB:
                                     $this->tpl->setVariable('menuTB','');
+                                case ConfigurationCAUS::Vacunas:
+                                    $this->tpl->setVariable('menuVacunas','');
                                     break;
                             }
                         }
@@ -575,6 +595,48 @@ class page
                         }
                     }
                     
+                    // Mostrar las opciones del menuMortalidad - Submenu Vigmor que puede acceder
+                    $secciones = clsCaus::obtenerSecciones(ConfigurationCAUS::Vacunas);
+
+                    if(count($secciones)){
+                        foreach($secciones as $c=>$seccion)
+                        {
+                            switch($c)
+                            {
+                                case ConfigurationCAUS::VacFormulario:
+                                    $this->tpl->setVariable('menuVacFormulario','');
+                                    break;
+                                case ConfigurationCAUS::VacEsquema:
+                                    $this->tpl->setVariable('menuVacFormulario','');
+                                    break;
+                                case ConfigurationCAUS::VacRegistroDiario:
+                                    $this->tpl->setVariable('menuVacRegistroDiario','');
+                                    break;
+                                case ConfigurationCAUS::VacReportes:
+                                    $this->tpl->setVariable('menuVacReportes','');
+                                    break;
+                                case ConfigurationCAUS::VacDenominadores:
+                                    $this->tpl->setVariable('menuVacDenominador','');
+                                    break;
+                                case ConfigurationCAUS::VacCargarDeno:
+                                    $this->tpl->setVariable('menuVacCargarDeno','');
+                                    break;
+                                case ConfigurationCAUS::VacLdbi:
+                                    $this->tpl->setVariable('menuVacLdbi','');
+                                    break;
+                                case ConfigurationCAUS::VacNotificacion:
+                                    $this->tpl->setVariable('menuVacNotificacion','');
+                                    break;
+                                case ConfigurationCAUS::VacExportar:
+                                    $this->tpl->setVariable('menuVacExportar','');
+                                    break;
+                                case ConfigurationCAUS::VacImportar:
+                                    $this->tpl->setVariable('menuVacExportar','');
+                                    break;
+                            }
+                        }
+                    } 
+                    
                     // Mostrar las opciones del menuCatalogos
                     
                     $secciones = clsCaus::obtenerSecciones(ConfigurationCAUS::catalogos);
@@ -624,6 +686,18 @@ class page
                                     break;
                                 case ConfigurationCAUS::catTipoMuestras:
                                     $this->tpl->setVariable('menuCatTipoMuestras','');
+                                    break;
+                                case ConfigurationCAUS::catVacunas:
+                                    $this->tpl->setVariable('menuCatVacunas','');
+                                    break;
+                                case ConfigurationCAUS::catCondiciones:
+                                    $this->tpl->setVariable('menuCatCondicion','');
+                                    break;
+                                case ConfigurationCAUS::catModalidades:
+                                    $this->tpl->setVariable('menuCatModalidades','');
+                                    break;
+                                case ConfigurationCAUS::catGrupoEspecialVacunas:
+                                    $this->tpl->setVariable('menuCatGrupoEsp','');
                                     break;
                             }
                         }

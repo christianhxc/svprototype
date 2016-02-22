@@ -1,0 +1,251 @@
+<div class="Content" align="left">
+    <form id="frmContenido" class="niceform" action="{urlprefix}vacunas/formulario.php" method="POST" onsubmit="return validarVacunas();">
+        <table width="100%">
+            <tr>
+                <td>
+                    <h2>Formulario para la creaci&oacute;n de Escenarios de Vacunas</h2>
+                </td>
+                <td align="right">
+                    <div style="color: #A4BC2B;">
+                        Regresar
+                        <a href="index.php" class="" style="text-decoration: none; font-weight:bold;">
+                            <img title="Regresar" border=0 src="../img/back.png"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div id="ErrorGuardar" class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; display:{disError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{mensajeErrorGeneral}</label><br/>
+        </div>
+        <div class="ui-state-highlight ui-corner-all"
+             style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;" align="left">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{desInfo}</label>
+        </div>
+
+        <div class="ui-state-error ui-corner-all" id="dSummaryErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>Los datos no se pueden guardar debido a lo siguiente:</label>
+            <p id="pSummaryErrors" style="margin-top: 0px; margin-bottom: 0px;"></p>
+        </div>
+        <div class="">
+            <fieldset class="ui-widget ui-widget-content ui-corner-all">
+                <legend>Encabezado Escenarios de Vacunas</legend>
+                <table border="0" cellpadding="2" cellspacing="2" align="center">
+                    <tr>
+                        <td><label >Nombre:<span class="mandatory">*</span></label></td>
+                        <td><input type="text" id="vacNombre" name="data[vacuna][nombre]" value="{valVacNombre}" style="width: 250px; text-align:center;" maxlength="100"/></td>
+                        <td><label >C&oacute;digo:<span class="mandatory">*</span></label></td>
+                        <td><input type="text" id="vacCodigo" name="data[vacuna][codigo]" value="{valVacCodigo}" style="width: 150px; text-align:center;" maxlength="20"/></td>
+                    </tr>
+                    <tr>
+                        <td><label >Rango de edad inicial:</label></td>
+                        <td>
+                            <input type="text" id="vacEdadIni" name="data[vacuna][edad_ini]" value="{valVacEdadIni}" style="width: 50px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);"/>
+                            <select id="drpTipoEdadIni" name="data[vacuna][tipo_edad_ini]">
+                                <option value="0">No aplica...</option>
+                                <option value="2" {selEdadIni2}>D&iacute;as</option>
+                                <option value="3" {selEdadIni3}>Semanas</option>
+                                <option value="4" {selEdadIni4}>Meses</option>
+                                <option value="5" {selEdadIni5}>A&ntilde;os</option>
+                            </select>
+                        </td>
+                        <td><label >Rango final:<span class="mandatory">*</span></label></td>
+                        <td>
+                            <input type="text" id="vacEdadFin" name="data[vacuna][edad_fin]" value="{valVacEdadFin}" style="width: 50px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);"/>
+                            <select id="drpTipoEdadFin" name="data[vacuna][tipo_edad_fin]">
+                                <option value="0">No aplica...</option>
+                                <option value="2" {selEdadFin2}>D&iacute;as</option>
+                                <option value="3" {selEdadFin3}>Semanas</option>
+                                <option value="4" {selEdadFin4}>Meses</option>
+                                <option value="5" {selEdadFin5}>A&ntilde;os</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <label >Fecha entrada en vigencia del escenario:</label>
+                            <input type="text" id="fechaVigencia" name="data[vacuna][fecha_vigencia]" value="{valFechaVigencia}" style="width: 125px;" maxlength="10"/>
+                        </td>
+                        <td><label >Sexo:<span class="mandatory">*</span></label></td>
+                        <td>
+                            <select id="drpsexo" name="data[vacuna][sexo]">
+                                <option value="0">Seleccione...</option>
+                                <option value="M" {selSexoM}>Hombre</option>
+                                <option value="F" {selSexoF}>Mujer</option>
+                                <option value="N" {selSexoN}>No aplica</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>    
+                        <td colspan="2" >
+                            <label >Toma fecha entrada en Vigencia:<span class="mandatory"> * </span></label>
+                            <label > Si</label><input class="normal" type="radio" id="tomaVigenciaSi" name="data[vacuna][toma_fecha_vigencia]" value="1" {chkTomaVigenciaSi}/ >
+                            <label > No</label><input class="normal" type="radio" id="tomaVigenciaNo" name="data[vacuna][toma_fecha_vigencia]" value="0" {chkTomaVigenciaNo}/>
+                        </td>
+                        <td><label >Condici&oacute;n:</label></td>
+                        <td>
+                            <select id="drpCondicion" name="data[vacuna][condicion]" style="width:150px">
+                                <option value="0">Seleccione...</option>
+                                <!-- BEGIN blkCondicion -->
+                                <option value="{valCondicion}" {selCondicion}>{opcCondicion}</option>
+                                <!-- END blkCondicion -->
+                            </select>
+                            {botonAdd}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td ><label >Estado:<span class="mandatory">*</span></label></td>
+                        <td>
+                            <label >Activo</label><input class="normal" type="radio" id="statusSi" name="data[vacuna][status]" value="1" {chkStatusSi}/ >
+                            <label >No activo</label><input class="normal" type="radio" id="statusNo" name="data[vacuna][status]" value="0" {chkStatusNo}/>
+                        </td>
+                        <td colspan="2" rowspan="3">
+                            <div id="divTablaCondicion"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><label >Comentarios:<span class="mandatory">*</span></label></td>
+                        
+                    </tr>
+                    <tr><td colspan="2"><textarea id="indicaciones" name="data[vacuna][indicaciones]" rows="3" cols="50">{valIndicaciones}</textarea></td></tr>
+                </table>
+            </fieldset>
+        </div>
+        <div align="right">
+            <label style=" font-weight:normal; padding-right: 17px">
+                Los campos marcados con <strong><span class="mandatory">*</span></strong> son obligatorios.
+            </label>
+        </div>
+        <table align="center">
+            <tr>
+                <td>
+                    <div style="margin-top:10px">
+                        <input type="hidden" name="action" id="action" value="{action}" />
+                        <input type="hidden" name="data[vacuna][idEsquemaForm]" id="idEsquemaForm" value="{valIdVacunaForm}" />
+                        <input name="data[relaciones][globalCondicionesRelacionados]" type="hidden" id="globalCondicionesRelacionados" value="{valCondicionesRelacionados}" />
+                        <input name="data[relaciones][globalDosisRelacionados]" type="hidden" id="globalDosisRelacionados" value="{valDosisRelacionados}" />
+                        {botonGuardar}
+                        {botonCancelar}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form> 
+    
+    <div class="" id="divDetalle">
+        <fieldset class="ui-widget ui-widget-content ui-corner-all">
+            <legend>Detalle del Escenario</legend>
+            <table border="0" cellpadding="2" cellspacing="2" align="center">
+                <tr>
+                    <td ><label >Vacuna:<span class="mandatory">*</span></label></td>
+                    <td >
+                        <select id="drpVacuna" name="data[vacuna][id_vacuna]" style="width:300px">
+                            <option value="0">Seleccione...</option>
+                            <!-- BEGIN blkVacuna -->
+                            <option value="{valVacuna}" {selVacuna}>{opcVacuna}</option>
+                            <!-- END blkVacuna -->
+                        </select>
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <table align="center" id="tablaRangos" >
+                            <tr>
+                                <td colspan="3">
+                                    <label>N&uacute;mero de dosis/refuerzo:<span class="mandatory">*</span> </label>
+                                    <input type="text" id="numDosis" name="data[detalle][num_dosis]" value="{valNumDosis}" style="width: 50px; text-align:center; text-transform: uppercase;" maxlength="5"/>
+                                </td>
+                                <td colspan="3" >
+                                    <label >Enviar recordatorio:<span class="mandatory"> * </span></label>
+                                    <select id="drpCorreo" name="data[detalle][recordar_correo]">
+                                        <option value="0">Sel...</option>
+                                        <option value="1" {selCorreo1}>Si</option>
+                                        <option value="2" {selCorreo2}>No</option>
+                                    </select>
+                                </td>
+                                <td colspan="3">
+                                    <label>Repite todos los a&ntilde;os:<span class="mandatory">*</span> </label>
+                                    <select id="drpRepite" name="data[detalle][repite_vacuna]">
+                                        <option value="0">Sel...</option>
+                                        <option value="1" {selRepite1}>Si</option>
+                                        <option value="2" {selRepite2}>No</option>
+                                    </select>
+                                </td>
+                                <td rowspan="3">{botonAdd1}</td>
+                            </tr>
+                            <tr>
+                                <td><label >Tipo Dosis:<span class="mandatory">*</span></label></td>
+                                <td colspan="2"><label >Edad Inicial a vacunar:<span class="mandatory">*</span></label></td>
+                                <td colspan="2"><label >Edad Final:</label></td>
+                                <td colspan="2"><label >Margen Inferior de vacunaci&oacute;n:<span class="mandatory">*</span></label></td>
+                                <td colspan="2"><label >Margen Superior:</label></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select id="drpTipoDosis" name="data[detalle][tipo_dosis]">
+                                        <option value="0">Seleccione...</option>
+                                        <option value="1" {selDosis1}>Dosis</option>
+                                        <option value="2" {selDosis2}>Refuerzo</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" id="detEdadIni" name="data[detalle][edad_ini]" value="{valDetEdadIni}" style="width: 50px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);"/></td>
+                                <td>
+                                    <select id="drpDetTipoEdadIni" name="data[detalle][tipo_edad_ini]">
+                                        <option value="0">Seleccione...</option>
+                                        <option value="2" {selEdadIni2}>D&iacute;as</option>
+                                        <option value="3" {selEdadIni3}>Semanas</option>
+                                        <option value="4" {selEdadIni4}>Meses</option>
+                                        <option value="5" {selEdadIni5}>A&ntilde;os</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" id="detEdadFin" name="data[detalle][edad_fin]" value="{valDetEdadIFin}" style="width: 50px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);"/></td>
+                                <td>
+                                    <select id="drpDetTipoEdadFin" name="data[detalle][tipo_edad_fin]">
+                                        <option value="0">No aplica...</option>
+                                        <option value="2" {selEdadFin2}>D&iacute;as</option>
+                                        <option value="3" {selEdadFin3}>Semanas</option>
+                                        <option value="4" {selEdadFin4}>Meses</option>
+                                        <option value="5" {selEdadFin5}>A&ntilde;os</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" id="detMargenIni" name="data[detalle][margen_ini]" value="{valDetMargenIni}" style="width: 50px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);"/></td>
+                                <td>
+                                    <select id="drpTipoMargenIni" name="data[detalle][tipo_margen_ini]">
+                                        <option value="0">Seleccione...</option>
+                                        <option value="1" {selMargenIni1}>D&iacute;as</option>
+                                        <option value="2" {selMargenIni2}>Semanas</option>
+                                        <option value="3" {selMargenIni3}>Meses</option>
+                                        <option value="4" {selMargenIni4}>A&ntilde;os</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" id="detMargenFin" name="data[detalle][margen_fin]" value="{valDetMargenFin}" style="width: 50px; text-align:center;" maxlength="3" onKeyPress="return numbersonly(event, false);"/></td>
+                                <td>
+                                    <select id="drpTipoMargenFin" name="data[detalle][tipo_margen_fin]">
+                                        <option value="0">Seleccione...</option>
+                                        <option value="1" {selMargenFin1}>D&iacute;as</option>
+                                        <option value="2" {selMargenFin2}>Semanas</option>
+                                        <option value="3" {selMargenFin3}>Meses</option>
+                                        <option value="4" {selMargenFin4}>A&ntilde;os</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                        <div id="divDosis"></div>
+                    </td>
+                </tr>
+                <tr >
+                    <td colspan="4" style="text-align: center ">
+                        <a href="javascript:actDetalle();" id="btnDetActualizar" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Actualizar</a>
+                        <a href="javascript:grabarDetalle();" id="btnDetGrabar" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Grabar</a>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <div id="divEsquemasRel"></div>
+
+        
+    </div>
+</div>

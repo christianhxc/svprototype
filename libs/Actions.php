@@ -13,14 +13,14 @@ class Actions{
 		$error = array(); 
 		
 		foreach($data as $key=>$value) {
-			$fields[] = " ".$key;
+			$fields[] = $key;
 			$values[] = "?";
 		}
 		
-		$fields = implode(',', $fields);
-		$values = implode(',', $values);
+		$fields = implode('`,`', $fields);
+		$values = implode(",", $values);
 		
-		$sql = "INSERT INTO ".$tabla."(".$fields.") VALUES(".$values.")";
+		$sql = "INSERT INTO `".$tabla."`(`".$fields."`) VALUES(".$values.")";
     	
     	return $sql;
 	}
@@ -31,21 +31,22 @@ class Actions{
 		$where = "";
 		
 		foreach($data as $key=>$value)
-			$values[] = $key." = ?";
+			$values[] = " ".$key." = ? ";
 		$values = implode(',', $values);
 		
 		foreach($filtro as $key=>$value){
-			$where .= "AND ".$key." = ? ";
+			$where .= " AND ".$key." = ? ";
 		}
 		
 		$sql = "UPDATE ".$tabla." SET ".$values."
-				WHERE 1
+				WHERE 1 = 1 
 				".$where;
 		
 		return $sql;
 	}
 	
 	public static function BorrarQuery($tabla,$filtro){
+        $where = "";
 		foreach($filtro as $key=>$value)
 			$where .= "AND ".$key." = ? ";
 		
@@ -81,7 +82,7 @@ class Actions{
 	}
 	
 	public static function Actualizar($tabla,$data,$filtro){
-		$sql = Actions::ActualizarQuery($tabla,$data);
+		$sql = Actions::ActualizarQuery($tabla,$data,$filtro);
 		
 		$conn = new Connection();
     	$conn->initConn();

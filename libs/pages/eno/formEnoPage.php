@@ -143,7 +143,33 @@ class formEno extends page {
             $this->tpl->setVariable('valSemanaEpi', $this->config['read']['semana_epi']);
             $this->tpl->setVariable('valAnioEpi', $this->config['read']['anio']);
             $this->tpl->setVariable('valFechaFin', $this->config['read']['fecha_fin']);
-            
+
+            $this->tpl->setVariable('total_homRango1', $this->config['read']['total_homRango1']);
+            $this->tpl->setVariable('total_homRango2', $this->config['read']['total_homRango2']);
+            $this->tpl->setVariable('total_homRango3', $this->config['read']['total_homRango3']);
+            $this->tpl->setVariable('total_homRango4', $this->config['read']['total_homRango4']);
+            $this->tpl->setVariable('total_homRango5', $this->config['read']['total_homRango5']);
+            $this->tpl->setVariable('total_homRango6', $this->config['read']['total_homRango6']);
+            $this->tpl->setVariable('total_homRango7', $this->config['read']['total_homRango7']);
+            $this->tpl->setVariable('total_homRango8', $this->config['read']['total_homRango8']);
+            $this->tpl->setVariable('total_homRango9', $this->config['read']['total_homRango9']);
+            $this->tpl->setVariable('total_homRango10', $this->config['read']['total_homRango10']);
+            $this->tpl->setVariable('total_homRango11', $this->config['read']['total_homRango11']);
+            $this->tpl->setVariable('total_homRango12', $this->config['read']['total_homRango12']);
+
+            $this->tpl->setVariable('total_mujRango1', $this->config['read']['total_mujRango1']);
+            $this->tpl->setVariable('total_mujRango2', $this->config['read']['total_mujRango2']);
+            $this->tpl->setVariable('total_mujRango3', $this->config['read']['total_mujRango3']);
+            $this->tpl->setVariable('total_mujRango4', $this->config['read']['total_mujRango4']);
+            $this->tpl->setVariable('total_mujRango5', $this->config['read']['total_mujRango5']);
+            $this->tpl->setVariable('total_mujRango6', $this->config['read']['total_mujRango6']);
+            $this->tpl->setVariable('total_mujRango7', $this->config['read']['total_mujRango7']);
+            $this->tpl->setVariable('total_mujRango8', $this->config['read']['total_mujRango8']);
+            $this->tpl->setVariable('total_mujRango9', $this->config['read']['total_mujRango9']);
+            $this->tpl->setVariable('total_mujRango10', $this->config['read']['total_mujRango10']);
+            $this->tpl->setVariable('total_mujRango11', $this->config['read']['total_mujRango11']);
+            $this->tpl->setVariable('total_mujRango12', $this->config['read']['total_mujRango12']);
+
         }
 
         // Muestra si ocurrió un error

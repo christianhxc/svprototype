@@ -1,0 +1,164 @@
+<input type="hidden" id="existencias_json" value="{valExistencias}" />
+<div class="Content" align="left">
+    <form method="POST" action="reportepdf.php" id="form" style="display: none;">
+        <input type="hidden" name="datos_a_enviar" id="datos_a_enviar"/>
+        <div  id="printable">
+
+            <table style="width: 400px">
+                <tr>
+                    <td align="center"><img src="{urlprefix}img/logo.png"/></td>
+                    <td align="center">
+                        <span style="color:#237324; font-size: 18px; font-weight: bold">REPUBLICA DE PANAMA</span><br>
+                        <span style="font-weight: bold">MINISTERIO DE SALUD - CAJA DEL SEGURO SOCIAL - INSTITUCIONES PRIVADAS</span><br>
+                        Módulo de Logística y Distribución<br>
+                        Formulario para envio de vacunas e insumos<br>
+                    </td>
+                    <td align="center">
+                        <img src="{urlprefix}img/vigilab.png" style="border: 0px; width: 150px; height: 100px"/>
+                    </td>
+                </tr>
+            </table>
+            <br>
+
+            <div style="border: 1px solid black; padding: 5px">
+                <div style="width: 760px; background-color: #e2ee97; padding: 5px;">
+                    <span style="color:#237324; font-weight: bold; text-transform: uppercase;">Origen del envio</span>
+                </div>
+                    <table cellspacing="2" cellpadding="2" border="0" style="width: 770px">
+                        <tbody>
+                        <tr>
+                            <td width="125">
+                                <input type="checkbox" id="bodega_central" {valBodegaCentralCheck}> Bodega Central
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr id="region_origen_sec">
+                            <td>
+                                <label>Región:</label>
+                            </td>
+                            <td>
+                                {valNotificacionRegionOrigen}
+                            </td>
+                        </tr>
+                        <tr id="unidad_origen_sec">
+                            <td>
+                                <label>Instalación de Salud:</label>
+                            </td>
+                            <td>
+                                {valNotificacionUnidadOrigen}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+            <br>
+            <div style="border: 1px solid black; padding: 5px">
+                <div style="width: 760px; background-color: #e2ee97; padding: 5px;">
+                    <span style="color:#237324; font-weight: bold; text-transform: uppercase;">Datos del envio</span>
+                </div>
+                    <table cellspacing="2" cellpadding="2" border="0" style="width: 770px">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label>No. del envío:</label>
+                                </td>
+                                <td style="width: 300px">
+                                    {valEnvioNoEnvio}
+                                </td>
+                                <td><label>Requesicion:</label></td>
+                                <td>
+                                    {valEnvioNoRequesicion}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>Fecha del envío :</label></td>
+                                <td>{valEnvioFechaEnvio}</td>
+                            <td><label>Fecha de ingreso:</label></td>
+                            <td>
+                                {valFechaFormulario}
+                            </td>
+                            </tr>
+                            <tr>
+                                <td>Fecha de despacho </td>
+                                <td>{valEnvioFechaDespacho}</td>
+                            <td><label>Estatus del envio:</label></td>
+                            <td>
+                                <span style="text-transform: uppercase;">{valRequesicionEstatus}</span>
+                            </td>
+                            </tr>
+                            <tr>
+                                <td><label>Nombre responsable:</label></td>
+                                <td colspan="3"><span style="text-transform: uppercase;">{valNombreRegistra}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+            <br>
+            <div style="border: 1px solid black; padding: 5px">
+                <div style="width: 760px; background-color: #e2ee97; padding: 5px;">
+                    <span style="color:#237324; font-weight: bold; text-transform: uppercase;">Destino del envio</span>
+                </div>
+                    <table cellspacing="2" cellpadding="2" border="0" style="width: 770px">
+                        <tbody>
+                        <tr>
+                            <td width="125">
+                                <label>Región:</label>
+                            </td>
+                            <td>
+                                {valNotificacionRegionDestino}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Instalación de Salud:</label>
+                            </td>
+                            <td>
+                                {valNotificacionUnidadDestino}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+            <br>
+            <div style="border: 1px solid black; padding: 5px">
+                <div style="width: 760px; background-color: #e2ee97; padding: 5px;">
+                    <span style="color:#237324; font-weight: bold; text-transform: uppercase;">Cantidades enviadas</span>
+                </div>
+                <table cellspacing="2" cellpadding="2" border="0" style="width: 770px">
+                    <tbody>
+                    <tr>
+                        <td colspan="6">
+                            <div id="tablaDescripcionEnvio">
+                                <table width="100%" cellspacing="1" cellpadding="4" border="0" id="desc_envio">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px">Codigo </th>
+                                            <th style="width: 175px">Nombre producto </th>
+                                            <th style="width: 175px">Unidad de presentacion</th>
+                                            <th style="width: 60px">Cantidad </th>
+                                            <th style="width: 60px">Enviado</th>
+                                            <th style="width: 100px">Numero de lote</th>
+                                        </tr>
+                                        <tr>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            </div>
+    </form>
+</div>
+<script>
+    $("body").hide();
+    $(document).ready(function () {
+        $("#datos_a_enviar").val($("#printable").html());
+        $("#form").submit();
+    });
+</script>

@@ -113,6 +113,71 @@
                     </tr>
                 </table>
             </fieldset>
+
+            <div id="divTotal" style="margin-top:10px" >
+                <fieldset>
+                    <legend>Total Consultas</legend>
+
+                    <table border="0" cellpadding="2" cellspacing="2" align="center">
+                        <tr><td colspan="2"><label>N&uacute;mero de Consultas:</label></td></tr>
+                        <tr>
+                            <td colspan="2">
+                                <table>
+                                    <tr class="fila">
+                                        <td>Genero</td>
+                                        <td>< de 1</td>
+                                        <td>01-04</td>
+                                        <td>05-09</td>
+                                        <td>10-14</td>
+                                        <td>15-19</td>
+                                        <td>20-24</td>
+                                        <td>25-34</td>
+                                        <td>35-49</td>
+                                        <td>50-59</td>
+                                        <td>60-64</td>
+                                        <td>65 o +</td>
+                                        <td>N/E</td>
+                                        <td>Total</td>
+                                    </tr>
+                                    <tr >
+                                        <td>Hombre:</td>
+                                        <td><input id="total_homRango1" name="data[encabezado][total_homRango1]" value="{total_homRango1}" class="num" size="2" onchange="javascript:sumTotalCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                                        <td><input id="total_homRango2" name="data[encabezado][total_homRango2]" value="{total_homRango2}" class="num" size="2" onchange="javascript:sumTotalCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                                        <td><input id="total_homRango3" name="data[encabezado][total_homRango3]" value="{total_homRango3}" class="num" size="2" onchange="javascript:sumTotalCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                                        <td><input id="total_homRango4" name="data[encabezado][total_homRango4]" value="{total_homRango4}" class="num" size="2" onchange="javascript:sumTotalCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                                        <td><input id="total_homRango5" name="data[encabezado][total_homRango5]" value="{total_homRango5}" class="num" size="2" onchange="javascript:sumTotalCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                                        <td><input id="total_homRango6" name="data[encabezado][total_homRango6]" value="{total_homRango6}" class="num" size="2" onchange="javascript:sumTotalCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                                        <td><input id="total_homRango7" name="data[encabezado][total_homRango7]" value="{total_homRango7}" class="num" size="2" onchange="javascript:sumTotalCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                                        <td><input id="total_homRango8" name="data[encabezado][total_homRango8]" value="{total_homRango8}" class="num" size="2" onchange="javascript:sumTotalCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                                        <td><input id="total_homRango9" name="data[encabezado][total_homRango9]" value="{total_homRango9}" class="num" size="2" onchange="javascript:sumTotalCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                                        <td><input id="total_homRango10" name="data[encabezado][total_homRango10]" value="{total_homRango10}" class="num" size="2" onchange="javascript:sumTotalCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                                        <td><input id="total_homRango11" name="data[encabezado][total_homRango11]" value="{total_homRango11}" class="num" size="2" onchange="javascript:sumTotalCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                                        <td><input id="total_homRango12" name="data[encabezado][total_homRango12]" value="{total_homRango12}" class="num" size="2" onchange="javascript:sumTotalCasosH()" onKeyPress="return numbersonly(event, false);"/></td>
+                                        <td><input id="total_hom" name="data[encabezado][total_hom]" class="num" size="2" value="0" readonly/></td>
+
+                                    </tr>
+                                    <tr >
+                                        <td>Mujer:</td>
+                                        <td><input id="total_mujRango1" name="data[encabezado][total_mujRango1]" value="{total_mujRango1}" class="num1" size="2" onkeyup="javascript:sumTotalCasosM()"/></td>
+                                        <td><input id="total_mujRango2" name="data[encabezado][total_mujRango2]" value="{total_mujRango2}" class="num1" size="2" onkeyup="javascript:sumTotalCasosM()"/></td>
+                                        <td><input id="total_mujRango3" name="data[encabezado][total_mujRango3]" value="{total_mujRango3}" class="num1" size="2" onkeyup="javascript:sumTotalCasosM()"/></td>
+                                        <td><input id="total_mujRango4" name="data[encabezado][total_mujRango4]" value="{total_mujRango4}" class="num1" size="2" onkeyup="javascript:sumTotalCasosM()"/></td>
+                                        <td><input id="total_mujRango5" name="data[encabezado][total_mujRango5]" value="{total_mujRango5}" class="num1" size="2" onkeyup="javascript:sumTotalCasosM()"/></td>
+                                        <td><input id="total_mujRango6" name="data[encabezado][total_mujRango6]" value="{total_mujRango6}" class="num1" size="2" onkeyup="javascript:sumTotalCasosM()"/></td>
+                                        <td><input id="total_mujRango7" name="data[encabezado][total_mujRango7]" value="{total_mujRango7}" class="num1" size="2" onkeyup="javascript:sumTotalCasosM()"/></td>
+                                        <td><input id="total_mujRango8" name="data[encabezado][total_mujRango8]" value="{total_mujRango8}" class="num1" size="2" onkeyup="javascript:sumTotalCasosM()"/></td>
+                                        <td><input id="total_mujRango9" name="data[encabezado][total_mujRango9]" value="{total_mujRango9}" class="num1" size="2" onkeyup="javascript:sumTotalCasosM()"/></td>
+                                        <td><input id="total_mujRango10" name="data[encabezado][total_mujRango10]" value="{total_mujRango10}" class="num1" size="2" onkeyup="javascript:sumTotalCasosM()"/></td>
+                                        <td><input id="total_mujRango11" name="data[encabezado][total_mujRango11]" value="{total_mujRango11}" class="num1" size="2" onkeyup="javascript:sumTotalCasosM()"/></td>
+                                        <td><input id="total_mujRango12" name="data[encabezado][total_mujRango12]" value="{total_mujRango12}" class="num1" size="2" onkeyup="javascript:sumTotalCasosM()"/></td>
+                                        <td><input id="total_muj" name="data[encabezado][total_muj]" class="num1" size="2" value="0" readonly/></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
         </div>
         
         <table align="center">

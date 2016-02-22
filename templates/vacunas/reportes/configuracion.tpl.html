@@ -1,0 +1,29 @@
+<div class="Content" align="left">
+    <table width="100%">
+        <tr>
+            <td>
+                <!--<h2>Ingreso de Configuracion </h2>-->
+            </td>
+            <td align="right">
+                <div style="color: #A4BC2B;">
+                    Regresar
+                    <a href="index.php" class="" style="text-decoration: none; font-weight:bold;">
+                        <img title="Regresar" border=0 src="../../img/back.png"></a>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div id="ErrorGuardar" class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; display:{disError}; margin-top: 5px;">
+        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+        <label>{mensajeErrorGeneral}</label><br/>
+    </div>
+
+    <div class="ui-state-error ui-corner-all" id="dSummaryErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px;">
+        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+        <label>Los datos no se pueden guardar debido a lo siguiente:</label>
+        <p id="pSummaryErrors" style="margin-top: 0px; margin-bottom: 0px;" class="summaryErrores"></p>
+    </div>
+    <div  class="">
+        <div ng-include src="'/sisvig2/vacunas/reportes/configuracion.html'"></div>
+    </div>
+</div>

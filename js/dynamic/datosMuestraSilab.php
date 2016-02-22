@@ -17,6 +17,8 @@ if ($tipo_silab == 0) {
 } else if ($tipo_silab == 1) {
     $muestra = helperSilabRemoto::getMuestra($idMuestra);
     $tipoSilab = Etiquetas::silab_remoto;
+} else if ($tipo_silab == 2) {
+    $tipoSilab = Etiquetas::resultado_manual;
 }
 //echo "<br/>Muestra: ".$idMuestra." ";
 if ($muestra["muestra"]["id_situacion"] == 3 || $muestra["muestra"]["id_situacion"] == 4 || $muestra["muestra"]["id_situacion"] == 7 || $muestra["muestra"]["id_situacion"] == 8) {

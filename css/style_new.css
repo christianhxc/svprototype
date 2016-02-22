@@ -452,7 +452,15 @@ h5{
 	padding-top: 10px;
 	cursor:pointer;
 	}
-        
+
+.listados1 li a {
+    color: #666;
+}
+
+.listados1 .block a {
+    color: #CCC;
+}
+
 .contenedor ul{
 	text-decoration: none;
 	padding-left: 60px;

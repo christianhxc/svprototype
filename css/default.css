@@ -158,3 +158,33 @@ h3 {background-repeat:no-repeat;color: #628529;font-size:14px;margin-bottom:0;ma
 }
 
 .hide-close .ui-dialog-titlebar-close { display: none }
+
+#botonSubir {
+    bottom:50px;
+    background:#ccc;
+    margin-right:20px;
+    padding:5px;
+    position:fixed;
+    right:0px;
+    -moz-border-top-left-radius:5px;
+    moz-border-top-right-radius:5px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    cursor:pointer;
+    z-index: 100;
+}
+
+.hide-close .ui-dialog-titlebar-close { display: none }
+.summaryErrores p {
+    margin: 0;
+}
+.reporte-th-vacuna{
+    background-color: cornflowerblue;
+}
+.reporte-th-regdiscor{
+    background-color: peachpuff;
+}
+.reporte-th-dominador{
+    background-color: yellow;
+}
+.parrafoLista p { margin: 0; }

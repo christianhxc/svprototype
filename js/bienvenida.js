@@ -15,6 +15,7 @@ $(document).ready(function() {
     $('#divVih').hide();
     $('#divMat').hide();
     $('#divtb').hide();
+    $('#divVacunas').hide();
     
     $("#eno").click(function(){
         if(flagMenu == 1){
@@ -119,6 +120,17 @@ $(document).ready(function() {
         }
     });
     
+    $("#vac").click(function(){
+        if(flagMenu == 1){
+            hideMenus();
+            flagMenu = 0 ;
+        }
+        else{
+            $('#divVacunas').show();
+            flagMenu = 1;
+        }
+    });
+    
     $("#fluLab").click(function(){
         if(flagMenu == 1){
             hideMenus();
@@ -155,4 +167,5 @@ function hideMenus(){
     $('#divVih').hide();
     $('#divMat').hide();
     $('#divtb').hide();
+    $('#divVacunas').hide();
 }

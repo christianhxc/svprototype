@@ -43,6 +43,32 @@ class helperEno {
         $eno["id_servicio"] = (!isset($data["encabezado"]["servicio"]) ? NULL : $data["encabezado"]["servicio"]);
         $eno["id_un"] = $data["encabezado"]["un_id"];
         $eno["semana_epi"] = (!isset($data["encabezado"]["semanaEpi"]) ? NULL : $data["encabezado"]["semanaEpi"]);
+        $eno["total_homRango1"] = (!isset($data["encabezado"]["total_homRango1"]) ? NULL : $data["encabezado"]["total_homRango1"]);
+        $eno["total_homRango2"] = (!isset($data["encabezado"]["total_homRango2"]) ? NULL : $data["encabezado"]["total_homRango2"]);
+        $eno["total_homRango3"] = (!isset($data["encabezado"]["total_homRango3"]) ? NULL : $data["encabezado"]["total_homRango3"]);
+        $eno["total_homRango4"] = (!isset($data["encabezado"]["total_homRango4"]) ? NULL : $data["encabezado"]["total_homRango4"]);
+        $eno["total_homRango5"] = (!isset($data["encabezado"]["total_homRango5"]) ? NULL : $data["encabezado"]["total_homRango5"]);
+        $eno["total_homRango6"] = (!isset($data["encabezado"]["total_homRango6"]) ? NULL : $data["encabezado"]["total_homRango6"]);
+        $eno["total_homRango7"] = (!isset($data["encabezado"]["total_homRango7"]) ? NULL : $data["encabezado"]["total_homRango7"]);
+        $eno["total_homRango8"] = (!isset($data["encabezado"]["total_homRango8"]) ? NULL : $data["encabezado"]["total_homRango8"]);
+        $eno["total_homRango9"] = (!isset($data["encabezado"]["total_homRango9"]) ? NULL : $data["encabezado"]["total_homRango9"]);
+        $eno["total_homRango10"] = (!isset($data["encabezado"]["total_homRango10"]) ? NULL : $data["encabezado"]["total_homRango10"]);
+        $eno["total_homRango11"] = (!isset($data["encabezado"]["total_homRango11"]) ? NULL : $data["encabezado"]["total_homRango11"]);
+        $eno["total_homRango12"] = (!isset($data["encabezado"]["total_homRango12"]) ? NULL : $data["encabezado"]["total_homRango12"]);
+        $eno["total_hom"] = (!isset($data["encabezado"]["total_hom"]) ? NULL : $data["encabezado"]["total_hom"]);
+        $eno["total_mujRango1"] = (!isset($data["encabezado"]["total_mujRango1"]) ? NULL : $data["encabezado"]["total_mujRango1"]);
+        $eno["total_mujRango2"] = (!isset($data["encabezado"]["total_mujRango2"]) ? NULL : $data["encabezado"]["total_mujRango2"]);
+        $eno["total_mujRango3"] = (!isset($data["encabezado"]["total_mujRango3"]) ? NULL : $data["encabezado"]["total_mujRango3"]);
+        $eno["total_mujRango4"] = (!isset($data["encabezado"]["total_mujRango4"]) ? NULL : $data["encabezado"]["total_mujRango4"]);
+        $eno["total_mujRango5"] = (!isset($data["encabezado"]["total_mujRango5"]) ? NULL : $data["encabezado"]["total_mujRango5"]);
+        $eno["total_mujRango6"] = (!isset($data["encabezado"]["total_mujRango6"]) ? NULL : $data["encabezado"]["total_mujRango6"]);
+        $eno["total_mujRango7"] = (!isset($data["encabezado"]["total_mujRango7"]) ? NULL : $data["encabezado"]["total_mujRango7"]);
+        $eno["total_mujRango8"] = (!isset($data["encabezado"]["total_mujRango8"]) ? NULL : $data["encabezado"]["total_mujRango8"]);
+        $eno["total_mujRango9"] = (!isset($data["encabezado"]["total_mujRango9"]) ? NULL : $data["encabezado"]["total_mujRango9"]);
+        $eno["total_mujRango10"] = (!isset($data["encabezado"]["total_mujRango10"]) ? NULL : $data["encabezado"]["total_mujRango10"]);
+        $eno["total_mujRango11"] = (!isset($data["encabezado"]["total_mujRango11"]) ? NULL : $data["encabezado"]["total_mujRango11"]);
+        $eno["total_mujRango12"] = (!isset($data["encabezado"]["total_mujRango12"]) ? NULL : $data["encabezado"]["total_mujRango12"]);
+        $eno["total_muj"] = (!isset($data["encabezado"]["total_muj"]) ? NULL : $data["encabezado"]["total_muj"]);
         return $eno;
     }
        
@@ -83,7 +109,9 @@ class helperEno {
         if (isset($config["id_enc"])){
             $sql = "select T1.id_enc, T1.id_un, T2.nombre_un, T3.id_corregimiento, T4.id_distrito, T4.id_region, 
                     T4.id_provincia, T1.semana_epi, DATE_FORMAT(T1.fecha_inic, '%d-%m-%Y') as fecha_inic, 
-                    DATE_FORMAT(T1.fecha_fin,'%d-%m-%Y') as fecha_fin, T1.anio, T1.id_servicio 
+                    DATE_FORMAT(T1.fecha_fin,'%d-%m-%Y') as fecha_fin, T1.anio, T1.id_servicio,
+                    T1.total_homRango1,T1.total_homRango2,T1.total_homRango3,T1.total_homRango4,T1.total_homRango5,T1.total_homRango6,T1.total_homRango7,T1.total_homRango8,T1.total_homRango9,T1.total_homRango10,T1.total_homRango11,T1.total_homRango12,T1.total_hom,
+                    T1.total_mujRango1,T1.total_mujRango2,T1.total_mujRango3,T1.total_mujRango4,T1.total_mujRango5,T1.total_mujRango6,T1.total_mujRango7,T1.total_mujRango8,T1.total_mujRango9,T1.total_mujRango10,T1.total_mujRango11,T1.total_mujRango12,T1.total_muj 
                     FROM eno_encabezado T1
                     LEFT JOIN cat_unidad_notificadora T2 ON T1.id_un = T2.id_un
                     LEFT JOIN cat_corregimiento T3 ON T3.id_corregimiento = T2.id_corregimiento

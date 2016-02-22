@@ -60,7 +60,7 @@
                     <li style="display: {menuFlu}"><a href='#'><span>Influenza</span></a>
                         <ul>
                             <li style="display: {menuFluRegFormulario}"><a href='{urlprefix}uceti/index.php' >Formulario</a></li>
-							<li style="display: {menuFluRegFormulario}"><a href='{urlprefix}denominadores/index.php' >Denominadores</a></li>
+                            <li style="display: {menuFluRegFormulario}"><a href='{urlprefix}denominadores/index.php' >Denominadores</a></li>
                             <li style="display: {menuFluExportacionVariables}"><a href='{urlprefix}reportes/uceti/exportableUceti.php' >Exportaci&oacute;n de variables</a></li>
                         </ul>
                     </li>
@@ -71,7 +71,7 @@
                             <li style="display: {menuFluLabRepConsolidado}"><a href='{urlprefix}influenza/laboratorio/reporte.html' >Reporte consolidado</a></li>
                         </ul>
                     </li>
-                    <li style="display: {menuVicIts}"><a href='#' ><span>VICITS</span></a>
+                    <li style="display: {menuVicIts}"><a href='#' ><span>VICITS.....</span></a>
                         <ul>
                             <li style="display: {menuVicItsFormulario}"><a href='{urlprefix}vicits/index.php' >Formulario</a></li>
                             <li style="display: {menuVicItsFormLaboratorio}"><a href='{urlprefix}vicits/indexFormLaboratorio.php' >Formulario Laboratorio</a></li>
@@ -79,9 +79,16 @@
                             <li style="display: {menuVicItsRepExcel}"><a href='{urlprefix}vicits/exportableExcel.php' >Exportar variables a Excel</a></li>
                         </ul>
                     </li>
+                    <li><a href='#'><span>Tuberculosis</span></a>
+                        <ul>
+                            <li><a href='{urlprefix}tb/inicioTB.htm' >P&aacute;gina inicio</a></li>
+                            <li><a href='{urlprefix}tb/indexTB.htm' >Formulario</a></li>
+                            <li><a href='{urlprefix}tb/exportableTB.php.htm' >Exportaci&oacute;n de variables</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
-            <li style="display: {menuEspeciales}"><a href="#" style="width:100px;height:16px;line-height:16px;"><span>Inv. especial</span></a>
+            <li style="display: {menuProgramas}"><a href="#" style="width:100px;height:16px;line-height:16px;"><span>Programas</span></a>
                 <ul>
                     <li style="display: {menuVih}"><a href='#' ><span>VIH / SIDA</span></a>
                         <ul>
@@ -100,18 +107,26 @@
                             <li style="display: {menuMatFormulario}"><a href='{urlprefix}mat/formulario.php' >Formulario</a></li>
                         </ul>
                     </li>
-                    <li style="display: {menuTB}"><a href='#' ><span>Tuberculosis</span></a>
+                    <li style="display: {menuVacunas}"><a href='#' >PAI</a>
                         <ul>
-                            <li style="display: {menuTBPagInicio}"><a href='{urlprefix}tb/principal.php' >P&aacute;gina inicio</a></li>
-                            <li style="display: {menuTBFormulario}"><a href='{urlprefix}tb/index.php' >Formulario</a></li>
-                            <li style="display: {menuTBReportes}"><a href='{urlprefix}reportes/tb/exportabletb.php' >Reportes</a></li>
-                        </ul>                        
+                            <li style="display: {menuVacRegistroDiario}"><a href='{urlprefix}vacunas/listadoRegistroDiario.php' >Registro Diario</a></li>
+                            <li style="display: {menuVacLdbi}"><a href='{urlprefix}LDBI/index.php' >LDBI</a></li>
+                            <li style="display: {menuVacReportes}"><a href='{urlprefix}vacunas/reportes/reporteCobertura.php' >Reportes</a></li>
+                            <li style="display: {menuVacDenominador}"><a href='{urlprefix}vacunas/listadoDenominadores.php' >Denominadores</a></li>
+                            <li style="display: {menuVacCargarDeno}"><a href='{urlprefix}vacunas/CargarArchivo.php' >Cargar Denominadores</a></li>
+                            <li style="display: {menuVacFormulario}"><a href='{urlprefix}vacunas/index.php' >Esc. Vacunas</a></li>
+                            <li style="display: {menuVacNotificacion}"><a href='{urlprefix}pai/notificacion/alertas/' >Notificaciones</a></li>
+                            <li style="display: {menuVacExportar}"><a href='{urlprefix}LDBI/datos.php' >Exportar/Importar</a></li>
+                        </ul>
                     </li>
+                </ul>
+            </li>
+            <li style="display: {menuEspeciales}"><a href="#" style="width:100px;height:16px;line-height:16px;"><span>Inv. especial</span></a>
+                <ul>
                     <li style="display: {menuSarampion}"><a href='#' >Sarampi&oacute;n y rub&eacute;ola</a></li>
                     <li style="display: {menuSinRubeola}"><a href='#' >S&iacute;ndrome de rub&eacute;ola cong&eacute;nita</a></li>
                     <li style="display: {menuParalisis}"><a href='#' >Par&aacute;lisis fl&aacute;cida aguada en menores de 15</a></li>
                     <li style="display: {menuTosferina}"><a href='#' >Tosferina / S&iacute;ndrome coqueluchoide</a></li>
-                    <li style="display: {menuPrimates}"><a href='#' >Vigilancia en primates no humanos</a></li>
                     <li style="display: {menuEVASIS}"><a href='#' >EVASIS</a></li>
                     <li style="display: {menuSifilis}"><a href='#' >S&iacute;filis cong&eacute;nita</a></li>
                     <li style="display: {menuMalformacion}"><a href='#'><span>Malformacion</span></a>
@@ -127,12 +142,11 @@
             </li>
             <li style="display: {menuCatalogos}"><a href='#' title='Cat&aacute;logos' style="width:70px;height:16px;line-height:16px;"><span>Cat&aacute;logos</span></a>
                 <ul>
-                    <li style="display: {menuCatAntecedenteVacunal}"><a href='{urlprefix}catalogos/antecedenteVacunal.php' >Antecedentes vacunales</a></li>
-                    <li style="display: {menuCatEnfermedadCronica}"><a href='{urlprefix}catalogos/enfermedadCronica.php' >Enfermedades cr&oacute;nicas</a></li>
+                    
                     <li style="display: {menuCatAntecedenteVacunal}"><a href='{urlprefix}catalogos/antibiotico.php' >Antibioticos</a></li>
                     <li style="display: {menuCatAntecedenteVacunal}"><a href='{urlprefix}catalogos/antiviral.php' >Antivirales</a></li>
-                    <li style="display: {menuCatAntecedenteVacunal}"><a href='{urlprefix}catalogos/tipoMuestra.php' >Tipos de muestra</a></li>
                     <li style="display: {menuCatCargo}"><a href='{urlprefixViejo}Catalogos/cargo.html' >Cargo</a></li>
+                    <li style="display: {menuCatEnfermedadCronica}"><a href='{urlprefix}catalogos/enfermedadCronica.php' >Enfermedades cr&oacute;nicas</a></li>
                     <li style="display: {menuCatEventos}"><a href='{urlprefixViejo}ENO/eventos.html' >Eventos</a></li>
                     <li style="display: {menuCatExamenes}"><a href='{urlprefixViejo}Catalogos/examenes.html' >Ex&aacute;menes</a></li>
                     <li style="display: {menuCatGrupoEventos}"><a href='{urlprefixViejo}ENO/grupo_eventos.html' >Grupo eventos</a></li>
@@ -143,7 +157,16 @@
                     <li style="display: {menuCatServiciosRae}"><a href='{urlprefixViejo}Catalogos/servicios_rae.html' >Servicios RAE</a></li>
                     <li style="display: {menuCatSintomas}"><a href='{urlprefixViejo}Catalogos/sintomas.html' >Sintomas</a></li>
                     <li style="display: {menuCatTipoIdentidad}"><a href='{urlprefixViejo}Catalogos/tipo_identidad.html' >Tipo de idetinficaci&oacute;n</a></li>
-                    <li style="display: {menuCatTipoMuestras}"><a href='{urlprefixViejo}Catalogos/tipo_muestras.html' >Tipo de muestras</a></li>
+                    <li style="display: {menuCatAntecedenteVacunal}"><a href='{urlprefix}catalogos/tipoMuestra.php' >Tipos de muestra</a></li>
+                    <li style="display: {menuCatVacunas}"><a href='{urlprefix}catalogos/vacuna.php' >Vacunas</a></li>
+                    <li style="display: {menuCatAntecedenteVacunal}"><a href='{urlprefix}catalogos/antecedenteVacunal.php' >Vac - Antecedentes</a></li>
+                    <li style="display: {menuCatCondicion}"><a href='{urlprefix}catalogos/condicion.php' >Vac - Condiciones Escenario</a></li>
+                    <li style="display: {menuCatGrupoEsp}"><a href='{urlprefix}catalogos/vacGrupoEspecial.php' >Vac - Grupos Especiales</a></li>
+                    <li style="display: {menuCatModalidades}"><a href='{urlprefix}catalogos/modalidad.php' >Vac - Modalidades</a></li>
+                    <li style="display: {menuCatTipoMuestras}"><a href='{urlprefixViejo}Catalogos/tipo_muestras.html' >Vac - Tipo de muestras</a></li>
+                    <li style="display: {menuCatTipoMuestras}"><a href='{urlprefix}catalogos/ldbiproveedor.php' >LDBI - Proveedores</a></li>
+                    <li style="display: {menuCatTipoMuestras}"><a href='{urlprefix}catalogos/ldbibodega.php' >LDBI - Bodegas</a></li>
+                    <li style="display: {menuCatTipoMuestras}"><a href='{urlprefix}catalogos/ldbiinsumo.php' >LDBI - Insumos</a></li>
                 </ul>
             </li>
             <li style="display: {menuAyuda} "><a href='#' title='Ayuda' style="width:70px;height:16px;line-height:16px;"><span>Ayuda</span></a>

@@ -1,0 +1,79 @@
+<br/>
+<br/>
+<div class="Content" align="left">
+        <table width="100%">
+            <tr>
+                <td>
+                    <h2>M&oacute;dulo de Log&iacute;stica y Distribuci&oacute;n - Recepci&oacute;n Bodega Centro Nacional</h2>
+                </td>
+                <td align="right">
+                    <div style="color: #A4BC2B;">
+                        Nuevo Formulario
+                        <a href="existencias.php" class="" style="text-decoration: none; font-weight:bold;" title="Ingresar nuevo formulario de influenza">
+                            <img width="30px" height="30px" title="Nuevo formulario" border=0 src="../img/add_small.png"></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="ui-state-highlight ui-corner-all"
+             style="padding-bottom:5px; margin-bottom:6px;display:{disInfo}; margin-top:5px;" align="left">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>{desInfo}</label>
+        </div>
+        <div class="ui-state-error ui-corner-all" id="errores" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeError}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="error" style="margin-top: 0px; margin-bottom: 0px; display: {mostrarError}">{valError}</p>
+        </div>
+        <div class="ui-state-error ui-corner-all" id="validacionesDiv" style="padding-bottom: 5px; margin-bottom: 6px; margin-top: 5px;display:none">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <label>Imposible realizar b&uacute;squeda:</label>
+            <p id="validaciones" style="margin-top: 0px; margin-bottom: 0px;"></p>
+        </div>
+        <div class="ui-state-highlight ui-corner-all" id="mensajes" style="padding-bottom: 5px; margin-bottom: 6px; display: {mensajeExito}; margin-top: 5px;">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <p id="exitoGuardar" style="margin-top: 0px; margin-bottom: 0px; display:{mostrarExito}">{valExito}</p>
+        </div>
+        <div class="ui-state-error ui-corner-all" id="pErrors" style="padding-bottom: 5px; margin-bottom: 6px; display: none; margin-top: 5px; width: 50%">
+            <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+            <div id="pDetalle" style="margin-top: 0px; margin-bottom: 0px;"></div>
+        </div>
+        <fieldset class="ui-widget ui-widget-content ui-corner-all">
+            <div align="left">
+                <table border="0" width="100%">
+                    <tr>
+                        <td width="15%">
+                            <label>Ingrese una palabra:</label>
+                        </td>
+                        <td width="48%">
+                            <input type="text" name="filtro" id="filtro" value="" class="" style="width: 95%;" maxlength="45" onKeyPress="onEnter(event)"/>
+                        </td>
+                        <td width="12%">
+                            <label>A&nacute;o:</label>
+                        </td>
+                        <td width="18%">
+                            <select id="anio" style="width: 150px;" name="anio" style="width:250px">
+                                <option value="-1">Todas</option>
+                                <option value='2014'>2014</option>
+                                <option value="2015">2015</option>
+                            </select>
+                        </td>
+                        <td width="7%">
+                            <a href="javascript:busqueda();" class="ui-state-default ui-corner-all ui-button"
+                               onmouseover="RollOver(this)" onmouseout="RollOut(this)">
+                                Buscar
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <label>Si quiere traer todo el listado dejar en blanco el filtro.</label>
+                        </td>
+
+                    </tr>
+
+                </table>
+            </div>
+        </fieldset>
+    <br/>
+    <div id="resultadosBusqueda" align="center"></div>
+</div>

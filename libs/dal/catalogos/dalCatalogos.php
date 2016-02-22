@@ -216,6 +216,44 @@
                 return '-1';
         }
 
+        public static function conteoLdbiProveedores()
+        {
+            $sql = "select count(*) as total from cat_proveedor_LDBI";
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $data = $conn->fetchOne();
+            $conn->closeConn();
+
+            if ($error==""){
+                return $data["total"];
+            }
+            else
+                return '-1';
+        }
+        
+        public static function conteoGrupoEspecial()
+        {
+            $sql = "select count(*) as total from cat_grupo_esp";
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $data = $conn->fetchOne();
+            $conn->closeConn();
+
+            if ($error==""){
+                return $data["total"];
+            }
+            else
+                return '-1';
+        }
+
         public static function obtenerTiposUbicacion($config)
         {
             $sql="";
@@ -455,6 +493,58 @@
                 return '-1';
         }
 
+        public static function obtenerLdbiProveedores($config)
+        {
+            $sql="";
+            $sql = "select id_proveedor as id,
+                    nombre_proveedor as nom,
+                    status as stat
+                    from cat_proveedor_LDBI
+                    order by nombre_proveedor ASC
+                    limit ".$config["inicio"].",".$config["paginado"];
+            //echo $sql;
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $data = $conn->fetch();
+            $conn->closeConn();
+
+            if ($error==""){
+                return $data;
+            }
+            else
+                return '-1';
+        }
+        
+        public static function obtenerGruposEspeciales($config)
+        {
+            $sql="";
+            $sql = "select id_grupo_esp as id,
+                    nombre_grupo_esp as nom,
+                    status as stat
+                    from cat_grupo_esp
+                    order by nombre_grupo_esp ASC
+                    limit ".$config["inicio"].",".$config["paginado"];
+            //echo $sql;
+            
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $data = $conn->fetch();
+            $conn->closeConn();
+            
+            if ($error==""){
+                return $data;
+            }
+            else
+                return '-1';
+        }
+
         public static function borrarTipoUbicacion($id)
         {
             $sql = "delete from tbl_ubicacion_tipo where idubicacion_tipo = " . $id;
@@ -656,6 +746,24 @@
                 return '-1';
         }
         
+        public static function borrarGrupoEspecial($id)
+        {
+            $sql = "delete from cat_grupo_esp where id_grupo_esp = " . $id;
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $conn->closeConn();
+
+            if ($error==""){
+                return '1';
+            }
+            else
+                return '-1';
+        }
+        
         public static function editarEnfermedadCronica($id, $n, $s, $flu)
         {
             $sql = "update cat_enfermedad_cronica
@@ -774,6 +882,25 @@
         {
             $sql = "update cat_vac_modalidad
                    set nombre_modalidad  = '".trim($n)."',habilita_nombre  = '".trim($h)."', status = '".$s."' where id_modalidad = " . $id;
+            
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $conn->closeConn();
+
+            if ($error==""){
+                return '1';
+            }
+            else
+                return '-1';
+        }
+        
+        public static function editarGrupoEspecial($id, $n, $s)
+        {
+            $sql = "update cat_grupo_esp
+                   set nombre_grupo_esp  = '".trim($n)."', status = '".$s."' where id_grupo_esp = " . $id;
             
             $conn = new Connection();
             $conn->initConn();
@@ -933,6 +1060,26 @@
         {
             $sql = "insert into cat_vac_modalidad (nombre_modalidad, habilita_nombre, status)
                     values ('".trim($n)."','".trim($h)."', '".$s."')";
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $id = $conn->getID();
+            $error = $conn->getError();
+            $conn->closeConn();
+
+            if ($error==""){
+                return $id;
+            }
+            else
+                return '-1';
+        }
+        
+        public static function agregarGrupoEspecial($n, $s)
+        {
+            $sql = "insert into cat_grupo_esp (nombre_grupo_esp, status)
+                    values ('".trim($n)."', '".$s."')";
 
             $conn = new Connection();
             $conn->initConn();
@@ -1162,6 +1309,270 @@
 
             if($error=="")
                 return $data["total"];
+            else
+                return '-1';
+        }
+
+        public static function agregarProveedorLdbi($n, $s)
+        {
+            $sql = "insert into cat_proveedor_LDBI (nombre_proveedor, status)
+                    values ('".trim($n)."','".$s."')";
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $id = $conn->getID();
+            $error = $conn->getError();
+            $conn->closeConn();
+
+            if ($error==""){
+                return $id;
+            }
+            else
+                return '-1';
+        }
+
+        public static function editarProveedorLdbi($id, $n, $s)
+        {
+            $sql = "update cat_proveedor_LDBI set nombre_proveedor  = '".trim($n)."', status = '".$s."' where id_proveedor = " . $id;
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $conn->closeConn();
+
+            if ($error==""){
+                return '1';
+            }
+            else
+                return '-1';
+        }
+
+        public static function borrarProveedorLdbi($id)
+        {
+            $sql = "delete from cat_proveedor_LDBI where id_proveedor = " . $id;
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $conn->closeConn();
+
+            if ($error==""){
+                return '1';
+            }
+            else
+                return '-1';
+        }
+
+        public static function conteoLdbiBodegas()
+        {
+            $sql = "select count(*) as total from cat_bodega";
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $data = $conn->fetchOne();
+            $conn->closeConn();
+
+            if ($error==""){
+                return $data["total"];
+            }
+            else
+                return '-1';
+        }
+
+        public static function obtenerLdbiBodegas($config)
+        {
+            $sql="";
+            $sql = "select id_bodega as id,
+                    nombre_bodega as nom,
+                    codigo_bodega as cod,
+                    status as stat
+                    from cat_bodega
+                    order by nombre_bodega ASC
+                    limit ".$config["inicio"].",".$config["paginado"];
+            //echo $sql;
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $data = $conn->fetch();
+            $conn->closeConn();
+
+            if ($error==""){
+                return $data;
+            }
+            else
+                return '-1';
+        }
+
+        public static function agregarBodegaLdbi($n, $c, $s)
+        {
+            $sql = "insert into cat_bodega (nombre_bodega, codigo_bodega, status)
+                    values ('".trim($n)."','".trim($c)."','".$s."')";
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $id = $conn->getID();
+            $error = $conn->getError();
+            $conn->closeConn();
+
+            if ($error==""){
+                return $id;
+            }
+            else
+                return '-1';
+        }
+
+        public static function editarBodegaLdbi($id, $n, $c, $s)
+        {
+            $sql = "update cat_bodega set nombre_bodega  = '".trim($n)."', codigo_bodega  = '".trim($c)."', status = '".$s."' where id_bodega = " . $id;
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $conn->closeConn();
+
+            if ($error==""){
+                return '1';
+            }
+            else
+                return '-1';
+        }
+
+        public static function borrarBodegaLdbi($id)
+        {
+            $sql = "delete from cat_bodega where id_bodega = " . $id;
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $conn->closeConn();
+
+            if ($error==""){
+                return '1';
+            }
+            else
+                return '-1';
+        }
+
+        public static function conteoLdbiInsumos()
+        {
+            $sql = "select count(*) as total from cat_insumos_LDBI";
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $data = $conn->fetchOne();
+            $conn->closeConn();
+
+            if ($error==""){
+                return $data["total"];
+            }
+            else
+                return '-1';
+        }
+
+        public static function obtenerLdbiInsumos($config)
+        {
+            $sql="";
+            $sql = "select id_insumo as id,
+                    nombre_insumo as nom,
+                    unidad_presentacion as uni,
+                    codigo_insumo as cod,
+                    saldo_minimo as minimo,
+                    saldo_maximo as maximo,
+                    status as stat
+                    from cat_insumos_LDBI
+                    order by nombre_insumo ASC
+                    limit ".$config["inicio"].",".$config["paginado"];
+            //echo $sql;
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $data = $conn->fetch();
+            $conn->closeConn();
+
+            if ($error==""){
+                return $data;
+            }
+            else
+                return '-1';
+        }
+
+        public static function agregarInsumoLdbi($n, $u, $c, $mi, $ma, $s)
+        {
+            $sql = "insert into cat_insumos_LDBI (nombre_insumo, unidad_presentacion, codigo_insumo, saldo_minimo, saldo_maximo, status)
+                    values ('".trim($n)."','".trim($u)."','".trim($c)."','".trim($mi)."','".trim($ma)."','".$s."')";
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $id = $conn->getID();
+            $error = $conn->getError();
+            $conn->closeConn();
+
+            if ($error==""){
+                return $id;
+            }
+            else
+                return '-1';
+        }
+
+        public static function editarInsumoLdbi($id, $n, $u, $c, $mi, $ma, $s)
+        {
+            $sql = "update cat_insumos_LDBI set nombre_insumo  = '".trim($n)."', unidad_presentacion  = '".trim($u)."',
+            codigo_insumo  = '".trim($c)."',saldo_minimo  = '".trim($mi)."',saldo_maximo  = '".trim($ma)."', status = '".$s."' where id_insumo = " . $id;
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $conn->closeConn();
+
+            if ($error==""){
+                return '1';
+            }
+            else
+                return '-1';
+        }
+
+        public static function borrarInsumoLdbi($id)
+        {
+            $sql = "delete from cat_insumos_LDBI where id_insumo = " . $id;
+
+            $conn = new Connection();
+            $conn->initConn();
+            $conn->prepare($sql);
+            $conn->execute();
+            $error = $conn->getError();
+            $conn->closeConn();
+
+            if ($error==""){
+                return '1';
+            }
             else
                 return '-1';
         }

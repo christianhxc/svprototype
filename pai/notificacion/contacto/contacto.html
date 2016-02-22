@@ -1,0 +1,85 @@
+<br>
+<div ng-controller="notificacionContactoEditController">
+    <table width="100%">
+        <tr>
+            <td>
+                <h2>Modulo de Notificaciones PAI - Contactos</h2>
+            </td>
+            <td align="right">
+                <div style="color: #A4BC2B;">
+                    Regresar
+                    <a href="index.php" class="" style="text-decoration: none; font-weight:bold;">
+                        <img title="Regresar" border=0 src="../../../img/back.png"></a>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="ui-state-error ui-corner-all" style="padding-bottom: 5px; margin-bottom: 6px; margin-top: 5px;" ng-show="errores.length > 0">
+        <span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>
+        <label><strong>No se puede continuar por lo siguiente:</strong></label><br>
+        <label data-ng-repeat="error in errores">- {{error}}<br></label>
+    </div>
+
+    <table align="center" ng-show="cargando">
+        <tr>
+            <td>
+                <div style="margin-top:10px">
+                    <p align="center">Cargando ...</p>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-accordion ui-widget ui-helper-reset" ng-show="!cargando">
+        <fieldset class="ui-widget ui-widget-content ui-corner-all" style="margin: 10px;">
+            <legend>Datos del Contacto</legend>
+            <table cellspacing="2" cellpadding="2" border="0" align="center" style="width: 100%">
+                <tbody>
+                <tr>
+                    <td>
+                        <label>Nombre:<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <input type="text" maxlength="45" style="width: 400px; text-transform: uppercase;" ng-model="form.nombre">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Email:<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <input type="text" maxlength="45" style="width: 400px; text-transform: uppercase;" ng-model="form.email">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Telefono:<span class="mandatory">*</span></label>
+                    </td>
+                    <td>
+                        <input type="text" maxlength="45" style="width: 400px; text-transform: uppercase;" ng-model="form.telefono">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Activo:</label></td>
+                    <td>
+                        <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="form.status" ng-checked="form.status == 1" />
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+
+    <table align="center">
+        <tr>
+            <td>
+                <div style="margin-top:10px">
+                    <p align="center" ng-show="procesando">Guardando ...</p>
+                    <a href="#" ng-click="guardar()" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Guardar</a>
+                    <a href="index.php" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Cancelar</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
