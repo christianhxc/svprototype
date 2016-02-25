@@ -161,14 +161,14 @@ class helperVih {
         $individuo["id_pais"] = "174";
 
         $individuo["nombre_responsable"] = (!isset($data["individuo"]["nombre_responsable"]) ? NULL : strtoupper($data["individuo"]["nombre_responsable"]));
-        $individuo["tel_residencial "] = (!isset($data["individuo"]["telefono"]) ? NULL : strtoupper($data["individuo"]["telefono"]));
+        $individuo["tel_residencial"] = (!isset($data["individuo"]["telefono"]) ? NULL : strtoupper($data["individuo"]["telefono"]));
         
-        $individuo["id_escolaridad "] = (!isset($data["individuo"]["escolaridad"]) ? NULL : strtoupper($data["individuo"]["escolaridad"]));
-        $individuo["id_estado_civil "] = (!isset($data["individuo"]["estado_civil"]) ? NULL : strtoupper($data["individuo"]["estado_civil"]));
-        $individuo["id_etnia "] = (!isset($data["individuo"]["etnia"]) ? NULL : strtoupper($data["individuo"]["etnia"]));
-        $individuo["id_grupo_indigena "] = (!isset($data["individuo"]["grupo_indigena"]) ? NULL : strtoupper($data["individuo"]["grupo_indigena"]));
-        $individuo["id_genero "] = (!isset($data["individuo"]["genero"]) ? NULL : strtoupper($data["individuo"]["genero"]));
-        $individuo["id_ocupacion "] = (!isset($data["individuo"]["ocupacion_id"]) ? NULL : strtoupper($data["individuo"]["ocupacion_id"]));
+        $individuo["id_escolaridad"] = (!isset($data["individuo"]["escolaridad"]) ? NULL : strtoupper($data["individuo"]["escolaridad"]));
+        $individuo["id_estado_civil"] = (!isset($data["individuo"]["estado_civil"]) ? NULL : strtoupper($data["individuo"]["estado_civil"]));
+        $individuo["id_etnia"] = (!isset($data["individuo"]["etnia"]) ? NULL : strtoupper($data["individuo"]["etnia"]));
+        $individuo["id_grupo_indigena"] = (!isset($data["individuo"]["grupo_indigena"]) ? NULL : strtoupper($data["individuo"]["grupo_indigena"]));
+        $individuo["id_genero"] = (!isset($data["individuo"]["genero"]) ? NULL : strtoupper($data["individuo"]["genero"]));
+        $individuo["id_ocupacion"] = (!isset($data["individuo"]["ocupacion_id"]) ? NULL : strtoupper($data["individuo"]["ocupacion_id"]));
 
         if (isset($data["individuo"]["region_diagnostico"])) $individuo["id_region_diagnostico"] = $data["individuo"]["region_diagnostico"];
         if (isset($data["individuo"]["corregimiento_diagnostico"])) $individuo["id_corregimiento_diagnostico"] = $data["individuo"]["corregimiento_diagnostico"];
@@ -233,12 +233,12 @@ class helperVih {
         $muestra["nombre_registra"] = "SILAB-Lab. Gorgas";
         $muestra["nombre_notifica"] = (!isset($data["MUE_REFERIDA_POR"]) ? NULL : $data["MUE_REFERIDA_POR"]);
         $muestra["fecha_notificacion"] = (!isset($data["MUE_FECHA_INGRESO_SISTEMA"]) ? NULL : $data["MUE_FECHA_INGRESO_SISTEMA"]);
-        $muestra["semana_epi "] = (!isset($data["MUE_SEMANA_EPI"]) ? NULL : $data["MUE_SEMANA_EPI"]);
-        $muestra["anio "] = (!isset($data["MUE_CODIGO_GLOBAL_ANIO"]) ? NULL : $data["MUE_CODIGO_GLOBAL_ANIO"]);
+        $muestra["semana_epi"] = (!isset($data["MUE_SEMANA_EPI"]) ? NULL : $data["MUE_SEMANA_EPI"]);
+        $muestra["anio"] = (!isset($data["MUE_CODIGO_GLOBAL_ANIO"]) ? NULL : $data["MUE_CODIGO_GLOBAL_ANIO"]);
         $fechaActual = date("Y-m-d H:i:s"); 
-        $muestra["fecha_formulario "] = $fechaActual;      
-        $muestra["silab "] = 1;
-        $muestra["comp_per_preso "] = 0;
+        $muestra["fecha_formulario"] = $fechaActual;
+        $muestra["silab"] = 1;
+        $muestra["comp_per_preso"] = 0;
         $muestra["per_asegurado"] = 0;
         
         return $muestra;
@@ -876,7 +876,7 @@ class helperVih {
         if($data[30]!="Missing"||$data[47]==2)
             $formVih["comp_donante_sangre"] =  1;        
         $fechaActual = date("m/d/Y"); 
-        $formVih["fecha_formulario "] = helperString::toDateIngles($fechaActual);           
+        $formVih["fecha_formulario"] = helperString::toDateIngles($fechaActual);
         $formVih["id_un"] == NULL;
         $formVih["unidad_disponible"] = 0;        
         $formVih["nombre_registra"] = "Base de datos Anterior - EpiInfo";

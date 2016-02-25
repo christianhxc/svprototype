@@ -234,3 +234,7 @@ INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_g
 INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('120', '1', '5');
 
 
+ALTER TABLE `sisvigdb`.`tbl_persona` 
+CHANGE COLUMN `id_pais_nacimiento` `id_pais_nacimiento` INT(11) NULL DEFAULT '174' COMMENT 'Identificador del pais de nacimiento' ,
+CHANGE COLUMN `id_corregimiento_nacimiento` `id_corregimiento_nacimiento` INT(11) NULL DEFAULT '630' COMMENT 'Identificador del corregimiento de nacimiento' ;
+
