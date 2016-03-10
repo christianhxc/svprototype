@@ -323,7 +323,7 @@ function generarReporte(filtro, lugar, condicion){
     $("#errores").hide();
     $("#error").html(' ');   
     
-    var stReport = "http://190.34.154.87:8081/jasperserver/flow.html?_flowId=viewReportFlow&reportUnit=/public/SISVIG/PRD/vacunas/";
+    var stReport = "http://52.33.93.215:8081/jasperserver/flow.html?_flowId=viewReportFlow&reportUnit=/public/SISVIG/PRD/vacunas/";
     if ($("#drpReporte").val() == "1") 
          stReport += "export_excel_registro_diario";
     if ($("#drpReporte").val() == "2") 
