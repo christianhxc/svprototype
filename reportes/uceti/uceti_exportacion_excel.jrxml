@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="8758"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["http://173.201.187.40/sisvig2/reportes/vih/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["http://52.33.93.215/sisvig2/reportes/vih/"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="filtro" class="java.lang.String">
 		<defaultValueExpression><![CDATA[" "]]></defaultValueExpression>
