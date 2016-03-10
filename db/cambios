@@ -233,4 +233,10 @@ INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_g
 INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('120', '1', '4');
 INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('120', '1', '5');
 
+CREATE TABLE `sisvigdb`.`cat_grupo_esp` (
+  `id_grupo_esp` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `nombre_grupo_esp` VARCHAR(255) NOT NULL COMMENT '',
+  `status` INT NOT NULL DEFAULT 1 COMMENT '',
+  PRIMARY KEY (`id_grupo_esp`)  COMMENT '');
 
+  
