@@ -243,4 +243,7 @@ ALTER TABLE `sisvigdb`.`tbl_persona`
 CHANGE COLUMN `id_pais_nacimiento` `id_pais_nacimiento` INT(11) NULL DEFAULT '174' COMMENT 'Identificador del pais de nacimiento' ,
 CHANGE COLUMN `id_corregimiento_nacimiento` `id_corregimiento_nacimiento` INT(11) NULL DEFAULT '630' COMMENT 'Identificador del corregimiento de nacimiento' ;
 
-  
+ALTER TABLE `sisvigdb`.`tbl_persona` 
+ADD COLUMN `correo_electronico` VARCHAR(255) NULL COMMENT '' AFTER `id_grupo_indigena`;
+
+
