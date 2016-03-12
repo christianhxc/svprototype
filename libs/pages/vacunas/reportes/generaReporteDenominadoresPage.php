@@ -21,7 +21,7 @@ class generaReporteDenominadoresPage extends page {
     public function parseFooter(){}
     public function parseContent() {
         $this->tpl->addBlockFile('CONTENT','contentBlock',Configuration::templatesPath.'/vacunas/reportes/generareportedenominadores.tpl.html');
-        $this->tpl->setVariable("title", "Exportación de denominadores");
+        $this->tpl->setVariable("title", "Exportacion de denominadores");
         $this->tpl->setVariable("headers", $this->getHtmlHeaders());
         $this->tpl->setVariable("data", $this->getHtmlReportData());
         $this->tpl->parse('contentBlock');

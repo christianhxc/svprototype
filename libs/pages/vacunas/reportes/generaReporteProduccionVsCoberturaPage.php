@@ -18,7 +18,7 @@ class generaReporteProduccionVsCoberturaPage extends page {
     public function parseFooter(){}
     public function parseContent() {
         $this->tpl->addBlockFile('CONTENT','contentBlock',Configuration::templatesPath.'/vacunas/reportes/generareporteproduccionvscobertura.tpl.html');
-            $tipo = "Reporte Producción vs Cobertura";
+            $tipo = "Reporte Produccion vs Cobertura";
         $this->tpl->setVariable("title", $tipo);
         $this->tpl->setVariable("data", $this->getHtmlReportData());
         $this->tpl->parse('contentBlock');
