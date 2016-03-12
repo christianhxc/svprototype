@@ -76,7 +76,7 @@ class dalReporteCobertura extends baseDal {
                 AND c_v.id_vacuna IN(".$vacunas.")
                 AND v_do.id_dosis IN(".$dosis.")
                 ".$columnsForSelect["where"]." ".$where."
-                GROUP BY ".$columnsForSelect["groupby"]."c_g_e.id_rango, c_v.id_vacuna, v_do.id_dosis"; echo $sql; exit;
+                GROUP BY ".$columnsForSelect["groupby"]."c_g_e.id_rango, c_v.id_vacuna, v_do.id_dosis";
         $conn->prepare($sql);
         $conn->execute();
         $data = $conn->fetch();
