@@ -1101,7 +1101,8 @@ $(document).ready(function() {
         }
     });
     
-    $("input:checkbox[id='MDR']").change( function(){        
+    $("input:checkbox[id='MDR']").change( function(){
+        
         label_MDR_message();
     });
     
@@ -1138,14 +1139,28 @@ function setTipoId(){
 }
 
 function label_MDR_message(){
-
+    VIH_true = false;
     MDR_group = $("input:checkbox[id='MDR']:checked");
     
+    jQuery.each( MDR_group, function( i, MDR_element ) {
+     if (MDR_element.value ==2) VIH_true=true;
+    });
+    
         if (MDR_group.length == 0 ){
-            $("#alert_MDR").css("display","none");
+            
+            $("#alert_MDR").hide();
+            $("#alert_MDR_VIH").hide();
+            
         }else
-        {
-            $("#alert_MDR").css("display","");
+        {   
+            if (VIH_true == true ) {
+                $("#alert_MDR").hide();
+                $("#alert_MDR_VIH").show();
+            } else {
+                $("#alert_MDR_VIH").hide();
+                $("#alert_MDR").show();
+            }
+            
         }    
             
 }
@@ -2563,13 +2578,13 @@ function Trat_Med_F2(){
 function Res_med(){
 
     if($('#MonoR').is(":checked")){
-        $( "#tr_label_MonoR" ).css( "display", "" );
-        $( "#tr_select_MonoR" ).css( "display", "" );
+        $( "#tr_label_MonoR" ).show();
+        $( "#tr_select_MonoR" ).show();
     }
     else 
         {
-        $( "#tr_label_MonoR" ).css( "display", "none" );
-        $( "#tr_select_MonoR" ).css( "display", "none" );
+        $( "#tr_label_MonoR" ).hide();
+        $( "#tr_select_MonoR" ).hide();
         $( "#drpesp_MonoR" ).val("");
         }
         
@@ -2607,6 +2622,38 @@ function Res_med(){
         $( "#tr_2linea" ).css( "display", "none" );
         $("#drp2_linea").val("");
         }       
+        
+    if ($('#TB-RR').is(":checked") || $('#XDR').is(":checked") || $('#Res_MDR').is(":checked") || $('#2linea_PoliR').is(":checked") || $('#fluoroquinolonas_PoliR').is(":checked") || $('#PoliR').is(":checked") || $('#MonoR').is(":checked") )
+    {
+        $("#fecha_inicio_tratF1").val("");
+        $("#fecha_fin_tratF1").val("");
+        $("#trat_med_indF1").attr("checked",false);
+        $("#drpadministracionF1").val("");
+        $("#fecha_inicio_tratF2").val("");
+        $("#fecha_fin_tratF2").val("");
+        $("#trat_med_indF2").attr("checked",false);
+        $("#drpadministracionF2").val("");
+        
+        $("#fecha_inicio_tratF1").attr("disabled",true);
+        $("#fecha_fin_tratF1").attr("disabled",true);
+        $("input:checkbox[id='trat_med_indF1']").attr("disabled",true);
+        $("#drpadministracionF1").attr("disabled",true);
+        $("#fecha_inicio_tratF2").attr("disabled",true);
+        $("#fecha_fin_tratF2").attr("disabled",true);
+        $("input:checkbox[id='trat_med_indF2']").attr("disabled",true);
+        $("#drpadministracionF2").attr("disabled",true);
+        
+    } else
+    {
+        $("#fecha_inicio_tratF1").attr("disabled",false);
+        $("#fecha_fin_tratF1").attr("disabled",false);
+        $("input:checkbox[id='trat_med_indF1']").attr("disabled",false);
+        $("#drpadministracionF1").attr("disabled",false);
+        $("#fecha_inicio_tratF2").attr("disabled",false);
+        $("#fecha_fin_tratF2").attr("disabled",false);
+        $("input:checkbox[id='trat_med_indF2']").attr("disabled",false);
+        $("#drpadministracionF2").attr("disabled",false);
+    }
 
 }
 

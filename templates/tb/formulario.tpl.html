@@ -816,7 +816,7 @@
                                     <select id="drpres_cultivo" name="data[met_diag][resultado_cultivo]" >
                                         <option value="">Seleccione...</option>
                                         <option value="1" {selResCult1} >Micobacterias No tuberculosas</option>
-                                        <option value="2" {selResCult2} style="font-style:italic;">Mycobacterium tuberculosis</option>
+                                        <option value="2" {selResCult2} style="font-style:italic;">Complejo Mycobacterium tuberculosis</option>
                                         <option value="3" {selResCult3} >No hubo crecimiento de micobacterias</option>
                                     </select>&nbsp;&nbsp;
                                     <label>Fecha: </label>
@@ -844,12 +844,12 @@
                                     <label>Resultado:</label>&nbsp;&nbsp;
                                     <select id="drpres_WRD" name="data[met_diag][resultado_WRD]" >
                                         <option value="" {selResWRDS}>Seleccione...</option>
-                                        <option {selResWRD1} value="1">Positivo</option>
-                                        <option {selResWRD0} value="0">Negativo</option>
+                                        <!-- option {selResWRD1} value="1">Positivo</option>
+                                        <option {selResWRD0} value="0">Negativo</option -->
                                         <option {selResWRD2} value="2">MTB Detectado</option>
                                         <option {selResWRD3} value="3">MTB No Detectado</option>
-                                        <option {selResWRD4} value="4">Indeterminado</option>
-                                        <option {selResWRD5} value="5">Desconocido</option>
+                                        <option {selResWRD4} value="4">Inválido</option>
+                                        <!-- option {selResWRD5} value="5">Desconocido</option -->
                                     </select>
                                     <label>Fecha:</label>
                                     <input id="fecha_WRD" name="data[met_diag][fecha_WRD]" style="width: 100px;" maxlength="10"  type="text" value="{valFechaWRD}">
