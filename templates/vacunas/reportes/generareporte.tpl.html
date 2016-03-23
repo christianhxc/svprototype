@@ -26,7 +26,7 @@
                 <a href="#" class="botonPdf" alt="Exportar a PDF" title="Exportar a PDF">
                     <img width="32px" src="http://icons.iconarchive.com/icons/graphicloads/filetype/256/pdf-icon.png">
                 </a>&nbsp;
-                <a href="http://173.201.187.40/sisvig2/vacunas/reportes/reporteCobertura.php" alt="Regresar" title="Regresar">
+                <a href="http://52.33.93.215/sisvig2/vacunas/reportes/reporteCobertura.php" alt="Regresar" title="Regresar">
                     <img width="32px" src="https://cdn0.iconfinder.com/data/icons/customicondesignoffice5/128/go-back.png">
                 </a>
             </td>
@@ -40,12 +40,12 @@
     $(document).ready(function() {
         $(".botonExcel").click(function(event) {
             $("#datos_a_enviar").val( $("<div>").append( $("#Exportar_a_Excel").eq(0).clone()).html());
-            $("#FormularioExportacion").attr("action", "http://173.201.187.40/sisvig2/vacunas/reportes/reporteexcel.php")
+            $("#FormularioExportacion").attr("action", "http://52.33.93.215/sisvig2/vacunas/reportes/reporteexcel.php")
             $("#FormularioExportacion").submit();
         });
         $(".botonPdf").click(function(event) {
             $("#datos_a_enviar").val( $("<div>").append( $("#Exportar_a_Excel").eq(0).clone()).html());
-            $("#FormularioExportacion").attr("action", "http://173.201.187.40/sisvig2/vacunas/reportes/reportepdf.php")
+            $("#FormularioExportacion").attr("action", "http://52.33.93.215/sisvig2/vacunas/reportes/reportepdf.php")
             $("#FormularioExportacion").submit();
         });
     });

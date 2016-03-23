@@ -133,7 +133,7 @@ function reporteUceti(idUceti){
     var mensaje = 'A continuaci\xf3n se descargara los datos del Formulario N. '+idUceti+', \xbfdesea continuar?';
     if(confirm(mensaje)){
         //window.open('../reportes/uceti/ReporteIndividualPDF.php?idUceti=' + idUceti,'_blank');
-        window.location = 'http://190.34.154.87:8081/jasperserver/flow.html?_flowId=viewReportFlow&reportUnit=/public/SISVIG/PRD/VICFLU/Reporte_Individual_FLU&P_ID_FORMULARIO='+idFormulario+'&j_username=jasURL&j_password=jasURLMinsa&output=pdf';
+        window.location = 'http://52.33.93.215:8081/jasperserver/flow.html?_flowId=viewReportFlow&reportUnit=/public/SISVIG/PRD/VICFLU/Reporte_Individual_FLU&P_ID_FORMULARIO='+idFormulario+'&j_username=jasURL&j_password=jasURLMinsa&output=pdf';
     //window.open('','_blank')
     }
 }

@@ -22,10 +22,10 @@ class generaReporteVacunacionPage extends page {
         $this->tpl->addBlockFile('CONTENT','contentBlock',Configuration::templatesPath.'/vacunas/reportes/generareportevacunacion.tpl.html');
         if($this->config["parameters"]["search"]["tipo"] == "Vacunacion"){
             $this->tpl->setVariable("data", $this->getHtmlReportData());
-            $tipo = "Listado de Vacunación";
+            $tipo = "Listado de Vacunacion";
         }elseif($this->config["parameters"]["search"]["tipo"] == "Programacion"){
             $this->tpl->setVariable("data", $this->getHtmlProgInasistenciasData($this->config["parameters"]["search"]["tipo"]));
-            $tipo = "Listado de Programación";
+            $tipo = "Listado de Programacion";
         }else{
             $this->tpl->setVariable("data", $this->getHtmlProgInasistenciasData($this->config["parameters"]["search"]["tipo"]));
             $tipo = "Listado de Inasistencias";

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#form-action").val("http://173.201.187.40/sisvig2/vacunas/reportes/generareporte.php");
+    $("#form-action").val("http://52.33.93.215/sisvig2/vacunas/reportes/generareporte.php");
     $("#drpReporteTipo").change(function(){
         var tiporeporte = $( "#drpReporteTipo option:selected").val();
         var action = "";
@@ -48,19 +48,19 @@ $(document).ready(function() {
     });
     $(".botonExcel").live("click", function(event) {
         $("#datos_a_enviar").val( $("<div>").append( $("#Exportar_a_Excel").eq(0).clone()).html());
-        $("#FormularioExportacion").attr("action", "http://173.201.187.40/sisvig2/vacunas/reportes/reporteexcel.php")
+        $("#FormularioExportacion").attr("action", "http://52.33.93.215/sisvig2/vacunas/reportes/reporteexcel.php")
         $("#FormularioExportacion").submit();
     });
     $(".botonPdf").live("click", function(event) {
         $("#datos_a_enviar").val( $("<div>").append( $("#Exportar_a_Excel").eq(0).clone()).html());
-        $("#FormularioExportacion").attr("action", "http://173.201.187.40/sisvig2/vacunas/reportes/reportepdf.php")
+        $("#FormularioExportacion").attr("action", "http://52.33.93.215/sisvig2/vacunas/reportes/reportepdf.php")
         $("#FormularioExportacion").submit();
     });
     $("#grabar-cierre").click(function(){
         var parameters = $("#formCierre").serialize();
         $.ajax({
             type: "POST",
-            url: "http://173.201.187.40/sisvig2/vacunas/reportes/grabarcierre.php",
+            url: "http://52.33.93.215/sisvig2/vacunas/reportes/grabarcierre.php",
             data: parameters,
             success: function(result){
                 $("#result-cierremensual").css({ "display": "block"});
@@ -78,7 +78,7 @@ $(document).ready(function() {
         if(id > 0 ){
             $.ajax({
                 type: "POST",
-                url: "http://173.201.187.40/sisvig2/vacunas/reportes/revertircierre.php",
+                url: "http://52.33.93.215/sisvig2/vacunas/reportes/revertircierre.php",
                 data: "id="+id+"&year="+year+"&month="+month,
                 success: function(result){
                     $("#result-cierremensual").css({ "display": "block"});

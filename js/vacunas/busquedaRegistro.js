@@ -99,7 +99,7 @@ function borrarRegistro(idForm){
 function reporteIndividual(idForm){
     var mensaje = 'A continuaci\xf3n se mostrara el Registro Diario de Vacunacion N. '+idForm+', \xbfdesea continuar?';
     if(confirm(mensaje)){
-        window.open('http://190.34.154.87:8081/jasperserver/flow.html?_flowId=viewReportFlow&reportUnit=/public/SISVIG/PRD/vacunas/vacunas_formuario_registro_diario&P_ID_FORMULARIO='+idForm+'&j_username=jasURL&j_password=jasURLMinsa&output=pdf');
+        window.open('http://190.34.154.83:8081/jasperserver/flow.html?_flowId=viewReportFlow&reportUnit=/public/SISVIG/DEV/vacunas/vacunas_formuario_registro_diario&P_ID_FORMULARIO='+idForm+'&j_username=jasURL&j_password=jasURLMinsa&output=pdf');
     }
 }
 

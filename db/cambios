@@ -233,8 +233,96 @@ INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_g
 INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('120', '1', '4');
 INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('120', '1', '5');
 
+CREATE TABLE `sisvigdb`.`cat_grupo_esp` (
+  `id_grupo_esp` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `nombre_grupo_esp` VARCHAR(255) NOT NULL COMMENT '',
+  `status` INT NOT NULL DEFAULT 1 COMMENT '',
+  PRIMARY KEY (`id_grupo_esp`)  COMMENT '');
 
 ALTER TABLE `sisvigdb`.`tbl_persona` 
 CHANGE COLUMN `id_pais_nacimiento` `id_pais_nacimiento` INT(11) NULL DEFAULT '174' COMMENT 'Identificador del pais de nacimiento' ,
 CHANGE COLUMN `id_corregimiento_nacimiento` `id_corregimiento_nacimiento` INT(11) NULL DEFAULT '630' COMMENT 'Identificador del corregimiento de nacimiento' ;
 
+ALTER TABLE `sisvigdb`.`tbl_persona` 
+ADD COLUMN `correo_electronico` VARCHAR(255) NULL COMMENT '' AFTER `id_grupo_indigena`;
+
+INSERT INTO `caus_sisvig`.`tbl_seccion` (`nombre`, `codigo`, `idseccion_padre`, `idseccion_tipo`, `status`, `caus`) VALUES ('Vacunas', 'cat_vacuna', '4', '3', '1', '0');
+INSERT INTO `caus_sisvig`.`tbl_seccion` (`nombre`, `codigo`, `idseccion_padre`, `idseccion_tipo`, `status`, `caus`) VALUES ('Vac - Condiciones Escenario', 'cat_vac_condicion', '4', '3', '1', '0');
+INSERT INTO `caus_sisvig`.`tbl_seccion` (`nombre`, `codigo`, `idseccion_padre`, `idseccion_tipo`, `status`, `caus`) VALUES ('Vac - Grupos Especiales', 'cat_vac_grupo_especial', '4', '3', '1', '0');
+INSERT INTO `caus_sisvig`.`tbl_seccion` (`nombre`, `codigo`, `idseccion_padre`, `idseccion_tipo`, `status`, `caus`) VALUES ('Vac - Modalidades', 'cat_vac_modalidad', '4', '3', '1', '0');
+
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('121', '1', '1');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('121', '1', '2');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('121', '1', '3');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('121', '1', '4');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('121', '1', '5');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('122', '1', '1');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('122', '1', '2');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('122', '1', '3');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('122', '1', '4');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('122', '1', '5');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('123', '1', '1');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('123', '1', '2');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('123', '1', '3');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('123', '1', '4');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('123', '1', '5');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('124', '1', '1');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('124', '1', '2');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('124', '1', '3');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('124', '1', '4');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('124', '1', '5');
+
+
+INSERT INTO `caus_sisvig`.`tbl_usuario_grupo` (`nombre`, `status`) VALUES ('PAI - Administrador', '1');
+INSERT INTO `caus_sisvig`.`tbl_usuario` (`idusuario_grupo`, `username`, `nombres`, `email`, `status`) VALUES ('38', 'usuariopai', 'PAI', 'usuariopai@gmail.com', '1');
+INSERT INTO `caus_sisvig`.`tbl_usuario_clave` (`idusuario`, `clave`, `fecha`, `cambiar`, `status`) VALUES ('1311', '961397dc36daead3d359c8540301ae86', '2016-03-13 19:02:00', '0', '1');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario` (`idseccion`, `idusuario`, `idaccion`) VALUES ('49', '1311', '4');
+
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('114', '38', '1');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('115', '38', '1');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('115', '38', '2');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('115', '38', '3');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('115', '38', '4');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('115', '38', '5');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('116', '38', '1');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('116', '38', '2');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('116', '38', '3');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('116', '38', '4');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('116', '38', '5');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('117', '38', '1');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('117', '38', '2');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('117', '38', '3');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('117', '38', '4');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('117', '38', '5');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('118', '38', '1');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('118', '38', '2');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('118', '38', '3');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('118', '38', '4');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('118', '38', '5');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('119', '38', '5');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('120', '38', '1');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('120', '38', '2');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('120', '38', '3');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('120', '38', '4');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('120', '38', '5');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('121', '38', '1');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('121', '38', '2');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('121', '38', '3');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('121', '38', '4');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('121', '38', '5');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('122', '38', '1');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('122', '38', '2');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('122', '38', '3');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('122', '38', '4');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('122', '38', '5');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('123', '38', '1');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('123', '38', '2');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('123', '38', '3');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('123', '38', '4');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('123', '38', '5');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('124', '38', '1');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('124', '38', '2');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('124', '38', '3');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('124', '38', '4');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('124', '38', '5');
+INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('4', '38', '1');

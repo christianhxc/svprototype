@@ -153,7 +153,7 @@ class ConfigurationCAUS{
 
     // GRUPOS DE USUARIOS
     Const vihGrupoRegional = 36;
-    Const catModalidades = 121;
+    Const catModalidades = 124;
     Const catGrupoEspecialVacunas = 123;
     Const VacNotificacion = 125;
     Const VacExportar = 126;

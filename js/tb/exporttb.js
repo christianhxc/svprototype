@@ -514,11 +514,11 @@ function generarReporte(filtro, lugar, condicion){
 
     if ($("#drpReporte").val() == "4"){
     
-     stReport = "http://190.34.154.87/sisvig2/reportes/tb/Indicadores_TB_SISVIG.xls"
+     stReport = "http://52.33.93.215/sisvig2/reportes/tb/Indicadores_TB_SISVIG.xls"
     
     }else{
    
-    stReport = "http://190.34.154.87:8081/jasperserver/flow.html?_flowId=viewReportFlow&reportUnit=/public/SISVIG/PRD/Tuberculosis/";
+    stReport = "http://52.33.93.215:8081/jasperserver/flow.html?_flowId=viewReportFlow&reportUnit=/public/SISVIG/PRD/Tuberculosis/";
     if ($("#drpReporte").val() == "1") 
          stReport += "exportar_tb_excel";
     if ($("#drpReporte").val() == "2") 

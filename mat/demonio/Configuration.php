@@ -2,7 +2,7 @@
 class Configuration
 {
     //const absolutePath = 'http://localhost/sisvig2/';
-    const absolutePath = 'http://190.34.154.87/sisvig2/';
+    const absolutePath = 'http://52.33.93.215/sisvig2/';
 //    const absolutePath = 'http://173.201.187.40/sisvig2/';
 
     const DefaultTitleAdmin = 'SISVIG .::. Sistema de vigilancia en salud publica Panama';
@@ -56,10 +56,10 @@ class Configuration
 //    const dbReport = "sisvigdb?user=sisvig&password=123456";
     
 
-    const urlprefix = 'http://190.34.154.87/sisvig2/';    
-    const urlprefixViejo ='http://190.34.154.87/sisvig/';
+    const urlprefix = 'http://52.33.93.215/sisvig2/';
+    const urlprefixViejo ='http://52.33.93.215/sisvig/';
     const javaAddress = '/var/www/html/sisvig2/bridge/java/Java.inc';    
-    const reportAddress = 'http://190.34.154.87/sisvig2/';    
+    const reportAddress = 'http://52.33.93.215/sisvig2/';
     const urlReport = "jdbc:mysql://localhost:3306/";
     const dbReport = "sisvigdb?user=sisvigPan&password=qwerty12";
     
