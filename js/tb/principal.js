@@ -3,17 +3,26 @@ $(document).ready(function() {
     
     $("#id_tb_inicio").val("");
 
+//    <!-- Calculos automaticos -->
+
+
+
     $("#total_consultas_antepasado").change(function(){
-//        sintomaticos_respiratorios();
-//        buscarqtrSintResp();
-    })
+        tabla1();
+        tabla2();
+        tabla3();
+    });
     $("#anio").change(function(){
         if ($(this).val() == "")  clearForm();
         if ($(this).val() != "" && $( "#notificacion_unidad" ).val() != ""){
             clearForm();
             activeForm();
         }
-    })
+    });
+    
+    $("#ident_1, #ident_2, #ident_3, #ident_4").change(function(){
+        tabla_1();
+    });
     
     $("#drpCorIndividuo").change(function(){
         if ($(this).val() != "0") {
@@ -72,6 +81,8 @@ $(document).ready(function() {
    clearForm();
 
 });
+
+
 
 function clearForm()
 {
@@ -299,15 +310,15 @@ function sintomaticos_respiratorios(action)
                $("#id_tb_inicio").val(data.id_tb_inicio);
                $("#total_consultas_antepasado").val(data.total_consultas_medicas);
                
-               $("#pos_1").val(data.CNBKP_1);
-               $("#pos_2").val(data.CNBKP_2);
-               $("#pos_3").val(data.CNBKP_3);
-               $("#pos_4").val(data.CNBKP_4);
+               $("#bk_1").val(data.CNBKP_1);
+               $("#bk_2").val(data.CNBKP_2);
+               $("#bk_3").val(data.CNBKP_3);
+               $("#bk_4").val(data.CNBKP_4);
                
-               $("#cap_1").val(data.SRC_1);
-               $("#cap_2").val(data.SRC_2);
-               $("#cap_3").val(data.SRC_3);
-               $("#cap_4").val(data.SRC_4);
+               $("#exam_1").val(data.SRC_1);
+               $("#exam_2").val(data.SRC_2);
+               $("#exam_3").val(data.SRC_3);
+               $("#exam_4").val(data.SRC_4);
                
                $("#ident_1").val(data.SRId_1);
                $("#ident_2").val(data.SRId_2);
@@ -331,7 +342,21 @@ function sintomaticos_respiratorios(action)
 
     if ($("#total_consultas_antepasado").val()!="")
         {
-            // Calculo de los Programados en SINTOMÁTICOS RESPIRATORIOS
+            tabla_1();
+            
+            tabla_2();
+            
+            tabla_3();
+            // Calculo de los Programados en CASOS NUEVOS BK POSITIVOS:
+            
+        }
+            
+            
+}
+
+function tabla1()
+{
+    // Calculo de los Programados en SINTOMÁTICOS RESPIRATORIOS
             porc_sint_resp= $("#total_consultas_antepasado").val()*$("#porc_sint_resp_pro").val()/100;
             trimestres_sint_resp = Math.round(porc_sint_resp/4);
             $("#sint_ident_1").text(trimestres_sint_resp);
@@ -339,30 +364,62 @@ function sintomaticos_respiratorios(action)
             $("#sint_ident_3").text(trimestres_sint_resp);
             $("#sint_ident_4").text(trimestres_sint_resp);
             
-            porc_sint_resp_ident_1 = $("#ident_1").val() * 100 / trimestres_sint_resp;
-            porc_sint_resp_ident_2 = $("#ident_2").val() * 100 / trimestres_sint_resp;
-            porc_sint_resp_ident_3 = $("#ident_3").val() * 100 / trimestres_sint_resp;
-            porc_sint_resp_ident_4 = $("#ident_4").val() * 100 / trimestres_sint_resp;
+            porc_sint_resp_ident_1 = Math.round($("#ident_1").val() * 100 / trimestres_sint_resp);
+            porc_sint_resp_ident_2 = Math.round($("#ident_2").val() * 100 / trimestres_sint_resp);
+            porc_sint_resp_ident_3 = Math.round($("#ident_3").val() * 100 / trimestres_sint_resp);
+            porc_sint_resp_ident_4 = Math.round($("#ident_4").val() * 100 / trimestres_sint_resp);
             
             $("#porc_sint_ident_1").text(porc_sint_resp_ident_1);
             $("#porc_sint_ident_2").text(porc_sint_resp_ident_2);
             $("#porc_sint_ident_3").text(porc_sint_resp_ident_3);
             $("#porc_sint_ident_4").text(porc_sint_resp_ident_4);
+}
+
+function tabla2()
+{
+    // Calculo de la tabla 2
+            $("#sint_exam_1").text($("#ident_1").val());
+            $("#sint_exam_2").text($("#ident_2").val());
+            $("#sint_exam_3").text($("#ident_3").val());
+            $("#sint_exam_4").text($("#ident_4").val());
             
-            // Calculo de los Programados en CASOS NUEVOS BK POSITIVOS:
+            porc_sint_resp_exam_1 = 0;
+            porc_sint_resp_exam_2 = 0;
+            porc_sint_resp_exam_3 = 0;
+            porc_sint_resp_exam_4 = 0;
             
-            porc_casos_nuevos_bk_pos = porc_sint_resp * $("#porc_sint_resp_pro_bk_pl").val() / 100;
+            if ($("#sint_exam_1").val() > 0 )
+            porc_sint_resp_exam_1 = Math.round($("#exam_1").val() * 100 / $("#sint_exam_1").val());
+            if ($("#sint_exam_2").val() > 0 )
+            porc_sint_resp_exam_2 = Math.round($("#exam_2").val() * 100 / $("#sint_exam_2").val());
+            if ($("#sint_exam_3").val() > 0 )
+            porc_sint_resp_exam_3 = Math.round($("#exam_3").val() * 100 / $("#sint_exam_3").val());
+            if ($("#sint_exam_4").val() > 0 )
+            porc_sint_resp_exam_4 = Math.round($("#exam_4").val() * 100 / $("#sint_exam_4").val());
+            
+            $("#porc_sint_ident_1").text(porc_sint_resp_exam_1);
+            $("#porc_sint_ident_2").text(porc_sint_resp_exam_2);
+            $("#porc_sint_ident_3").text(porc_sint_resp_exam_3);
+            $("#porc_sint_ident_4").text(porc_sint_resp_exam_4);
+}
+
+function tabla3()
+{
+    // Calculo de la tabla 2
+            porc_casos_nuevos_bk_pos = ($("#total_consultas_antepasado").val()*$("#porc_sint_resp_pro").val()/100) * $("#porc_sint_resp_pro_bk_pl").val() / 100;
             trimestre_caso_nuevo_bk = Math.round(porc_casos_nuevos_bk_pos/4);
             $("#caso_nuevo_bk_1").text(trimestre_caso_nuevo_bk);
             $("#caso_nuevo_bk_2").text(trimestre_caso_nuevo_bk);
             $("#caso_nuevo_bk_3").text(trimestre_caso_nuevo_bk);
             $("#caso_nuevo_bk_4").text(trimestre_caso_nuevo_bk);
             
-        }
-        else
-            {
-                
-            }
-            
+            porc_caso_nuevo_bk_1 = Math.round($("#caso_nuevo_bk_1").val() * 100 / trimestre_caso_nuevo_bk);
+            porc_caso_nuevo_bk_2 = Math.round($("#caso_nuevo_bk_2").val() * 100 / trimestre_caso_nuevo_bk);
+            porc_caso_nuevo_bk_3 = Math.round($("#caso_nuevo_bk_3").val() * 100 / trimestre_caso_nuevo_bk);
+            porc_caso_nuevo_bk_4 = Math.round($("#caso_nuevo_bk_4").val() * 100 / trimestre_caso_nuevo_bk);
+            $("porc_caso_nuevo_bk_1").val(porc_caso_nuevo_bk_1);
+            $("porc_caso_nuevo_bk_2").val(porc_caso_nuevo_bk_2);
+            $("porc_caso_nuevo_bk_3").val(porc_caso_nuevo_bk_3);
+            $("porc_caso_nuevo_bk_4").val(porc_caso_nuevo_bk_4);
             
 }
