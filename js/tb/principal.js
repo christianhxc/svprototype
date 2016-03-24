@@ -334,11 +334,20 @@ function sintomaticos_respiratorios(action)
             // Calculo de los Programados en SINTOMÁTICOS RESPIRATORIOS
             porc_sint_resp= $("#total_consultas_antepasado").val()*$("#porc_sint_resp_pro").val()/100;
             trimestres_sint_resp = Math.round(porc_sint_resp/4);
-            $("#sint_prog_1").text(trimestres_sint_resp);
-            $("#sint_prog_2").text(trimestres_sint_resp);
-            $("#sint_prog_3").text(trimestres_sint_resp);
-            $("#sint_prog_4").text(trimestres_sint_resp);
+            $("#sint_ident_1").text(trimestres_sint_resp);
+            $("#sint_ident_2").text(trimestres_sint_resp);
+            $("#sint_ident_3").text(trimestres_sint_resp);
+            $("#sint_ident_4").text(trimestres_sint_resp);
             
+            porc_sint_resp_ident_1 = $("#ident_1").val() * 100 / trimestres_sint_resp;
+            porc_sint_resp_ident_2 = $("#ident_2").val() * 100 / trimestres_sint_resp;
+            porc_sint_resp_ident_3 = $("#ident_3").val() * 100 / trimestres_sint_resp;
+            porc_sint_resp_ident_4 = $("#ident_4").val() * 100 / trimestres_sint_resp;
+            
+            $("#porc_sint_ident_1").text(porc_sint_resp_ident_1);
+            $("#porc_sint_ident_2").text(porc_sint_resp_ident_2);
+            $("#porc_sint_ident_3").text(porc_sint_resp_ident_3);
+            $("#porc_sint_ident_4").text(porc_sint_resp_ident_4);
             
             // Calculo de los Programados en CASOS NUEVOS BK POSITIVOS:
             

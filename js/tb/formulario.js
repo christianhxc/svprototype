@@ -2903,6 +2903,7 @@ function otroWRD(){
     else{
         if (otrorx == "1" && $("#drpres_WRD").val() == "2") { 
             $("#tdMTBdet").show();
+            $("#drpres_rifampicina").show();
         } else
         {
             $("#drpres_rifampicina").val("");
