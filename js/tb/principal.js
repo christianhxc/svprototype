@@ -425,4 +425,5 @@ function tabla_3()
             $("porc_caso_nuevo_bk_4").text(porc_caso_nuevo_bk_4.toString());
             
             
+            
 }
