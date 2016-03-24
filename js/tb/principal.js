@@ -8,9 +8,9 @@ $(document).ready(function() {
 
 
     $("#total_consultas_antepasado").change(function(){
-        tabla1();
-        tabla2();
-        tabla3();
+        tabla_1();
+        tabla_2();
+        tabla_3();
     });
     $("#anio").change(function(){
         if ($(this).val() == "")  clearForm();
@@ -355,6 +355,7 @@ function sintomaticos_respiratorios(action)
             
 }
 
+
 function tabla_1()
 {
     // Calculo de los Programados en SINTOMÁTICOS RESPIRATORIOS
@@ -370,10 +371,10 @@ function tabla_1()
             porc_sint_resp_ident_3 = Math.round($("#ident_3").val() * 100 / trimestres_sint_resp);
             porc_sint_resp_ident_4 = Math.round($("#ident_4").val() * 100 / trimestres_sint_resp);
             
-            $("#porc_sint_ident_1").text(porc_sint_resp_ident_1);
-            $("#porc_sint_ident_2").text(porc_sint_resp_ident_2);
-            $("#porc_sint_ident_3").text(porc_sint_resp_ident_3);
-            $("#porc_sint_ident_4").text(porc_sint_resp_ident_4);
+            $("#porc_sint_ident_1").text(porc_sint_resp_ident_1.toString());
+            $("#porc_sint_ident_2").text(porc_sint_resp_ident_2.toString());
+            $("#porc_sint_ident_3").text(porc_sint_resp_ident_3.toString());
+            $("#porc_sint_ident_4").text(porc_sint_resp_ident_4.toString());
 }
 
 function tabla_2()
@@ -398,10 +399,10 @@ function tabla_2()
             if ($("#sint_exam_4").val() > 0 )
             porc_sint_resp_exam_4 = Math.round($("#exam_4").val() * 100 / $("#sint_exam_4").val());
             
-            $("#porc_sint_ident_1").text(porc_sint_resp_exam_1);
-            $("#porc_sint_ident_2").text(porc_sint_resp_exam_2);
-            $("#porc_sint_ident_3").text(porc_sint_resp_exam_3);
-            $("#porc_sint_ident_4").text(porc_sint_resp_exam_4);
+            $("#porc_sint_ident_1").text(porc_sint_resp_exam_1.toString());
+            $("#porc_sint_ident_2").text(porc_sint_resp_exam_2.toString());
+            $("#porc_sint_ident_3").text(porc_sint_resp_exam_3.toString());
+            $("#porc_sint_ident_4").text(porc_sint_resp_exam_4.toString());
 }
 
 function tabla_3()
