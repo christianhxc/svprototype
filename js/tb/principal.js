@@ -8,9 +8,9 @@ $(document).ready(function() {
 
 
     $("#total_consultas_antepasado").change(function(){
-        tabla1();
-        tabla2();
-        tabla3();
+        tabla_1();
+        tabla_2();
+        tabla_3();
     });
     $("#anio").change(function(){
         if ($(this).val() == "")  clearForm();
@@ -354,6 +354,7 @@ function sintomaticos_respiratorios(action)
             
             
 }
+
 
 function tabla_1()
 {
