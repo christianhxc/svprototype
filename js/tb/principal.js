@@ -307,23 +307,33 @@ function sintomaticos_respiratorios(action)
                    return;
                }
                activeForm();
-               $("#id_tb_inicio").val(data.id_tb_inicio);
-               $("#total_consultas_antepasado").val(data.total_consultas_medicas);
-               
-               $("#bk_1").val(data.CNBKP_1);
-               $("#bk_2").val(data.CNBKP_2);
-               $("#bk_3").val(data.CNBKP_3);
-               $("#bk_4").val(data.CNBKP_4);
-               
-               $("#exam_1").val(data.SRC_1);
-               $("#exam_2").val(data.SRC_2);
-               $("#exam_3").val(data.SRC_3);
-               $("#exam_4").val(data.SRC_4);
-               
-               $("#ident_1").val(data.SRId_1);
-               $("#ident_2").val(data.SRId_2);
-               $("#ident_3").val(data.SRId_3);
-               $("#ident_4").val(data.SRId_4);
+                $("#id_tb_inicio").val(data.id_tb_inicio);
+                $("#total_consultas_antepasado").val(data.total_consultas_medicas);
+
+                $("#bk_1").val(data.CNBKP_1);
+                $("#bk_2").val(data.CNBKP_2);
+                $("#bk_3").val(data.CNBKP_3);
+                $("#bk_4").val(data.CNBKP_4);
+
+                $("#exam_1").val(data.SRC_1);
+                $("#exam_2").val(data.SRC_2);
+                $("#exam_3").val(data.SRC_3);
+                $("#exam_4").val(data.SRC_4);
+
+                $("#ident_1").val(data.SRId_1);
+                $("#ident_2").val(data.SRId_2);
+                $("#ident_3").val(data.SRId_3);
+                $("#ident_4").val(data.SRId_4);
+
+                if ($("#total_consultas_antepasado").val() != "")
+                {
+                    tabla_1();
+
+                    tabla_2();
+
+                    tabla_3();
+
+                }
                
             } else if ($("#act").val() == "G"){
                 
@@ -340,16 +350,7 @@ function sintomaticos_respiratorios(action)
         } 
     });
 
-    if ($("#total_consultas_antepasado").val()!="")
-        {
-            tabla_1();
-            
-            tabla_2();
-            
-            tabla_3();
-            // Calculo de los Programados en CASOS NUEVOS BK POSITIVOS:
-            
-        }
+
             
             
 }
