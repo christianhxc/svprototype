@@ -682,6 +682,10 @@ $(document).ready(function() {
            }
    });
    
+   $("#drpres_VIH").change(function(){
+          drpres_VIH_func();
+   });
+   
     $("#evaluados5min").change(function(){
        if ($("#identificados5min").val() == ""){
            alert ("Ingrese antes el valor de 'Total de contactos identificados'");
