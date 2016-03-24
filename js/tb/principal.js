@@ -422,8 +422,5 @@ function tabla_3()
             $("porc_caso_nuevo_bk_1").text(porc_caso_nuevo_bk_1.toString());
             $("porc_caso_nuevo_bk_2").text(porc_caso_nuevo_bk_2.toString());
             $("porc_caso_nuevo_bk_3").text(porc_caso_nuevo_bk_3.toString());
-            $("porc_caso_nuevo_bk_4").text(porc_caso_nuevo_bk_4.toString());
-            
-            
-            
+            $("porc_caso_nuevo_bk_4").text(porc_caso_nuevo_bk_4.toString());    
 }
