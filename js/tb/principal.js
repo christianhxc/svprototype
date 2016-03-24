@@ -390,14 +390,14 @@ function tabla_2()
             porc_sint_resp_exam_3 = 0;
             porc_sint_resp_exam_4 = 0;
             
-            if ($("#sint_exam_1").val() > 0 )
-            porc_sint_resp_exam_1 = Math.round($("#exam_1").val() * 100 / $("#sint_exam_1").val());
-            if ($("#sint_exam_2").val() > 0 )
-            porc_sint_resp_exam_2 = Math.round($("#exam_2").val() * 100 / $("#sint_exam_2").val());
-            if ($("#sint_exam_3").val() > 0 )
-            porc_sint_resp_exam_3 = Math.round($("#exam_3").val() * 100 / $("#sint_exam_3").val());
-            if ($("#sint_exam_4").val() > 0 )
-            porc_sint_resp_exam_4 = Math.round($("#exam_4").val() * 100 / $("#sint_exam_4").val());
+            if (parseInt($("#sint_exam_1").text()) > 0 )
+            porc_sint_resp_exam_1 = Math.round($("#exam_1").val() * 100 / parseInt($("#sint_exam_1").text()));
+            if (parseInt($("#sint_exam_2").text()) > 0 )
+            porc_sint_resp_exam_2 = Math.round($("#exam_2").val() * 100 / parseInt($("#sint_exam_2").text()));
+            if (parseInt($("#sint_exam_3").text()) > 0 )
+            porc_sint_resp_exam_3 = Math.round($("#exam_3").val() * 100 / parseInt($("#sint_exam_3").text()));
+            if (parseInt($("#sint_exam_4").text()) > 0 )
+            porc_sint_resp_exam_4 = Math.round($("#exam_4").val() * 100 / $("#sint_exam_4").text());
             
             $("#porc_sint_ident_1").text(porc_sint_resp_exam_1.toString());
             $("#porc_sint_ident_2").text(porc_sint_resp_exam_2.toString());
@@ -415,10 +415,10 @@ function tabla_3()
             $("#caso_nuevo_bk_3").text(trimestre_caso_nuevo_bk);
             $("#caso_nuevo_bk_4").text(trimestre_caso_nuevo_bk);
             
-            porc_caso_nuevo_bk_1 = Math.round($("#caso_nuevo_bk_1").val() * 100 / trimestre_caso_nuevo_bk);
-            porc_caso_nuevo_bk_2 = Math.round($("#caso_nuevo_bk_2").val() * 100 / trimestre_caso_nuevo_bk);
-            porc_caso_nuevo_bk_3 = Math.round($("#caso_nuevo_bk_3").val() * 100 / trimestre_caso_nuevo_bk);
-            porc_caso_nuevo_bk_4 = Math.round($("#caso_nuevo_bk_4").val() * 100 / trimestre_caso_nuevo_bk);
+            porc_caso_nuevo_bk_1 = Math.round(parseInt($("#caso_nuevo_bk_1").text()) * 100 / trimestre_caso_nuevo_bk);
+            porc_caso_nuevo_bk_2 = Math.round(parseInt($("#caso_nuevo_bk_2").text()) * 100 / trimestre_caso_nuevo_bk);
+            porc_caso_nuevo_bk_3 = Math.round(parseInt($("#caso_nuevo_bk_3").text()) * 100 / trimestre_caso_nuevo_bk);
+            porc_caso_nuevo_bk_4 = Math.round(parseInt($("#caso_nuevo_bk_4").text()) * 100 / trimestre_caso_nuevo_bk);
             $("porc_caso_nuevo_bk_1").val(porc_caso_nuevo_bk_1);
             $("porc_caso_nuevo_bk_2").val(porc_caso_nuevo_bk_2);
             $("porc_caso_nuevo_bk_3").val(porc_caso_nuevo_bk_3);
