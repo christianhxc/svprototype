@@ -5,8 +5,6 @@ $(document).ready(function() {
 
 //    <!-- Calculos automaticos -->
 
-
-
     $("#total_consultas_antepasado").change(function(){
         tabla_1();
         tabla_2();
@@ -22,6 +20,14 @@ $(document).ready(function() {
     
     $("#ident_1, #ident_2, #ident_3, #ident_4").change(function(){
         tabla_1();
+    });
+    
+    $("#exam_1, #exam_2, #exam_3, #exam_4").change(function(){
+        tabla_2();
+    });
+    
+    $("#bk_1, #bk_2, #bk_3, #bk_4").change(function(){
+        tabla_3();
     });
     
     $("#drpCorIndividuo").change(function(){
@@ -415,10 +421,10 @@ function tabla_3()
             $("#caso_nuevo_bk_3").text(trimestre_caso_nuevo_bk);
             $("#caso_nuevo_bk_4").text(trimestre_caso_nuevo_bk);
             
-            porc_caso_nuevo_bk_1 = Math.round(parseInt($("#bk_1").text()) * 100 / trimestre_caso_nuevo_bk);
-            porc_caso_nuevo_bk_2 = Math.round(parseInt($("#bk_2").text()) * 100 / trimestre_caso_nuevo_bk);
-            porc_caso_nuevo_bk_3 = Math.round(parseInt($("#bk_3").text()) * 100 / trimestre_caso_nuevo_bk);
-            porc_caso_nuevo_bk_4 = Math.round(parseInt($("#bk_4").text()) * 100 / trimestre_caso_nuevo_bk);
+            porc_caso_nuevo_bk_1 = Math.round(parseInt($("#bk_1").val()) * 100 / trimestre_caso_nuevo_bk);
+            porc_caso_nuevo_bk_2 = Math.round(parseInt($("#bk_2").val()) * 100 / trimestre_caso_nuevo_bk);
+            porc_caso_nuevo_bk_3 = Math.round(parseInt($("#bk_3").val()) * 100 / trimestre_caso_nuevo_bk);
+            porc_caso_nuevo_bk_4 = Math.round(parseInt($("#bk_4").val()) * 100 / trimestre_caso_nuevo_bk);
             $("porc_caso_nuevo_bk_1").text(porc_caso_nuevo_bk_1.toString());
             $("porc_caso_nuevo_bk_2").text(porc_caso_nuevo_bk_2.toString());
             $("porc_caso_nuevo_bk_3").text(porc_caso_nuevo_bk_3.toString());
