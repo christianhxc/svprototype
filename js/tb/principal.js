@@ -354,7 +354,7 @@ function sintomaticos_respiratorios(action)
             
 }
 
-function tabla1()
+function tabla_1()
 {
     // Calculo de los Programados en SINTOMÁTICOS RESPIRATORIOS
             porc_sint_resp= $("#total_consultas_antepasado").val()*$("#porc_sint_resp_pro").val()/100;
@@ -375,7 +375,7 @@ function tabla1()
             $("#porc_sint_ident_4").text(porc_sint_resp_ident_4);
 }
 
-function tabla2()
+function tabla_2()
 {
     // Calculo de la tabla 2
             $("#sint_exam_1").text($("#ident_1").val());
@@ -403,7 +403,7 @@ function tabla2()
             $("#porc_sint_ident_4").text(porc_sint_resp_exam_4);
 }
 
-function tabla3()
+function tabla_3()
 {
     // Calculo de la tabla 2
             porc_casos_nuevos_bk_pos = ($("#total_consultas_antepasado").val()*$("#porc_sint_resp_pro").val()/100) * $("#porc_sint_resp_pro_bk_pl").val() / 100;
