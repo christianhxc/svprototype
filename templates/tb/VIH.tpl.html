@@ -1,5 +1,5 @@
                 <fieldset id="field_sin_prueba" class="ui-widget ui-widget-content ui-corner-all">
-                    <legend>Paciente sin prueba de VIH previa</legend>
+                    <legend><div id="pruebaVIHLabelneg_des"></div></legend>
                     <table dalign="center" border="0" cellpadding="2" cellspacing="2" id="alert_VIH">
                         <tbody>
                             <tr>
@@ -15,7 +15,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <label>Se solicit&oacute; la prueba VIH:</label>&nbsp;&nbsp;
+                                    <label>Se solicit&oacute; nueva la prueba VIH:</label>&nbsp;&nbsp;
                                 </td>
                                 <td>
                                     <select id="drpsolicitud_VIH" name="data[VIH][solicitud_VIH]" >
@@ -78,7 +78,7 @@
                                     <label>Terapia cotrimoxazol:</label>&nbsp;&nbsp;
                                 </td>
                                 <td>
-                                    <select id="drpcotrimoxazol" name="data[VIH][cotrimoxazol]" >
+                                    <select id="c" name="data[VIH][cotrimoxazol]" >
                                         <option selected value="">Sel...</option>
                                         <option value="1" {selCotri_VIH1}>Si</option>
                                         <option value="0" {selCotri_VIH0}>No</option>
@@ -150,11 +150,11 @@
                     <div style="font-size:9px;"><spam style="color:red;">TARV:</spam> Terapia antirretroviral</div>
                 </fieldset>
                 <fieldset id="field_prueba" class="ui-widget ui-widget-content ui-corner-all">
-                    <legend>Paciente con prueba de VIH previa <input id="pruebaVIHLabel"></input></legend>
+                    <legend>Paciente con prueba de VIH previa (positiva) </legend>
                     <table dalign="center" border="0" cellpadding="2" cellspacing="2">
                         <tbody>
                             
-                            <tr>
+                            <!-- tr>
                                 <td><label>Fecha de prueba:</label></td>
                                 <td>
                                     <input id="fecha_prueba_VIH_con" name="data[VIH][fecha_prueba_VIH]" value="{valFechaPruebaVIH}" style="width: 100px;" maxlength="10"  type="text">
@@ -186,7 +186,7 @@
                                 </td>
                                 <td>
                                 </td>
-                            </tr>
+                            </tr -->
                             <tr>
                                 <td>
                                     <label>Terapia cotrimoxazol:</label>&nbsp;&nbsp;

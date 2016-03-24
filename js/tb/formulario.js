@@ -2277,9 +2277,11 @@ function TB_VIH(){
         
     }
     else{
-        $( "#field_sin_prueba" ).css( "display", "" );
-        $( "#field_prueba" ).css( "display", "none" );
-        $( "#field_prueba_no" ).css( "display", "none" );
+        $( "#field_sin_prueba" ).show();
+        if (Prueba_VIH == 2) $("pruebaVIHLabelneg_des").text("Paciente con resultado desconocido o sin prueba de VIH")
+        else $("pruebaVIHLabelneg_des").text("Paciente con prueba de VIH previa (negativa)");
+        $( "#field_prueba" ).hide();
+        $( "#field_prueba_no" ).hide();
         $("#td_label_fecha_VIH, #td_fecha_VIH").show();
         
     }
@@ -2465,6 +2467,27 @@ function Ref_Trat_Fam(){
     
 }
 
+
+function drpres_VIH_func(){
+    drpres_VIH_ = $('#drpres_VIH').val();
+    if(drpres_VIH_ == "0"){
+        $("#drpaseso_VIH").attr("disabled",true);
+        $("#drpcotrimoxazol").val("");
+        $("#drpcotrimoxazol").attr("disabled",true);
+        $("#drpTARV").val("");
+        $("#drpTARV").attr("disabled",true); 
+        $("#drpinicio_TARV").val("");
+        $("#drpinicio_TARV").attr("disabled",true);
+    }else{
+        $("#drpaseso_VIH").attr("disabled",false);
+        $("#drpcotrimoxazol").attr("disabled",false);
+        $("#drpTARV").attr("disabled",false);
+        $("#drpinicio_TARV").attr("disabled",false);
+        
+    }
+    
+    
+}
 
 function Tab_VIH(){
     Tab_VIH_ = $('#drpsolicitud_VIH').val();
