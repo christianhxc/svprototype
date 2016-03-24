@@ -424,4 +424,5 @@ function tabla_3()
             $("porc_caso_nuevo_bk_3").val(porc_caso_nuevo_bk_3);
             $("porc_caso_nuevo_bk_4").val(porc_caso_nuevo_bk_4);
             
+            
 }
