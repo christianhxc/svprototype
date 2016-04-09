@@ -326,3 +326,6 @@ INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_g
 INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('124', '38', '4');
 INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('124', '38', '5');
 INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_grupo`, `idaccion`) VALUES ('4', '38', '1');
+
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `factor_nombre`='Materno Infantil' WHERE `id_factor`='18';
+
