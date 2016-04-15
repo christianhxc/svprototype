@@ -451,6 +451,20 @@ class helperCatalogos {
         return $data;
     }
 
+    public static function getEventosAutoVih($search) {
+        $sql = "select id_evento, nombre_evento, cie_10_1, cie_10_2, cie_10_3, cie_10_4, cie_10_5, cod_ref_minsa from cat_evento
+                where activo = 1 and (nombre_evento like '%" . $search . "%'
+                or cie_10_1 like '%" . $search . "%') and vih = 1 order by nombre_evento asc";
+        $conn = new Connection();
+        $conn->initConn();
+        $conn->prepare($sql);
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+
+        return $data;
+    }
+
     // Obtiene los eventos del área de análisis seleccionada
     public static function getEventosAutoJ($search) {
         $sql = "select id_evento, nombre_evento, cie_10_1, cie_10_2, cie_10_3, cie_10_4, cie_10_5, cod_ref_minsa from cat_evento

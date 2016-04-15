@@ -473,7 +473,7 @@ $(document).ready(function() {
         autoFill:false
     });
     
-    $( "#enfOportunista" ).autocomplete(urlprefix + "js/dynamic/eventos.php",
+    $( "#enfOportunista" ).autocomplete(urlprefix + "js/dynamic/eventosVih.php",
     {
         delay:10,
         minChars:3,
