@@ -329,3 +329,32 @@ INSERT INTO `caus_sisvig`.`tbl_seccion_usuario_grupo` (`idseccion`, `idusuario_g
 
 UPDATE `sisvigdb`.`cat_factor_riesgo` SET `factor_nombre`='Materno Infantil' WHERE `id_factor`='18';
 
+ALTER TABLE `sisvigdb`.`cat_evento`  ADD COLUMN `vih` INT(2) NULL AFTER `cod_ref_minsa`;
+
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23889';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23890';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23891';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23892';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23893';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23894';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23895';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23897';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23898';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23899';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23900';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23901';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23902';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23903';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23904';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23905';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23906';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23907';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23908';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23909';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23910';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23911';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23912';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23913';
+UPDATE `sisvigdb`.`cat_evento` SET `vih`='1' WHERE `id_evento`='23914';
+INSERT INTO `sisvigdb`.`cat_evento` (`nombre_evento`, `cie_10_1`, `cod_ref_minsa`, `vih`) VALUES ('Enfermedad por virus de la inmunodeficiencia humana [VIH], resultante en enfermedades ­infecciosas y parasitarias', 'B20', 'B20', '1');
+UPDATE `sisvigdb`.`cat_evento` SET `activo`='1' WHERE `id_evento`='37097';

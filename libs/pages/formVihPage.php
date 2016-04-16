@@ -305,6 +305,9 @@ class formVih extends page {
                 case '3':
                     $this->tpl->setVariable('selItsUltimoDesc', 'selected="selected"');
                     break;
+                case '4':
+                    $this->tpl->setVariable('selItsUltimoNA', 'selected="selected"');
+                    break;
             }
             if($this->config['read']['comp_its_ultimo']==1){
                 $ulcerativa = $this->config['read']['comp_its_ulcerativa'];
@@ -345,6 +348,9 @@ class formVih extends page {
                 case '3':
                     $this->tpl->setVariable('selTrabajoSexualDesc', 'selected="selected"');
                     break;
+                case '4':
+                    $this->tpl->setVariable('selTrabajoSexualNA', 'selected="selected"');
+                    break;
             }
             
             $donante = $this->config['read']['comp_donante_sangre'];
@@ -371,6 +377,9 @@ class formVih extends page {
                     break;
                 case '3':
                     $this->tpl->setVariable('selPresoDesc', 'selected="selected"');
+                    break;
+                case '4':
+                    $this->tpl->setVariable('selPresoNA', 'selected="selected"');
                     break;
             }
             $embarazada= $this->config['read']['comp_embarazada'];

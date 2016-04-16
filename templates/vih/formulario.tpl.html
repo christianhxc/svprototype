@@ -399,13 +399,14 @@
                             <td colspan="4"><label ><br/>DATOS DE COMPORTAMIENTO:</label></td>
                         </tr>
                         <tr>
-                            <td ><label >ITS en el &uacute;ltimo a&ntilde;o?:</label></td>
+                            <td ><label >ITS en el &uacute;ltimo a&ntilde;o:</label></td>
                             <td colspan="3">
                                 <select id="drpItsUltimo" name="data[individuo][itsUltimo]" onchange="ulcerativa()">
                                     <option value="0">Sel...</option>
                                     <option value="1" {selItsUltimoSi}>Si</option>
                                     <option value="2" {selItsUltimoNo}>No</option>
                                     <option value="3" {selItsUltimoDesc}>Desc</option>
+                                    <option value="4" {selItsUltimoNA}>No Aplica</option>
                                 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <input type="checkbox" class="check_its" name="data[individuo][comp_its_sifilis]" {valItsSifilis}/> <label class="check_its">Sifilis</label>
                                 <input type="checkbox" class="check_its" name="data[individuo][comp_its_gonorrea]" {valItsGonorrea}/> <label class="check_its">Gonorrea</label>
@@ -439,6 +440,7 @@
                                     <option value="1" {selTrabajoSexualSi}>Si</option>
                                     <option value="2" {selTrabajoSexualNo}>No</option>
                                     <option value="3" {selTrabajoSexualDesc}>Desc</option>
+                                    <option value="4" {selTrabajoSexualNA}>No Aplica</option>
                                 </select>
                             </td>
                             <td colspan="2" >
@@ -448,6 +450,7 @@
                                     <option value="1" {selPresoSi}>Si</option>
                                     <option value="2" {selPresoNo}>No</option>
                                     <option value="3" {selPresoDesc}>Desc</option>
+                                    <option value="4" {selPresoNA}>No Aplica</option>
                                 </select>
                             </td>
                         </tr>
