@@ -292,6 +292,12 @@ class formVih extends page {
             
             $this->tpl->setVariable('valIdentificador', $this->config['read']['numero_identificacion']);
             $this->tpl->setVariable('valReadOnly', 'readonly="readonly" disabled="disabled"');
+            if ($this->config["read"]["tipo_identificacion"]==1) {
+                $arrayIdentificador = explode("-", $this->config['read']['numero_identificacion']);
+                $this->tpl->setVariable('valIdentificador1', $arrayIdentificador[0]);
+                $this->tpl->setVariable('valIdentificador2', $arrayIdentificador[1]);
+                $this->tpl->setVariable('valIdentificador3', $arrayIdentificador[2]);
+            }
             
             //Datos de comportamiento 
             $ultimoIts = $this->config['read']['comp_its_ultimo'];

@@ -419,6 +419,7 @@ $(document).ready(function() {
     llenarEnfOportunistas();
     iniciaDatosComportamiento();
     iniciarDatosCondicionPaciente();
+    setTipoId();
     // Popup de búsqueda
     $( "#dialog:ui-dialog" ).dialog( "destroy" );
     
@@ -747,7 +748,25 @@ function individuo(tipoId,idP)
             {
                 $("#drpTipoId").val(replace(partes[0]));
                 $("#tipoId").val(replace(partes[0]));
-                $("#no_identificador").val(replace(partes[1]));
+
+                if (partes[0]==1){
+                    $arrayIdentificador = partes[1].split("-");
+                    $("#no_identificador1").val($arrayIdentificador[0]);
+                    $("#no_identificador2").val($arrayIdentificador[1]);
+                    $("#no_identificador3").val($arrayIdentificador[2]);
+                    $('#no_identificador1').attr('readonly', true);
+                    $('#no_identificador1').attr('disabled', 'disabled');
+                    $('#no_identificador2').attr('readonly', true);
+                    $('#no_identificador2').attr('disabled', 'disabled');
+                    $('#no_identificador3').attr('readonly', true);
+                    $('#no_identificador3').attr('disabled', 'disabled');
+                }
+                else{
+                    $("#no_identificador").val(replace(partes[1]));
+                    $('#no_identificador').attr('readonly', true);
+                    $('#no_identificador').attr('disabled', 'disabled');
+                }
+                setTipoId();
                
                 $("#primer_nombre").val(replace(partes[2]));
                 $("#segundo_nombre").val(replace(partes[3]));
@@ -827,6 +846,10 @@ function borrarIndividuo()
     $("#aseguradoDesc").attr('checked',false);
     $("#drpTipoId").val(0);
     $("#no_identificador").val("");
+    $("#no_identificador1").val("");
+    $("#no_identificador2").val("");
+    $("#no_identificador3").val("");
+    setTipoId();
 
     $("#primer_nombre").val("");
     $("#segundo_nombre").val("");
@@ -1188,8 +1211,14 @@ function validarVih(){
     if($("#drpTipoId").val()==0){
         ErroresI+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe seleccionar el tipo de identificador."; 
     }
-    if(jQuery.trim($("#no_identificador").val())=="")
-        ErroresI+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el n&uacute;mero identificador.";
+    if($("#drpTipoId").val() == 1){
+        if(jQuery.trim($("#no_identificador1").val())=="" || jQuery.trim($("#no_identificador2").val())=="" || jQuery.trim($("#no_identificador3").val())=="" )
+            ErroresI+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el n&uacute;mero identificador en las 3 casillas.";
+    }
+    else{
+        if(jQuery.trim($("#no_identificador").val())=="")
+            ErroresI+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el n&uacute;mero identificador.";
+    }
     if(jQuery.trim($("#primer_nombre").val())=="")
         ErroresI+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe ingresar el primer nombre.";
     if(jQuery.trim($("#primer_apellido").val())=="")
@@ -1302,6 +1331,12 @@ function validarVih(){
             $('#drpTipoId').attr('disabled', '');
             $('#no_identificador').attr('readonly', false);
             $('#no_identificador').attr('disabled', '');
+            $('#no_identificador1').attr('readonly', false);
+            $('#no_identificador1').attr('disabled', '');
+            $('#no_identificador2').attr('readonly', false);
+            $('#no_identificador2').attr('disabled', '');
+            $('#no_identificador3').attr('readonly', false);
+            $('#no_identificador3').attr('disabled', '');
             $('#fecFormVih').attr('readonly', false);
             $('#fecFormVih').attr('disabled', '');
             $('#semanaEpi').attr('readonly', false);
@@ -1507,5 +1542,17 @@ function calcularEdadVih(fechaActual)
                 return edad;
             }
         }
+    }
+}
+
+function setTipoId(){
+    var tipo = $("#drpTipoId").val();
+    if (tipo != 1){
+        $("#divCedula1").show();
+        $("#divCedula2").hide();
+    }
+    else{
+        $("#divCedula1").hide();
+        $("#divCedula2").show();
     }
 }

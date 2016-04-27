@@ -141,6 +141,8 @@ class helperVih {
         $individuo = array();
         $individuo["id_tipo_identidad"] = (!isset($data["individuo"]["tipoId"]) ? NULL : $data["individuo"]["tipoId"]);
         $individuo["numero_identificacion"] = (!isset($data["individuo"]["identificador"]) ? NULL : $data["individuo"]["identificador"]);
+        if ($individuo["id_tipo_identidad"] == 1)
+            $individuo["numero_identificacion"] = $data["individuo"]["identificador1"]."-".$data["individuo"]["identificador2"]."-".$data["individuo"]["identificador3"];
 
         $individuo["primer_nombre"] = (!isset($data["individuo"]["primer_nombre"]) ? NULL : strtoupper($data["individuo"]["primer_nombre"]));
         $individuo["segundo_nombre"] = (!isset($data["individuo"]["segundo_nombre"]) ? NULL : strtoupper($data["individuo"]["segundo_nombre"]));
@@ -436,6 +438,9 @@ class helperVih {
         //Individuo
         $vih["id_tipo_identidad"] = (!isset($data["individuo"]["tipoId"]) ? NULL : $data["individuo"]["tipoId"]);
         $vih["numero_identificacion"] = (!isset($data["individuo"]["identificador"]) ? NULL : $data["individuo"]["identificador"]);
+        if ($vih["id_tipo_identidad"] == 1)
+            $vih["numero_identificacion"] = $data["individuo"]["identificador1"]."-".$data["individuo"]["identificador2"]."-".$data["individuo"]["identificador3"];
+
         $vih["per_asegurado"] = (!isset($data["individuo"]["asegurado"]) ? NULL : $data["individuo"]["asegurado"]);
         $vih["per_edad"] = (!isset($data["individuo"]["edad"]) ? NULL : $data["individuo"]["edad"]);
         $vih["per_tipo_edad"] = (!isset($data["individuo"]["tipo_edad"]) ? '4' : $data["individuo"]["tipo_edad"]);

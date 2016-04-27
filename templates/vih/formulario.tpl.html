@@ -146,7 +146,7 @@
                         <tr>
                             <td><label >Tipo Identificador:<span class="mandatory">*</span></label></td>
                             <td>
-                                <select id="drpTipoId" name="data[individuo][tipoId]" style="width:250px" {valReadOnly}>
+                                <select id="drpTipoId" name="data[individuo][tipoId]" style="width:250px" {valReadOnly} onchange="setTipoId()">
                                     <option value="0">Seleccione...</option>
                                     <!-- BEGIN blkTipoId -->
                                     <option value="{valTipoId}" {selTipoId}>{opcTipoId}</option>
@@ -155,7 +155,16 @@
                                 <input type="hidden" id="tipoId" name="data[loaded][tipoId]" value="{valTipoId}" />
                             </td>
                             <td><label >No. Identificador:<span class="mandatory">*</span></label></td>
-                            <td><input type="text" id="no_identificador" name="data[individuo][identificador]" value="{valIdentificador}" style="width: 300px; text-align:center;" maxlength="45" {valReadOnly}/></td>
+                            <td>
+                                <div id="divCedula1">
+                                    <input type="text" id="no_identificador" name="data[individuo][identificador]" value="{valIdentificador}" style="width: 300px; text-align:center;" maxlength="45" {valReadOnly}/>
+                                </div>
+                                <div id="divCedula2">
+                                    <input type="text" id="no_identificador1" name="data[individuo][identificador1]" value="{valIdentificador1}" style="width: 50px; text-align:center;" maxlength="4" {valReadOnly}/> -
+                                    <input type="text" id="no_identificador2" name="data[individuo][identificador2]" value="{valIdentificador2}" style="width: 50px; text-align:center;" maxlength="4" {valReadOnly}/> -
+                                    <input type="text" id="no_identificador3" name="data[individuo][identificador3]" value="{valIdentificador3}" style="width: 50px; text-align:center;" maxlength="4" {valReadOnly}/>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td><label >1er. Nombre:<span class="mandatory">*</span></label></td>
@@ -323,7 +332,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><label >Identidad de Genero:</label></td>
+                            <td><label >Identidad de Genero:<span class="mandatory">*</span></label></td>
                             <td >
                                 <select id="drpGenero" name="data[individuo][genero]" style="width:250px">
                                     <option value="0">Seleccione...</option>
@@ -332,7 +341,7 @@
                                     <!-- END blkGenero -->
                                 </select>
                             </td>
-                            <td><label >Etnia:</label></td>
+                            <td><label >Etnia:<span class="mandatory">*</span></label></td>
                             <td >
                                 <select id="drpEtnia" name="data[individuo][etnia]" style="width:300px" onChange="mostrarGrupoIndigena();">
                                     <option value="0">Seleccione...</option>
@@ -399,7 +408,7 @@
                             <td colspan="4"><label ><br/>DATOS DE COMPORTAMIENTO:</label></td>
                         </tr>
                         <tr>
-                            <td ><label >ITS en el &uacute;ltimo a&ntilde;o?:</label></td>
+                            <td ><label >ITS en el &uacute;ltimo a&ntilde;o?:<span class="mandatory">*</span></label></td>
                             <td colspan="3">
                                 <select id="drpItsUltimo" name="data[individuo][itsUltimo]" onchange="ulcerativa()">
                                     <option value="0">Sel...</option>
@@ -432,7 +441,7 @@
                                     <option value="3" {selCondonRelDesc}>Desc</option>
                                 </select>
                             </td>
-                            <td ><label >Trabajador(a) sexual:</label></td>
+                            <td ><label >Trabajador(a) sexual:<span class="mandatory">*</span></label></td>
                             <td>
                                 <select id="drpTrabajoSexual" name="data[individuo][trabajoSexual]">
                                     <option value="0">Sel...</option>
@@ -456,7 +465,7 @@
                         </tr>
                         <tr>
                             <td >
-                                <label >Don. de sangre:</label>
+                                <label >Don. de sangre:<span class="mandatory">*</span></label>
                                 <select id="drpDonante" name="data[individuo][donante]" onchange="donante()">
                                     <option value="0">Sel...</option>
                                     <option value="1" {selDonanteSi}>Si</option>
@@ -522,18 +531,18 @@
                     <legend>Modos de Transmision y Factores de Vulnerabilidad</legend>
                     <table width="100%">
                         <tr>
-                            <td width="50%"><strong>Modos de Transmision</strong></td>
-                            <td><strong>Factores de Vulnerabilidad</strong></td>
+                            <td width="50%"><strong>Modos de Transmision<span class="mandatory">*</span></strong></td>
+                            <td><strong>Factores de Vulnerabilidad<span class="mandatory">*</span></strong></td>
                         </tr>
                         <tr>
-                            <td>
+                            <td valign="top">
                                 <div>
                                     <!-- BEGIN blkFactoresModosVih -->
                                     <div><input type="checkbox" {chkFactorVih} {disableFactorVih} name="data[factores][modos][]" value="{id_factor}" id="factor_{id_factor}"/> {factor_nombre}</div>
                                     <!-- END blkFactoresModosVih -->
                                 </div>
                             </td>
-                            <td>
+                            <td valign="top">
                                 <div>
                                     <!-- BEGIN blkFactoresVih -->
                                     <div><input type="checkbox" {chkFactorVih} {disableFactorVih} name="data[factores][factores][]" value="{id_factor}"/> {factor_nombre}</div>
@@ -650,14 +659,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><label>Lugar diagn&oacute;stico VIH:</label></td>
-                            <td colspan="3"><input type="text" id="lugarDiagnostico" name="data[condicion][lugar_diagnostico]"  style="width:450px" value="{valLugarDiagnostico}"/></td>
-                        </tr>
-                        <tr>
-                            <td><label>Lugar diagn&oacute;stico SIDA:</label></td>
-                            <td colspan="3"><input type="text" id="lugarDiagnosticoSida" name="data[condicion][lugar_diagnostico_sida]"  style="width:450px" value="{valLugarDiagnosticoSida}"/></td>
-                        </tr>
-                        <tr>
                             <td><label>Recibe terapia antirretroviral (TAR):</label></td>
                             <td>
                                 <input type="radio" name="data[condicion][tar]" value="1" {valTar1} onchange="mostrarFechaTar()"/> No
@@ -702,23 +703,14 @@
                             <td colspan="2"></td>
                         </tr>
                         <tr >
-                            <td >Nombre del investigador VIH:<span class="mandatory"></span></td>
+                            <td >Nombre del investigador:<span class="mandatory"></span></td>
                             <td ><input type="text" id="nombreInvestigador" name="data[notificacion][nombreInvestigador]" style="width:100%" value="{valNombreInvestigador}" {esRegionalDisable}/></td>
-                            <td >Fecha notificaci&oacute;n:<span class="mandatory"></span></td>
+                            <td >Fecha notificaci&oacute;n:<span class="mandatory">*</span></td>
                             <td>
                                 <input type="text" id="fechaNotificacion" name="data[notificacion][fecha_notificacion]" value="{valFechaNotificacion}" style="width: 80px;" maxlength="10" {esRegionalDisable}/>
                                 
                                 <input type="hidden" name="data[notificacion][silab]" id="datoSilab" value="{valDatoSilab}" />
                                 <input type="hidden" name="data[notificacion][epiInfo]" id="datoEpiInfo" value="{valDatoEpiInfo}" />
-                            </td>
-                        </tr>
-
-                        <tr >
-                            <td >Nombre del investigador SIDA:<span class="mandatory"></span></td>
-                            <td ><input type="text" id="nombreInvestigadorsida" name="data[notificacion][nombreInvestigadorSida]" style="width:100%" value="{valNombreInvestigadorSida}" {esRegionalDisable}/></td>
-                            <td >Fecha notificaci&oacute;n:<span class="mandatory"></span></td>
-                            <td>
-                                <input type="text" id="fechaNotificacionSida" name="data[notificacion][fecha_notificacion_sida]" value="{valFechaNotificacionSida}" style="width: 80px;" maxlength="10" {esRegionalDisable}/>
                             </td>
                         </tr>
 
