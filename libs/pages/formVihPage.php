@@ -114,7 +114,8 @@ class formVih extends page {
                 $this->tpl->parse('blkGrupoIndigena');
             }
         }
-        
+
+        $this->tpl->setVariable("valTransexual".$this->config["read"]["transexual"], 'selected="selected"');
         $generos = $this->config["catalogos"]["genero"];
         if (is_array($generos)) {
             foreach ($generos as $genero) {

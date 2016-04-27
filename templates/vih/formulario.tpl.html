@@ -332,7 +332,14 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><label >Identidad de Genero:<span class="mandatory">*</span></label></td>
+                            <td><label>Transexual:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpTransexual" name="data[individuo][transexual]" style="width:250px" onchange="transexual()">
+                                    <option value="0" {valTransexual0}>No</option>
+                                    <option value="1" {valTransexual1}>Si</option>
+                                </select>
+                            </td>
+                            <td><label id="id_genero_lbl">Identidad de Genero:<span class="mandatory">*</span></label></td>
                             <td >
                                 <select id="drpGenero" name="data[individuo][genero]" style="width:250px">
                                     <option value="0">Seleccione...</option>
@@ -341,16 +348,29 @@
                                     <!-- END blkGenero -->
                                 </select>
                             </td>
+                        </tr>
+                        <tr>
                             <td><label >Etnia:<span class="mandatory">*</span></label></td>
                             <td >
-                                <select id="drpEtnia" name="data[individuo][etnia]" style="width:300px" onChange="mostrarGrupoIndigena();">
+                                <select id="drpEtnia" name="data[individuo][etnia]" style="width:250px" onChange="mostrarGrupoIndigena();">
                                     <option value="0">Seleccione...</option>
                                     <!-- BEGIN blkEtnia -->
                                     <option value="{valEtnia}" {selEtnia}>{opcEtnia}</option>
                                     <!-- END blkEtnia -->
                                 </select>
                             </td>
-                            
+                            <td><label >Estado Civil:<span class="mandatory">*</span></label></td>
+                            <td >
+                                <select id="drpEstadoCivil" name="data[individuo][estado_civil]" style="width:250px">
+                                    <option value="0">Seleccione...</option>
+                                    <option value="1" {selEstado1}>Soltero(a)</option>
+                                    <option value="2" {selEstado2}>Casado(a)</option>
+                                    <option value="3" {selEstado3}>Unido(a)</option>
+                                    <option value="4" {selEstado4}>Divorciado(a)</option>
+                                    <option value="4" {selEstado5}>Viudo(a)</option>
+                                    <option value="5" {selEstado6}>No especificado</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr id="tr_grupo_indigena" style="display: none">
                             <td></td>
@@ -367,21 +387,9 @@
 
                         </tr>
                         <tr>
-                            <td><label >Estado Civil:<span class="mandatory">*</span></label></td>
-                            <td >
-                                <select id="drpEstadoCivil" name="data[individuo][estado_civil]" style="width:250px">
-                                    <option value="0">Seleccione...</option>
-                                    <option value="1" {selEstado1}>Soltero(a)</option>
-                                    <option value="2" {selEstado2}>Casado(a)</option>
-                                    <option value="3" {selEstado3}>Unido(a)</option>
-                                    <option value="4" {selEstado4}>Divorciado(a)</option>
-                                    <option value="4" {selEstado5}>Viudo(a)</option>
-                                    <option value="5" {selEstado6}>No especificado</option>
-                                </select>
-                            </td>
                             <td><label >Escolaridad:<span class="mandatory">*</span></label></td>
                             <td >
-                                <select id="drpEscolaridad" name="data[individuo][escolaridad]" style="width:300px">
+                                <select id="drpEscolaridad" name="data[individuo][escolaridad]" style="width:250px">
                                     <option value="0">Seleccione...</option>
                                     <option value="9" {selEscolaridad8}>Ninguna</option>
                                     <option value="2" {selEscolaridad2}>Primaria Incompleta</option>
@@ -394,15 +402,12 @@
                                     <option value="8" {selEscolaridad9}>No especificada</option>
                                 </select>
                             </td>
-                        </tr>
-                        <tr>
                             <td ><label >Asegurado:<span class="mandatory">*</span></label></td>
                             <td>
                                 <label >Si</label><input class="normal" type="radio" id="aseguradoSi" name="data[individuo][asegurado]" value="1" {chkAseguradoSi}/ >
                                                          <label >No</label><input class="normal" type="radio" id="aseguradoNo" name="data[individuo][asegurado]" value="0" {chkAseguradoNo}/>
                                                          <label >Desconoce</label><input class="normal" type="radio" id="aseguradoDesc" name="data[individuo][asegurado]" value="2" {chkAseguradoDesc}/>
                             </td>
-                            <td colspan="2">&nbsp;</td>
                         </tr>
                         <tr>
                             <td colspan="4"><label ><br/>DATOS DE COMPORTAMIENTO:</label></td>

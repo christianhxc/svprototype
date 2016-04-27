@@ -250,7 +250,7 @@ class dalVih {
             dalVih::GuardarVihMuestras($conn, $filtro["id_vih_form"], $muestras);
         if ($pruebas != NULL && isset($pruebas[0]))
             dalVih::GuardarVihPruebasSilab($conn, $filtro["id_vih_form"], $pruebas);
-        
+
         $totalFiltroIndividuo = helperVih::dataTblPersona($data);
         //primero actualizamos a la persona
         $filtro = array();
@@ -264,7 +264,7 @@ class dalVih {
         $individuo["tipo_identificacion"] = $filtro["tipo_identificacion"];
         unset($individuo["id_region"]);
         unset($totalFiltroIndividuo["id_region"]);
-        
+
         $param = dalVih::ActualizarTabla($conn, "tbl_persona", $individuo, $filtro, $totalFiltroIndividuo);
         $id = $param['id'];
         $ok = $param['ok'];

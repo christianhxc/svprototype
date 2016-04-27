@@ -548,6 +548,8 @@ class helperVih {
         $vih["cond_edad_vih"] = (!isset($data["condicion"]["edad_vih"]) ? NULL : $data["condicion"]["edad_vih"]);
         $vih["cond_edad_sida"] = (!isset($data["condicion"]["edad_sida"]) ? NULL : $data["condicion"]["edad_sida"]);
         $vih["cond_lugar_diagnostico_sida"] = (!isset($data["condicion"]["lugar_diagnostico_sida"]) ? NULL : $data["condicion"]["lugar_diagnostico_sida"]);
+
+        $vih["transexual"] = (!isset($data["individuo"]["transexual"]) ? NULL : $data["individuo"]["transexual"]);
         return $vih;
     }
     

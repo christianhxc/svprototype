@@ -362,3 +362,15 @@ INSERT INTO `sisvigdb`.`cat_factor_riesgo` (`factor_nombre`, `id_grupo_factor`, 
 INSERT INTO `sisvigdb`.`cat_factor_riesgo` (`factor_nombre`, `id_grupo_factor`, `status`, `order`) VALUES ('Latencia Materna', '8', '1', '11');
 INSERT INTO `sisvigdb`.`cat_factor_riesgo` (`factor_nombre`, `id_grupo_factor`, `status`, `order`) VALUES ('No aplica', '8', '1', '12');
 
+UPDATE sisvigdb.tbl_persona SET id_genero = NULL where id_genero = 9;
+
+UPDATE `sisvigdb`.`cat_genero` SET `genero_nombre`='Hombre -> Mujer' WHERE `id_genero`='1';
+UPDATE `sisvigdb`.`cat_genero` SET `genero_nombre`='Mujer -> Hombre' WHERE `id_genero`='2';
+DELETE FROM `sisvigdb`.`cat_genero` WHERE `id_genero`='4';
+
+ALTER TABLE `sisvigdb`.`vih_form` 
+ADD COLUMN `transexual` INT(11) NULL COMMENT '' AFTER `comp_its_otras`;
+
+
+DELETE FROM `sisvigdb`.`cat_genero` WHERE `id_genero`='9';
+

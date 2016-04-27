@@ -415,6 +415,7 @@ $(document).ready(function() {
     individuo($("#drpTipoId").val(), $("#no_identificador").val());
     ulcerativa();
     sexoEmbarazo();
+    transexual();
     llenarFactoresRiesgo();
     llenarEnfOportunistas();
     iniciaDatosComportamiento();
@@ -1061,7 +1062,19 @@ function sexoEmbarazo(){
         $( "#divEmbarazo" ).show();
     else
         $( "#divEmbarazo" ).hide();
-    
+}
+
+function transexual(){
+    transexualVal = $('#drpTransexual').val();
+    if(transexualVal == '1') {
+        $("#id_genero_lbl").show();
+        $("#drpGenero").show();
+    } else {
+        $("#id_genero_lbl").hide();
+        $("#drpGenero").hide();
+        $("#drpGenero").val("0");
+        console.log($("#drpGenero").val());
+    }
 }
 
 function estaEmbarazada(){
@@ -1253,7 +1266,7 @@ function validarVih(){
         ErroresI+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe seleccionar el estado civil de la persona.";
     if($("#drpEscolaridad").val()==0)
         ErroresI+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe seleccionar la escolaridad de la persona.";
-    if($("#drpGenero").val()==0)
+    if($("#drpGenero").val()==0 && $('#drpTransexual').val() == 1)
         ErroresI+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe seleccionar el genero de la persona.";
     if($("#drpEtnia").val()==0)
         ErroresI+= "<br/>&nbsp; &nbsp;&nbsp; &nbsp;- Debe seleccionar la etnia de la persona.";
