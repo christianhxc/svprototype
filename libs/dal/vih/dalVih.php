@@ -187,7 +187,7 @@ class dalVih {
         $individuo = helperVih::dataTblPersona($data);
         $vih = array();
         $vih = helperVih::dataVihForm($data);
-        $vih = helperVih::dataVihVigilancia($vih,$data);
+        $ninos = helperVih::dataVihVigilancia($data);
 
         $vih["silab"] = 0;
         if ($data["notificacion"]["silab"] == 1)
@@ -212,7 +212,7 @@ class dalVih {
         $param = array();
         
         $totalFiltroVih = helperVih::dataVihForm($data);
-        $totalFiltroVih = helperVih::dataVihVigilancia($totalFiltroVih,$data);
+        //$totalFiltroVih = helperVih::dataVihVigilancia($totalFiltroVih,$data);
 
         $filtro = array();
         $filtro["id_vih_form"] = $data["formulario"]["idVihForm"];
@@ -240,8 +240,10 @@ class dalVih {
         $param = dalVih::GuardarBitacora($conn, "2", "vih_form");
         $id = $param['id'];
         $ok = $param['ok'];
+        if (count($ninos) > 0)
+            dalVih::GuardarVihNinos($conn, $filtro["id_vih_form"], $ninos);
         if (is_array($enfermedades))
-           $param = dalVih::GuardarVihEnfermedad($conn, $filtro["id_vih_form"], $enfermedades);
+           dalVih::GuardarVihEnfermedad($conn, $filtro["id_vih_form"], $enfermedades);
         if (isset($factores[0]))
             dalVih::GuardarVihFactores($conn, $filtro["id_vih_form"], $factores);
         if ($tarv!="")
@@ -345,11 +347,32 @@ class dalVih {
         }
     }
 
+    public static function GuardarVihNinos($conn, $idFormVih, $data) {
+        $ninos = $data;
+        if ($ninos != NULL) {
+            dalVih::BorrarVihNinos($conn, $idFormVih);
+            $max = sizeof($ninos);
+            for ($i = 0; $i < $max; $i++) {
+                if ($ninos[$i]!=""){
+                    $nino = $ninos[$i];
+                    $nino["id_vih_form"] = $idFormVih;
+                    dalVih::GuardarTabla($conn, "vih_form_nino", $nino);
+                }
+            }
+            dalVih::GuardarBitacora($conn, "1", "vih_form_nino");
+        }
+    }
+
     public static function BorrarVihEnfermedades($conn, $idFormVih) {
         $filtro = array();
         $filtro["id_vih_form"] = $idFormVih;
         dalVih::BorrarTabla($conn, "vih_enfermedad_oportunista", $filtro);
-        
+    }
+
+    public static function BorrarVihNinos($conn, $idFormVih) {
+        $filtro = array();
+        $filtro["id_vih_form"] = $idFormVih;
+        dalVih::BorrarTabla($conn, "vih_form_nino", $filtro);
     }
 
     public static function GuardarVihFactores($conn, $idFormVih, $factores) {

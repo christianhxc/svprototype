@@ -30,12 +30,15 @@ class Actions{
 		$fields = array();
 		$where = "";
 		
-		foreach($data as $key=>$value)
-			$values[] = " ".$key." = ? ";
+		foreach($data as $key=>$value) {
+			$values[] = " " . $key . " = ? ";
+			//$values[] = " " . $key . " = '".$value."' ";
+		}
 		$values = implode(',', $values);
 		
 		foreach($filtro as $key=>$value){
 			$where .= " AND ".$key." = ? ";
+			//$where .= " AND ".$key." = ".$value." ";
 		}
 		
 		$sql = "UPDATE ".$tabla." SET ".$values."

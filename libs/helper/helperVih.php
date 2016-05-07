@@ -343,21 +343,17 @@ class helperVih {
         return $vih;
     }
 
-    public static function dataVihVigilancia($vih, $data){
-        $vigilancia = $data["vigilancia"];
-        $vih = array_merge($vih, $vigilancia);
+    public static function dataVihVigilancia($data){
+        $vih = $data["nino"];
+        $ninos = array();
+        foreach ($vih as $nino){
+            $nino["nacimiento"] = !isset($nino["nacimiento"]) ? NULL : helperString::toDate($nino["nacimiento"]);
+            $nino["pcr1_fecha"] = !isset($nino["pcr1_fecha"]) ? NULL : helperString::toDate($nino["pcr1_fecha"]);
+            $nino["pcr2_fecha"] = !isset($nino["pcr2_fecha"]) ? NULL : helperString::toDate($nino["pcr2_fecha"]);
+            $ninos[] = $nino;
+        }
 
-        $vih["nacimiento_1"] = !isset($vih["nacimiento_1"]) ? NULL : helperString::toDate($vih["nacimiento_1"]);
-        $vih["pcr1_fecha_1"] = !isset($vih["pcr1_fecha_1"]) ? NULL : helperString::toDate($vih["pcr1_fecha_1"]);
-        $vih["pcr2_fecha_1"] = !isset($vih["pcr2_fecha_1"]) ? NULL : helperString::toDate($vih["pcr2_fecha_1"]);
-        $vih["nacimiento_2"] = !isset($vih["nacimiento_2"]) ? NULL : helperString::toDate($vih["nacimiento_2"]);
-        $vih["pcr1_fecha_2"] = !isset($vih["pcr1_fecha_2"]) ? NULL : helperString::toDate($vih["pcr1_fecha_2"]);
-        $vih["pcr2_fecha_2"] = !isset($vih["pcr2_fecha_2"]) ? NULL : helperString::toDate($vih["pcr2_fecha_2"]);
-        $vih["nacimiento_3"] = !isset($vih["nacimiento_3"]) ? NULL : helperString::toDate($vih["nacimiento_3"]);
-        $vih["pcr1_fecha_3"] = !isset($vih["pcr1_fecha_3"]) ? NULL : helperString::toDate($vih["pcr1_fecha_3"]);
-        $vih["pcr2_fecha_3"] = !isset($vih["pcr2_fecha_3"]) ? NULL : helperString::toDate($vih["pcr2_fecha_3"]);
-
-        return $vih;
+        return $ninos;
     }
     
     public static function dataVihFactorRiesgo($data) {
@@ -616,6 +612,21 @@ class helperVih {
                 $sql.= " limit " . $config["inicio"] . "," . $config["paginado"];
             }
         }
+        //echo $sql;
+        $conn->prepare($sql);
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+        return $data;
+    }
+
+    public static function getVihNinos($idForm){
+        $conn = new Connection();
+        $conn->initConn();
+        $flag = 0;
+        $filtro1 = "";
+        $filtro2 = "";
+        $sql = "select * from vih_form_nino where id_vih_form = '".$idForm."'";
         //echo $sql;
         $conn->prepare($sql);
         $conn->execute();

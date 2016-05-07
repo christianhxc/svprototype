@@ -374,3 +374,54 @@ ADD COLUMN `transexual` INT(11) NULL COMMENT '' AFTER `comp_its_otras`;
 
 DELETE FROM `sisvigdb`.`cat_genero` WHERE `id_genero`='9';
 
+ALTER TABLE `sisvigdb`.`vih_form` 
+DROP COLUMN `pcr2_fecha_3`,
+DROP COLUMN `pcr2_3`,
+DROP COLUMN `pcr1_fecha_3`,
+DROP COLUMN `pcr1_3`,
+DROP COLUMN `sexo_3`,
+DROP COLUMN `nacimiento_3`,
+DROP COLUMN `apellido_3`,
+DROP COLUMN `nombre_3`,
+DROP COLUMN `numero_cedula_3`,
+DROP COLUMN `termino_embarazo_3`,
+DROP COLUMN `pcr2_fecha_2`,
+DROP COLUMN `pcr2_2`,
+DROP COLUMN `pcr1_fecha_2`,
+DROP COLUMN `pcr1_2`,
+DROP COLUMN `sexo_2`,
+DROP COLUMN `nacimiento_2`,
+DROP COLUMN `apellido_2`,
+DROP COLUMN `nombre_2`,
+DROP COLUMN `numero_cedula_2`,
+DROP COLUMN `termino_embarazo_2`,
+DROP COLUMN `pcr2_fecha_1`,
+DROP COLUMN `pcr2_1`,
+DROP COLUMN `pcr1_fecha_1`,
+DROP COLUMN `pcr1_1`,
+DROP COLUMN `sexo_1`,
+DROP COLUMN `nacimiento_1`,
+DROP COLUMN `apellido_1`,
+DROP COLUMN `nombre_1`,
+DROP COLUMN `numero_cedula_1`,
+DROP COLUMN `termino_embarazo_1`;
+
+CREATE TABLE `sisvigdb`.`vih_form_nino` (
+  `id_vih_form_nino` INT(30) NOT NULL COMMENT '',
+  `id_vih_form` INT(11) NOT NULL COMMENT '',
+  `termino_embarazo` INT(1) NULL COMMENT '',
+  `numero_cedula` VARCHAR(45) NULL COMMENT '',
+  `nombre` VARCHAR(45) NULL COMMENT '',
+  `apellido` VARCHAR(45) NULL COMMENT '',
+  `nacimiento` DATE NULL COMMENT '',
+  `sexo` VARCHAR(45) NULL COMMENT '',
+  `pcr1` INT(1) NULL COMMENT '',
+  `pcr1_fecha` DATE NULL COMMENT '',
+  `pcr2` INT(1) NULL COMMENT '',
+  `pcr2_fecha` DATE NULL COMMENT '',
+  PRIMARY KEY (`id_vih_form_nino`)  COMMENT '');
+
+  
+ALTER TABLE `sisvigdb`.`vih_form_nino` 
+CHANGE COLUMN `id_vih_form_nino` `id_vih_form_nino` INT(30) NOT NULL AUTO_INCREMENT COMMENT '' ;
+

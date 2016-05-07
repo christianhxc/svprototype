@@ -524,62 +524,7 @@ $(document).ready(function() {
     });
     habilitarElmentoConRadio('check_sida','razonSida');
 
-
-
-    $("input[name='data[vigilancia][termino_embarazo_1]']").change(function(){
-        habilitarElmentoConRadio('termino_embarazo_vivo_1','datos_nino_1');
-        habilitarElmentoConRadio('termino_embarazo_vivo_1','datos_cedula_1');
-        habilitarElmentoConRadio('termino_embarazo_vivo_1','datos_nacimiento_1');
-    });
-    habilitarElmentoConRadio('termino_embarazo_vivo_1','datos_nino_1');
-    habilitarElmentoConRadio('termino_embarazo_vivo_1','datos_cedula_1');
-    habilitarElmentoConRadio('termino_embarazo_vivo_1','datos_nacimiento_1');
-
-    $("input[name='data[vigilancia][pcr1_1]']").change(function(){
-        habilitarElmentoConRadios('pcr1_detectable_1','pcr2_detectable_1','nuevo_nino_1');
-    });
-    $("input[name='data[vigilancia][pcr2_1]']").change(function(){
-        habilitarElmentoConRadios('pcr1_detectable_1','pcr2_detectable_1','nuevo_nino_1');
-    });
-    habilitarElmentoConRadios('pcr1_detectable_1','pcr2_detectable_1','nuevo_nino_1');
-
-
-
-    $("input[name='data[vigilancia][termino_embarazo_2]']").change(function(){
-        habilitarElmentoConRadio('termino_embarazo_vivo_2','datos_nino_2');
-        habilitarElmentoConRadio('termino_embarazo_vivo_2','datos_cedula_2');
-        habilitarElmentoConRadio('termino_embarazo_vivo_2','datos_nacimiento_2');
-    });
-    habilitarElmentoConRadio('termino_embarazo_vivo_2','datos_nino_2');
-    habilitarElmentoConRadio('termino_embarazo_vivo_2','datos_cedula_2');
-    habilitarElmentoConRadio('termino_embarazo_vivo_2','datos_nacimiento_2');
-
-    $("input[name='data[vigilancia][pcr1_2]']").change(function(){
-        habilitarElmentoConRadios('pcr1_detectable_2','pcr2_detectable_2','nuevo_nino_2');
-    });
-    $("input[name='data[vigilancia][pcr2_2]']").change(function(){
-        habilitarElmentoConRadios('pcr1_detectable_2','pcr2_detectable_2','nuevo_nino_2');
-    });
-    habilitarElmentoConRadios('pcr1_detectable_2','pcr2_detectable_2','nuevo_nino_2');
-
-
-
-    $("input[name='data[vigilancia][termino_embarazo_3]']").change(function(){
-        habilitarElmentoConRadio('termino_embarazo_vivo_3','datos_nino_3');
-        habilitarElmentoConRadio('termino_embarazo_vivo_3','datos_cedula_3');
-        habilitarElmentoConRadio('termino_embarazo_vivo_3','datos_nacimiento_3');
-    });
-    habilitarElmentoConRadio('termino_embarazo_vivo_3','datos_nino_3');
-    habilitarElmentoConRadio('termino_embarazo_vivo_3','datos_cedula_3');
-    habilitarElmentoConRadio('termino_embarazo_vivo_3','datos_nacimiento_3');
-
-    $("input[name='data[vigilancia][pcr1_3]']").change(function(){
-        habilitarElmentoConRadios('pcr1_detectable_3','pcr2_detectable_3','nuevo_nino_3');
-    });
-    $("input[name='data[vigilancia][pcr2_3]']").change(function(){
-        habilitarElmentoConRadios('pcr1_detectable_3','pcr2_detectable_3','nuevo_nino_3');
-    });
-    habilitarElmentoConRadios('pcr1_detectable_3','pcr2_detectable_3','nuevo_nino_3');
+    getNinos();
 });
 
 function mostrarGrupoIndigena(){
@@ -1397,6 +1342,7 @@ function validarVih(){
             else
                 nuevo = 'A continuaci\xf3n se ingresar\xe1 los datos del Formulario de VIH/SIDA, \xbfdesea continuar?';
             if(confirm(nuevo)){
+                $('#tplNino').remove();
                 $("#dSummaryErrors").css('display','none');
                 $('#frmContenido input').removeAttr("disabled");
                 $('#frmContenido').submit();
@@ -1568,4 +1514,103 @@ function setTipoId(){
         $("#divCedula1").hide();
         $("#divCedula2").show();
     }
+}
+
+var counterNinos = 0;
+function agregarNino(){
+    insertarHtmlNino();
+    toggleCamposNino();
+}
+
+function insertarHtmlNino(){
+    counterNinos++;
+    var tpl = $('#tplNino').html().replace(new RegExp('numnino', 'g'),counterNinos);
+    $('#divNinos').append(tpl);
+}
+
+function toggleCamposNino(){
+    $("#divNinos > fieldset").each(function(){
+        var i = this.id.replace("nino_","");
+        $("input[name='data[nino]["+i+"][termino_embarazo]']").change(function(){
+            habilitarElmentoConRadio('termino_embarazo_3_'+i,'datos_nino_'+i);
+            habilitarElmentoConRadio('termino_embarazo_3_'+i,'datos_cedula_'+i);
+            habilitarElmentoConRadio('termino_embarazo_3_'+i,'datos_nacimiento_'+i);
+        });
+        habilitarElmentoConRadio('termino_embarazo_3_'+i,'datos_nino_'+i);
+        habilitarElmentoConRadio('termino_embarazo_3_'+i,'datos_cedula_'+i);
+        habilitarElmentoConRadio('termino_embarazo_3_'+i,'datos_nacimiento_'+i);
+
+        $("input[name='data[nino]["+i+"][pcr1]']").change(function(){
+            habilitarElmentoConRadios('pcr1_1_'+i,'pcr2_1_'+i,'nuevo_nino_'+i);
+        });
+        $("input[name='data[nino]["+i+"][pcr2]']").change(function(){
+            habilitarElmentoConRadios('pcr1_1_'+i,'pcr2_1_'+i,'nuevo_nino_'+i);
+        });
+        habilitarElmentoConRadios('pcr1_1_'+i,'pcr2_1_'+i,'nuevo_nino_'+i);
+
+        $("#nacimiento_"+i).datepicker({
+            dateFormat: 'dd/mm/yy',
+            changeMonth: true,
+            changeYear: true,
+            showOn: "both",
+            maxDate: new Date(),
+            buttonImage: urlprefix+"img/calendar.gif",
+            buttonImageOnly: true,
+            showAnim: "slideDown"
+        });
+
+        $("#fecha_pcr1_"+i).datepicker({
+            dateFormat: 'dd/mm/yy',
+            changeMonth: true,
+            changeYear: true,
+            showOn: "both",
+            maxDate: new Date(),
+            buttonImage: urlprefix+"img/calendar.gif",
+            buttonImageOnly: true,
+            showAnim: "slideDown"
+        });
+
+        $("#fecha_pcr2_"+i).datepicker({
+            dateFormat: 'dd/mm/yy',
+            changeMonth: true,
+            changeYear: true,
+            showOn: "both",
+            maxDate: new Date(),
+            buttonImage: urlprefix+"img/calendar.gif",
+            buttonImageOnly: true,
+            showAnim: "slideDown"
+        });
+    });
+}
+
+function borrarNino(id){
+    var divId = "#nino_"+id;
+    if (confirm("\u00BFEsta seguro que desea borrar el registro del ni\u00F1o?")){
+        $(divId).remove();
+    }
+}
+
+function getNinos(){
+    var idVihForm = $("#idVihForm").val();
+    $.getJSON(urlprefix + 'js/dynamic/vih/getNinos.php',{
+        idVihForm: idVihForm,
+        ajax: 'true'
+    }, function(ninos){
+        for(var i = 0; i < ninos.length; i++){
+            insertarHtmlNino();
+            var id = i + 1;
+            $('#termino_embarazo_'+ninos[i].termino_embarazo+'_'+id).attr("checked",true);
+            $('#sexo_'+ninos[i].sexo+'_'+id).attr("checked",true);
+            $('#pcr1_'+ninos[i].pcr1+'_'+id).attr("checked",true);
+            $('#pcr2_'+ninos[i].pcr2+'_'+id).attr("checked",true);
+            $('#nino_'+id+'_numero_cedula').val(ninos[i].numero_cedula);
+            $('#nino_'+id+'_nombre').val(ninos[i].nombre);
+            $('#nino_'+id+'_apellido').val(ninos[i].apellido);
+            $('#nacimiento_'+id).val(invFecha(1,ninos[i].nacimiento));
+            $('#fecha_pcr1_'+id).val(invFecha(1,ninos[i].pcr1_fecha));
+            $('#fecha_pcr2_'+id).val(invFecha(1,ninos[i].pcr2_fecha));
+
+        }
+        toggleCamposNino();
+    })
 }
