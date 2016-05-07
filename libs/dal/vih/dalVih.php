@@ -87,9 +87,7 @@ class dalVih {
         $factores = helperVih::dataVihFactorRiesgo($data);
         $muestras = helperVih::dataVihMuestrasSILAB($data);
         $pruebas = helperVih::dataVihPruebasSILAB($data);
-
-        $vigilancia = $data["vigilancia"];
-        $vih = array_merge($vih, $vigilancia);
+        $ninos = helperVih::dataVihVigilancia($data);
 
         //print_r($factores);exit;
 
@@ -101,7 +99,9 @@ class dalVih {
             $param = dalVih::GuardarTabla($conn, "vih_form", $vih);
             $idFormVih = $param['id'];
             $param = dalVih::GuardarBitacora($conn, "1", "vih_form");
-            
+
+            if (count($ninos) > 0)
+                dalVih::GuardarVihNinos($conn, $idFormVih, $ninos);
             if (is_array($enfermedades))
                 dalVih::GuardarVihEnfermedad($conn, $idFormVih, $enfermedades);
             if (is_array($factores))
@@ -303,6 +303,9 @@ class dalVih {
         $id = $param['id'];
         $ok = $param['ok'];
         $param = dalVih::BorrarTabla($conn, "vih_factor_riesgo", $filtro);
+        $id = $param['id'];
+        $ok = $param['ok'];
+        $param = dalVih::BorrarTabla($conn, "vih_form_nino", $filtro);
         $id = $param['id'];
         $ok = $param['ok'];
         $param = dalVih::BorrarTabla($conn, "vih_form", $filtro);
