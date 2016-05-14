@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_individal" pageWidth="600" pageHeight="1300" columnWidth="580" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="20" uuid="8afb5daf-663d-4cc5-9d5a-1358a6e0cdb8">
 	<property name="ireport.zoom" value="1.7715610000000017"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="432"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -31,61 +31,208 @@
 		<defaultValueExpression><![CDATA["http://localhost/sisvig2/reportes/vih/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select vih.id_vih_form, (case when vih.per_asegurado = 1 then 'Si' when vih.per_asegurado = 0 then 'No' else 'Desc.' end) as per_asegurado,
-per.primer_nombre, per.segundo_nombre, per.primer_apellido, per.segundo_apellido,
-tid.nombre_tipo as tipo_identificacion , per.numero_identificacion, pro.nombre_provincia, reg.nombre_region, dis.nombre_distrito, cor.nombre_corregimiento,
-vih.per_localidad, per.tel_residencial,
-DATE_FORMAT(per.fecha_nacimiento,'%d-%m-%Y') as fecha_nacimiento, vih.per_edad,ted.nombre as nombre_edad,
-(case when per.sexo = 'M' then 'Hombre' else 'Mujer' end) as sexo, per.nombre_responsable, ocu.nombre_ocupacion, gen.genero_nombre, etnia.nombre_etnia,
-(case when per.id_estado_civil = 1 then 'Soltero' when per.id_estado_civil  = 2 then 'Casado' when per.id_estado_civil = 3 then 'Unido' when per.id_estado_civil = 4
-then 'Divorciado' else 'No especificado' end) as estado_civil,
-(case when per.id_escolaridad = 1 then 'Primaria completa' when per.id_escolaridad  = 2 then 'Primaria incompleta' when per.id_escolaridad = 3 then 'Secundaria completa'
-when per.id_escolaridad = 4 then 'Secundaria incompleta' when per.id_escolaridad = 5 then 'Universidad completa' when per.id_escolaridad = 6 then 'Universidad incompleta'
-when per.id_escolaridad = 7 then 'Vocacional' when per.id_escolaridad = 8 then 'Ninguna' else 'No especificada' end) as escolaridad,
-(case when vih.comp_its_ultimo = 1 then 'Si' when vih.comp_its_ultimo = 2 then 'No' else 'Desc.' end) as comp_its_ultimo,
-(case when vih.comp_its_ulcerativa = 1 then 'Si' when vih.comp_its_ulcerativa = 2 then 'No' else 'Desc.' end) as comp_its_ulcerativa,
-vih.comp_edad_inicio_sexual, (case when vih.comp_uso_condon = 1 then 'Si' when vih.comp_uso_condon = 2 then 'No' else 'Desc.' end) as comp_uso_condon,
-(case when vih.comp_trabajador_sexual = 1 then 'Si' when vih.comp_trabajador_sexual = 2 then 'No' else 'Desc.' end) as comp_trabajador_sexual,
-(case when vih.comp_donante_sangre = 1 then 'Si' when vih.comp_donante_sangre = 2 then 'No' else 'Desc.' end) as comp_donante_sangre,
-vih.comp_donante_fecha, vih.comp_donante_instalacion,
-(case when vih.comp_per_preso = 1 then 'Si' when vih.comp_per_preso = 2 then 'No' else 'Desc.' end) as comp_per_preso,
-(case when vih.comp_embarazada = 1 then 'Si' when vih.comp_embarazada = 2 then 'No' else 'Desc.' end) as comp_embarazada,
+		<![CDATA[SELECT
+    vih.id_vih_form,
+    (CASE
+        WHEN vih.per_asegurado = 1 THEN 'Si'
+        WHEN vih.per_asegurado = 0 THEN 'No'
+        ELSE 'Desc.'
+    END) AS per_asegurado,
+    per.primer_nombre,
+    per.segundo_nombre,
+    per.primer_apellido,
+    per.segundo_apellido,
+    tid.nombre_tipo AS tipo_identificacion,
+    per.numero_identificacion,
 
-(case when vih.cond_sida = 1 then 'X' else '' end) as cond_sida, DATE_FORMAT(vih.cond_fecha_sida ,'%d-%m-%Y') as cond_fecha_sida,
-(case when vih.cond_vih = 1 then 'X' else '' end) as cond_vih, DATE_FORMAT(vih.cond_fecha_vih ,'%d-%m-%Y') as cond_fecha_vih,
-vih.cond_sobrevida, vih.cond_lugar_diagnostico,
-(case when vih.cond_condicion_paciente = 1 then 'Vivo' when vih.cond_condicion_paciente = 2 then 'Muerto' else 'Se desconoce' end) as cond_condicion_paciente,
-DATE_FORMAT(vih.cond_fecha_defuncion ,'%d-%m-%Y') as cond_fecha_defuncion, un_defuncion.nombre_un as nombre_un_defuncion, vih.cond_sobrevida_sida,
-(case when vih.unidad_disponible != 1 then (case when vih.otro_nombre_un = null then 'X' else '' end) else '' end) as unidad_disponible,
-(case when vih.unidad_disponible != 1 then vih.otro_nombre_un else un.nombre_un end) as un_nombre,
-vih.nombre_notifica, DATE_FORMAT(vih.fecha_notificacion ,'%d-%m-%Y') as fecha_notificacion, vih.semana_epi, vih.anio,
-vih.nombre_registra , DATE_FORMAT(vih.fecha_formulario ,'%d-%m-%Y') as fecha_formulario,
-vih.cond_edad_vih, vih.cond_edad_sida, vih.cond_lugar_diagnostico_sida,
-(case when vih.comp_emb_captada = 1 then '> 20 semanas' when vih.comp_emb_captada  = 2 then '< 20 semanas'
-when vih.comp_emb_captada = 3 then 'Puerperio' when vih.comp_emb_captada = 4 then 'No se sabe' else 'No aplica' end) as emb_captada,
-vih.comp_emb_1, vih.comp_emb_2, vih.comp_emb_3,
-DATE_FORMAT(tarv.tarv_fec_ingreso ,'%d-%m-%Y') as tarv_fec_ingreso, ctarv.nombre_clinica_tarv,
-DATE_FORMAT(tarv.tarv_fec_inicio ,'%d-%m-%Y') as tarv_fec_inicio,
-DATE_FORMAT(tarv.tarv_fec_cd4 ,'%d-%m-%Y') as tarv_fec_cd4, tarv.tarv_res_cd4,
-DATE_FORMAT(tarv.tarv_fec_cd4_350 ,'%d-%m-%Y') as tarv_fec_cd4_350, tarv.tarv_res_cd4_350,
-DATE_FORMAT(tarv.tarv_fec_cd4_200 ,'%d-%m-%Y') as tarv_fec_cd4_200, tarv.tarv_res_cd4_200,
-DATE_FORMAT(tarv.tarv_fec_carga_viral ,'%d-%m-%Y') as tarv_fec_carga_viral, tarv.tarv_res_carga_viral
-from vih_form vih
-inner join tbl_persona per on vih.id_tipo_identidad = per.tipo_identificacion and vih.numero_identificacion = per.numero_identificacion
-inner join cat_tipo_identidad tid on tid.id_tipo_identidad = vih.id_tipo_identidad
-inner join cat_corregimiento cor on cor.id_corregimiento = vih.per_id_corregimiento
-inner join cat_distrito dis on dis.id_distrito = cor.id_distrito
-inner join cat_region_salud reg on reg.id_region = dis.id_region
-inner join cat_provincia pro on pro.id_provincia = reg.id_provincia
-inner join cat_edad ted ON vih.per_tipo_edad = ted.tipo_edad
-left join cat_ocupacion ocu on ocu.id_ocupacion = per.id_ocupacion
-left join cat_etnia etnia on etnia.id_etnia = per.id_etnia
-left join cat_genero gen on gen.id_genero = per.id_genero
-left join cat_unidad_notificadora un on un.id_un = vih.id_un
-left join cat_unidad_notificadora un_defuncion on un_defuncion.id_un = vih.cond_id_un_defuncion
-left join vih_tarv tarv on tarv.id_vih_form = vih.id_vih_form
-left join cat_clinica_tarv ctarv on ctarv.id_clinica_tarv = tarv.id_clinica_tarv
-where vih.id_vih_form = $P{idVihForm}]]>
+    pro.nombre_provincia,
+    reg.nombre_region,
+    dis.nombre_distrito,
+    cor.nombre_corregimiento,
+    vih.per_localidad,
+
+    prodiag.nombre_provincia as nombre_provincia_diag,
+    regdiag.nombre_region as nombre_region_diag,
+    disdiag.nombre_distrito as nombre_distrito_diag,
+    cordiag.nombre_corregimiento as nombre_corregimiento_diag,
+    per.dir_referencia_diagnostico,
+
+    per.tel_residencial,
+    DATE_FORMAT(per.fecha_nacimiento, '%d-%m-%Y') AS fecha_nacimiento,
+    vih.per_edad,
+    ted.nombre AS nombre_edad,
+    (CASE
+        WHEN per.sexo = 'M' THEN 'Hombre'
+        ELSE 'Mujer'
+    END) AS sexo,
+    per.nombre_responsable,
+    ocu.nombre_ocupacion,
+    gen.genero_nombre,
+    etnia.nombre_etnia,
+    (CASE
+        WHEN per.id_estado_civil = 1 THEN 'Soltero'
+        WHEN per.id_estado_civil = 2 THEN 'Casado'
+        WHEN per.id_estado_civil = 3 THEN 'Unido'
+        WHEN per.id_estado_civil = 4 THEN 'Divorciado'
+        ELSE 'No especificado'
+    END) AS estado_civil,
+    (CASE
+        WHEN per.id_escolaridad = 1 THEN 'Primaria completa'
+        WHEN per.id_escolaridad = 2 THEN 'Primaria incompleta'
+        WHEN per.id_escolaridad = 3 THEN 'Secundaria completa'
+        WHEN per.id_escolaridad = 4 THEN 'Secundaria incompleta'
+        WHEN per.id_escolaridad = 5 THEN 'Universidad completa'
+        WHEN per.id_escolaridad = 6 THEN 'Universidad incompleta'
+        WHEN per.id_escolaridad = 7 THEN 'Vocacional'
+        WHEN per.id_escolaridad = 8 THEN 'Ninguna'
+        ELSE 'No especificada'
+    END) AS escolaridad,
+    (CASE
+        WHEN vih.comp_its_ultimo = 1 THEN 'Si'
+        WHEN vih.comp_its_ultimo = 2 THEN 'No'
+        ELSE 'Desc.'
+    END) AS comp_its_ultimo,
+    (CASE
+        WHEN vih.comp_its_ulcerativa = 1 THEN 'Si'
+        WHEN vih.comp_its_ulcerativa = 2 THEN 'No'
+        ELSE 'Desc.'
+    END) AS comp_its_ulcerativa,
+    vih.comp_edad_inicio_sexual,
+    (CASE
+        WHEN vih.comp_uso_condon = 1 THEN 'Si'
+        WHEN vih.comp_uso_condon = 2 THEN 'No'
+        ELSE 'Desc.'
+    END) AS comp_uso_condon,
+    (CASE
+        WHEN vih.comp_trabajador_sexual = 1 THEN 'Si'
+        WHEN vih.comp_trabajador_sexual = 2 THEN 'No'
+        ELSE 'Desc.'
+    END) AS comp_trabajador_sexual,
+    (CASE
+        WHEN vih.comp_donante_sangre = 1 THEN 'Si'
+        WHEN vih.comp_donante_sangre = 2 THEN 'No'
+        ELSE 'Desc.'
+    END) AS comp_donante_sangre,
+    vih.comp_donante_fecha,
+    vih.comp_donante_instalacion,
+    (CASE
+        WHEN vih.comp_per_preso = 1 THEN 'Si'
+        WHEN vih.comp_per_preso = 2 THEN 'No'
+        ELSE 'Desc.'
+    END) AS comp_per_preso,
+    (CASE
+        WHEN vih.comp_embarazada = 1 THEN 'Si'
+        WHEN vih.comp_embarazada = 2 THEN 'No'
+        ELSE 'Desc.'
+    END) AS comp_embarazada,
+    (CASE
+        WHEN vih.cond_sida = 1 THEN 'X'
+        ELSE ''
+    END) AS cond_sida,
+    DATE_FORMAT(vih.cond_fecha_sida, '%d-%m-%Y') AS cond_fecha_sida,
+    (CASE
+        WHEN vih.cond_vih = 1 THEN 'X'
+        ELSE ''
+    END) AS cond_vih,
+    DATE_FORMAT(vih.cond_fecha_vih, '%d-%m-%Y') AS cond_fecha_vih,
+    vih.cond_sobrevida,
+    vih.cond_lugar_diagnostico,
+    (CASE
+        WHEN vih.cond_condicion_paciente = 1 THEN 'Vivo'
+        WHEN vih.cond_condicion_paciente = 2 THEN 'Muerto'
+        ELSE 'Se desconoce'
+    END) AS cond_condicion_paciente,
+    DATE_FORMAT(vih.cond_fecha_defuncion, '%d-%m-%Y') AS cond_fecha_defuncion,
+    un_defuncion.nombre_un AS nombre_un_defuncion,
+    vih.cond_sobrevida_sida,
+    (CASE
+        WHEN
+            vih.unidad_disponible != 1
+        THEN
+            (CASE
+                WHEN vih.otro_nombre_un = NULL THEN 'X'
+                ELSE ''
+            END)
+        ELSE ''
+    END) AS unidad_disponible,
+    (CASE
+        WHEN vih.unidad_disponible != 1 THEN vih.otro_nombre_un
+        ELSE un.nombre_un
+    END) AS un_nombre,
+    vih.nombre_notifica,
+    DATE_FORMAT(vih.fecha_notificacion, '%d-%m-%Y') AS fecha_notificacion,
+    vih.semana_epi,
+    vih.anio,
+    vih.nombre_registra,
+    DATE_FORMAT(vih.fecha_formulario, '%d-%m-%Y') AS fecha_formulario,
+    vih.cond_edad_vih,
+    vih.cond_edad_sida,
+    vih.cond_lugar_diagnostico_sida,
+    (CASE
+        WHEN vih.comp_emb_captada = 1 THEN '> 20 semanas'
+        WHEN vih.comp_emb_captada = 2 THEN '< 20 semanas'
+        WHEN vih.comp_emb_captada = 3 THEN 'Puerperio'
+        WHEN vih.comp_emb_captada = 4 THEN 'No se sabe'
+        ELSE 'No aplica'
+    END) AS emb_captada,
+    vih.comp_emb_1,
+    vih.comp_emb_2,
+    vih.comp_emb_3,
+    DATE_FORMAT(tarv.tarv_fec_ingreso, '%d-%m-%Y') AS tarv_fec_ingreso,
+    ctarv.nombre_clinica_tarv,
+    DATE_FORMAT(tarv.tarv_fec_inicio, '%d-%m-%Y') AS tarv_fec_inicio,
+    DATE_FORMAT(tarv.tarv_fec_cd4, '%d-%m-%Y') AS tarv_fec_cd4,
+    tarv.tarv_res_cd4,
+    DATE_FORMAT(tarv.tarv_fec_cd4_350, '%d-%m-%Y') AS tarv_fec_cd4_350,
+    tarv.tarv_res_cd4_350,
+    DATE_FORMAT(tarv.tarv_fec_cd4_200, '%d-%m-%Y') AS tarv_fec_cd4_200,
+    tarv.tarv_res_cd4_200,
+    DATE_FORMAT(tarv.tarv_fec_carga_viral, '%d-%m-%Y') AS tarv_fec_carga_viral,
+    tarv.tarv_res_carga_viral,
+    vih.observaciones
+FROM
+    vih_form vih
+        INNER JOIN
+    tbl_persona per ON vih.id_tipo_identidad = per.tipo_identificacion
+        AND vih.numero_identificacion = per.numero_identificacion
+        INNER JOIN
+    cat_tipo_identidad tid ON tid.id_tipo_identidad = vih.id_tipo_identidad
+        INNER JOIN
+    cat_corregimiento cor ON cor.id_corregimiento = vih.per_id_corregimiento
+        INNER JOIN
+    cat_distrito dis ON dis.id_distrito = cor.id_distrito
+        INNER JOIN
+    cat_region_salud reg ON reg.id_region = dis.id_region
+        INNER JOIN
+    cat_provincia pro ON pro.id_provincia = reg.id_provincia
+        INNER JOIN
+
+    cat_corregimiento cordiag ON cordiag.id_corregimiento = per.id_corregimiento_diagnostico
+        INNER JOIN
+    cat_distrito disdiag ON disdiag.id_distrito = cordiag.id_distrito
+        INNER JOIN
+    cat_region_salud regdiag ON regdiag.id_region = disdiag.id_region
+        INNER JOIN
+    cat_provincia prodiag ON prodiag.id_provincia = regdiag.id_provincia
+        INNER JOIN
+
+    cat_edad ted ON vih.per_tipo_edad = ted.tipo_edad
+        LEFT JOIN
+    cat_ocupacion ocu ON ocu.id_ocupacion = per.id_ocupacion
+        LEFT JOIN
+    cat_etnia etnia ON etnia.id_etnia = per.id_etnia
+        LEFT JOIN
+    cat_genero gen ON gen.id_genero = per.id_genero
+        LEFT JOIN
+    cat_unidad_notificadora un ON un.id_un = vih.id_un
+        LEFT JOIN
+    cat_unidad_notificadora un_defuncion ON un_defuncion.id_un = vih.cond_id_un_defuncion
+        LEFT JOIN
+    vih_tarv tarv ON tarv.id_vih_form = vih.id_vih_form
+        LEFT JOIN
+    cat_clinica_tarv ctarv ON ctarv.id_clinica_tarv = tarv.id_clinica_tarv
+WHERE
+vih.id_vih_form = $P{idVihForm}]]>
 	</queryString>
 	<field name="id_vih_form" class="java.lang.Integer"/>
 	<field name="per_asegurado" class="java.lang.String"/>
@@ -157,6 +304,12 @@ where vih.id_vih_form = $P{idVihForm}]]>
 	<field name="tarv_res_cd4_200" class="java.lang.Integer"/>
 	<field name="tarv_fec_carga_viral" class="java.lang.String"/>
 	<field name="tarv_res_carga_viral" class="java.lang.Integer"/>
+	<field name="observaciones" class="java.lang.String"/>
+	<field name="nombre_provincia_diag" class="java.lang.String"/>
+	<field name="nombre_region_diag" class="java.lang.String"/>
+	<field name="nombre_distrito_diag" class="java.lang.String"/>
+	<field name="nombre_corregimiento_diag" class="java.lang.String"/>
+	<field name="dir_referencia_diagnostico" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -235,9 +388,9 @@ where vih.id_vih_form = $P{idVihForm}]]>
 		</band>
 	</title>
 	<detail>
-		<band height="290" splitType="Stretch">
+		<band height="398" splitType="Stretch">
 			<staticText>
-				<reportElement style="table_TD" x="0" y="0" width="580" height="271" uuid="b587928e-1cfe-4771-94fa-89c052b80342"/>
+				<reportElement style="table_TD" x="0" y="0" width="580" height="363" uuid="b587928e-1cfe-4771-94fa-89c052b80342"/>
 				<box leftPadding="5">
 					<pen lineWidth="1.5"/>
 					<topPen lineWidth="1.5"/>
@@ -336,7 +489,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textFieldExpression><![CDATA[$F{per_asegurado}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="2" y="46" width="61" height="13" uuid="767136e3-5189-41f5-a3b1-59cb7df9e64d"/>
+				<reportElement style="table_TD" x="2" y="127" width="61" height="13" uuid="767136e3-5189-41f5-a3b1-59cb7df9e64d"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -350,14 +503,14 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Provincia:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="63" y="46" width="233" height="13" uuid="8f91a28d-0aef-4c60-bed5-94280c7465c8"/>
+				<reportElement x="63" y="127" width="233" height="13" uuid="8f91a28d-0aef-4c60-bed5-94280c7465c8"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{nombre_provincia}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="2" y="60" width="61" height="13" uuid="c534a226-a75c-422a-889c-5a8ca7c8fb69"/>
+				<reportElement style="table_TD" x="2" y="141" width="61" height="13" uuid="c534a226-a75c-422a-889c-5a8ca7c8fb69"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -371,14 +524,14 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Distrito:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="63" y="60" width="233" height="13" uuid="32303c62-1c1a-4691-a7a1-411c88deb984"/>
+				<reportElement x="63" y="141" width="233" height="13" uuid="32303c62-1c1a-4691-a7a1-411c88deb984"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{nombre_distrito}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="296" y="46" width="61" height="13" uuid="447f5ecf-f844-4b6f-bb23-34c13885e61d"/>
+				<reportElement style="table_TD" x="296" y="127" width="61" height="13" uuid="447f5ecf-f844-4b6f-bb23-34c13885e61d"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -392,14 +545,14 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Region:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="378" y="60" width="192" height="13" uuid="f69d7e9d-6ff1-413e-9afb-9a40a6576eed"/>
+				<reportElement x="378" y="141" width="192" height="13" uuid="f69d7e9d-6ff1-413e-9afb-9a40a6576eed"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{nombre_corregimiento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="296" y="60" width="82" height="13" uuid="c189dc3b-24ba-40be-b3a4-e5b7c24c0e60"/>
+				<reportElement style="table_TD" x="296" y="141" width="82" height="13" uuid="c189dc3b-24ba-40be-b3a4-e5b7c24c0e60"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -413,21 +566,21 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Corregimiento:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="357" y="46" width="213" height="13" uuid="78862616-3f6e-47e3-9799-cfe2300cb7a9"/>
+				<reportElement x="357" y="127" width="213" height="13" uuid="78862616-3f6e-47e3-9799-cfe2300cb7a9"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{nombre_region}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="89" y="74" width="325" height="13" uuid="7f0b369a-1081-422b-9d78-c6a2f403d7e5"/>
+				<reportElement x="89" y="155" width="325" height="13" uuid="7f0b369a-1081-422b-9d78-c6a2f403d7e5"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{per_localidad}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="2" y="74" width="87" height="13" uuid="427e99d1-797a-4cfd-a826-64e54aa0591c"/>
+				<reportElement style="table_TD" x="2" y="155" width="87" height="13" uuid="427e99d1-797a-4cfd-a826-64e54aa0591c"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -441,14 +594,14 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Lugar Poblado:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="483" y="74" width="87" height="13" uuid="c4b4ba26-652a-4392-b023-1ed84c0dfcc4"/>
+				<reportElement x="483" y="155" width="87" height="13" uuid="c4b4ba26-652a-4392-b023-1ed84c0dfcc4"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{tel_residencial}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="414" y="74" width="69" height="13" uuid="bbbced6e-ad13-43df-a178-d9eb54a44004"/>
+				<reportElement style="table_TD" x="414" y="155" width="69" height="13" uuid="bbbced6e-ad13-43df-a178-d9eb54a44004"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -462,14 +615,14 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Telefono:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="89" y="88" width="82" height="13" uuid="44e32fcf-f2b8-47b8-b2c8-d591f63a9297"/>
+				<reportElement x="89" y="177" width="82" height="13" uuid="44e32fcf-f2b8-47b8-b2c8-d591f63a9297"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{fecha_nacimiento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="2" y="88" width="87" height="13" uuid="0e2e2ca7-887b-4235-90a7-4f72f6a0ed3e"/>
+				<reportElement style="table_TD" x="2" y="177" width="87" height="13" uuid="0e2e2ca7-887b-4235-90a7-4f72f6a0ed3e"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -483,7 +636,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Fec. nacimiento:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table_TD" x="171" y="88" width="40" height="13" uuid="4b95dfe6-74b7-4ff5-a0f1-55825befb153"/>
+				<reportElement style="table_TD" x="171" y="177" width="40" height="13" uuid="4b95dfe6-74b7-4ff5-a0f1-55825befb153"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -497,7 +650,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Edad:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="211" y="88" width="85" height="13" uuid="bc908e72-41e4-4395-bf69-e5e63814a8e4"/>
+				<reportElement x="211" y="177" width="85" height="13" uuid="bc908e72-41e4-4395-bf69-e5e63814a8e4"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 				</box>
@@ -505,14 +658,14 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textFieldExpression><![CDATA[$F{per_edad}+" "+$F{nombre_edad}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="338" y="88" width="76" height="13" uuid="e1d2d9d1-9d7f-4fd6-9362-624e370f2b1c"/>
+				<reportElement x="338" y="177" width="76" height="13" uuid="e1d2d9d1-9d7f-4fd6-9362-624e370f2b1c"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="296" y="88" width="42" height="13" uuid="1512592b-f1f8-4813-9fb6-7280ad9c619b"/>
+				<reportElement style="table_TD" x="296" y="177" width="42" height="13" uuid="1512592b-f1f8-4813-9fb6-7280ad9c619b"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -540,7 +693,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[I. Datos Personales:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table_TD" x="414" y="88" width="69" height="13" uuid="942686bb-ff7c-49a4-9caf-402333af99c1"/>
+				<reportElement style="table_TD" x="414" y="177" width="69" height="13" uuid="942686bb-ff7c-49a4-9caf-402333af99c1"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -554,14 +707,14 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Est. civil:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="483" y="88" width="87" height="13" uuid="c1a63687-d25a-4f29-bd91-6aba441942ff"/>
+				<reportElement x="483" y="177" width="87" height="13" uuid="c1a63687-d25a-4f29-bd91-6aba441942ff"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{estado_civil}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="2" y="102" width="77" height="13" uuid="83c73d40-e352-462d-997c-dd6b6e751d8d"/>
+				<reportElement style="table_TD" x="2" y="191" width="77" height="13" uuid="83c73d40-e352-462d-997c-dd6b6e751d8d"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -575,14 +728,14 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Ocupación:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="79" y="102" width="217" height="13" uuid="c077d3c9-e3bd-47bc-9f1b-4cb67cf77680"/>
+				<reportElement x="79" y="191" width="217" height="13" uuid="c077d3c9-e3bd-47bc-9f1b-4cb67cf77680"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{nombre_ocupacion}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="296" y="102" width="82" height="13" uuid="3b6c3cd9-143a-4871-8a73-f8360887e34b"/>
+				<reportElement style="table_TD" x="296" y="191" width="82" height="13" uuid="3b6c3cd9-143a-4871-8a73-f8360887e34b"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -596,14 +749,14 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Escolaridad:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="378" y="102" width="192" height="13" uuid="2f9ea023-a29a-47d6-9691-3c9851d28dec"/>
+				<reportElement x="378" y="191" width="192" height="13" uuid="2f9ea023-a29a-47d6-9691-3c9851d28dec"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{escolaridad}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="2" y="116" width="568" height="15" uuid="66550091-fae0-4df9-ae5b-c025f14f0141"/>
+				<reportElement style="table_TD" x="2" y="241" width="568" height="15" uuid="66550091-fae0-4df9-ae5b-c025f14f0141"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -617,7 +770,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Datos de comportamiento:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table_TD" x="2" y="132" width="112" height="13" uuid="e50cec3c-a887-4f5c-bf04-19af60b33dc2"/>
+				<reportElement style="table_TD" x="2" y="257" width="112" height="13" uuid="e50cec3c-a887-4f5c-bf04-19af60b33dc2"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -631,7 +784,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[ITS en el último año:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="114" y="132" width="57" height="13" uuid="0428ca92-6f78-4b88-a6e6-a368d42dd65a"/>
+				<reportElement x="114" y="257" width="29" height="13" uuid="0428ca92-6f78-4b88-a6e6-a368d42dd65a"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 				</box>
@@ -639,7 +792,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textFieldExpression><![CDATA[$F{comp_its_ultimo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="171" y="132" width="68" height="13" uuid="a9489ba2-9941-46fc-8e05-52e5081dcedc"/>
+				<reportElement style="table_TD" x="153" y="257" width="40" height="13" uuid="a9489ba2-9941-46fc-8e05-52e5081dcedc"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -650,18 +803,17 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Ulcerativa:]]></text>
+				<text><![CDATA[Sifilis:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="239" y="132" width="57" height="13" uuid="043102b4-58e9-40b7-8a93-e3d3024dad15"/>
+				<reportElement x="194" y="257" width="22" height="13" uuid="043102b4-58e9-40b7-8a93-e3d3024dad15"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression><![CDATA[$F{comp_its_ulcerativa}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="296" y="132" width="187" height="13" uuid="1f28ad7b-9ce8-4275-8f20-4f43fff134b1"/>
+				<reportElement style="table_TD" x="296" y="275" width="187" height="13" uuid="1f28ad7b-9ce8-4275-8f20-4f43fff134b1"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -675,7 +827,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Edad de inicio de vida sexual activa:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="483" y="132" width="57" height="13" uuid="017c691f-a60f-4432-ac5a-70c77c4e194a"/>
+				<reportElement x="483" y="275" width="57" height="13" uuid="017c691f-a60f-4432-ac5a-70c77c4e194a"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 				</box>
@@ -683,7 +835,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textFieldExpression><![CDATA[$F{comp_edad_inicio_sexual}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="2" y="147" width="112" height="13" uuid="070d5d09-2265-4ef7-9ef5-eb59fb1792d4"/>
+				<reportElement style="table_TD" x="2" y="290" width="112" height="13" uuid="070d5d09-2265-4ef7-9ef5-eb59fb1792d4"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -697,7 +849,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Trabajador(a) sexual:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="114" y="147" width="57" height="13" uuid="0688e504-a928-49a0-ab2d-dba3b3377f02"/>
+				<reportElement x="114" y="290" width="57" height="13" uuid="0688e504-a928-49a0-ab2d-dba3b3377f02"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 				</box>
@@ -705,7 +857,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textFieldExpression><![CDATA[$F{comp_trabajador_sexual}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="2" y="160" width="112" height="15" uuid="bfc6533f-35f7-4c87-9d13-6b82918c95fe"/>
+				<reportElement style="table_TD" x="2" y="303" width="112" height="15" uuid="bfc6533f-35f7-4c87-9d13-6b82918c95fe"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -719,7 +871,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Donante de sangre:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="114" y="160" width="29" height="13" uuid="8a7c8a8e-27d2-4e97-9ee4-dfbdd3bb37fb"/>
+				<reportElement x="114" y="303" width="29" height="13" uuid="8a7c8a8e-27d2-4e97-9ee4-dfbdd3bb37fb"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 				</box>
@@ -727,7 +879,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textFieldExpression><![CDATA[$F{comp_donante_sangre}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="259" y="162" width="57" height="13" uuid="d93dfc2c-5051-4eab-8487-a91d5b15b516"/>
+				<reportElement x="259" y="305" width="57" height="13" uuid="d93dfc2c-5051-4eab-8487-a91d5b15b516"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="0.5"/>
 				</box>
@@ -735,7 +887,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textFieldExpression><![CDATA[$F{comp_donante_fecha}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="143" y="162" width="116" height="13" uuid="8872f5ae-8259-4e2b-9dd5-3af1f260d959"/>
+				<reportElement style="table_TD" x="143" y="305" width="116" height="13" uuid="8872f5ae-8259-4e2b-9dd5-3af1f260d959"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -749,14 +901,14 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Fec. última donación:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="392" y="162" width="178" height="13" uuid="3e223066-a5ce-4e43-9dac-c8d5ec4999e5"/>
+				<reportElement x="392" y="305" width="178" height="13" uuid="3e223066-a5ce-4e43-9dac-c8d5ec4999e5"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{comp_donante_instalacion}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="316" y="162" width="76" height="13" uuid="c6d5dcfd-ad65-4a0c-9c3f-2384d999b0ea"/>
+				<reportElement style="table_TD" x="316" y="305" width="76" height="13" uuid="c6d5dcfd-ad65-4a0c-9c3f-2384d999b0ea"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -770,7 +922,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Instalación:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table_TD" x="296" y="145" width="186" height="15" uuid="cf3c524f-3fae-4efc-8724-fa3988b452c1"/>
+				<reportElement style="table_TD" x="296" y="288" width="186" height="15" uuid="cf3c524f-3fae-4efc-8724-fa3988b452c1"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -784,7 +936,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Persona privada de la libertad:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="483" y="145" width="57" height="13" uuid="407e2cd4-da3d-4d41-8b75-be51964adbe2"/>
+				<reportElement x="483" y="288" width="57" height="13" uuid="407e2cd4-da3d-4d41-8b75-be51964adbe2"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 				</box>
@@ -792,7 +944,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textFieldExpression><![CDATA[$F{comp_per_preso}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="2" y="176" width="84" height="13" uuid="59614db5-2429-4467-aa28-fe298c819014"/>
+				<reportElement style="table_TD" x="2" y="319" width="84" height="13" uuid="59614db5-2429-4467-aa28-fe298c819014"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -806,7 +958,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Embarazada:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="89" y="175" width="54" height="13" uuid="c0811e5a-2122-4368-ab69-659124710669"/>
+				<reportElement x="89" y="318" width="54" height="13" uuid="c0811e5a-2122-4368-ab69-659124710669"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 				</box>
@@ -814,7 +966,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textFieldExpression><![CDATA[$F{comp_embarazada}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="0" y="271" width="296" height="15" uuid="466da4f7-5e57-4494-87d7-5e52261b8861"/>
+				<reportElement style="table_TD" x="0" y="366" width="296" height="15" uuid="466da4f7-5e57-4494-87d7-5e52261b8861"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -828,14 +980,14 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[En caso de Menor de edad, Nombre del responsable:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="296" y="273" width="274" height="13" uuid="669eba53-1c17-482b-ac4a-e14603dc57e6"/>
+				<reportElement x="296" y="368" width="274" height="13" uuid="669eba53-1c17-482b-ac4a-e14603dc57e6"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{nombre_responsable}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="143" y="176" width="84" height="13" uuid="a5cb823e-1b51-41f5-86ac-bd63075505d6"/>
+				<reportElement style="table_TD" x="143" y="319" width="84" height="13" uuid="a5cb823e-1b51-41f5-86ac-bd63075505d6"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -849,7 +1001,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Emb. captada:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="227" y="175" width="89" height="13" uuid="828d2724-2828-4980-a2d1-d3d3c6de63d4"/>
+				<reportElement x="227" y="318" width="89" height="13" uuid="828d2724-2828-4980-a2d1-d3d3c6de63d4"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 				</box>
@@ -857,7 +1009,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textFieldExpression><![CDATA[$F{emb_captada}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="360" y="176" width="40" height="13" uuid="9ac34b8e-f8cf-4dfd-a4b1-d477aecfacfc"/>
+				<reportElement x="360" y="319" width="40" height="13" uuid="9ac34b8e-f8cf-4dfd-a4b1-d477aecfacfc"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 				</box>
@@ -865,7 +1017,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textFieldExpression><![CDATA[($F{comp_emb_1} == 0) ? "":$F{comp_emb_1}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="439" y="176" width="40" height="13" uuid="19fa717b-c6eb-4130-9d09-aa6c156ce5c9"/>
+				<reportElement x="439" y="319" width="40" height="13" uuid="19fa717b-c6eb-4130-9d09-aa6c156ce5c9"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 				</box>
@@ -873,7 +1025,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textFieldExpression><![CDATA[($F{comp_emb_2} == 0) ? "":$F{comp_emb_2}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="523" y="176" width="40" height="13" uuid="ed03f8b2-d1cd-4a1b-a012-c042be6e7222"/>
+				<reportElement x="523" y="319" width="40" height="13" uuid="ed03f8b2-d1cd-4a1b-a012-c042be6e7222"/>
 				<box>
 					<bottomPen lineWidth="0.5"/>
 				</box>
@@ -881,7 +1033,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textFieldExpression><![CDATA[($F{comp_emb_3} == 0) ? "":$F{comp_emb_3}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table_TD" x="316" y="176" width="44" height="13" uuid="fd2548e7-70a1-40d4-92e6-a6888ecdd834"/>
+				<reportElement style="table_TD" x="316" y="319" width="44" height="13" uuid="fd2548e7-70a1-40d4-92e6-a6888ecdd834"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -895,7 +1047,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Emb 1:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table_TD" x="400" y="176" width="44" height="13" uuid="6161926d-8aea-40d6-a8ec-14368ada1c62"/>
+				<reportElement style="table_TD" x="400" y="319" width="44" height="13" uuid="6161926d-8aea-40d6-a8ec-14368ada1c62"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -909,7 +1061,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Emb 2:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table_TD" x="479" y="176" width="44" height="13" uuid="c0746842-f4b7-464a-a392-374a4b157aa5"/>
+				<reportElement style="table_TD" x="479" y="319" width="44" height="13" uuid="c0746842-f4b7-464a-a392-374a4b157aa5"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -922,6 +1074,326 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				</textElement>
 				<text><![CDATA[Emb 3:]]></text>
 			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="1" y="77" width="61" height="13" uuid="895ec296-c6df-47b3-895f-28915eab214c"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Distrito:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="88" y="91" width="325" height="13" uuid="9cfd62f1-7647-40ed-bb4a-7a9086902276"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{dir_referencia_diagnostico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" x="295" y="77" width="82" height="13" uuid="c24b63bb-78ec-42d0-a3cd-d357422ac04f"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Corregimiento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="295" y="63" width="61" height="13" uuid="95cba3e6-a969-4d9a-bc71-53795101a13f"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Region:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="62" y="63" width="233" height="13" uuid="109ee625-a7ef-43bb-ac73-b5391ce32bcc"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{nombre_provincia_diag}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" x="1" y="63" width="61" height="13" uuid="6cf7d924-221a-4690-b011-a550dafecb37"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Provincia:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="377" y="77" width="192" height="13" uuid="3d0a82ec-b544-4516-964a-1686cb868c21"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{nombre_corregimiento_diag}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="62" y="77" width="233" height="13" uuid="683a2ce6-a5ae-4f16-82f8-9a29c9c34849"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{nombre_distrito_diag}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" x="1" y="91" width="87" height="13" uuid="11014b0a-4a92-4813-9e7d-3337ddbc2895"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Lugar Poblado:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="356" y="63" width="213" height="13" uuid="69a18194-8658-4a86-aa64-2ebd0ad47ff4"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{nombre_region_diag}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" x="2" y="48" width="568" height="15" uuid="07ddf4ac-b2d3-4296-b2d9-b87e83b3a064"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Residencia al Diagnostico:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="2" y="111" width="568" height="15" uuid="0993a0a3-a275-4697-aab1-08dfbe108b84"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Residencia Actual:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="2" y="206" width="77" height="13" uuid="fd64d6f0-4bab-433f-b442-92c13a3ea089"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Transexual:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="79" y="206" width="57" height="13" uuid="cbedafd8-bd0e-4d0b-95e4-18b3b9d0aa3d"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" x="143" y="206" width="152" height="13" uuid="2101caf5-9f63-4cc6-a042-26db5ef09ee0"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Identidad de Genero:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="301" y="206" width="269" height="13" uuid="a6ca26a9-59a9-468a-9427-82fdd38f6313"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="79" y="222" width="122" height="13" uuid="d573be0b-aef3-41fb-ba84-414ba60e28e9"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" x="2" y="222" width="77" height="13" uuid="dbb12d1d-2796-45e1-bb1d-b076e7e44f83"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Etnia:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="301" y="222" width="269" height="13" uuid="d03e7f42-ef48-4674-b7d0-2c339b7cdb03"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" x="211" y="222" width="84" height="13" uuid="1c32dbe7-05d5-4511-80e5-f8b6a979f6d8"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Grupo Indigena:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="284" y="257" width="22" height="13" uuid="a1cd9d51-9b05-45e7-917a-a8f3a07ce7c1"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" x="227" y="257" width="54" height="13" uuid="79f7263a-c940-4b86-b389-b548c480a2aa"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Gonorrea:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="382" y="257" width="22" height="13" uuid="7d3702e2-8b4c-4ae9-a7b6-5dcffe4cff75"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" x="316" y="257" width="61" height="13" uuid="c2c3c2ef-ac02-4fa5-a617-fd3815999ec6"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hepatitis B:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="479" y="257" width="22" height="13" uuid="75c16d6c-7b5e-4c48-9247-622ceb309c1f"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" x="413" y="257" width="61" height="13" uuid="1e2388e4-6d6a-48ae-82e2-2a094dc3edf6"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hepatitis C:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="545" y="256" width="22" height="13" uuid="d924eaa7-ae15-412c-b949-36600263bd54"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" x="506" y="256" width="37" height="13" uuid="a4ee618e-519b-4dc7-9ae1-01e283f93744"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Otras:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="2" y="333" width="129" height="13" uuid="d51558aa-9758-4526-93fe-069910c0aed0"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fecha Probable de Parto:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="131" y="333" width="57" height="13" uuid="d19db00b-1ff1-47cd-874c-35dd9971d7b3"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+			</textField>
 		</band>
 		<band height="48">
 			<staticText>
@@ -999,9 +1471,9 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "sub_vih_enferemedad_oportunista.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="314">
+		<band height="457">
 			<staticText>
-				<reportElement style="table_TD" stretchType="RelativeToBandHeight" x="0" y="2" width="580" height="106" uuid="eccff8aa-c25d-4048-a0d5-3cc28e0f866a"/>
+				<reportElement style="table_TD" stretchType="RelativeToBandHeight" x="0" y="0" width="580" height="106" uuid="eccff8aa-c25d-4048-a0d5-3cc28e0f866a"/>
 				<box leftPadding="5">
 					<pen lineWidth="1.5"/>
 					<topPen lineWidth="1.5"/>
@@ -1226,7 +1698,7 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<text><![CDATA[Sobrevida SIDA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table_TD" x="49" y="74" width="152" height="13" uuid="e708e83a-451e-4f22-8084-c7f34e231b94"/>
+				<reportElement style="table_TD" x="49" y="76" width="152" height="13" uuid="e708e83a-451e-4f22-8084-c7f34e231b94"/>
 				<box leftPadding="5">
 					<pen lineWidth="0.0"/>
 					<topPen lineWidth="0.0"/>
@@ -1237,15 +1709,8 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Lugar de diagnóstico Sida:]]></text>
+				<text><![CDATA[Razon de Diagnostico de SIDA:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement x="201" y="87" width="191" height="13" uuid="a1830804-619f-49c4-a4f1-ff4039f05889"/>
-				<box leftPadding="5">
-					<bottomPen lineWidth="0.5"/>
-				</box>
-				<textFieldExpression><![CDATA[$F{cond_lugar_diagnostico}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement style="table_TD" stretchType="RelativeToBandHeight" x="0" y="117" width="580" height="66" uuid="e51f718a-6950-4775-8db6-753796310372"/>
 				<box leftPadding="5">
@@ -1459,27 +1924,12 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[($F{cond_edad_sida} == 0)? "" : $F{cond_edad_sida}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement style="table_TD" x="49" y="87" width="152" height="13" uuid="7cba99fe-497f-4eab-86e1-c1d6947dc975"/>
-				<box leftPadding="5">
-					<pen lineWidth="0.0"/>
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.0"/>
-					<bottomPen lineWidth="0.0"/>
-					<rightPen lineWidth="0.0"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Lugar de diagnóstico VIH:]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="201" y="74" width="191" height="13" uuid="2c77a544-bdce-4158-b36c-314bfb554e90"/>
+				<reportElement x="270" y="76" width="26" height="13" uuid="2c77a544-bdce-4158-b36c-314bfb554e90"/>
 				<box leftPadding="5">
 					<bottomPen lineWidth="0.5"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{cond_lugar_diagnostico_sida}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement style="table_TD" x="2" y="193" width="568" height="15" uuid="0d0715b5-700b-45e0-8c80-3efd69aedf30"/>
@@ -1778,6 +2228,114 @@ where vih.id_vih_form = $P{idVihForm}]]>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[($F{tarv_res_carga_viral} == 0) ? "" : $F{tarv_res_carga_viral}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" stretchType="RelativeToBandHeight" x="0" y="310" width="580" height="108" uuid="696b3d9a-7d93-46cc-8399-6df108996316"/>
+				<box leftPadding="5">
+					<pen lineWidth="1.5"/>
+					<topPen lineWidth="1.5"/>
+					<leftPen lineWidth="1.5"/>
+					<bottomPen lineWidth="1.5"/>
+					<rightPen lineWidth="1.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="1" y="312" width="569" height="15" uuid="3780926a-f755-49d5-8198-98dc7bcf918b"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VII. Observaciones]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="8" y="327" width="562" height="79" uuid="80553e26-12de-4218-8cf6-4585fa4049f1"/>
+				<textFieldExpression><![CDATA[$F{observaciones}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" x="201" y="76" width="69" height="13" uuid="30bf9552-c045-4567-bdf3-aed7e337f18d"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[CD4 <= 200]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="424" y="76" width="26" height="13" uuid="bdab1da9-55a9-4e9a-a5ec-c0e355f6c97b"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" x="306" y="76" width="114" height="13" uuid="15593840-7173-4e6e-905f-1bca20c4aac8"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Infeccion Oportunista:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="49" y="88" width="178" height="13" uuid="6b7c74cb-44cb-48d3-946a-f5dca0b08134"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Recibe terapia antirretroviral (TAR):]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="227" y="88" width="26" height="13" uuid="de59a1ff-7417-4df1-b026-a88c724d4a95"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+			</textField>
+			<staticText>
+				<reportElement style="table_TD" x="270" y="89" width="112" height="13" uuid="29ec6ac4-d295-409e-938a-762fb12a16d0"/>
+				<box leftPadding="5">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fecha inicatio de TAR:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="393" y="89" width="90" height="13" uuid="0d59d223-9672-4f01-853c-b319ec25f41c"/>
+				<box leftPadding="5">
+					<bottomPen lineWidth="0.5"/>
+				</box>
 			</textField>
 		</band>
 	</detail>
