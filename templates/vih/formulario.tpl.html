@@ -359,8 +359,19 @@
                                     <!-- END blkEtnia -->
                                 </select>
                             </td>
+                            <td id="tr_grupo_indigenalbl"  style="display: none" ><label>Grupo Indigena:</label></td>
+                            <td id="tr_grupo_indigena"  style="display: none" >
+                                <select id="drpGrupoIndigena" name="data[individuo][grupo_indigena]" style="width:300px">
+                                    <option value="0">Seleccione...</option>
+                                    <!-- BEGIN blkGrupoIndigena -->
+                                    <option value="{valGrupoIndigena}" {selGrupoIndigena}>{opcGrupoIndigena}</option>
+                                    <!-- END blkGrupoIndigena -->
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
                             <td><label >Estado Civil:<span class="mandatory">*</span></label></td>
-                            <td >
+                            <td>
                                 <select id="drpEstadoCivil" name="data[individuo][estado_civil]" style="width:250px">
                                     <option value="0">Seleccione...</option>
                                     <option value="1" {selEstado1}>Soltero(a)</option>
@@ -371,20 +382,8 @@
                                     <option value="5" {selEstado6}>No especificado</option>
                                 </select>
                             </td>
-                        </tr>
-                        <tr id="tr_grupo_indigena" style="display: none">
                             <td></td>
                             <td></td>
-                            <td><label>Grupo Indigena:</label></td>
-                            <td >
-                                <select id="drpGrupoIndigena" name="data[individuo][grupo_indigena]" style="width:300px">
-                                    <option value="0">Seleccione...</option>
-                                    <!-- BEGIN blkGrupoIndigena -->
-                                    <option value="{valGrupoIndigena}" {selGrupoIndigena}>{opcGrupoIndigena}</option>
-                                    <!-- END blkGrupoIndigena -->
-                                </select>
-                            </td>
-
                         </tr>
                         <tr>
                             <td><label >Escolaridad:<span class="mandatory">*</span></label></td>
@@ -645,7 +644,6 @@
                             </td>
                         </tr>
                         <tr id="razonSida" style="display: none">
-                            <td>&nbsp;</td>
                             <td>
                                 Razon de diagnostico de SIDA:
                             </td>
@@ -653,6 +651,7 @@
                                 <input type="radio" name="data[condicion][razon_sida]" value="1" {valRazonSida1}> CD4 <= 200 &nbsp;
                                 <input type="radio" name="data[condicion][razon_sida]" value="2" {valRazonSida2}> Infeccion Oportunista
                             </td>
+                            <td>&nbsp;</td>
                         </tr>
                         <tr>
                             <td><label>Sobrevida:</label></td>

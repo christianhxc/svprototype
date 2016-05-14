@@ -529,8 +529,10 @@ $(document).ready(function() {
 
 function mostrarGrupoIndigena(){
     if($('#drpEtnia').val() == 5){
+        $("#tr_grupo_indigenalbl").show();
         $("#tr_grupo_indigena").show();
     } else {
+        $("#tr_grupo_indigenalbl").hide();
         $("#tr_grupo_indigena").hide();
     }
 }
