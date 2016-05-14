@@ -87,6 +87,14 @@
             </bookmark>
         </file>
         <file>
+            <url>libs/helper/helperUceti.php</url>
+            <bookmark id="0">
+                <name/>
+                <line>7</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
             <url>libs/helper/helperMuestra.php</url>
             <bookmark id="0">
                 <name/>
@@ -111,6 +119,22 @@
             <bookmark id="0">
                 <name/>
                 <line>180</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>libs/pages/pruebasMuestraPage.php</url>
+            <bookmark id="0">
+                <name/>
+                <line>16</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>libs/dal/analista/dalAnalista.php</url>
+            <bookmark id="0">
+                <name/>
+                <line>1128</line>
                 <key/>
             </bookmark>
         </file>
@@ -153,32 +177,11 @@
                 <key/>
             </bookmark>
         </file>
-        <file>
-            <url>libs/helper/helperUceti.php</url>
-            <bookmark id="0">
-                <name/>
-                <line>7</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>libs/pages/pruebasMuestraPage.php</url>
-            <bookmark id="0">
-                <name/>
-                <line>16</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>libs/dal/analista/dalAnalista.php</url>
-            <bookmark id="0">
-                <name/>
-                <line>1128</line>
-                <key/>
-            </bookmark>
-        </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/sisvig2_AWS/js/tb/formulario.js</file>
+            <file>file:/C:/xampp/htdocs/sisvig2_AWS/templates/tb/VIH.tpl.html</file>
+        </group>
     </open-files>
 </project-private>
