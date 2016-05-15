@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_vih_enferemedad_oportunista" pageWidth="562" pageHeight="802" columnWidth="562" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7256d0a3-de97-4abb-aa7e-8f1150de20e1">
+	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="0bce0d25-75ac-4598-a86f-611ed693dbcc"/>
+	<parameter name="idVihForm" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+	(CASE
+        WHEN termino_embarazo = 1 THEN 'Aborto'
+        WHEN termino_embarazo = 2 THEN 'Mortinato'
+        WHEN termino_embarazo = 3 THEN 'Vivo'
+        ELSE ''
+    END) AS termino_embarazo,
+    ifnull(numero_cedula,'') as numero_cedula,
+    ifnull(nombre,'') as nombre,
+    ifnull(apellido,'') as apellido,
+    ifnull(DATE_FORMAT(nacimiento, '%d-%m-%Y'),'') AS nacimiento,
+    (CASE
+        WHEN sexo = 1 THEN 'Niño'
+        WHEN sexo = 2 THEN 'Niña'
+        ELSE ''
+    END) AS sexo,
+    (CASE
+        WHEN pcr1 = 1 THEN 'Si'
+        WHEN pcr1 = 2 THEN 'No'
+        ELSE ''
+    END) AS pcr1,
+    ifnull(DATE_FORMAT(pcr1_fecha, '%d-%m-%Y'),'') AS pcr1_fecha,
+    (CASE
+        WHEN pcr2 = 1 THEN 'Si'
+        WHEN pcr2 = 2 THEN 'No'
+        ELSE ''
+    END) AS pcr2,
+    ifnull(DATE_FORMAT(pcr2_fecha, '%d-%m-%Y'),'') AS pcr2_fecha
+FROM
+	vih_form_nino
+where id_vih_form = $P{idVihForm}]]>
+	</queryString>
+	<field name="termino_embarazo" class="java.lang.String"/>
+	<field name="numero_cedula" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="apellido" class="java.lang.String"/>
+	<field name="nacimiento" class="java.lang.String"/>
+	<field name="sexo" class="java.lang.String"/>
+	<field name="pcr1" class="java.lang.String"/>
+	<field name="pcr1_fecha" class="java.lang.String"/>
+	<field name="pcr2" class="java.lang.String"/>
+	<field name="pcr2_fecha" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement style="table_TD" x="56" y="0" width="58" height="15" forecolor="#FFFFFF" backcolor="#006600" uuid="d072614c-a89f-4b87-90b1-a1d0af8487d1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No. Cedula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="0" y="0" width="56" height="15" forecolor="#FFFFFF" backcolor="#006600" uuid="ab9f88f6-4c09-4690-85c2-4ea53427a112"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Embarazo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="114" y="0" width="81" height="15" forecolor="#FFFFFF" backcolor="#006600" uuid="8a22818d-c03e-4d65-8636-ef66e3a5fa62"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="195" y="0" width="81" height="15" forecolor="#FFFFFF" backcolor="#006600" uuid="47c55967-0abd-4991-946d-819a409a5927"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="276" y="0" width="59" height="15" forecolor="#FFFFFF" backcolor="#006600" uuid="e1fc6601-638b-4a13-ad0d-f1371a87f6ca"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nacimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="335" y="0" width="30" height="15" forecolor="#FFFFFF" backcolor="#006600" uuid="5ab50094-7659-48fc-b0f7-8f6ce3572009"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="365" y="0" width="35" height="15" forecolor="#FFFFFF" backcolor="#006600" uuid="b659f770-8528-46b8-81f6-0cab8deb7909"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PCR 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="400" y="0" width="61" height="15" forecolor="#FFFFFF" backcolor="#006600" uuid="7542e25d-dc7b-4d03-8b1a-0365ba266dda"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="460" y="0" width="35" height="15" forecolor="#FFFFFF" backcolor="#006600" uuid="cf93f02c-500b-41f8-add7-9811a83899cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PCR 2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table_TD" x="495" y="0" width="61" height="15" forecolor="#FFFFFF" backcolor="#006600" uuid="68a51845-dc68-4e4a-bae2-8a262b17dbcc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement style="table_TD" x="56" y="0" width="58" height="15" uuid="2b5f7e51-0917-4562-91f4-aa41ef7babf9"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="0" y="0" width="56" height="15" uuid="c000894e-e99d-417c-b857-5a80bf11b197"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{termino_embarazo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="114" y="0" width="81" height="15" uuid="4df8c12b-63ba-4907-b627-3d0aa9c52efe"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="195" y="0" width="81" height="15" uuid="88f2b063-4530-4b5a-92fa-bd468a6912c6"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="276" y="0" width="59" height="15" uuid="a882eec7-1bd3-4962-bf28-64290b32156a"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nacimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="335" y="0" width="30" height="15" uuid="768dbf3d-db71-4029-89a9-163ee818faa4"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="365" y="0" width="35" height="15" uuid="028ada04-34c4-4363-865b-2d5c912fedf4"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pcr1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="400" y="0" width="60" height="15" uuid="d5875556-bfc5-4fbf-9024-65ddc4a2e899"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pcr1_fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="495" y="0" width="61" height="15" uuid="dcce9adf-9162-47db-8cb7-36d7a03c3d31"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pcr2_fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="table_TD" x="460" y="0" width="35" height="15" uuid="3dd365da-b447-4e01-a705-b3719d6dca2c"/>
+				<box leftPadding="5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pcr2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
