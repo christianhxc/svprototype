@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vih_exportacion_excel" pageWidth="11950" pageHeight="5000" columnWidth="11910" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c03cd365-7df8-4191-870c-98abad44a8d2">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="vih_exportacion_excel" pageWidth="14040" pageHeight="5000" columnWidth="14000" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c03cd365-7df8-4191-870c-98abad44a8d2">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="5824"/>
+	<property name="ireport.x" value="12573"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["http://localhost/sisvig2/reportes/vih/"]]></defaultValueExpression>
@@ -55,7 +55,25 @@ DATE_FORMAT(tarv.tarv_fec_inicio ,'%d-%m-%Y') as tarv_fec_inicio,
 DATE_FORMAT(tarv.tarv_fec_cd4 ,'%d-%m-%Y') as tarv_fec_cd4, tarv.tarv_res_cd4,
 DATE_FORMAT(tarv.tarv_fec_cd4_350 ,'%d-%m-%Y') as tarv_fec_cd4_350, tarv.tarv_res_cd4_350,
 DATE_FORMAT(tarv.tarv_fec_cd4_200 ,'%d-%m-%Y') as tarv_fec_cd4_200, tarv.tarv_res_cd4_200,
-DATE_FORMAT(tarv.tarv_fec_carga_viral ,'%d-%m-%Y') as tarv_fec_carga_viral, tarv.tarv_res_carga_viral
+DATE_FORMAT(tarv.tarv_fec_carga_viral ,'%d-%m-%Y') as tarv_fec_carga_viral, tarv.tarv_res_carga_viral,
+vih.comp_its_sifilis,
+vih.comp_its_gonorrea,
+vih.comp_its_hepatitisb,
+vih.comp_its_hepatitisc,
+vih.comp_its_otras,
+vih.transexual,
+vih.razon_sida,
+vih.tar,
+DATE_FORMAT(vih.fecha_tar ,'%d-%m-%Y') as fecha_tar,
+vih.observaciones,
+pro_diag.id_provincia as id_provincia_diag, pro_diag.nombre_provincia as nombre_provincia_diag,
+reg_diag.id_region as id_region_diag, reg_diag.nombre_region as nombre_region_diag,
+dis_diag.id_distrito as id_distrito_diag, dis_diag.nombre_distrito as nombre_distrito_diag,
+cor_diag.id_corregimiento as id_corregimiento_diag, cor_diag.nombre_corregimiento as nombre_corregimiento_diag,
+dir_referencia_diagnostico as dir_referencia_diagnostico,
+DATE_FORMAT(per.fecha_parto ,'%d-%m-%Y') as fecha_parto,
+per.id_grupo_indigena,
+per.correo_electronico
 from vih_form vih
 inner join tbl_persona per on vih.id_tipo_identidad = per.tipo_identificacion and vih.numero_identificacion = per.numero_identificacion
 inner join cat_tipo_identidad tid on tid.id_tipo_identidad = vih.id_tipo_identidad
@@ -63,6 +81,12 @@ inner join cat_corregimiento cor on cor.id_corregimiento = vih.per_id_corregimie
 inner join cat_distrito dis on dis.id_distrito = cor.id_distrito
 inner join cat_region_salud reg on reg.id_region = dis.id_region
 inner join cat_provincia pro on pro.id_provincia = reg.id_provincia
+
+left join cat_corregimiento cor_diag on cor_diag.id_corregimiento = per.id_corregimiento_diagnostico
+left join cat_distrito dis_diag on dis_diag.id_distrito = cor_diag.id_distrito
+left join cat_region_salud reg_diag on reg_diag.id_region = dis_diag.id_region
+left join cat_provincia pro_diag on pro_diag.id_provincia = reg_diag.id_provincia
+
 inner join cat_edad ted ON vih.per_tipo_edad = ted.tipo_edad
 left join cat_ocupacion ocu on ocu.id_ocupacion = per.id_ocupacion
 left join cat_etnia etnia on etnia.id_etnia = per.id_etnia
@@ -173,13 +197,35 @@ order by vih.id_vih_form desc]]>
 	<field name="tarv_res_cd4_200" class="java.lang.Integer"/>
 	<field name="tarv_fec_carga_viral" class="java.lang.String"/>
 	<field name="tarv_res_carga_viral" class="java.lang.Integer"/>
+	<field name="comp_its_sifilis" class="java.lang.String"/>
+	<field name="comp_its_gonorrea" class="java.lang.String"/>
+	<field name="comp_its_hepatitisb" class="java.lang.String"/>
+	<field name="comp_its_hepatitisc" class="java.lang.String"/>
+	<field name="comp_its_otras" class="java.lang.String"/>
+	<field name="transexual" class="java.lang.String"/>
+	<field name="razon_sida" class="java.lang.String"/>
+	<field name="tar" class="java.lang.String"/>
+	<field name="fecha_tar" class="java.lang.String"/>
+	<field name="observaciones" class="java.lang.String"/>
+	<field name="id_provincia_diag" class="java.lang.String"/>
+	<field name="nombre_provincia_diag" class="java.lang.String"/>
+	<field name="id_region_diag" class="java.lang.String"/>
+	<field name="nombre_region_diag" class="java.lang.String"/>
+	<field name="id_distrito_diag" class="java.lang.String"/>
+	<field name="nombre_distrito_diag" class="java.lang.String"/>
+	<field name="id_corregimiento_diag" class="java.lang.String"/>
+	<field name="nombre_corregimiento_diag" class="java.lang.String"/>
+	<field name="dir_referencia_diagnostico" class="java.lang.String"/>
+	<field name="fecha_parto" class="java.lang.String"/>
+	<field name="id_grupo_indigena" class="java.lang.String"/>
+	<field name="correo_electronico" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="15" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="19315999-7715-4e06-847b-6c144b78263e" x="0" y="0" width="74" height="15"/>
+				<reportElement x="0" y="0" width="74" height="15" uuid="19315999-7715-4e06-847b-6c144b78263e"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -191,7 +237,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_vih_form]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="8ccb6d35-f8f4-41fc-b903-50bb4ce449d9" x="5776" y="0" width="61" height="15"/>
+				<reportElement x="5776" y="0" width="61" height="15" uuid="8ccb6d35-f8f4-41fc-b903-50bb4ce449d9"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -203,7 +249,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_factor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="574a2c49-073f-4b06-8163-9571229e3fe5" x="5644" y="0" width="132" height="15"/>
+				<reportElement x="5644" y="0" width="132" height="15" uuid="574a2c49-073f-4b06-8163-9571229e3fe5"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -215,7 +261,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[grupo_factor_nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="abc557be-609c-4eb1-bd52-8fc8b1369c20" x="5544" y="0" width="100" height="15"/>
+				<reportElement x="5544" y="0" width="100" height="15" uuid="abc557be-609c-4eb1-bd52-8fc8b1369c20"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -227,7 +273,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_grupo_factor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e95face3-17b6-4016-9da3-35be9ef5f16e" x="4903" y="0" width="100" height="15"/>
+				<reportElement x="4903" y="0" width="100" height="15" uuid="e95face3-17b6-4016-9da3-35be9ef5f16e"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -239,7 +285,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[comp_embarazada]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="fd8d2185-5901-4ba2-be11-ad29cb5e316b" x="4803" y="0" width="100" height="15"/>
+				<reportElement x="4803" y="0" width="100" height="15" uuid="fd8d2185-5901-4ba2-be11-ad29cb5e316b"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -251,7 +297,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[comp_per_preso]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="be612ff3-28e7-42cd-aa1f-ba4f501588db" x="4603" y="0" width="200" height="15"/>
+				<reportElement x="4603" y="0" width="200" height="15" uuid="be612ff3-28e7-42cd-aa1f-ba4f501588db"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -263,7 +309,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[comp_donante_instalacion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="4ea5a9e7-7e9f-4515-91fb-dcbc0ca963c6" x="4483" y="0" width="120" height="15"/>
+				<reportElement x="4483" y="0" width="120" height="15" uuid="4ea5a9e7-7e9f-4515-91fb-dcbc0ca963c6"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -275,7 +321,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[comp_donante_fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="acec0e66-f962-4849-a6a2-a8abb3f8b859" x="4356" y="0" width="127" height="15"/>
+				<reportElement x="4356" y="0" width="127" height="15" uuid="acec0e66-f962-4849-a6a2-a8abb3f8b859"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -287,7 +333,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[comp_donante_sangre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a7c4265d-82c6-4aeb-938b-9701ce66c1c8" x="4226" y="0" width="130" height="15"/>
+				<reportElement x="4226" y="0" width="130" height="15" uuid="a7c4265d-82c6-4aeb-938b-9701ce66c1c8"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -299,7 +345,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[comp_trabajador_sexual]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e57aaf36-d490-4b3d-93b3-ce56414b24bb" x="4126" y="0" width="100" height="15"/>
+				<reportElement x="4126" y="0" width="100" height="15" uuid="e57aaf36-d490-4b3d-93b3-ce56414b24bb"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -311,7 +357,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[comp_uso_condon]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ce9c9889-aef3-449c-9fa3-ea095cb83075" x="3983" y="0" width="143" height="15"/>
+				<reportElement x="3983" y="0" width="143" height="15" uuid="ce9c9889-aef3-449c-9fa3-ea095cb83075"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -323,7 +369,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[comp_edad_inicio_sexual]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="225d6906-227e-4004-bb9f-263c0375f654" x="3869" y="0" width="114" height="15"/>
+				<reportElement x="3869" y="0" width="114" height="15" uuid="225d6906-227e-4004-bb9f-263c0375f654"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -335,7 +381,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[comp_its_ulcerativa]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="598379f4-9956-4de2-b8a5-770a566895ef" x="3769" y="0" width="100" height="15"/>
+				<reportElement x="3769" y="0" width="100" height="15" uuid="598379f4-9956-4de2-b8a5-770a566895ef"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -347,7 +393,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[comp_its_ultimo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="75c2c539-561c-4c48-8982-e8fa761c94c1" x="3638" y="0" width="131" height="15"/>
+				<reportElement x="3638" y="0" width="131" height="15" uuid="75c2c539-561c-4c48-8982-e8fa761c94c1"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -359,7 +405,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_escolaridad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1dda4869-320f-41b9-9487-8f57fa8fbf79" x="3538" y="0" width="100" height="15"/>
+				<reportElement x="3538" y="0" width="100" height="15" uuid="1dda4869-320f-41b9-9487-8f57fa8fbf79"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -371,7 +417,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_escolaridad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="3ebf12bc-f673-46ac-8dd8-251edeecb040" x="3419" y="0" width="119" height="15"/>
+				<reportElement x="3419" y="0" width="119" height="15" uuid="3ebf12bc-f673-46ac-8dd8-251edeecb040"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -383,7 +429,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_estado_civil]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a5e06aa2-501c-4888-b905-508548518ad7" x="3319" y="0" width="100" height="15"/>
+				<reportElement x="3319" y="0" width="100" height="15" uuid="a5e06aa2-501c-4888-b905-508548518ad7"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -395,7 +441,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_estado_civil]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="5fd89bf9-5ecb-4099-ad6d-6c47b9e413eb" x="3219" y="0" width="100" height="15"/>
+				<reportElement x="3219" y="0" width="100" height="15" uuid="5fd89bf9-5ecb-4099-ad6d-6c47b9e413eb"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -407,7 +453,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_etnia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="45e4cada-8bf4-4da5-8fe4-34316abe858c" x="3160" y="0" width="59" height="15"/>
+				<reportElement x="3160" y="0" width="59" height="15" uuid="45e4cada-8bf4-4da5-8fe4-34316abe858c"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -419,7 +465,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_etnia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="abd87699-d9fc-457a-ba06-d88d821af02d" x="3060" y="0" width="100" height="15"/>
+				<reportElement x="3060" y="0" width="100" height="15" uuid="abd87699-d9fc-457a-ba06-d88d821af02d"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -431,7 +477,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[genero_nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f514f915-c8de-48a3-bea3-966c4ed51050" x="3000" y="0" width="60" height="15"/>
+				<reportElement x="3000" y="0" width="60" height="15" uuid="f514f915-c8de-48a3-bea3-966c4ed51050"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -443,7 +489,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_genero]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2bc1b42e-f1d9-4fc0-9278-2ace2cc4537b" x="2800" y="0" width="200" height="15"/>
+				<reportElement x="2800" y="0" width="200" height="15" uuid="2bc1b42e-f1d9-4fc0-9278-2ace2cc4537b"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -455,7 +501,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_ocupacion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="134ee103-74bd-47c1-a859-753058cffa0a" x="2700" y="0" width="100" height="15"/>
+				<reportElement x="2700" y="0" width="100" height="15" uuid="134ee103-74bd-47c1-a859-753058cffa0a"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -467,7 +513,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_ocupacion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ee9c47fc-9e8c-4d7a-9e34-7c8248002ac1" x="2500" y="0" width="200" height="15"/>
+				<reportElement x="2500" y="0" width="200" height="15" uuid="ee9c47fc-9e8c-4d7a-9e34-7c8248002ac1"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -479,7 +525,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_responsable]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="10d45f9c-8fe7-422c-a57d-df7699a95843" x="2440" y="0" width="60" height="15"/>
+				<reportElement x="2440" y="0" width="60" height="15" uuid="10d45f9c-8fe7-422c-a57d-df7699a95843"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -491,7 +537,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[sexo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e65c7a40-5a8f-4016-8e87-e53b66a3e0c2" x="2340" y="0" width="100" height="15"/>
+				<reportElement x="2340" y="0" width="100" height="15" uuid="e65c7a40-5a8f-4016-8e87-e53b66a3e0c2"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -503,7 +549,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_edad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a41e6de3-4f96-4fca-be4d-9d0a6bd695b5" x="2240" y="0" width="100" height="15"/>
+				<reportElement x="2240" y="0" width="100" height="15" uuid="a41e6de3-4f96-4fca-be4d-9d0a6bd695b5"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -515,7 +561,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[per_tipo_edad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="60e4199d-1f5b-4b7f-99c0-3a2188569b56" x="2174" y="0" width="66" height="15"/>
+				<reportElement x="2174" y="0" width="66" height="15" uuid="60e4199d-1f5b-4b7f-99c0-3a2188569b56"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -527,7 +573,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[per_edad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9cac2129-f8a4-49ca-abff-cca7f1eded47" x="2074" y="0" width="100" height="15"/>
+				<reportElement x="2074" y="0" width="100" height="15" uuid="9cac2129-f8a4-49ca-abff-cca7f1eded47"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -539,7 +585,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[fecha_nacimiento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e8360573-89a2-4ac6-a258-bd8ec7359b5f" x="1989" y="0" width="85" height="15"/>
+				<reportElement x="1989" y="0" width="85" height="15" uuid="e8360573-89a2-4ac6-a258-bd8ec7359b5f"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -551,7 +597,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[tel_residencial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="28b027d8-008a-428f-955b-b6a3cf26f7ec" x="1763" y="0" width="226" height="15"/>
+				<reportElement x="1763" y="0" width="226" height="15" uuid="28b027d8-008a-428f-955b-b6a3cf26f7ec"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -563,7 +609,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[per_localidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="475f5098-332a-46ac-9970-1ba5b9ba5230" x="975" y="0" width="132" height="15"/>
+				<reportElement x="975" y="0" width="132" height="15" uuid="475f5098-332a-46ac-9970-1ba5b9ba5230"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -575,7 +621,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_provincia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="10902a93-a433-4bff-bfde-ad89fcbd1d1d" x="900" y="0" width="75" height="15"/>
+				<reportElement x="900" y="0" width="75" height="15" uuid="10902a93-a433-4bff-bfde-ad89fcbd1d1d"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -587,7 +633,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_provincia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="4253432f-c4fc-4639-ab18-ac8f087e989f" x="774" y="0" width="126" height="15"/>
+				<reportElement x="774" y="0" width="126" height="15" uuid="4253432f-c4fc-4639-ab18-ac8f087e989f"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -599,7 +645,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[numero_identificacion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="175e0e64-f5f2-4e40-92b8-9ebeb3c39afa" x="659" y="0" width="115" height="15"/>
+				<reportElement x="659" y="0" width="115" height="15" uuid="175e0e64-f5f2-4e40-92b8-9ebeb3c39afa"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -611,7 +657,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[tipo_identificacion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="645e598c-48c2-407b-9403-4d315ea48255" x="559" y="0" width="100" height="15"/>
+				<reportElement x="559" y="0" width="100" height="15" uuid="645e598c-48c2-407b-9403-4d315ea48255"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -623,7 +669,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_tipo_identidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2f6c26fb-b0a3-436f-a5b0-394ce9d321d0" x="459" y="0" width="100" height="15"/>
+				<reportElement x="459" y="0" width="100" height="15" uuid="2f6c26fb-b0a3-436f-a5b0-394ce9d321d0"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -635,7 +681,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[segundo_apellido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="880c9321-ee2c-492a-8ece-931a34335307" x="359" y="0" width="100" height="15"/>
+				<reportElement x="359" y="0" width="100" height="15" uuid="880c9321-ee2c-492a-8ece-931a34335307"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -647,7 +693,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[primer_apellido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="742d6e65-d176-46a0-8033-f0e96c6dfa9b" x="259" y="0" width="100" height="15"/>
+				<reportElement x="259" y="0" width="100" height="15" uuid="742d6e65-d176-46a0-8033-f0e96c6dfa9b"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -659,7 +705,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[segundo_nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c2b45826-1c72-40c9-ae0a-3598c5d3dcd8" x="159" y="0" width="100" height="15"/>
+				<reportElement x="159" y="0" width="100" height="15" uuid="c2b45826-1c72-40c9-ae0a-3598c5d3dcd8"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -671,7 +717,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[primer_nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="852da72a-642e-4063-994f-d75f5c9469aa" x="74" y="0" width="85" height="15"/>
+				<reportElement x="74" y="0" width="85" height="15" uuid="852da72a-642e-4063-994f-d75f5c9469aa"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -683,7 +729,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[per_asegurado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="679981c2-db78-41de-a118-55f692e24a2a" x="1182" y="0" width="132" height="15"/>
+				<reportElement x="1182" y="0" width="132" height="15" uuid="679981c2-db78-41de-a118-55f692e24a2a"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -695,7 +741,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_region]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f8edfced-7119-4582-a6a9-3bfd2d6074d2" x="1107" y="0" width="75" height="15"/>
+				<reportElement x="1107" y="0" width="75" height="15" uuid="f8edfced-7119-4582-a6a9-3bfd2d6074d2"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -707,7 +753,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_region]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="344e7d60-2ebd-49f2-a3e5-9df3a873206b" x="1389" y="0" width="132" height="15"/>
+				<reportElement x="1389" y="0" width="132" height="15" uuid="344e7d60-2ebd-49f2-a3e5-9df3a873206b"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -719,7 +765,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_distrito]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="bcd2961c-e921-418c-b900-024a6231b5b7" x="1314" y="0" width="75" height="15"/>
+				<reportElement x="1314" y="0" width="75" height="15" uuid="bcd2961c-e921-418c-b900-024a6231b5b7"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -731,7 +777,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_distrito]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="eb5ef7a1-a9a7-49c6-a63c-c7c5dfdcd444" x="1615" y="0" width="148" height="15"/>
+				<reportElement x="1615" y="0" width="148" height="15" uuid="eb5ef7a1-a9a7-49c6-a63c-c7c5dfdcd444"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -743,7 +789,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_corregimiento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d7255d08-a96b-4eb3-82b1-6595e591f4d8" x="1521" y="0" width="94" height="15"/>
+				<reportElement x="1521" y="0" width="94" height="15" uuid="d7255d08-a96b-4eb3-82b1-6595e591f4d8"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -755,7 +801,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_corregimiento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="5fc0954e-9e1f-4a9f-89bb-47eab2965b24" x="5837" y="0" width="137" height="15"/>
+				<reportElement x="5837" y="0" width="137" height="15" uuid="5fc0954e-9e1f-4a9f-89bb-47eab2965b24"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -767,7 +813,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_factor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="4c623add-6c27-4437-b596-c131e99cfe2a" x="5974" y="0" width="65" height="15"/>
+				<reportElement x="5974" y="0" width="65" height="15" uuid="4c623add-6c27-4437-b596-c131e99cfe2a"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -779,7 +825,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_evento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cec904c1-0538-4ceb-9947-a352ab19f936" x="7974" y="0" width="126" height="15"/>
+				<reportElement x="7974" y="0" width="126" height="15" uuid="cec904c1-0538-4ceb-9947-a352ab19f936"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -791,7 +837,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[cond_fecha_defuncion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="649d2eb7-ce3f-4023-badc-775589654303" x="7690" y="0" width="142" height="15"/>
+				<reportElement x="7690" y="0" width="142" height="15" uuid="649d2eb7-ce3f-4023-badc-775589654303"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -803,7 +849,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[cond_condicion_paciente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="34cfdee9-830a-433c-b9d3-987195274f67" x="7356" y="0" width="234" height="15"/>
+				<reportElement x="7356" y="0" width="234" height="15" uuid="34cfdee9-830a-433c-b9d3-987195274f67"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -815,7 +861,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[cond_lugar_diagnostico]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="5beb2713-fae5-4712-ad67-9408a9565e9c" x="7174" y="0" width="92" height="15"/>
+				<reportElement x="7174" y="0" width="92" height="15" uuid="5beb2713-fae5-4712-ad67-9408a9565e9c"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -827,7 +873,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[cond_fecha_vih]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="4167d751-5a3c-4c9b-8a41-a50375124c8f" x="7113" y="0" width="61" height="15"/>
+				<reportElement x="7113" y="0" width="61" height="15" uuid="4167d751-5a3c-4c9b-8a41-a50375124c8f"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -839,7 +885,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[cond_vih]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0ec4147c-e541-45cb-9b29-dded15dc1949" x="6690" y="0" width="99" height="15"/>
+				<reportElement x="6690" y="0" width="99" height="15" uuid="0ec4147c-e541-45cb-9b29-dded15dc1949"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -851,7 +897,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[cond_fecha_sida]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="21b9dfa5-5a45-4055-ab95-d9f522ac52a5" x="6629" y="0" width="61" height="15"/>
+				<reportElement x="6629" y="0" width="61" height="15" uuid="21b9dfa5-5a45-4055-ab95-d9f522ac52a5"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -863,7 +909,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[cond_sida]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="426a2f4e-cbe4-47cc-a963-d9a3c7cb6c7d" x="6100" y="0" width="529" height="15"/>
+				<reportElement x="6100" y="0" width="529" height="15" uuid="426a2f4e-cbe4-47cc-a963-d9a3c7cb6c7d"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -875,7 +921,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_evento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="3c82f1b6-741c-4409-9d42-6565d506f8ed" x="6039" y="0" width="61" height="15"/>
+				<reportElement x="6039" y="0" width="61" height="15" uuid="3c82f1b6-741c-4409-9d42-6565d506f8ed"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -887,7 +933,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[cie_10]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1bdb51ee-43d2-4c66-a2dd-3309ef4b3847" x="7832" y="0" width="142" height="15"/>
+				<reportElement x="7832" y="0" width="142" height="15" uuid="1bdb51ee-43d2-4c66-a2dd-3309ef4b3847"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -899,7 +945,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[caso_condicion_paciente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="93020c23-5e09-4f4f-8431-6d8eadc8e563" x="10298" y="0" width="73" height="15"/>
+				<reportElement x="10298" y="0" width="73" height="15" uuid="93020c23-5e09-4f4f-8431-6d8eadc8e563"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -911,7 +957,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[semana_epi]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="07e7d048-08cd-4318-a725-ff30d2c4c4d9" x="10194" y="0" width="104" height="15"/>
+				<reportElement x="10194" y="0" width="104" height="15" uuid="07e7d048-08cd-4318-a725-ff30d2c4c4d9"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -923,7 +969,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[fecha_notificacion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ce30fd90-9d8b-4f29-9398-1028daa2a264" x="9959" y="0" width="235" height="15"/>
+				<reportElement x="9959" y="0" width="235" height="15" uuid="ce30fd90-9d8b-4f29-9398-1028daa2a264"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -935,7 +981,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_notifica]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="679b1192-9ead-4895-bacc-66565066f9ce" x="9706" y="0" width="253" height="15"/>
+				<reportElement x="9706" y="0" width="253" height="15" uuid="679b1192-9ead-4895-bacc-66565066f9ce"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -947,7 +993,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_un]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="01348729-e08c-41b6-ba1c-536bdfa5b26e" x="9618" y="0" width="88" height="15"/>
+				<reportElement x="9618" y="0" width="88" height="15" uuid="01348729-e08c-41b6-ba1c-536bdfa5b26e"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -959,7 +1005,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[cod_ref_minsa]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="92ea8b2c-b57a-4878-b405-8c7267f56f83" x="9558" y="0" width="60" height="15"/>
+				<reportElement x="9558" y="0" width="60" height="15" uuid="92ea8b2c-b57a-4878-b405-8c7267f56f83"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -971,7 +1017,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_un]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a3557e08-92ae-41a3-a1f4-886a0acbf7c6" x="8524" y="0" width="100" height="15"/>
+				<reportElement x="8524" y="0" width="100" height="15" uuid="a3557e08-92ae-41a3-a1f4-886a0acbf7c6"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -983,7 +1029,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[unidad_disponible]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="09dd9910-5d72-4dc2-b041-c270fce1967a" x="8398" y="0" width="126" height="15"/>
+				<reportElement x="8398" y="0" width="126" height="15" uuid="09dd9910-5d72-4dc2-b041-c270fce1967a"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -995,7 +1041,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[cond_sobrevida_sida]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b09ecb53-28bc-4033-9238-cc6dfc009be5" x="8196" y="0" width="202" height="15"/>
+				<reportElement x="8196" y="0" width="202" height="15" uuid="b09ecb53-28bc-4033-9238-cc6dfc009be5"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1007,7 +1053,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_un_defuncion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b1ca5077-004b-46b1-a5b7-4aabc5525ba9" x="10565" y="0" width="94" height="15"/>
+				<reportElement x="10565" y="0" width="94" height="15" uuid="b1ca5077-004b-46b1-a5b7-4aabc5525ba9"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1019,7 +1065,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[fecha_formulario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7be866a2-252f-4a3a-840b-3c9919e80d48" x="10417" y="0" width="148" height="15"/>
+				<reportElement x="10417" y="0" width="148" height="15" uuid="7be866a2-252f-4a3a-840b-3c9919e80d48"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1031,7 +1077,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_registra]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f5e93bb3-33e3-4589-aef0-d58f2a5b0da7" x="10371" y="0" width="46" height="15"/>
+				<reportElement x="10371" y="0" width="46" height="15" uuid="f5e93bb3-33e3-4589-aef0-d58f2a5b0da7"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1043,7 +1089,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[anio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1a18a7ce-7f44-4a80-af58-bb56aaf69bbc" x="8624" y="0" width="90" height="15"/>
+				<reportElement x="8624" y="0" width="90" height="15" uuid="1a18a7ce-7f44-4a80-af58-bb56aaf69bbc"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1055,7 +1101,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_provincia_un]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d3d78ca6-5ec4-4949-8a46-11ac93bde562" x="8714" y="0" width="117" height="15"/>
+				<reportElement x="8714" y="0" width="117" height="15" uuid="d3d78ca6-5ec4-4949-8a46-11ac93bde562"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1067,7 +1113,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_provincia_un]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e224076c-0d1d-4cd8-9a77-276a19129819" x="8831" y="0" width="90" height="15"/>
+				<reportElement x="8831" y="0" width="90" height="15" uuid="e224076c-0d1d-4cd8-9a77-276a19129819"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1079,7 +1125,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_region_un]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cd21e05d-1fb2-4a5f-a465-840980463a16" x="8921" y="0" width="117" height="15"/>
+				<reportElement x="8921" y="0" width="117" height="15" uuid="cd21e05d-1fb2-4a5f-a465-840980463a16"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1091,7 +1137,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_region_un]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="dd25e051-de02-4f7a-b9aa-6e5f60ab6665" x="9038" y="0" width="90" height="15"/>
+				<reportElement x="9038" y="0" width="90" height="15" uuid="dd25e051-de02-4f7a-b9aa-6e5f60ab6665"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1103,7 +1149,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_distrito_un]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="8ce6c37a-b062-4869-8daa-9074b581ffec" x="9128" y="0" width="117" height="15"/>
+				<reportElement x="9128" y="0" width="117" height="15" uuid="8ce6c37a-b062-4869-8daa-9074b581ffec"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1115,7 +1161,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_distrito_un]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7b13065d-99dc-4c74-a156-7886f9079fdd" x="9357" y="0" width="201" height="15"/>
+				<reportElement x="9357" y="0" width="201" height="15" uuid="7b13065d-99dc-4c74-a156-7886f9079fdd"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1127,7 +1173,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_corregimiento_un]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7d3db700-1292-4260-ab01-02e353528885" x="9245" y="0" width="112" height="15"/>
+				<reportElement x="9245" y="0" width="112" height="15" uuid="7d3db700-1292-4260-ab01-02e353528885"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1139,7 +1185,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_corregimiento_un]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f7aa47e4-9432-4007-b78b-6ca176c7bd18" x="8100" y="0" width="96" height="15"/>
+				<reportElement x="8100" y="0" width="96" height="15" uuid="f7aa47e4-9432-4007-b78b-6ca176c7bd18"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1151,7 +1197,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_un_defuncion]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0dae43f6-2c69-4b54-bdd6-1f731c1ae2a6" x="5003" y="0" width="149" height="15"/>
+				<reportElement x="5003" y="0" width="149" height="15" uuid="0dae43f6-2c69-4b54-bdd6-1f731c1ae2a6"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1163,7 +1209,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[comp_embarazada_captada]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b4c9d144-4953-4760-9f0d-305e08953f7f" x="5152" y="0" width="149" height="15"/>
+				<reportElement x="5152" y="0" width="149" height="15" uuid="b4c9d144-4953-4760-9f0d-305e08953f7f"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1175,7 +1221,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[caso_embarazada_captada]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="76ccd954-e23e-4864-9d33-974a883fd330" x="5301" y="0" width="81" height="15"/>
+				<reportElement x="5301" y="0" width="81" height="15" uuid="76ccd954-e23e-4864-9d33-974a883fd330"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1187,7 +1233,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[comp_emb_1]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d945bc5e-c891-4392-ba16-6d0ffe951c19" x="5382" y="0" width="81" height="15"/>
+				<reportElement x="5382" y="0" width="81" height="15" uuid="d945bc5e-c891-4392-ba16-6d0ffe951c19"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1199,7 +1245,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[comp_emb_2]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b24eb14e-c995-4319-98e8-a2d264f42b24" x="5463" y="0" width="81" height="15"/>
+				<reportElement x="5463" y="0" width="81" height="15" uuid="b24eb14e-c995-4319-98e8-a2d264f42b24"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1211,7 +1257,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[comp_emb_3]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ee604c60-5af3-437b-be82-c544a1736adb" x="6789" y="0" width="99" height="15"/>
+				<reportElement x="6789" y="0" width="99" height="15" uuid="ee604c60-5af3-437b-be82-c544a1736adb"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1223,7 +1269,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[cond_edad_sida]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="45c184c5-c10c-49eb-ac5b-8fe4cd33a579" x="6888" y="0" width="225" height="15"/>
+				<reportElement x="6888" y="0" width="225" height="15" uuid="45c184c5-c10c-49eb-ac5b-8fe4cd33a579"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1235,7 +1281,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[cond_lugar_diagnostico_sida]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="652e6ed8-44e9-45b7-b1c2-2f87922f4ee3" x="7266" y="0" width="90" height="15"/>
+				<reportElement x="7266" y="0" width="90" height="15" uuid="652e6ed8-44e9-45b7-b1c2-2f87922f4ee3"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1247,7 +1293,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[cond_edad_vih]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="c31c2662-5417-4110-8643-2ea8195eb219" x="7590" y="0" width="100" height="15"/>
+				<reportElement x="7590" y="0" width="100" height="15" uuid="c31c2662-5417-4110-8643-2ea8195eb219"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1259,7 +1305,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[cond_sobrevida]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7cdc6be4-b5b1-4b9c-a7fc-8c470780c3ff" x="10659" y="0" width="94" height="15"/>
+				<reportElement x="10659" y="0" width="94" height="15" uuid="7cdc6be4-b5b1-4b9c-a7fc-8c470780c3ff"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1271,7 +1317,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[fec_ingreso_tarv]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="73adc1ea-d217-4a91-83b9-fc638f99c519" x="10753" y="0" width="87" height="15"/>
+				<reportElement x="10753" y="0" width="87" height="15" uuid="73adc1ea-d217-4a91-83b9-fc638f99c519"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1283,7 +1329,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[id_clinica_tarv]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="f1aa80ba-a660-45ed-8fb2-c93bb81a53d3" x="10840" y="0" width="279" height="15"/>
+				<reportElement x="10840" y="0" width="279" height="15" uuid="f1aa80ba-a660-45ed-8fb2-c93bb81a53d3"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1295,7 +1341,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[nombre_clinica_tarv]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="e7bceb2e-ff2b-45f1-9d2a-013389aad1f4" x="11119" y="0" width="87" height="15"/>
+				<reportElement x="11119" y="0" width="87" height="15" uuid="e7bceb2e-ff2b-45f1-9d2a-013389aad1f4"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1307,7 +1353,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[fec_inicio_tarv]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="355b62d6-2264-45db-802a-c5e1526a4a59" x="11206" y="0" width="87" height="15"/>
+				<reportElement x="11206" y="0" width="87" height="15" uuid="355b62d6-2264-45db-802a-c5e1526a4a59"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1319,7 +1365,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[fec_primer_cd4]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="35345ccc-19e1-4fbc-bb02-31c2e4e6f0e3" x="11293" y="0" width="87" height="15"/>
+				<reportElement x="11293" y="0" width="87" height="15" uuid="35345ccc-19e1-4fbc-bb02-31c2e4e6f0e3"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1331,7 +1377,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[res_primer_cd4]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6b3f9447-999a-41ca-9666-58a570c89888" x="11380" y="0" width="87" height="15"/>
+				<reportElement x="11380" y="0" width="87" height="15" uuid="6b3f9447-999a-41ca-9666-58a570c89888"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1343,7 +1389,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[fec_cd4_350]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2e0028f9-cbee-46f2-a736-fbd6130c0cdc" x="11467" y="0" width="87" height="15"/>
+				<reportElement x="11467" y="0" width="87" height="15" uuid="2e0028f9-cbee-46f2-a736-fbd6130c0cdc"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1355,7 +1401,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[res_cd4_350]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ea402213-ff69-41ce-ab47-9311dc761f90" x="11554" y="0" width="87" height="15"/>
+				<reportElement x="11554" y="0" width="87" height="15" uuid="ea402213-ff69-41ce-ab47-9311dc761f90"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1367,7 +1413,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[fec_cd4_200]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="bc296aa4-fc58-4102-a92f-e29d62b175d8" x="11641" y="0" width="87" height="15"/>
+				<reportElement x="11641" y="0" width="87" height="15" uuid="bc296aa4-fc58-4102-a92f-e29d62b175d8"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1379,7 +1425,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[res_cd4_200]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="37adb9e4-2987-404d-8167-1f079bad3178" x="11728" y="0" width="87" height="15"/>
+				<reportElement x="11728" y="0" width="87" height="15" uuid="37adb9e4-2987-404d-8167-1f079bad3178"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1391,7 +1437,7 @@ order by vih.id_vih_form desc]]>
 				<text><![CDATA[fec_carga_viral]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="9c58f078-e57a-4825-8358-1be74aaeb750" x="11815" y="0" width="95" height="15"/>
+				<reportElement x="11815" y="0" width="95" height="15" uuid="9c58f078-e57a-4825-8358-1be74aaeb750"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1402,12 +1448,276 @@ order by vih.id_vih_form desc]]>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[res_carga_viral]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="11910" y="0" width="95" height="15" uuid="95074e95-165b-4e43-8661-db097e9ae3f6"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[comp_its_sifilis]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12005" y="0" width="95" height="15" uuid="fb7e239d-1be3-401c-8d1e-170c96826c25"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[comp_its_gonorrea]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12100" y="0" width="95" height="15" uuid="411cf2e4-7170-4b53-972f-9a4b49a697af"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[comp_its_hepatitisb]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12195" y="0" width="95" height="15" uuid="3c9d1941-0afc-4c71-849b-ff5df3050d08"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[comp_its_hepatitisc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12575" y="0" width="95" height="15" uuid="7c03633c-924a-4cb7-a185-2ee5b3c787bc"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[tar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12480" y="0" width="95" height="15" uuid="bd164458-5f98-48a8-a9a4-c0f51d06bf47"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[razon_sida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12290" y="0" width="95" height="15" uuid="7179f9e7-3284-450c-8c02-a12c52430f6e"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[comp_its_otras]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12385" y="0" width="95" height="15" uuid="0a8eb7f1-d457-4f9f-9b0d-c5d8de133896"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[transexual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12765" y="0" width="95" height="15" uuid="e74d4934-1a9a-45eb-84c9-a767d54cd19c"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[observaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12670" y="0" width="95" height="15" uuid="3e9cb6ed-e484-4ab8-a76c-f0c0eee17452"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[fecha_tar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12860" y="0" width="87" height="15" uuid="28784825-c098-482d-8d71-df8e6ad69f51"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[id_provincia_diag]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13232" y="0" width="95" height="15" uuid="ff820339-9913-4ddc-9d7d-fba293293a76"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[id_distrito_diag]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13897" y="0" width="95" height="15" uuid="f21e1714-bafa-4ec5-8d46-1418b94f239a"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[observaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13137" y="0" width="95" height="15" uuid="30052975-e9c8-47e2-8d30-3034c148ba8e"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[nombre_region_diag]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13802" y="0" width="95" height="15" uuid="d2fd76b5-f448-465f-9091-4a30fd9123f6"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[fecha_tar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13327" y="0" width="95" height="15" uuid="7e025359-e932-4712-9ea9-cb4a18f40a2e"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[nombre_distrito_diag]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13042" y="0" width="95" height="15" uuid="e48ee83b-9f84-47c8-a546-95af77c27305"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[id_region_diag]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13422" y="0" width="95" height="15" uuid="1e6b2720-2e95-4d54-9bfd-9f7cbf15dbe6"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[id_corregimiento_diag]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13612" y="0" width="95" height="15" uuid="0b53b450-07b5-48a5-bde4-eb0bcf8427b9"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[dir_referencia_diagnostico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13707" y="0" width="95" height="15" uuid="5df8c6a5-e10e-4a81-ab86-40ab0c95e211"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[fecha_parto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12947" y="0" width="95" height="15" uuid="890df562-c19b-4eb8-89fc-5d2bdaa844cd"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[nombre_provincia_diag]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13517" y="0" width="95" height="15" uuid="cc8da7a9-0281-4d85-85e4-978c361bbc36"/>
+				<box leftPadding="4">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[nombre_corregimiento_diag]]></text>
+			</staticText>
 		</band>
 	</title>
 	<detail>
 		<band height="15" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="c20d39c5-2562-4012-a493-b598049a2fa6" stretchType="RelativeToBandHeight" x="74" y="0" width="85" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="74" y="0" width="85" height="15" uuid="c20d39c5-2562-4012-a493-b598049a2fa6"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1419,7 +1729,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{per_asegurado}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="5bbd48c4-6922-464a-9262-63b44768b64e" stretchType="RelativeToBandHeight" x="159" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="159" y="0" width="100" height="15" uuid="5bbd48c4-6922-464a-9262-63b44768b64e"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1431,7 +1741,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{primer_nombre}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="44a23694-102c-4548-b274-9d1a64f82e08" stretchType="RelativeToBandHeight" x="259" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="259" y="0" width="100" height="15" uuid="44a23694-102c-4548-b274-9d1a64f82e08"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1443,7 +1753,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{segundo_nombre}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="94499509-4b2d-49f7-a59e-cf45395b0c0a" stretchType="RelativeToBandHeight" x="359" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="359" y="0" width="100" height="15" uuid="94499509-4b2d-49f7-a59e-cf45395b0c0a"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1455,7 +1765,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{primer_apellido}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="d6458e49-2048-4378-9882-38678f2f10ef" stretchType="RelativeToBandHeight" x="459" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="459" y="0" width="100" height="15" uuid="d6458e49-2048-4378-9882-38678f2f10ef"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1467,7 +1777,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{segundo_apellido}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="276761e2-1c9c-43e6-8800-9b4c777884a5" stretchType="RelativeToBandHeight" x="559" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="559" y="0" width="100" height="15" uuid="276761e2-1c9c-43e6-8800-9b4c777884a5"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1479,7 +1789,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_tipo_identidad}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="ddfd4d7e-1ab3-448c-b998-06d8d1800a75" stretchType="RelativeToBandHeight" x="659" y="0" width="115" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="659" y="0" width="115" height="15" uuid="ddfd4d7e-1ab3-448c-b998-06d8d1800a75"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1491,7 +1801,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{tipo_identificacion}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="8acd56b4-c46a-4f6f-b817-889127d04c93" stretchType="RelativeToBandHeight" x="774" y="0" width="126" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="774" y="0" width="126" height="15" uuid="8acd56b4-c46a-4f6f-b817-889127d04c93"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1503,7 +1813,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{numero_identificacion}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="646f6a79-8046-4570-8c4a-2099f76442cc" stretchType="RelativeToBandHeight" x="900" y="0" width="75" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="900" y="0" width="75" height="15" uuid="646f6a79-8046-4570-8c4a-2099f76442cc"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1515,7 +1825,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_provincia}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="5606342f-d329-4f31-8dc1-2380428c276d" stretchType="RelativeToBandHeight" x="975" y="0" width="132" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="975" y="0" width="132" height="15" uuid="5606342f-d329-4f31-8dc1-2380428c276d"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1527,7 +1837,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_provincia}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="ce7394f8-eeda-475e-970d-e5db38190e1a" stretchType="RelativeToBandHeight" x="1107" y="0" width="75" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="1107" y="0" width="75" height="15" uuid="ce7394f8-eeda-475e-970d-e5db38190e1a"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1539,7 +1849,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_region}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="ddb645e4-b4ca-4997-ac7f-4cb282b49429" stretchType="RelativeToBandHeight" x="1182" y="0" width="132" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="1182" y="0" width="132" height="15" uuid="ddb645e4-b4ca-4997-ac7f-4cb282b49429"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1551,7 +1861,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_region}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="bf47d94d-0b38-4778-ab0a-8568fdb0ec72" stretchType="RelativeToBandHeight" x="1314" y="0" width="75" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="1314" y="0" width="75" height="15" uuid="bf47d94d-0b38-4778-ab0a-8568fdb0ec72"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1563,7 +1873,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_distrito}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="a11ea739-8d5e-4272-bfba-8367f3f98fb9" stretchType="RelativeToBandHeight" x="1389" y="0" width="132" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="1389" y="0" width="132" height="15" uuid="a11ea739-8d5e-4272-bfba-8367f3f98fb9"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1575,7 +1885,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_distrito}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="be323ae2-86d7-4a98-8198-c6772eb1c745" stretchType="RelativeToBandHeight" x="1521" y="0" width="94" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="1521" y="0" width="94" height="15" uuid="be323ae2-86d7-4a98-8198-c6772eb1c745"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1587,7 +1897,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_corregimiento}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="6ca3bdf5-2607-4475-9b38-a18cdc746cab" stretchType="RelativeToBandHeight" x="1615" y="0" width="148" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="1615" y="0" width="148" height="15" uuid="6ca3bdf5-2607-4475-9b38-a18cdc746cab"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1599,7 +1909,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_corregimiento}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="83d5c458-786d-47d7-8d1c-ce83b485fbb1" stretchType="RelativeToBandHeight" x="1763" y="0" width="226" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="1763" y="0" width="226" height="15" uuid="83d5c458-786d-47d7-8d1c-ce83b485fbb1"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1611,7 +1921,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{per_localidad}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="c838f88e-0ded-493e-89ca-b16d4412a5cc" stretchType="RelativeToBandHeight" x="1989" y="0" width="85" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="1989" y="0" width="85" height="15" uuid="c838f88e-0ded-493e-89ca-b16d4412a5cc"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1623,7 +1933,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{tel_residencial}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="444f3806-c9b9-49ba-b8e4-2c98cd031f59" stretchType="RelativeToBandHeight" x="2074" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="2074" y="0" width="100" height="15" uuid="444f3806-c9b9-49ba-b8e4-2c98cd031f59"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1635,7 +1945,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{fecha_nacimiento}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="e498be6c-67c3-466b-b17a-0a15f76818c8" stretchType="RelativeToBandHeight" x="2174" y="0" width="66" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="2174" y="0" width="66" height="15" uuid="e498be6c-67c3-466b-b17a-0a15f76818c8"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1647,7 +1957,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{per_edad}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="86654a5a-03b4-46a6-b8c5-4a3af6beea4e" stretchType="RelativeToBandHeight" x="2240" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="2240" y="0" width="100" height="15" uuid="86654a5a-03b4-46a6-b8c5-4a3af6beea4e"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1659,7 +1969,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{per_tipo_edad}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="ea9f66e0-97ed-4779-b221-9ed9abe1372e" stretchType="RelativeToBandHeight" x="2340" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="2340" y="0" width="100" height="15" uuid="ea9f66e0-97ed-4779-b221-9ed9abe1372e"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1671,7 +1981,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_edad}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="d77853f5-2a25-4567-8fce-e3d8e65a32ad" stretchType="RelativeToBandHeight" x="2440" y="0" width="60" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="2440" y="0" width="60" height="15" uuid="d77853f5-2a25-4567-8fce-e3d8e65a32ad"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1683,7 +1993,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{sexo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="8fa7bd78-b62a-4e70-a1e4-db64e7a54b57" stretchType="RelativeToBandHeight" x="2500" y="0" width="200" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="2500" y="0" width="200" height="15" uuid="8fa7bd78-b62a-4e70-a1e4-db64e7a54b57"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1695,7 +2005,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_responsable}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="30bbb84a-8d21-47f2-b68d-bdec9df7f7d0" stretchType="RelativeToBandHeight" x="2700" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="2700" y="0" width="100" height="15" uuid="30bbb84a-8d21-47f2-b68d-bdec9df7f7d0"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1707,7 +2017,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_ocupacion}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="36bfffca-3275-45f8-b8bc-3eff4145550c" stretchType="RelativeToBandHeight" x="2800" y="0" width="200" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="2800" y="0" width="200" height="15" uuid="36bfffca-3275-45f8-b8bc-3eff4145550c"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1719,7 +2029,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_ocupacion}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="a7a330ff-2680-4bd0-94ae-267a1bd2420a" stretchType="RelativeToBandHeight" x="3000" y="0" width="60" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="3000" y="0" width="60" height="15" uuid="a7a330ff-2680-4bd0-94ae-267a1bd2420a"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1731,7 +2041,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_genero}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="2d805df0-c05e-4bea-9202-0eae2cc3e9b3" stretchType="RelativeToBandHeight" x="3060" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="3060" y="0" width="100" height="15" uuid="2d805df0-c05e-4bea-9202-0eae2cc3e9b3"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1743,7 +2053,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{genero_nombre}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="5adefdd3-345c-4735-a10b-cc2fb38ddfae" stretchType="RelativeToBandHeight" x="3160" y="0" width="59" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="3160" y="0" width="59" height="15" uuid="5adefdd3-345c-4735-a10b-cc2fb38ddfae"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1755,7 +2065,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_etnia}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="0d13886b-02ce-48ef-b59f-5f6759729351" stretchType="RelativeToBandHeight" x="3219" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="3219" y="0" width="100" height="15" uuid="0d13886b-02ce-48ef-b59f-5f6759729351"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1767,7 +2077,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_etnia}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="2afcbd58-9719-4883-80a7-0c594bccd0d8" stretchType="RelativeToBandHeight" x="3319" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="3319" y="0" width="100" height="15" uuid="2afcbd58-9719-4883-80a7-0c594bccd0d8"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1779,7 +2089,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_estado_civil}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="effc4062-5b53-49fb-9a42-8dc9733b4b69" stretchType="RelativeToBandHeight" x="3419" y="0" width="119" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="3419" y="0" width="119" height="15" uuid="effc4062-5b53-49fb-9a42-8dc9733b4b69"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1791,7 +2101,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_estado_civil}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="1023900a-06cd-4d56-994f-c683657875dd" stretchType="RelativeToBandHeight" x="3538" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="3538" y="0" width="100" height="15" uuid="1023900a-06cd-4d56-994f-c683657875dd"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1803,7 +2113,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_escolaridad}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="7fb3330b-fece-4515-992c-11af416542a8" stretchType="RelativeToBandHeight" x="3638" y="0" width="131" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="3638" y="0" width="131" height="15" uuid="7fb3330b-fece-4515-992c-11af416542a8"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1815,7 +2125,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_escolaridad}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="99685896-da3c-4ff4-851f-d88ebd4e398f" stretchType="RelativeToBandHeight" x="3769" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="3769" y="0" width="100" height="15" uuid="99685896-da3c-4ff4-851f-d88ebd4e398f"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1827,7 +2137,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{comp_its_ultimo}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="bea4c769-f44a-441b-803d-e98bf9287926" stretchType="RelativeToBandHeight" x="3869" y="0" width="114" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="3869" y="0" width="114" height="15" uuid="bea4c769-f44a-441b-803d-e98bf9287926"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1839,7 +2149,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{comp_its_ulcerativa}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="0a7d7526-daea-4f92-ba33-ead587793619" stretchType="RelativeToBandHeight" x="3983" y="0" width="143" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="3983" y="0" width="143" height="15" uuid="0a7d7526-daea-4f92-ba33-ead587793619"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1851,7 +2161,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{comp_edad_inicio_sexual}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="ae279451-a588-49a8-90b5-cc5b27e7584b" stretchType="RelativeToBandHeight" x="4126" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="4126" y="0" width="100" height="15" uuid="ae279451-a588-49a8-90b5-cc5b27e7584b"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1863,7 +2173,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{comp_uso_condon}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="f491b0f4-b545-4098-8001-c2809e9df506" stretchType="RelativeToBandHeight" x="4226" y="0" width="130" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="4226" y="0" width="130" height="15" uuid="f491b0f4-b545-4098-8001-c2809e9df506"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1875,7 +2185,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{comp_trabajador_sexual}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="9fe3f661-b196-4866-8aa8-3e6af46d8646" stretchType="RelativeToBandHeight" x="4356" y="0" width="127" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="4356" y="0" width="127" height="15" uuid="9fe3f661-b196-4866-8aa8-3e6af46d8646"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1887,7 +2197,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{comp_donante_sangre}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="0a1b43db-3bea-451b-b33b-2f945b044a96" stretchType="RelativeToBandHeight" x="4483" y="0" width="120" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="4483" y="0" width="120" height="15" uuid="0a1b43db-3bea-451b-b33b-2f945b044a96"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1899,7 +2209,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{comp_donante_fecha}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="3a02d1e6-aab2-4849-a5f5-7e633106e920" stretchType="RelativeToBandHeight" x="4603" y="0" width="200" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="4603" y="0" width="200" height="15" uuid="3a02d1e6-aab2-4849-a5f5-7e633106e920"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1911,7 +2221,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{comp_donante_instalacion}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="4759d15e-8042-4aa6-b15a-40812a9c78c3" stretchType="RelativeToBandHeight" x="4803" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="4803" y="0" width="100" height="15" uuid="4759d15e-8042-4aa6-b15a-40812a9c78c3"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1923,7 +2233,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{comp_per_preso}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="2777449e-05b0-4231-91bd-6a4eaad14bc2" stretchType="RelativeToBandHeight" x="4903" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="4903" y="0" width="100" height="15" uuid="2777449e-05b0-4231-91bd-6a4eaad14bc2"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1935,7 +2245,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{comp_embarazada}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="a7ef4a5e-a9eb-477d-9ecf-d181c0744aa4" stretchType="RelativeToBandHeight" x="6629" y="0" width="61" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="6629" y="0" width="61" height="15" uuid="a7ef4a5e-a9eb-477d-9ecf-d181c0744aa4"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1947,7 +2257,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{cond_sida}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="5705cc39-bb9f-4cab-97af-7d56fc673d04" stretchType="RelativeToBandHeight" x="6690" y="0" width="99" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="6690" y="0" width="99" height="15" uuid="5705cc39-bb9f-4cab-97af-7d56fc673d04"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1959,7 +2269,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{cond_fecha_sida}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="dc424cc9-22f8-4644-81a4-d3ef21227a44" stretchType="RelativeToBandHeight" x="7113" y="0" width="61" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="7113" y="0" width="61" height="15" uuid="dc424cc9-22f8-4644-81a4-d3ef21227a44"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1971,7 +2281,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{cond_vih}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="2b497de8-4b8f-47c3-95bb-f88b7c075386" stretchType="RelativeToBandHeight" x="7174" y="0" width="92" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="7174" y="0" width="92" height="15" uuid="2b497de8-4b8f-47c3-95bb-f88b7c075386"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1983,7 +2293,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{cond_fecha_vih}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b6f8d44f-8389-4e15-885c-20711d5868db" stretchType="RelativeToBandHeight" x="7590" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="7590" y="0" width="100" height="15" uuid="b6f8d44f-8389-4e15-885c-20711d5868db"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -1995,7 +2305,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{cond_sobrevida}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="6f6360ff-3bac-4d36-ba45-1efb98001d32" stretchType="RelativeToBandHeight" x="7356" y="0" width="234" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="7356" y="0" width="234" height="15" uuid="6f6360ff-3bac-4d36-ba45-1efb98001d32"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2007,7 +2317,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{cond_lugar_diagnostico}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="f4ad89f6-f46b-4f2a-8f18-201cc9bb5c85" stretchType="RelativeToBandHeight" x="7690" y="0" width="142" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="7690" y="0" width="142" height="15" uuid="f4ad89f6-f46b-4f2a-8f18-201cc9bb5c85"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2019,7 +2329,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{cond_condicion_paciente}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b15f0368-e066-43fd-a380-9fba30915d9f" stretchType="RelativeToBandHeight" x="7832" y="0" width="142" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="7832" y="0" width="142" height="15" uuid="b15f0368-e066-43fd-a380-9fba30915d9f"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2031,7 +2341,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{caso_condicion_paciente}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="1a9ede36-d4c9-4b6a-9285-52c434989cdb" stretchType="RelativeToBandHeight" x="7974" y="0" width="126" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="7974" y="0" width="126" height="15" uuid="1a9ede36-d4c9-4b6a-9285-52c434989cdb"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2043,7 +2353,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{cond_fecha_defuncion}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="63b6d694-7ebd-4552-90a3-6ebf89542586" stretchType="RelativeToBandHeight" x="8196" y="0" width="202" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="8196" y="0" width="202" height="15" uuid="63b6d694-7ebd-4552-90a3-6ebf89542586"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2055,7 +2365,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_un_defuncion}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="88dc56ed-5035-4eeb-80f5-497f01d78088" stretchType="RelativeToBandHeight" x="8398" y="0" width="126" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="8398" y="0" width="126" height="15" uuid="88dc56ed-5035-4eeb-80f5-497f01d78088"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2067,7 +2377,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{cond_sobrevida_sida}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="c35583dc-7648-40b0-a3e6-c2fc88d56a46" stretchType="RelativeToBandHeight" x="8524" y="0" width="100" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="8524" y="0" width="100" height="15" uuid="c35583dc-7648-40b0-a3e6-c2fc88d56a46"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2079,19 +2389,19 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{unidad_disponible}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement uuid="9edf3a66-65e9-4c0a-b7fa-d181b5022b59" stretchType="RelativeToBandHeight" x="5544" y="0" width="430" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="5544" y="0" width="430" height="15" uuid="9edf3a66-65e9-4c0a-b7fa-d181b5022b59"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
 			<rectangle>
-				<reportElement uuid="72f03adc-4b87-423d-a991-b42ea4271617" stretchType="RelativeToBandHeight" x="5974" y="0" width="655" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="5974" y="0" width="655" height="15" uuid="72f03adc-4b87-423d-a991-b42ea4271617"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
 			<subreport>
-				<reportElement uuid="e5c9db96-9b93-4fca-a4a9-2afbb5575c99" stretchType="RelativeToBandHeight" x="5544" y="0" width="430" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="5544" y="0" width="430" height="15" uuid="e5c9db96-9b93-4fca-a4a9-2afbb5575c99"/>
 				<subreportParameter name="idVihForm">
 					<subreportParameterExpression><![CDATA[$F{id_vih_form}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -2099,7 +2409,7 @@ order by vih.id_vih_form desc]]>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "vih_exportacion_excel_sub_factores.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement uuid="439e1ba5-175e-44c3-872f-5707bb2573df" stretchType="RelativeToBandHeight" x="5974" y="0" width="655" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="5974" y="0" width="655" height="15" uuid="439e1ba5-175e-44c3-872f-5707bb2573df"/>
 				<subreportParameter name="idVihForm">
 					<subreportParameterExpression><![CDATA[$F{id_vih_form}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -2107,7 +2417,7 @@ order by vih.id_vih_form desc]]>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "vih_exportacion_excel_sub_enfermedades.jasper"]]></subreportExpression>
 			</subreport>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b3cb4eb8-2793-406a-bd0d-df97dbcbe54c" stretchType="RelativeToBandHeight" x="0" y="0" width="74" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="74" height="15" uuid="b3cb4eb8-2793-406a-bd0d-df97dbcbe54c"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2119,7 +2429,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_vih_form}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="362096d6-9bdb-4aa8-b1fe-5c6c14028f5d" stretchType="RelativeToBandHeight" x="8624" y="0" width="90" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="8624" y="0" width="90" height="15" uuid="362096d6-9bdb-4aa8-b1fe-5c6c14028f5d"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2131,7 +2441,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_provincia_un}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="38d871c5-ec8f-482b-bf74-aa218f1a81ca" stretchType="RelativeToBandHeight" x="8714" y="0" width="117" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="8714" y="0" width="117" height="15" uuid="38d871c5-ec8f-482b-bf74-aa218f1a81ca"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2143,7 +2453,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_provincia_un}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="e2bdffd4-e703-4790-ad36-d66d2d619298" stretchType="RelativeToBandHeight" x="9128" y="0" width="117" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="9128" y="0" width="117" height="15" uuid="e2bdffd4-e703-4790-ad36-d66d2d619298"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2155,7 +2465,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_distrito_un}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="5f6b033f-c1b0-46ee-9f10-a3dbb2bbfac9" stretchType="RelativeToBandHeight" x="8831" y="0" width="90" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="8831" y="0" width="90" height="15" uuid="5f6b033f-c1b0-46ee-9f10-a3dbb2bbfac9"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2167,7 +2477,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_region_un}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="449e9fa1-4e35-4e27-8c98-8b743d43929c" stretchType="RelativeToBandHeight" x="8921" y="0" width="117" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="8921" y="0" width="117" height="15" uuid="449e9fa1-4e35-4e27-8c98-8b743d43929c"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2179,7 +2489,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_region_un}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="29594edb-9ce1-4a46-b58e-42892bb158b6" stretchType="RelativeToBandHeight" x="9038" y="0" width="90" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="9038" y="0" width="90" height="15" uuid="29594edb-9ce1-4a46-b58e-42892bb158b6"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2191,7 +2501,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_distrito_un}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="3924dcd5-5571-44c8-9870-befd9951f53c" stretchType="RelativeToBandHeight" x="9245" y="0" width="112" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="9245" y="0" width="112" height="15" uuid="3924dcd5-5571-44c8-9870-befd9951f53c"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2203,7 +2513,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_corregimiento_un}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="3d24f0ae-781b-482e-9d00-c276105cd4f9" stretchType="RelativeToBandHeight" x="9357" y="0" width="201" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="9357" y="0" width="201" height="15" uuid="3d24f0ae-781b-482e-9d00-c276105cd4f9"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2215,7 +2525,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_corregimiento_un}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="2cd6b954-974a-4304-a617-39be60cc9703" stretchType="RelativeToBandHeight" x="9618" y="0" width="88" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="9618" y="0" width="88" height="15" uuid="2cd6b954-974a-4304-a617-39be60cc9703"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2227,7 +2537,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{cod_ref_minsa}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="21f1a75d-bd5f-4df2-83c6-9b267ab1cc30" stretchType="RelativeToBandHeight" x="9706" y="0" width="253" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="9706" y="0" width="253" height="15" uuid="21f1a75d-bd5f-4df2-83c6-9b267ab1cc30"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2239,7 +2549,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_un}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="17400d3a-fc07-414f-a59e-b1e41d5780d6" stretchType="RelativeToBandHeight" x="9959" y="0" width="235" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="9959" y="0" width="235" height="15" uuid="17400d3a-fc07-414f-a59e-b1e41d5780d6"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2251,7 +2561,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_notifica}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="21ab769d-d1bb-4ee1-8ebd-a84d86ebe002" stretchType="RelativeToBandHeight" x="10194" y="0" width="104" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="10194" y="0" width="104" height="15" uuid="21ab769d-d1bb-4ee1-8ebd-a84d86ebe002"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2263,7 +2573,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{fecha_notificacion}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="e34574ca-7bfb-4276-bb0d-ecaa22db195e" stretchType="RelativeToBandHeight" x="10298" y="0" width="73" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="10298" y="0" width="73" height="15" uuid="e34574ca-7bfb-4276-bb0d-ecaa22db195e"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2275,7 +2585,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{semana_epi}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="6528aacf-ce7e-47d2-b7c1-373a5291a0e8" stretchType="RelativeToBandHeight" x="10371" y="0" width="46" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="10371" y="0" width="46" height="15" uuid="6528aacf-ce7e-47d2-b7c1-373a5291a0e8"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2287,7 +2597,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{anio}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="28848b4c-2e96-4fc2-9148-a2a7172e4365" stretchType="RelativeToBandHeight" x="10417" y="0" width="148" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="10417" y="0" width="148" height="15" uuid="28848b4c-2e96-4fc2-9148-a2a7172e4365"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2299,7 +2609,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_registra}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="8d602c09-4bbe-4184-b3bc-8cd476340791" stretchType="RelativeToBandHeight" x="10565" y="0" width="94" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="10565" y="0" width="94" height="15" uuid="8d602c09-4bbe-4184-b3bc-8cd476340791"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2311,7 +2621,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{fecha_formulario}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="fb8f70e3-bb00-46a1-8673-d2f528cf5b02" stretchType="RelativeToBandHeight" x="9558" y="0" width="60" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="9558" y="0" width="60" height="15" uuid="fb8f70e3-bb00-46a1-8673-d2f528cf5b02"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2323,7 +2633,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_un}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="308e810c-ff51-42cf-9a10-7fac471b6d8d" stretchType="RelativeToBandHeight" x="8100" y="0" width="96" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="8100" y="0" width="96" height="15" uuid="308e810c-ff51-42cf-9a10-7fac471b6d8d"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2335,7 +2645,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{cond_id_un_defuncion}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="389e82c6-50e6-4be8-9414-2d4a829f46f5" stretchType="RelativeToBandHeight" x="5003" y="0" width="149" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="5003" y="0" width="149" height="15" uuid="389e82c6-50e6-4be8-9414-2d4a829f46f5"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2347,7 +2657,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{comp_emb_captada}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="1ecbe149-5a2d-4780-a974-501690371883" stretchType="RelativeToBandHeight" x="5152" y="0" width="149" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="5152" y="0" width="149" height="15" uuid="1ecbe149-5a2d-4780-a974-501690371883"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2359,7 +2669,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{caso_emb_captada}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="442f216e-ed57-4e11-9311-223c08a4e04c" stretchType="RelativeToBandHeight" x="5301" y="0" width="81" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="5301" y="0" width="81" height="15" uuid="442f216e-ed57-4e11-9311-223c08a4e04c"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2371,7 +2681,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{comp_emb_1}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="5de96910-af93-4eca-9707-eef951634451" stretchType="RelativeToBandHeight" x="5382" y="0" width="81" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="5382" y="0" width="81" height="15" uuid="5de96910-af93-4eca-9707-eef951634451"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2383,7 +2693,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{comp_emb_2}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="fbad99f1-e36a-4330-a954-283de8bc18d8" stretchType="RelativeToBandHeight" x="5463" y="0" width="81" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="5463" y="0" width="81" height="15" uuid="fbad99f1-e36a-4330-a954-283de8bc18d8"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2395,7 +2705,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{comp_emb_3}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="e39c3539-ec4b-425f-9fc0-afb20148f880" stretchType="RelativeToBandHeight" x="6789" y="0" width="99" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="6789" y="0" width="99" height="15" uuid="e39c3539-ec4b-425f-9fc0-afb20148f880"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2407,7 +2717,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{cond_edad_sida}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="9beb8094-a5f6-47bc-b70c-af5d5c509746" stretchType="RelativeToBandHeight" x="6888" y="0" width="225" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="6888" y="0" width="225" height="15" uuid="9beb8094-a5f6-47bc-b70c-af5d5c509746"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2419,7 +2729,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{cond_lugar_diagnostico_sida}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="c68b9713-4cb8-412b-8acd-f9b43cabc2d4" stretchType="RelativeToBandHeight" x="7266" y="0" width="90" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="7266" y="0" width="90" height="15" uuid="c68b9713-4cb8-412b-8acd-f9b43cabc2d4"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2431,7 +2741,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{cond_edad_vih}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="d28eec89-fcd3-4509-acfe-20c215e57b28" stretchType="RelativeToBandHeight" x="10659" y="0" width="94" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="10659" y="0" width="94" height="15" uuid="d28eec89-fcd3-4509-acfe-20c215e57b28"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2443,7 +2753,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{tarv_fec_ingreso}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="0e3c8fda-15fa-4f28-8a81-b47cfa7ba1ad" stretchType="RelativeToBandHeight" x="10753" y="0" width="87" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="10753" y="0" width="87" height="15" uuid="0e3c8fda-15fa-4f28-8a81-b47cfa7ba1ad"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2455,7 +2765,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{id_clinica_tarv}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="296e552a-b665-4e17-baf8-6eb2fb054edc" stretchType="RelativeToBandHeight" x="10840" y="0" width="279" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="10840" y="0" width="279" height="15" uuid="296e552a-b665-4e17-baf8-6eb2fb054edc"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2467,7 +2777,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{nombre_clinica_tarv}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="39151841-a002-4916-aa0f-ca75dd9fa38e" stretchType="RelativeToBandHeight" x="11119" y="0" width="87" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="11119" y="0" width="87" height="15" uuid="39151841-a002-4916-aa0f-ca75dd9fa38e"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2479,7 +2789,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{tarv_fec_inicio}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="87118ace-4cba-440a-987d-dc90e9859bb1" stretchType="RelativeToBandHeight" x="11206" y="0" width="87" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="11206" y="0" width="87" height="15" uuid="87118ace-4cba-440a-987d-dc90e9859bb1"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2491,7 +2801,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{tarv_fec_cd4}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b65e6da9-869e-4738-b3a9-0b99f70ed82d" stretchType="RelativeToBandHeight" x="11293" y="0" width="87" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="11293" y="0" width="87" height="15" uuid="b65e6da9-869e-4738-b3a9-0b99f70ed82d"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2503,7 +2813,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{tarv_res_cd4}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="e637132b-d7f4-4cf2-b26c-eb96ec9dccec" stretchType="RelativeToBandHeight" x="11380" y="0" width="87" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="11380" y="0" width="87" height="15" uuid="e637132b-d7f4-4cf2-b26c-eb96ec9dccec"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2515,7 +2825,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{tarv_fec_cd4_350}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="b3aa275f-dbcc-40ca-b375-fdf7770b6bd7" stretchType="RelativeToBandHeight" x="11467" y="0" width="87" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="11467" y="0" width="87" height="15" uuid="b3aa275f-dbcc-40ca-b375-fdf7770b6bd7"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2527,7 +2837,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{tarv_res_cd4_350}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="14ca1751-3eaa-45e1-b61c-7ad859443ba3" stretchType="RelativeToBandHeight" x="11554" y="0" width="87" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="11554" y="0" width="87" height="15" uuid="14ca1751-3eaa-45e1-b61c-7ad859443ba3"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2539,7 +2849,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{tarv_fec_cd4_200}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="cf3f6d3f-e50b-4881-9a7d-f56535d962fe" stretchType="RelativeToBandHeight" x="11641" y="0" width="87" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="11641" y="0" width="87" height="15" uuid="cf3f6d3f-e50b-4881-9a7d-f56535d962fe"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2551,7 +2861,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{tarv_res_cd4_200}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="be9bd05b-84f4-4325-8be1-ef597709362c" stretchType="RelativeToBandHeight" x="11728" y="0" width="87" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="11728" y="0" width="87" height="15" uuid="be9bd05b-84f4-4325-8be1-ef597709362c"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2563,7 +2873,7 @@ order by vih.id_vih_form desc]]>
 				<textFieldExpression><![CDATA[$F{tarv_fec_carga_viral}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="08ea8120-0bf8-4b88-b1bd-edf9fe2d0716" stretchType="RelativeToBandHeight" x="11815" y="0" width="95" height="15"/>
+				<reportElement stretchType="RelativeToBandHeight" x="11815" y="0" width="95" height="15" uuid="08ea8120-0bf8-4b88-b1bd-edf9fe2d0716"/>
 				<box leftPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -2573,6 +2883,270 @@ order by vih.id_vih_form desc]]>
 				</box>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{tarv_res_carga_viral}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="11910" y="0" width="95" height="15" uuid="7f35cc8e-ca5e-48b3-85fb-ba3493631666"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{comp_its_sifilis}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="12100" y="0" width="95" height="15" uuid="cdc49769-2ffa-477f-9ac5-2d6b1a245c8c"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{comp_its_hepatitisb}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="12005" y="0" width="95" height="15" uuid="54c790ae-a915-42cc-820b-df41db786eff"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{comp_its_gonorrea}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="12290" y="0" width="95" height="15" uuid="da9b2a41-1bc6-46a7-b941-b6f80310c6f7"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{comp_its_otras}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="12480" y="0" width="95" height="15" uuid="a485dc5f-8cf1-45b5-8e12-6b17911078ee"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{razon_sida}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="12195" y="0" width="95" height="15" uuid="d61b9457-4b13-4ed6-bc3e-6b785fd8a5c2"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{comp_its_hepatitisc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="12385" y="0" width="95" height="15" uuid="08701ada-5c9d-4be0-b0b0-ecfdaf5acc04"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{transexual}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="12765" y="0" width="95" height="15" uuid="6ef8ead0-ce09-4ebf-962c-435f67b8f92c"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{observaciones}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="12670" y="0" width="95" height="15" uuid="cd2b9524-082f-4f2a-bf2c-3806a6cc8ec9"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_tar}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="12575" y="0" width="95" height="15" uuid="7921cd81-2539-491b-83b9-9748b4d45162"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tar}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="13137" y="0" width="95" height="15" uuid="f5c7fdc0-f7b9-4a14-9d1f-7e5deba4f5d0"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_region_diag}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="13707" y="0" width="95" height="15" uuid="dff6eec0-8de0-4d4b-81b1-b0a4bbe6bf67"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha_parto}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="13042" y="0" width="95" height="15" uuid="59ca2a08-72ef-49b9-b0ac-d4473c7ae897"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id_region_diag}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="13327" y="0" width="95" height="15" uuid="e5d465f2-5272-44d4-b1ac-441ff25a3831"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_distrito_diag}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="13897" y="0" width="95" height="15" uuid="85f88394-e154-4a86-bcae-a76413485eaa"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{correo_electronico}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="13232" y="0" width="95" height="15" uuid="618ccbe1-ece5-4ef6-b79a-4865757e74a5"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id_distrito_diag}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="13517" y="0" width="95" height="15" uuid="b75d0b0c-c120-4124-a14b-22c8e5e050ce"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_corregimiento_diag}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="12947" y="0" width="95" height="15" uuid="d1485f43-f3a4-4045-b2fd-b6e4d4e9b632"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_provincia_diag}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="13802" y="0" width="95" height="15" uuid="ad02e243-514a-4151-aa5f-be99cd952a21"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id_grupo_indigena}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="13422" y="0" width="95" height="15" uuid="80dd4b98-cbad-4b08-b0ab-e169340f381d"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id_corregimiento_diag}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="13612" y="0" width="95" height="15" uuid="fcc64669-3c2f-4eb7-88a6-df645fda2998"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dir_referencia_diagnostico}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="12860" y="0" width="87" height="15" uuid="afb71e66-acb6-48d0-8258-5bb4a058f9d2"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id_provincia_diag}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

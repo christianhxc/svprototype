@@ -72,6 +72,10 @@ function setPertenece(){
         $("#divNivelUn").hide();
         $("#divNivelPer").show();
     }
+    else if (nivel == 3){
+        $("#divNivelUn").hide();
+        $("#divNivelPer").show();
+    }
     else{
         $("#divNivelUn").hide();
         $("#divNivelPer").hide();
@@ -284,6 +288,7 @@ function validarReporte()
     if (pertenece > 0){
         var nivelUn = $("#drpNivelUn").val();
         var nivelPer = $("#drpNivelPer").val();
+        var geoSuffix = pertenece == 3 ? '_diag' : '';
         if (nivelUn > 0 || nivelPer > 0){
             var nivel =  (nivelUn > 0) ? nivelUn:nivelPer;
             if (nivel == 6){
@@ -297,28 +302,28 @@ function validarReporte()
                 if (nivel > 1){
                     idPro = $("#drpPro").val();
                     if (idPro > 0)
-                        Filtro+= (nivelUn > 0) ? " and pro_un.id_provincia="+idPro : " and pro.id_provincia="+idPro ;
+                        Filtro+= (nivelUn > 0) ? " and pro_un.id_provincia="+idPro : " and pro"+geoSuffix+".id_provincia="+idPro ;
                     else
                         Message+="<br/> - Por favor seleccione la Provincia";
                 }
                 if (nivel > 2){
                     idReg = $("#drpReg").val();
                     if (idReg > 0)
-                        Filtro+= (nivelUn > 0) ? " and reg_un.id_region="+idReg : " and reg.id_region="+idReg ;
+                        Filtro+= (nivelUn > 0) ? " and reg_un.id_region="+idReg : " and reg"+geoSuffix+".id_region="+idReg ;
                     else
                         Message+="<br/> - Por favor seleccione la Regi&oacute;n";
                 }
                 if (nivel > 3){
                     idDis = $("#drpDis").val();
                     if (idDis > 0)
-                        Filtro+= (nivelUn > 0) ? " and dis_un.id_distrito="+idDis : " and dis.id_distrito="+idDis ;
+                        Filtro+= (nivelUn > 0) ? " and dis_un.id_distrito="+idDis : " and dis"+geoSuffix+".id_distrito="+idDis ;
                     else
                         Message+="<br/> - Por favor seleccione el Distrito";
                 }
                 if (nivel > 4){
                     idCor = $("#drpCor").val();
                     if (idCor > 0)
-                        Filtro+= (nivelUn > 0) ? " and cor_un.id_corregimiento="+idCor : " and cor.id_corregimiento="+idCor ;
+                        Filtro+= (nivelUn > 0) ? " and cor_un.id_corregimiento="+idCor : " and cor"+geoSuffix+".id_corregimiento="+idCor ;
                     else
                         Message+="<br/> - Por favor seleccione el Corregimiento";
                 }
