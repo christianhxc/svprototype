@@ -1602,7 +1602,7 @@ order by vih.id_vih_form desc]]>
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[observaciones]]></text>
+				<text><![CDATA[correo_electronico]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="13137" y="0" width="95" height="15" uuid="30052975-e9c8-47e2-8d30-3034c148ba8e"/>
@@ -1626,7 +1626,7 @@ order by vih.id_vih_form desc]]>
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[fecha_tar]]></text>
+				<text><![CDATA[id_grupo_indigena]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="13327" y="0" width="95" height="15" uuid="7e025359-e932-4712-9ea9-cb4a18f40a2e"/>
