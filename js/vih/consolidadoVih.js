@@ -200,12 +200,14 @@ function validarReporte()
     var idUn = 0;
 
     var pertenece = $("#drpPertenece").val();
+    console.log(pertenece);
     var geoSuffix = '';
     switch (pertenece){
-        case 2: geoSuffix = '_per'; break;
-        case 3: geoSuffix = '_diag'; break;
+        case '2': geoSuffix = '_per'; break;
+        case '3': geoSuffix = '_diag'; break;
         default : geoSuffix = '';
     }
+    console.log(geoSuffix);
 
     var nivelUn = $("#drpNivelUn").val();
     if (nivelUn > 0 ){
@@ -236,7 +238,7 @@ function validarReporte()
             if (nivel > 2){
                 idReg = $("#drpReg").val();
                 if (idReg > 0){
-                    Filtro+= " reg"+geoSuffix+"_and id_region="+idReg;
+                    Filtro+= " and reg"+geoSuffix+"_id_region="+idReg;
                     Lugar += " - Region: "+trim($("#drpReg").find(":selected").text());
                 }
                 else

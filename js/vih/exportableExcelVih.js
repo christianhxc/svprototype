@@ -293,8 +293,8 @@ function validarReporte()
         var pertenece = $("#drpPertenece").val();
         var geoSuffixAll = '';
         switch (pertenece){
-            case 2: geoSuffixAll = '_per'; break;
-            case 3: geoSuffixAll = '_diag'; break;
+            case '2': geoSuffix = '_per'; break;
+            case '3': geoSuffix = '_diag'; break;
             default : geoSuffixAll = '_un';
         }
 
