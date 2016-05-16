@@ -289,12 +289,25 @@ function validarReporte()
         var nivelUn = $("#drpNivelUn").val();
         var nivelPer = $("#drpNivelPer").val();
         var geoSuffix = pertenece == 3 ? '_diag' : '';
+
+        var pertenece = $("#drpPertenece").val();
+        var geoSuffixAll = '';
+        switch (pertenece){
+            case 2: geoSuffixAll = '_per'; break;
+            case 3: geoSuffixAll = '_diag'; break;
+            default : geoSuffixAll = '_un';
+        }
+
         if (nivelUn > 0 || nivelPer > 0){
             var nivel =  (nivelUn > 0) ? nivelUn:nivelPer;
             if (nivel == 6){
                 idUn = $("#id_un").val();
                 if (idUn > 0)
-                    Filtro+= (nivelUn > 0) ? " and pro_un.id_provincia="+globalIdPro+" and reg_un.id_region="+globalIdReg+" and dis_un.id_distrito="+globalIdDis+" and cor_un.id_corregimiento="+globalIdCor+" and un.id_un="+idUn : "" ;
+                    Filtro+= (nivelUn > 0) ? " and pro"+geoSuffix+".id_provincia="+globalIdPro
+                    +" and reg"+geoSuffix+".id_region="+globalIdReg
+                    +" and dis"+geoSuffix+".id_distrito="+globalIdDis
+                    +" and cor"+geoSuffix+".id_corregimiento="+globalIdCor
+                    +(pertenece == 1 ? " and un.id_un="+idUn : "") : "" ;
                 else
                     Message+="<br/> - Por favor seleccione la instalaci&oacute;n de salud";
             }

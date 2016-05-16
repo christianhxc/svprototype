@@ -66,6 +66,7 @@ class exportableExcelVihPage extends page
                 switch($this->config["search"]["pertenece"]){
                     case '1': $this->tpl->setVariable("pertenece1",'selected'); break;
                     case '2': $this->tpl->setVariable("pertenece2",'selected'); break;
+                    case '3': $this->tpl->setVariable("pertenece3",'selected'); break;
                 }
                 
                 switch($this->config["search"]["nivel"]){

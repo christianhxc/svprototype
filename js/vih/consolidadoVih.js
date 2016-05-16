@@ -31,6 +31,8 @@ $(document).ready(function() {
         },
         autoFill:false
     });
+
+    setPertenece();
 });
 
 function setNivelUn(){
@@ -196,14 +198,26 @@ function validarReporte()
     var idDis = 0;
     var idCor = 0;
     var idUn = 0;
-    
+
+    var pertenece = $("#drpPertenece").val();
+    var geoSuffix = '';
+    switch (pertenece){
+        case 2: geoSuffix = '_per'; break;
+        case 3: geoSuffix = '_diag'; break;
+        default : geoSuffix = '';
+    }
+
     var nivelUn = $("#drpNivelUn").val();
     if (nivelUn > 0 ){
         var nivel =  nivelUn;
         if (nivel == 6){
             idUn = $("#id_un").val();
             if (idUn > 0){
-                Filtro+= (nivelUn > 0) ? " and id_provincia="+globalIdPro+" and id_region="+globalIdReg+" and id_distrito="+globalIdDis+" and id_corregimiento="+globalIdCor+" and id_un="+idUn : "" ;
+                Filtro+= (nivelUn > 0) ? " and pro"+geoSuffix+"_id_provincia="+globalIdPro
+                +" and reg"+geoSuffix+"_id_region="+globalIdReg
+                +" and dis"+geoSuffix+"_id_distrito="+globalIdDis
+                +" and cor"+geoSuffix+"_id_corregimiento="+globalIdCor
+                +(pertenece == 1 ? " and id_un="+idUn : "") : "" ;
                 Lugar = "Unidad notificadora: "+trim($("#nombre_un").val());
             }
             else
@@ -213,7 +227,7 @@ function validarReporte()
             if (nivel > 1){
                 idPro = $("#drpPro").val();
                 if (idPro > 0){
-                    Filtro+= " and id_provincia="+idPro;
+                    Filtro+= " and pro"+geoSuffix+"_id_provincia="+idPro;
                     Lugar= "Provincia: "+trim($("#drpPro").find(":selected").text());
                 }
                 else
@@ -222,7 +236,7 @@ function validarReporte()
             if (nivel > 2){
                 idReg = $("#drpReg").val();
                 if (idReg > 0){
-                    Filtro+= " and id_region="+idReg;
+                    Filtro+= " reg"+geoSuffix+"_and id_region="+idReg;
                     Lugar += " - Region: "+trim($("#drpReg").find(":selected").text());
                 }
                 else
@@ -231,7 +245,7 @@ function validarReporte()
             if (nivel > 3){
                 idDis = $("#drpDis").val();
                 if (idDis > 0){
-                    Filtro+= " and id_distrito="+idDis;
+                    Filtro+= " and dis"+geoSuffix+"_id_distrito="+idDis;
                     Lugar += " - Distrito: "+trim($("#drpDis").find(":selected").text());
                 }
                 else
@@ -240,7 +254,7 @@ function validarReporte()
             if (nivel > 4){
                 idCor = $("#drpCor").val();
                 if (idCor > 0){
-                    Filtro+= " and id_corregimiento="+idCor ;
+                    Filtro+= " and cor"+geoSuffix+"_id_corregimiento="+idCor ;
                     Lugar += " - Corregimiento: "+trim($("#drpCor").find(":selected").text());
                 }
                 else
@@ -312,4 +326,18 @@ function generarReporte(filtro, lugar, condicion){
 
 function trim(myString){
     return myString.replace(/^\s+/g,'').replace(/\s+$/g,'')
+}
+
+function setPertenece(){
+    var nivel = $("#drpPertenece").val();
+    borrarFiltro();
+    $("#drpPertenece").val(nivel);
+    if (nivel > 0) $("#drpNivelUn").show(); else $("#drpNivelUn").hide();
+
+    if (nivel == 1){
+        if ($("#drpNivelUn option[value='6']").length <= 0)
+        $('#drpNivelUn').append('<option value="6">Unidad notificadora</option>');
+    }else{
+        $("#drpNivelUn option[value='6']").remove();
+    }
 }

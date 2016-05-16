@@ -36,8 +36,14 @@ class consolidadoVihPage extends page
                     }
                 }
 
-                // Valores de búsqueda almacenados  
-                
+                // Valores de búsqueda almacenados
+
+                switch($this->config["search"]["pertenece"]){
+                    case '1': $this->tpl->setVariable("pertenece1",'selected'); break;
+                    case '2': $this->tpl->setVariable("pertenece2",'selected'); break;
+                    case '3': $this->tpl->setVariable("pertenece3",'selected'); break;
+                }
+
                 switch($this->config["search"]["nivel"]){
                     case '1': $this->tpl->setVariable("selNivel1",'selected'); break;
                     case '2': $this->tpl->setVariable("selNivel2",'selected'); break;
