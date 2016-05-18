@@ -425,3 +425,486 @@ CREATE TABLE `sisvigdb`.`vih_form_nino` (
 ALTER TABLE `sisvigdb`.`vih_form_nino` 
 CHANGE COLUMN `id_vih_form_nino` `id_vih_form_nino` INT(30) NOT NULL AUTO_INCREMENT COMMENT '' ;
 
+USE `sisvigdb`;
+CREATE  OR REPLACE VIEW `view_vih_regiones_per` AS
+    SELECT 
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 1)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m1`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 2)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m2`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 3)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m3`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 4)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m4`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 5)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m5`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 6)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m6`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 7)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m7`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 8)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m8`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 9)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m9`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 10)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m10`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 11)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m11`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 12)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m12`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 13)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m13`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 14)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m14`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 1)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f1`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 2)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f2`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 3)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f3`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 4)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f4`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 5)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f5`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 6)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f6`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 7)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f7`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 8)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f8`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 9)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f9`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 10)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f10`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 11)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f11`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 12)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f12`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 13)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f13`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 14)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f14`,
+        `vih`.`cond_vih` AS `cond_vih`,
+        `vih`.`cond_sida` AS `cond_sida`,
+        DATE_FORMAT(`vih`.`fecha_notificacion`, '%d-%m-%Y') AS `fecha_notificacion`,
+        `vih`.`anio` AS `anio`,
+        `vih`.`semana_epi` AS `semana_epi`,
+        `vih`.`cond_condicion_paciente` AS `cond_condicion_paciente`
+    FROM
+        `vih_form` `vih`
+        JOIN `tbl_persona` `per` ON `vih`.`id_tipo_identidad` = `per`.`tipo_identificacion` AND `vih`.`numero_identificacion` = `per`.`numero_identificacion`
+        LEFT JOIN `cat_corregimiento` `c` ON `c`.`id_corregimiento` = `per`.`id_corregimiento`
+        LEFT JOIN `cat_distrito` `d` ON `c`.`id_distrito` = `d`.`id_distrito`
+        LEFT JOIN `cat_region_salud` `r` ON `d`.`id_region` = `r`.`id_region`        
+    GROUP BY `vih`.`anio` , `vih`.`semana_epi` , `r`.`id_region` , `d`.`id_distrito` , `c`.`id_corregimiento` , `per`.`sexo` , `vih`.`per_edad` , `per`.`numero_identificacion`;
+	
+USE `sisvigdb`;
+CREATE  OR REPLACE VIEW `view_vih_regiones_diag` AS
+    SELECT 
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 1)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m1`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 2)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m2`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 3)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m3`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 4)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m4`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 5)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m5`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 6)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m6`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 7)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m7`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 8)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m8`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 9)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m9`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 10)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m10`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 11)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m11`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 12)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m12`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 13)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m13`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 14)
+                    AND (`per`.`sexo` = 'M'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_m14`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 1)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f1`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 2)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f2`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 3)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f3`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 4)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f4`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 5)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f5`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 6)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f6`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 7)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f7`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 8)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f8`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 9)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f9`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 10)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f10`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 11)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f11`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 12)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f12`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 13)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f13`,
+        (CASE
+            WHEN
+                ((`r`.`id_region` = 14)
+                    AND (`per`.`sexo` = 'F'))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `region_f14`,
+        `vih`.`cond_vih` AS `cond_vih`,
+        `vih`.`cond_sida` AS `cond_sida`,
+        DATE_FORMAT(`vih`.`fecha_notificacion`, '%d-%m-%Y') AS `fecha_notificacion`,
+        `vih`.`anio` AS `anio`,
+        `vih`.`semana_epi` AS `semana_epi`,
+        `vih`.`cond_condicion_paciente` AS `cond_condicion_paciente`
+    FROM
+        `vih_form` `vih`
+        JOIN `tbl_persona` `per` ON `vih`.`id_tipo_identidad` = `per`.`tipo_identificacion` AND `vih`.`numero_identificacion` = `per`.`numero_identificacion`
+        LEFT JOIN `cat_corregimiento` `c` ON `c`.`id_corregimiento` = `per`.`id_corregimiento_diagnostico`
+        LEFT JOIN `cat_distrito` `d` ON `c`.`id_distrito` = `d`.`id_distrito`
+        LEFT JOIN `cat_region_salud` `r` ON `d`.`id_region` = `r`.`id_region`        
+    GROUP BY `vih`.`anio` , `vih`.`semana_epi` , `r`.`id_region` , `d`.`id_distrito` , `c`.`id_corregimiento` , `per`.`sexo` , `vih`.`per_edad` , `per`.`numero_identificacion`
+;
+
