@@ -908,3 +908,741 @@ CREATE  OR REPLACE VIEW `view_vih_regiones_diag` AS
     GROUP BY `vih`.`anio` , `vih`.`semana_epi` , `r`.`id_region` , `d`.`id_distrito` , `c`.`id_corregimiento` , `per`.`sexo` , `vih`.`per_edad` , `per`.`numero_identificacion`
 ;
 
+USE `sisvigdb`;
+CREATE  OR REPLACE VIEW `view_vih_factor_matriz_per` AS
+SELECT 
+        `vih`.`anio` AS `anio`,
+        `vih`.`semana_epi` AS `semana_epi`,
+        `reg`.`id_region` AS `id_region`,
+        `reg`.`nombre_region` AS `nombre_region`,
+        `factor`.`id_factor` AS `id_factor`,
+        `factor`.`factor_nombre` AS `factor_nombre`,
+        `grupo`.`id_grupo_factor` AS `id_grupo_factor`,
+        `grupo`.`grupo_factor_nombre` AS `grupo_factor_nombre`,
+        `vih`.`cond_vih` AS `cond_vih`,
+        `vih`.`cond_sida` AS `cond_sida`,
+        `vih`.`cond_condicion_paciente` AS `cond_condicion_paciente`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` <= 2))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `menor_uno_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 1)
+                    AND (`vih`.`per_edad` <= 4))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `uno_cuatro_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 5)
+                    AND (`vih`.`per_edad` <= 9))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cinco_nueve_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 10)
+                    AND (`vih`.`per_edad` <= 14))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `diez_catorce_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 15)
+                    AND (`vih`.`per_edad` <= 19))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `quince_diecinueve_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 20)
+                    AND (`vih`.`per_edad` <= 24))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `veinte_veinticuatro_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 25)
+                    AND (`vih`.`per_edad` <= 29))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `veinticinco_veintinueve_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 30)
+                    AND (`vih`.`per_edad` <= 34))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `treinta_treitaycuatro_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 35)
+                    AND (`vih`.`per_edad` <= 39))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `treintaycinco_treintaynueve_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 40)
+                    AND (`vih`.`per_edad` <= 44))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cuarenta_cuarentaycuatro_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 45)
+                    AND (`vih`.`per_edad` <= 49))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cuarentaycinco_cuarentaynueve_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 50)
+                    AND (`vih`.`per_edad` <= 54))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cincuenta_cincuentaycuatro_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 55)
+                    AND (`vih`.`per_edad` <= 59))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cincuentaycinco_cincuentaynueve_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 60)
+                    AND (`vih`.`per_edad` <= 64))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `sesenta_sesentaycuantro_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 65))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `mas_sesentaycinco_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` <= 2))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `menor_uno_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 1)
+                    AND (`vih`.`per_edad` <= 4))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `uno_cuatro_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 5)
+                    AND (`vih`.`per_edad` <= 9))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cinco_nueve_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 10)
+                    AND (`vih`.`per_edad` <= 14))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `diez_catorce_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 15)
+                    AND (`vih`.`per_edad` <= 19))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `quince_diecinueve_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 20)
+                    AND (`vih`.`per_edad` <= 24))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `veinte_veinticuatro_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 25)
+                    AND (`vih`.`per_edad` <= 29))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `veinticinco_veintinueve_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 30)
+                    AND (`vih`.`per_edad` <= 34))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `treinta_treitaycuatro_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 35)
+                    AND (`vih`.`per_edad` <= 39))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `treintaycinco_treintaynueve_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 40)
+                    AND (`vih`.`per_edad` <= 44))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cuarenta_cuarentaycuatro_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 45)
+                    AND (`vih`.`per_edad` <= 49))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cuarentaycinco_cuarentaynueve_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 50)
+                    AND (`vih`.`per_edad` <= 54))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cincuenta_cincuentaycuatro_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 55)
+                    AND (`vih`.`per_edad` <= 59))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cincuentaycinco_cincuentaynueve_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 60)
+                    AND (`vih`.`per_edad` <= 64))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `sesenta_sesentaycuantro_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 65))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `mas_sesentaycinco_f`
+    FROM
+        `vih_factor_riesgo` `riesgo`
+        JOIN `vih_form` `vih` ON `riesgo`.`id_vih_form` = `vih`.`id_vih_form`
+        JOIN `cat_factor_riesgo` `factor` ON `factor`.`id_factor` = `riesgo`.`id_factor`
+        JOIN `cat_grupo_factor_riesgo` `grupo` ON `grupo`.`id_grupo_factor` = `factor`.`id_grupo_factor`
+        JOIN `tbl_persona` `per` ON `per`.`numero_identificacion` = `vih`.`numero_identificacion`
+            AND `per`.`tipo_identificacion` = `vih`.`id_tipo_identidad`
+        LEFT JOIN `cat_corregimiento` `c` ON `per`.`id_corregimiento` = `c`.`id_corregimiento`
+        LEFT JOIN `cat_distrito` `d` ON `c`.`id_distrito` = `d`.`id_distrito`
+        LEFT JOIN `cat_region_salud` `reg` ON `d`.`id_region` = `reg`.`id_region`
+    GROUP BY `vih`.`anio` , `vih`.`semana_epi` , `reg`.`id_region` , `factor`.`id_factor` , `grupo`.`id_grupo_factor` , `vih`.`cond_vih` , `vih`.`cond_sida`
+;
+
+USE `sisvigdb`;
+CREATE  OR REPLACE VIEW `view_vih_factor_matriz_diag` AS
+SELECT 
+        `vih`.`anio` AS `anio`,
+        `vih`.`semana_epi` AS `semana_epi`,
+        `reg`.`id_region` AS `id_region`,
+        `reg`.`nombre_region` AS `nombre_region`,
+        `factor`.`id_factor` AS `id_factor`,
+        `factor`.`factor_nombre` AS `factor_nombre`,
+        `grupo`.`id_grupo_factor` AS `id_grupo_factor`,
+        `grupo`.`grupo_factor_nombre` AS `grupo_factor_nombre`,
+        `vih`.`cond_vih` AS `cond_vih`,
+        `vih`.`cond_sida` AS `cond_sida`,
+        `vih`.`cond_condicion_paciente` AS `cond_condicion_paciente`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` <= 2))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `menor_uno_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 1)
+                    AND (`vih`.`per_edad` <= 4))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `uno_cuatro_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 5)
+                    AND (`vih`.`per_edad` <= 9))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cinco_nueve_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 10)
+                    AND (`vih`.`per_edad` <= 14))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `diez_catorce_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 15)
+                    AND (`vih`.`per_edad` <= 19))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `quince_diecinueve_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 20)
+                    AND (`vih`.`per_edad` <= 24))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `veinte_veinticuatro_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 25)
+                    AND (`vih`.`per_edad` <= 29))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `veinticinco_veintinueve_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 30)
+                    AND (`vih`.`per_edad` <= 34))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `treinta_treitaycuatro_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 35)
+                    AND (`vih`.`per_edad` <= 39))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `treintaycinco_treintaynueve_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 40)
+                    AND (`vih`.`per_edad` <= 44))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cuarenta_cuarentaycuatro_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 45)
+                    AND (`vih`.`per_edad` <= 49))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cuarentaycinco_cuarentaynueve_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 50)
+                    AND (`vih`.`per_edad` <= 54))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cincuenta_cincuentaycuatro_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 55)
+                    AND (`vih`.`per_edad` <= 59))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cincuentaycinco_cincuentaynueve_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 60)
+                    AND (`vih`.`per_edad` <= 64))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `sesenta_sesentaycuantro_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'M')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 65))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `mas_sesentaycinco_m`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` <= 2))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `menor_uno_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 1)
+                    AND (`vih`.`per_edad` <= 4))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `uno_cuatro_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 5)
+                    AND (`vih`.`per_edad` <= 9))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cinco_nueve_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 10)
+                    AND (`vih`.`per_edad` <= 14))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `diez_catorce_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 15)
+                    AND (`vih`.`per_edad` <= 19))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `quince_diecinueve_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 20)
+                    AND (`vih`.`per_edad` <= 24))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `veinte_veinticuatro_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 25)
+                    AND (`vih`.`per_edad` <= 29))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `veinticinco_veintinueve_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 30)
+                    AND (`vih`.`per_edad` <= 34))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `treinta_treitaycuatro_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 35)
+                    AND (`vih`.`per_edad` <= 39))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `treintaycinco_treintaynueve_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 40)
+                    AND (`vih`.`per_edad` <= 44))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cuarenta_cuarentaycuatro_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 45)
+                    AND (`vih`.`per_edad` <= 49))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cuarentaycinco_cuarentaynueve_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 50)
+                    AND (`vih`.`per_edad` <= 54))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cincuenta_cincuentaycuatro_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 55)
+                    AND (`vih`.`per_edad` <= 59))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `cincuentaycinco_cincuentaynueve_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 60)
+                    AND (`vih`.`per_edad` <= 64))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `sesenta_sesentaycuantro_f`,
+        (CASE
+            WHEN
+                ((`per`.`sexo` = 'F')
+                    AND (`vih`.`per_tipo_edad` > 2)
+                    AND (`vih`.`per_edad` >= 65))
+            THEN
+                SUM(1)
+            ELSE SUM(0)
+        END) AS `mas_sesentaycinco_f`
+    FROM
+        `vih_factor_riesgo` `riesgo`
+        JOIN `vih_form` `vih` ON `riesgo`.`id_vih_form` = `vih`.`id_vih_form`
+        JOIN `cat_factor_riesgo` `factor` ON `factor`.`id_factor` = `riesgo`.`id_factor`
+        JOIN `cat_grupo_factor_riesgo` `grupo` ON `grupo`.`id_grupo_factor` = `factor`.`id_grupo_factor`
+        JOIN `tbl_persona` `per` ON `per`.`numero_identificacion` = `vih`.`numero_identificacion`
+            AND `per`.`tipo_identificacion` = `vih`.`id_tipo_identidad`
+        LEFT JOIN `cat_corregimiento` `c` ON `per`.`id_corregimiento_diagnostico` = `c`.`id_corregimiento`
+        LEFT JOIN `cat_distrito` `d` ON `c`.`id_distrito` = `d`.`id_distrito`
+        LEFT JOIN `cat_region_salud` `reg` ON `d`.`id_region` = `reg`.`id_region`
+    GROUP BY `vih`.`anio` , `vih`.`semana_epi` , `reg`.`id_region` , `factor`.`id_factor` , `grupo`.`id_grupo_factor` , `vih`.`cond_vih` , `vih`.`cond_sida`;
+
+	
+USE `sisvigdb`;
+CREATE  OR REPLACE VIEW `view_vih_factor_reporte_per` AS
+SELECT 
+        `matriz`.`anio` AS `anio`,
+        `matriz`.`semana_epi` AS `semana_epi`,
+        `matriz`.`cond_condicion_paciente` AS `cond_condicion_paciente`,
+        `matriz`.`id_region` AS `id_region`,
+        `matriz`.`nombre_region` AS `nombre_region`,
+        `matriz`.`id_grupo_factor` AS `id_grupo_factor`,
+        `matriz`.`grupo_factor_nombre` AS `grupo_factor_nombre`,
+        `matriz`.`id_factor` AS `id_factor`,
+        `matriz`.`factor_nombre` AS `factor_nombre`,
+        `matriz`.`cond_vih` AS `cond_vih`,
+        `matriz`.`cond_sida` AS `cond_sida`,
+        SUM(`matriz`.`menor_uno_m`) AS `menor_uno_m`,
+        SUM(`matriz`.`uno_cuatro_m`) AS `uno_cuatro_m`,
+        SUM(`matriz`.`cinco_nueve_m`) AS `cinco_nueve_m`,
+        SUM(`matriz`.`diez_catorce_m`) AS `diez_catorce_m`,
+        SUM(`matriz`.`quince_diecinueve_m`) AS `quince_diecinueve_m`,
+        SUM(`matriz`.`veinte_veinticuatro_m`) AS `veinte_veinticuatro_m`,
+        SUM(`matriz`.`veinticinco_veintinueve_m`) AS `veinticinco_veintinueve_m`,
+        SUM(`matriz`.`treinta_treitaycuatro_m`) AS `treinta_treitaycuatro_m`,
+        SUM(`matriz`.`treintaycinco_treintaynueve_m`) AS `treintaycinco_treintaynueve_m`,
+        SUM(`matriz`.`cuarenta_cuarentaycuatro_m`) AS `cuarenta_cuarentaycuatro_m`,
+        SUM(`matriz`.`cuarentaycinco_cuarentaynueve_m`) AS `cuarentaycinco_cuarentaynueve_m`,
+        SUM(`matriz`.`cincuenta_cincuentaycuatro_m`) AS `cincuenta_cincuentaycuatro_m`,
+        SUM(`matriz`.`cincuentaycinco_cincuentaynueve_m`) AS `cincuentaycinco_cincuentaynueve_m`,
+        SUM(`matriz`.`sesenta_sesentaycuantro_m`) AS `sesenta_sesentaycuantro_m`,
+        SUM(`matriz`.`mas_sesentaycinco_m`) AS `mas_sesentaycinco_m`,
+        SUM(`matriz`.`menor_uno_f`) AS `menor_uno_f`,
+        SUM(`matriz`.`uno_cuatro_f`) AS `uno_cuatro_f`,
+        SUM(`matriz`.`cinco_nueve_f`) AS `cinco_nueve_f`,
+        SUM(`matriz`.`diez_catorce_f`) AS `diez_catorce_f`,
+        SUM(`matriz`.`quince_diecinueve_f`) AS `quince_diecinueve_f`,
+        SUM(`matriz`.`veinte_veinticuatro_f`) AS `veinte_veinticuatro_f`,
+        SUM(`matriz`.`veinticinco_veintinueve_f`) AS `veinticinco_veintinueve_f`,
+        SUM(`matriz`.`treinta_treitaycuatro_f`) AS `treinta_treitaycuatro_f`,
+        SUM(`matriz`.`treintaycinco_treintaynueve_f`) AS `treintaycinco_treintaynueve_f`,
+        SUM(`matriz`.`cuarenta_cuarentaycuatro_f`) AS `cuarenta_cuarentaycuatro_f`,
+        SUM(`matriz`.`cuarentaycinco_cuarentaynueve_f`) AS `cuarentaycinco_cuarentaynueve_f`,
+        SUM(`matriz`.`cincuenta_cincuentaycuatro_f`) AS `cincuenta_cincuentaycuatro_f`,
+        SUM(`matriz`.`cincuentaycinco_cincuentaynueve_f`) AS `cincuentaycinco_cincuentaynueve_f`,
+        SUM(`matriz`.`sesenta_sesentaycuantro_f`) AS `sesenta_sesentaycuantro_f`,
+        SUM(`matriz`.`mas_sesentaycinco_f`) AS `mas_sesentaycinco_f`
+    FROM
+        `view_vih_factor_matriz_per` `matriz`
+    GROUP BY `matriz`.`anio` , `matriz`.`semana_epi` , `matriz`.`id_region` , `matriz`.`id_grupo_factor` , `matriz`.`id_factor`;
+
+USE `sisvigdb`;
+CREATE  OR REPLACE VIEW `view_vih_factor_reporte_diag` AS
+SELECT 
+        `matriz`.`anio` AS `anio`,
+        `matriz`.`semana_epi` AS `semana_epi`,
+        `matriz`.`cond_condicion_paciente` AS `cond_condicion_paciente`,
+        `matriz`.`id_region` AS `id_region`,
+        `matriz`.`nombre_region` AS `nombre_region`,
+        `matriz`.`id_grupo_factor` AS `id_grupo_factor`,
+        `matriz`.`grupo_factor_nombre` AS `grupo_factor_nombre`,
+        `matriz`.`id_factor` AS `id_factor`,
+        `matriz`.`factor_nombre` AS `factor_nombre`,
+        `matriz`.`cond_vih` AS `cond_vih`,
+        `matriz`.`cond_sida` AS `cond_sida`,
+        SUM(`matriz`.`menor_uno_m`) AS `menor_uno_m`,
+        SUM(`matriz`.`uno_cuatro_m`) AS `uno_cuatro_m`,
+        SUM(`matriz`.`cinco_nueve_m`) AS `cinco_nueve_m`,
+        SUM(`matriz`.`diez_catorce_m`) AS `diez_catorce_m`,
+        SUM(`matriz`.`quince_diecinueve_m`) AS `quince_diecinueve_m`,
+        SUM(`matriz`.`veinte_veinticuatro_m`) AS `veinte_veinticuatro_m`,
+        SUM(`matriz`.`veinticinco_veintinueve_m`) AS `veinticinco_veintinueve_m`,
+        SUM(`matriz`.`treinta_treitaycuatro_m`) AS `treinta_treitaycuatro_m`,
+        SUM(`matriz`.`treintaycinco_treintaynueve_m`) AS `treintaycinco_treintaynueve_m`,
+        SUM(`matriz`.`cuarenta_cuarentaycuatro_m`) AS `cuarenta_cuarentaycuatro_m`,
+        SUM(`matriz`.`cuarentaycinco_cuarentaynueve_m`) AS `cuarentaycinco_cuarentaynueve_m`,
+        SUM(`matriz`.`cincuenta_cincuentaycuatro_m`) AS `cincuenta_cincuentaycuatro_m`,
+        SUM(`matriz`.`cincuentaycinco_cincuentaynueve_m`) AS `cincuentaycinco_cincuentaynueve_m`,
+        SUM(`matriz`.`sesenta_sesentaycuantro_m`) AS `sesenta_sesentaycuantro_m`,
+        SUM(`matriz`.`mas_sesentaycinco_m`) AS `mas_sesentaycinco_m`,
+        SUM(`matriz`.`menor_uno_f`) AS `menor_uno_f`,
+        SUM(`matriz`.`uno_cuatro_f`) AS `uno_cuatro_f`,
+        SUM(`matriz`.`cinco_nueve_f`) AS `cinco_nueve_f`,
+        SUM(`matriz`.`diez_catorce_f`) AS `diez_catorce_f`,
+        SUM(`matriz`.`quince_diecinueve_f`) AS `quince_diecinueve_f`,
+        SUM(`matriz`.`veinte_veinticuatro_f`) AS `veinte_veinticuatro_f`,
+        SUM(`matriz`.`veinticinco_veintinueve_f`) AS `veinticinco_veintinueve_f`,
+        SUM(`matriz`.`treinta_treitaycuatro_f`) AS `treinta_treitaycuatro_f`,
+        SUM(`matriz`.`treintaycinco_treintaynueve_f`) AS `treintaycinco_treintaynueve_f`,
+        SUM(`matriz`.`cuarenta_cuarentaycuatro_f`) AS `cuarenta_cuarentaycuatro_f`,
+        SUM(`matriz`.`cuarentaycinco_cuarentaynueve_f`) AS `cuarentaycinco_cuarentaynueve_f`,
+        SUM(`matriz`.`cincuenta_cincuentaycuatro_f`) AS `cincuenta_cincuentaycuatro_f`,
+        SUM(`matriz`.`cincuentaycinco_cincuentaynueve_f`) AS `cincuentaycinco_cincuentaynueve_f`,
+        SUM(`matriz`.`sesenta_sesentaycuantro_f`) AS `sesenta_sesentaycuantro_f`,
+        SUM(`matriz`.`mas_sesentaycinco_f`) AS `mas_sesentaycinco_f`
+    FROM
+        `view_vih_factor_matriz_diag` `matriz`
+    GROUP BY `matriz`.`anio` , `matriz`.`semana_epi` , `matriz`.`id_region` , `matriz`.`id_grupo_factor` , `matriz`.`id_factor`;
+	

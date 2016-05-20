@@ -13,10 +13,17 @@ if(isset($_REQUEST["f"]))
     
     $filtro = ($_REQUEST["f"] != "" ? $_REQUEST["f"] : "");
     $condicion = ($_REQUEST["c"] != "" ? $_REQUEST["c"] : "");
+    $ubicacion = $_REQUEST["p"];
+    switch($ubicacion){
+        case "3": $reportSuffix = "_diag"; break;
+        case "2": $reportSuffix = "_per"; break;
+        default: $reportSuffix = "";
+    }
 //    echo "Filtro: ".$filtro;
 //    echo "<br/>Condicion: ".$condicion;exit;
     $params->put("filtro", $filtro);
     $params->put("condicion", $condicion);
+    $params->put("reportSuffix", $reportSuffix);
     $url = Configuration::urlReport;
 
     $driverManager = new java("java.sql.DriverManager");

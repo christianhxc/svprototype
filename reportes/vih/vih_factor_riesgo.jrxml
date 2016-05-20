@@ -33,6 +33,7 @@
 	<parameter name="filtro" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="reportSuffix" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select t1.anio, t1.semana_epi, t1.cond_condicion_paciente, t1.id_region, t1.nombre_region, t1.id_grupo_factor, t1.grupo_factor_nombre,
 t1.id_factor, t1.factor_nombre, t1.cond_vih, t1.cond_sida,
@@ -66,7 +67,7 @@ sum(t1.cincuenta_cincuentaycuatro_f) as cincuenta_cincuentaycuatro_f,
 sum(t1.cincuentaycinco_cincuentaynueve_f) as cincuentaycinco_cincuentaynueve_f,
 sum(t1.sesenta_sesentaycuantro_f) as sesenta_sesentaycuantro_f,
 sum(t1.mas_sesentaycinco_f) as mas_sesentaycinco_f
-from view_vih_factor_reporte t1
+from view_vih_factor_reporte$P!{reportSuffix} t1
 where 1 $P!{filtro}
 group by id_region,id_grupo_factor, id_factor]]>
 	</queryString>
@@ -124,147 +125,147 @@ group by id_region,id_grupo_factor, id_factor]]>
 		<groupHeader>
 			<band height="56">
 				<staticText>
-					<reportElement uuid="33bcf8df-a2aa-4de2-af4a-9409d9cdbb28" style="table_TH" x="565" y="20" width="895" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="565" y="20" width="895" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="33bcf8df-a2aa-4de2-af4a-9409d9cdbb28"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Grupos de Edad]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="7d8ddab3-0ab5-4381-a36d-d6e44cd61767" style="table_TH" x="565" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="565" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="7d8ddab3-0ab5-4381-a36d-d6e44cd61767"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[< 1]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="d069926f-94c3-4c60-9d9e-10673eaf1ca5" style="table_TH" x="625" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="625" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="d069926f-94c3-4c60-9d9e-10673eaf1ca5"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[1 - 4]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="184d3714-32bf-4312-a0e4-2eb7f02da3d0" style="table_TH" x="685" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="685" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="184d3714-32bf-4312-a0e4-2eb7f02da3d0"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[5 - 9]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="4fdf7966-eeb9-4e0f-afb9-9ec044ac0773" style="table_TH" x="745" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="745" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="4fdf7966-eeb9-4e0f-afb9-9ec044ac0773"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[10-14]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="2e619988-925b-4c0c-b465-6b62a84cac44" style="table_TH" x="805" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="805" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="2e619988-925b-4c0c-b465-6b62a84cac44"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[15-19]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="0766af0b-e959-4e47-846f-da5564df68a8" style="table_TH" x="865" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="865" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="0766af0b-e959-4e47-846f-da5564df68a8"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[20-24]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="e8d4f15d-f2e5-4ee6-918c-692d505fda95" style="table_TH" x="925" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="925" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="e8d4f15d-f2e5-4ee6-918c-692d505fda95"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[25-29]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="ff8fcfaf-119e-46f8-8460-226e9e908e59" style="table_TH" x="985" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="985" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="ff8fcfaf-119e-46f8-8460-226e9e908e59"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[30-34]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="e634785f-e732-41ff-b0bb-0a6190a6b0ed" style="table_TH" x="1045" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="1045" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="e634785f-e732-41ff-b0bb-0a6190a6b0ed"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[35-39]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="41f7fb01-7d74-4dd1-9177-ac4bba74498f" style="table_TH" x="1105" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="1105" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="41f7fb01-7d74-4dd1-9177-ac4bba74498f"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[40-44]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="b82462b6-a3f9-4240-bd78-1b0dd265e9c8" style="table_TH" x="1165" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="1165" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="b82462b6-a3f9-4240-bd78-1b0dd265e9c8"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[45-49]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="ebc1836c-604f-4b88-a20d-027a73ccc7d1" style="table_TH" x="1225" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="1225" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="ebc1836c-604f-4b88-a20d-027a73ccc7d1"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[50-54]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="48667778-5688-41e6-bddd-2ce97ab2a0ab" style="table_TH" x="1285" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="1285" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="48667778-5688-41e6-bddd-2ce97ab2a0ab"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[55-59]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="5f6a2039-39be-474a-86ec-f1a774d599c7" style="table_TH" x="1345" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="1345" y="38" width="60" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="5f6a2039-39be-474a-86ec-f1a774d599c7"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[60-64]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="abddf723-91fc-420f-8d3b-6441f6373b4e" style="table_TH" x="1405" y="38" width="55" height="18" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="1405" y="38" width="55" height="18" forecolor="#FFFFFF" backcolor="#47803C" uuid="abddf723-91fc-420f-8d3b-6441f6373b4e"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="9" isBold="false" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[> 65]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="ef3c8e20-3c45-4384-adda-e27237c87acb" style="table_TH" x="495" y="20" width="70" height="36" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="495" y="20" width="70" height="36" forecolor="#FFFFFF" backcolor="#47803C" uuid="ef3c8e20-3c45-4384-adda-e27237c87acb"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="12" isBold="true" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Totales]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="e089c012-ff8f-4ae9-a805-ae747488df2a" style="table_TH" x="433" y="20" width="62" height="36" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="433" y="20" width="62" height="36" forecolor="#FFFFFF" backcolor="#47803C" uuid="e089c012-ff8f-4ae9-a805-ae747488df2a"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="12" isBold="true" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Sexo]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="aa8bdf3d-4941-47df-a07c-2c26bee35378" style="table_TH" x="0" y="20" width="225" height="36" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="0" y="20" width="225" height="36" forecolor="#FFFFFF" backcolor="#47803C" uuid="aa8bdf3d-4941-47df-a07c-2c26bee35378"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="12" isBold="true" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Grupo Factor de riesgo]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="913078f6-3572-4208-9eb2-a784067a7bc9" style="table_TH" x="225" y="20" width="208" height="36" forecolor="#FFFFFF" backcolor="#47803C"/>
+					<reportElement style="table_TH" x="225" y="20" width="208" height="36" forecolor="#FFFFFF" backcolor="#47803C" uuid="913078f6-3572-4208-9eb2-a784067a7bc9"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="12" isBold="true" isItalic="true"/>
 					</textElement>
 					<text><![CDATA[Factor de riesgo]]></text>
 				</staticText>
 				<textField>
-					<reportElement uuid="41d72338-1da3-4aa3-97f7-67560c1a3cf3" x="0" y="0" width="1460" height="20"/>
+					<reportElement x="0" y="0" width="1460" height="20" uuid="41d72338-1da3-4aa3-97f7-67560c1a3cf3"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
 					</textElement>
@@ -279,42 +280,42 @@ group by id_region,id_grupo_factor, id_factor]]>
 	<title>
 		<band height="100" splitType="Stretch">
 			<textField pattern="d/M/yyyy">
-				<reportElement uuid="7aaf449b-4ce9-4dd5-928e-8382a7044d41" x="225" y="80" width="208" height="20"/>
+				<reportElement x="225" y="80" width="208" height="20" uuid="7aaf449b-4ce9-4dd5-928e-8382a7044d41"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="40c23d9c-700e-4b79-9af7-2c013f7bef69" x="0" y="60" width="1460" height="20"/>
+				<reportElement x="0" y="60" width="1460" height="20" uuid="40c23d9c-700e-4b79-9af7-2c013f7bef69"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isItalic="false" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Informe del formulario VIH/SIDA para el caso de:  "+$P{condicion}+" por factor de riesgo, region de salud, grupos de edad, sexo y año"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="879feb9c-1117-47e9-893c-a17f633b92ce" x="0" y="20" width="1460" height="20"/>
+				<reportElement x="0" y="20" width="1460" height="20" uuid="879feb9c-1117-47e9-893c-a17f633b92ce"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[MINISTERIO DE SALUD - CAJA DE SEGURO SOCIAL - INSTITUCIONES DE SALUD PRIVADAS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="396f1bd3-b96b-40e5-8886-6e7a6dcc781d" x="0" y="80" width="225" height="20"/>
+				<reportElement x="0" y="80" width="225" height="20" uuid="396f1bd3-b96b-40e5-8886-6e7a6dcc781d"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Fecha de generación del reporte:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="18ae975e-05f7-4543-baeb-0f10433f11e3" x="0" y="0" width="1460" height="20"/>
+				<reportElement x="0" y="0" width="1460" height="20" uuid="18ae975e-05f7-4543-baeb-0f10433f11e3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[REPUBLICA DE PANAMÁ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d091aaa0-25e6-4d18-a28b-6eee7d690d0a" x="0" y="40" width="1460" height="20"/>
+				<reportElement x="0" y="40" width="1460" height="20" uuid="d091aaa0-25e6-4d18-a28b-6eee7d690d0a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true" isItalic="false"/>
 				</textElement>
@@ -325,276 +326,276 @@ group by id_region,id_grupo_factor, id_factor]]>
 	<detail>
 		<band height="48" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="073ee218-b7c0-4064-adaf-b821a45ce1f1" style="table_TD" stretchType="RelativeToTallestObject" x="1225" y="32" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1225" y="32" width="60" height="16" uuid="073ee218-b7c0-4064-adaf-b821a45ce1f1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cincuenta_cincuentaycuatro_m}+$F{cincuenta_cincuentaycuatro_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="813d6dfa-f4bf-4f31-91de-4e5ae94b9449" style="table_TD" stretchType="RelativeToTallestObject" x="745" y="16" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="745" y="16" width="60" height="16" uuid="813d6dfa-f4bf-4f31-91de-4e5ae94b9449"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{diez_catorce_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="06639513-22fc-4cd2-9bb6-bdad1922f407" style="table_TD" stretchType="RelativeToTallestObject" x="1045" y="0" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1045" y="0" width="60" height="16" uuid="06639513-22fc-4cd2-9bb6-bdad1922f407"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{treintaycinco_treintaynueve_m}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="6223f9b8-fec3-4796-9649-f95b6436b90f" style="table_TD" stretchType="RelativeToTallestObject" x="565" y="0" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="565" y="0" width="60" height="16" uuid="6223f9b8-fec3-4796-9649-f95b6436b90f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{menor_uno_m}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="66837640-51a5-42bf-a500-879e50896e05" style="table_TD" stretchType="RelativeToTallestObject" x="1405" y="16" width="55" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1405" y="16" width="55" height="16" uuid="66837640-51a5-42bf-a500-879e50896e05"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{mas_sesentaycinco_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="b66e87e0-8c17-436c-9bb6-7d6b380d7de7" style="table_TD" stretchType="RelativeToTallestObject" x="1345" y="0" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1345" y="0" width="60" height="16" uuid="b66e87e0-8c17-436c-9bb6-7d6b380d7de7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{sesenta_sesentaycuantro_m}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="7accc733-aef9-453e-b313-108af9d35c89" style="table_TD" stretchType="RelativeToTallestObject" x="1225" y="0" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1225" y="0" width="60" height="16" uuid="7accc733-aef9-453e-b313-108af9d35c89"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cincuenta_cincuentaycuatro_m}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="409067c3-b7c5-426e-82d0-712e1294aabe" style="table_TD" stretchType="RelativeToTallestObject" x="925" y="0" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="925" y="0" width="60" height="16" uuid="409067c3-b7c5-426e-82d0-712e1294aabe"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{veinticinco_veintinueve_m}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="3b94982a-d2fb-49ff-a58b-415e04003503" style="table_TD" stretchType="RelativeToTallestObject" x="865" y="0" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="865" y="0" width="60" height="16" uuid="3b94982a-d2fb-49ff-a58b-415e04003503"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{veinte_veinticuatro_m}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="ee313d13-e23f-4d0e-b262-5cf1b58d799a" style="table_TD" stretchType="RelativeToTallestObject" x="1285" y="16" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1285" y="16" width="60" height="16" uuid="ee313d13-e23f-4d0e-b262-5cf1b58d799a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cincuentaycinco_cincuentaynueve_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="9ac42f47-4b01-43d9-ad01-3ba4c5365333" style="table_TD" stretchType="RelativeToTallestObject" x="865" y="16" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="865" y="16" width="60" height="16" uuid="9ac42f47-4b01-43d9-ad01-3ba4c5365333"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{veinte_veinticuatro_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="20da792e-3d88-4d36-8a38-1e165c032bc2" style="table_TD" stretchType="RelativeToTallestObject" x="1285" y="0" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1285" y="0" width="60" height="16" uuid="20da792e-3d88-4d36-8a38-1e165c032bc2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cincuentaycinco_cincuentaynueve_m}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="a6f42f6d-2c88-426b-b449-55f8f146e020" style="table_TD" stretchType="RelativeToTallestObject" x="805" y="32" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="805" y="32" width="60" height="16" uuid="a6f42f6d-2c88-426b-b449-55f8f146e020"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{quince_diecinueve_m}+$F{quince_diecinueve_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="c7024294-3029-4136-aaa7-96b9ee2ca2a6" style="table_TD" stretchType="RelativeToTallestObject" x="1345" y="16" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1345" y="16" width="60" height="16" uuid="c7024294-3029-4136-aaa7-96b9ee2ca2a6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{sesenta_sesentaycuantro_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="81e2dfb2-bfbd-4015-b13f-ce56952b320f" style="table_TD" stretchType="RelativeToTallestObject" x="625" y="32" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="625" y="32" width="60" height="16" uuid="81e2dfb2-bfbd-4015-b13f-ce56952b320f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{uno_cuatro_m}+$F{uno_cuatro_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="cb8960c8-bac3-4df6-b93f-5cb3bc5cb798" style="table_TD" stretchType="RelativeToTallestObject" x="1105" y="16" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1105" y="16" width="60" height="16" uuid="cb8960c8-bac3-4df6-b93f-5cb3bc5cb798"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cuarenta_cuarentaycuatro_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="96483606-8e0a-49f8-b240-f58acabb8ad4" style="table_TD" stretchType="RelativeToTallestObject" x="1165" y="32" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1165" y="32" width="60" height="16" uuid="96483606-8e0a-49f8-b240-f58acabb8ad4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cuarentaycinco_cuarentaynueve_m}+$F{cuarentaycinco_cuarentaynueve_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="62a008fa-c613-4e46-96fc-7b89668653ca" style="table_TD" stretchType="RelativeToTallestObject" x="745" y="0" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="745" y="0" width="60" height="16" uuid="62a008fa-c613-4e46-96fc-7b89668653ca"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{diez_catorce_m}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="bef73a10-eecc-406e-8dfb-cea0e9ce109a" style="table_TD" stretchType="RelativeToTallestObject" x="1045" y="32" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1045" y="32" width="60" height="16" uuid="bef73a10-eecc-406e-8dfb-cea0e9ce109a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{treintaycinco_treintaynueve_m}+$F{treintaycinco_treintaynueve_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="998c8b1a-dab8-47bb-a20b-f07a8a0a90ae" style="table_TD" stretchType="RelativeToTallestObject" x="1165" y="0" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1165" y="0" width="60" height="16" uuid="998c8b1a-dab8-47bb-a20b-f07a8a0a90ae"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cuarentaycinco_cuarentaynueve_m}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="55679308-8aa8-4c52-9cc8-c618f61e3815" style="table_TD" stretchType="RelativeToTallestObject" x="1105" y="0" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1105" y="0" width="60" height="16" uuid="55679308-8aa8-4c52-9cc8-c618f61e3815"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cuarenta_cuarentaycuatro_m}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="b4ff44cc-8063-4a02-af26-f795918c5035" style="table_TD" stretchType="RelativeToTallestObject" x="495" y="0" width="70" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="495" y="0" width="70" height="16" uuid="b4ff44cc-8063-4a02-af26-f795918c5035"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalM}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="7baf8f0a-d628-4b01-9592-ac20353ba0ac" style="table_TD" x="433" y="0" width="62" height="16"/>
+				<reportElement style="table_TD" x="433" y="0" width="62" height="16" uuid="7baf8f0a-d628-4b01-9592-ac20353ba0ac"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Hombre]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="000a599e-9b78-4b2a-a566-fd09b7dce5e1" style="table_TD" stretchType="RelativeToTallestObject" x="745" y="32" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="745" y="32" width="60" height="16" uuid="000a599e-9b78-4b2a-a566-fd09b7dce5e1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{diez_catorce_m}+$F{diez_catorce_f}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="a66c16de-26ba-4605-8925-967fd8145da6" style="table_TH" x="433" y="32" width="62" height="16" forecolor="#FFFFFF" backcolor="#47803C"/>
+				<reportElement style="table_TH" x="433" y="32" width="62" height="16" forecolor="#FFFFFF" backcolor="#47803C" uuid="a66c16de-26ba-4605-8925-967fd8145da6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="9ca17332-5a5d-4da7-a7c5-cb184903dcde" style="table_TD" stretchType="RelativeToTallestObject" x="495" y="16" width="70" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="495" y="16" width="70" height="16" uuid="9ca17332-5a5d-4da7-a7c5-cb184903dcde"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalF}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="a40fcfaf-07dd-4b2b-961e-f6444fc8cc65" style="table_TD" stretchType="RelativeToTallestObject" x="985" y="16" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="985" y="16" width="60" height="16" uuid="a40fcfaf-07dd-4b2b-961e-f6444fc8cc65"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{treinta_treitaycuatro_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="2ec3c408-76a0-4fa2-b917-9509f6c89a15" style="table_TD" stretchType="RelativeToTallestObject" x="805" y="0" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="805" y="0" width="60" height="16" uuid="2ec3c408-76a0-4fa2-b917-9509f6c89a15"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{quince_diecinueve_m}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="bd00aa1d-9bf4-4721-95bf-e6092f7aa19e" style="table_TD" stretchType="RelativeToTallestObject" x="925" y="32" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="925" y="32" width="60" height="16" uuid="bd00aa1d-9bf4-4721-95bf-e6092f7aa19e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{veinticinco_veintinueve_m}+$F{veinticinco_veintinueve_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="afc2f571-71dd-42ef-82fd-163054181359" style="table_TD" stretchType="RelativeToTallestObject" x="865" y="32" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="865" y="32" width="60" height="16" uuid="afc2f571-71dd-42ef-82fd-163054181359"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{veinte_veinticuatro_m}+$F{veinte_veinticuatro_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="9283b97c-049a-4596-ae01-f51224735b59" style="table_TD" stretchType="RelativeToTallestObject" x="1045" y="16" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1045" y="16" width="60" height="16" uuid="9283b97c-049a-4596-ae01-f51224735b59"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{treintaycinco_treintaynueve_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="fec4881f-f06d-4a3b-9672-607070690a57" style="table_TD" stretchType="RelativeToTallestObject" x="985" y="0" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="985" y="0" width="60" height="16" uuid="fec4881f-f06d-4a3b-9672-607070690a57"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{treinta_treitaycuatro_m}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="ffbba5e3-8c20-4b63-9143-3315a8b17e60" style="table_TD" stretchType="RelativeToTallestObject" x="1285" y="32" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1285" y="32" width="60" height="16" uuid="ffbba5e3-8c20-4b63-9143-3315a8b17e60"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cincuentaycinco_cincuentaynueve_m}+$F{cincuentaycinco_cincuentaynueve_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="236bf93e-7655-4e99-9534-40b63ce1b58c" style="table_TD" stretchType="RelativeToTallestObject" x="685" y="16" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="685" y="16" width="60" height="16" uuid="236bf93e-7655-4e99-9534-40b63ce1b58c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cinco_nueve_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="414923d7-b96e-4030-8aa6-38e63166109e" style="table_TD" stretchType="RelativeToTallestObject" x="625" y="0" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="625" y="0" width="60" height="16" uuid="414923d7-b96e-4030-8aa6-38e63166109e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{uno_cuatro_m}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="f46391cd-eebb-425f-b812-031422c48da9" style="table_TD" stretchType="RelativeToTallestObject" x="565" y="16" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="565" y="16" width="60" height="16" uuid="f46391cd-eebb-425f-b812-031422c48da9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{menor_uno_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="225bc65c-85d7-4ff3-89c6-8789340ecd90" style="table_TD" stretchType="RelativeToTallestObject" x="685" y="32" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="685" y="32" width="60" height="16" uuid="225bc65c-85d7-4ff3-89c6-8789340ecd90"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cinco_nueve_m}+$F{cinco_nueve_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="67e693de-5cb3-4792-8f76-cd7a5debebee" style="table_TD" stretchType="RelativeToTallestObject" x="1345" y="32" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1345" y="32" width="60" height="16" uuid="67e693de-5cb3-4792-8f76-cd7a5debebee"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{sesenta_sesentaycuantro_m}+$F{sesenta_sesentaycuantro_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="89b47c47-7cf8-4737-a57b-e453afab47fc" style="table_TD" stretchType="RelativeToTallestObject" x="925" y="16" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="925" y="16" width="60" height="16" uuid="89b47c47-7cf8-4737-a57b-e453afab47fc"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{veinticinco_veintinueve_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="c77e0714-bdfc-4eaa-8d34-2bcdf8cfcda7" style="table_TD" stretchType="RelativeToTallestObject" x="495" y="32" width="70" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="495" y="32" width="70" height="16" uuid="c77e0714-bdfc-4eaa-8d34-2bcdf8cfcda7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totalM}+$V{totalF}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="d968edd5-7481-4732-82b3-49f7118e1efa" style="table_TD" stretchType="RelativeToTallestObject" x="985" y="32" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="985" y="32" width="60" height="16" uuid="d968edd5-7481-4732-82b3-49f7118e1efa"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{treinta_treitaycuatro_m}+$F{treinta_treitaycuatro_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="b7924c5c-c332-4469-98a9-264760323ebd" style="table_TD" stretchType="RelativeToTallestObject" x="1405" y="32" width="55" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1405" y="32" width="55" height="16" uuid="b7924c5c-c332-4469-98a9-264760323ebd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{mas_sesentaycinco_m}+$F{mas_sesentaycinco_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="299fefdd-dac3-4389-b0c5-0c6df5e39657" style="table_TD" stretchType="RelativeToTallestObject" x="1405" y="0" width="55" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1405" y="0" width="55" height="16" uuid="299fefdd-dac3-4389-b0c5-0c6df5e39657"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{mas_sesentaycinco_m}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="d8c48d22-5366-4807-8c1a-50857b891cba" style="table_TD" stretchType="RelativeToTallestObject" x="565" y="32" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="565" y="32" width="60" height="16" uuid="d8c48d22-5366-4807-8c1a-50857b891cba"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{menor_uno_m}+$F{menor_uno_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="8148a547-96a3-4844-aa6b-9031b05679eb" style="table_TD" stretchType="RelativeToTallestObject" x="1225" y="16" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1225" y="16" width="60" height="16" uuid="8148a547-96a3-4844-aa6b-9031b05679eb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cincuenta_cincuentaycuatro_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="df07401b-386e-4a01-a1bc-c7a4a49b7233" style="table_TD" stretchType="RelativeToTallestObject" x="685" y="0" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="685" y="0" width="60" height="16" uuid="df07401b-386e-4a01-a1bc-c7a4a49b7233"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cinco_nueve_m}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="4e0aa4e9-d23f-48f5-8aa3-40ff72beb77b" style="table_TD" stretchType="RelativeToTallestObject" x="625" y="16" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="625" y="16" width="60" height="16" uuid="4e0aa4e9-d23f-48f5-8aa3-40ff72beb77b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{uno_cuatro_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="72bc3681-8629-47ed-bded-1aafaacd9165" style="table_TD" stretchType="RelativeToTallestObject" x="805" y="16" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="805" y="16" width="60" height="16" uuid="72bc3681-8629-47ed-bded-1aafaacd9165"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{quince_diecinueve_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="b5d1e49c-67d6-46a1-8ca5-94cc10a3703c" style="table_TD" stretchType="RelativeToTallestObject" x="1165" y="16" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1165" y="16" width="60" height="16" uuid="b5d1e49c-67d6-46a1-8ca5-94cc10a3703c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cuarentaycinco_cuarentaynueve_f}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="a5b9a1c7-eff1-42d3-8a21-7292eaa9bd3b" style="table_TD" x="433" y="16" width="62" height="16"/>
+				<reportElement style="table_TD" x="433" y="16" width="62" height="16" uuid="a5b9a1c7-eff1-42d3-8a21-7292eaa9bd3b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Mujer]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="578d8eb2-706a-4e12-a94f-f08a42fa65dc" style="table_TD" stretchType="RelativeToTallestObject" x="1105" y="32" width="60" height="16"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="1105" y="32" width="60" height="16" uuid="578d8eb2-706a-4e12-a94f-f08a42fa65dc"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cuarenta_cuarentaycuatro_m}+$F{cuarenta_cuarentaycuatro_f}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="c3e203fb-70c2-4e54-89dd-4bff2a6759b7" style="table_TD" stretchType="RelativeToTallestObject" x="0" y="0" width="225" height="48"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="0" y="0" width="225" height="48" uuid="c3e203fb-70c2-4e54-89dd-4bff2a6759b7"/>
 				<box leftPadding="4"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{grupo_factor_nombre}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="a895da19-c209-45bb-b2f0-120a98cbded2" style="table_TD" stretchType="RelativeToTallestObject" x="225" y="0" width="208" height="48"/>
+				<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="225" y="0" width="208" height="48" uuid="a895da19-c209-45bb-b2f0-120a98cbded2"/>
 				<box leftPadding="4"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{factor_nombre}]]></textFieldExpression>

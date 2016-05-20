@@ -94,16 +94,16 @@ function validarReporte()
     {
         $("#errores").hide();
         $("#error").html('');
-        generarReporte(Filtro, Condicion);
+        generarReporte(Filtro, Condicion, $("#drpPertenece").val());
         //$("#formBuscar").submit();
     }        
 }
 
 // Envía parámetros de reporte
-function generarReporte(filtro, condicion){
+function generarReporte(filtro, condicion, pertenece){
     $("#errores").hide();
     $("#error").html(' ');
-    window.open(urlprefix+'reportes/vih/ReporteFactorRiesgo.php?f='+filtro+'&c='+condicion
+    window.open(urlprefix+'reportes/vih/ReporteFactorRiesgo.php?p='+pertenece+'&f='+filtro+'&c='+condicion
     , 'Reporte',"toolbar=yes, status=yes, status=yes, scrollbars=yes, resizable=yes, menubar=yes, width=400, height=400");
 }
 
