@@ -1649,3 +1649,7 @@ SELECT
 
 UPDATE `sisvigdb`.`cat_factor_riesgo` SET `factor_nombre`='N.E.' WHERE `id_factor`='0';
 INSERT INTO `sisvigdb`.`cat_factor_riesgo` (`factor_nombre`, `id_grupo_factor`, `status`, `order`) VALUES ('N.E.', '8', '1', '13');
+
+ALTER TABLE `sisvigdb`.`vih_form_nino` 
+ADD COLUMN `estado` INT(1) NULL COMMENT '' AFTER `pcr2_fecha`;
+

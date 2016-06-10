@@ -1603,6 +1603,7 @@ function getNinos(){
             insertarHtmlNino();
             var id = i + 1;
             $('#termino_embarazo_'+ninos[i].termino_embarazo+'_'+id).attr("checked",true);
+            $('#estado_'+ninos[i].estado+'_'+id).attr("checked",true);
             $('#sexo_'+ninos[i].sexo+'_'+id).attr("checked",true);
             $('#pcr1_'+ninos[i].pcr1+'_'+id).attr("checked",true);
             $('#pcr2_'+ninos[i].pcr2+'_'+id).attr("checked",true);
