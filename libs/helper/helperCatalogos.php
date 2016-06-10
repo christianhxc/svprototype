@@ -36,8 +36,17 @@ class helperCatalogos {
         return $data;
     }
 
-    public static function getTipoIdentificacion() {
-        $sql = "select * from cat_tipo_identidad where status = 1 order by nombre_tipo asc";
+    public static function getTipoIdentificacion($excludes = null) {
+
+        $excludeQuery = "";
+        if ($excludes != null){
+            $excludeQuery .= "and ";
+            foreach($excludes as $key => $value){
+                $excludeQuery .= $key." not in (".implode(",",$value).") ";
+            }
+        }
+
+        $sql = "select * from cat_tipo_identidad where status = 1 ".$excludeQuery." order by nombre_tipo asc";
         $conn = new Connection();
 
         $conn->initConn();

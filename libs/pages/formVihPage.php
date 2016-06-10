@@ -358,6 +358,9 @@ class formVih extends page {
                 case '4':
                     $this->tpl->setVariable('selTrabajoSexualNA', 'selected="selected"');
                     break;
+                case '5':
+                    $this->tpl->setVariable('selTrabajoSexualNE', 'selected="selected"');
+                    break;
             }
             
             $donante = $this->config['read']['comp_donante_sangre'];

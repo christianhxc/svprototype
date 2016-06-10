@@ -21,6 +21,7 @@ $(function() {
 });
 $(function() {
     $( "#fecha_parto" ).datepicker({
+        changeYear: true,
         showOn: "both",
         yearRange: "1900:"+new Date().getFullYear() ,
         buttonImage: urlprefix+"img/calendar.gif",

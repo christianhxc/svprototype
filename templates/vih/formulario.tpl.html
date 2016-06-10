@@ -379,7 +379,7 @@
                                     <option value="3" {selEstado3}>Unido(a)</option>
                                     <option value="4" {selEstado4}>Divorciado(a)</option>
                                     <option value="4" {selEstado5}>Viudo(a)</option>
-                                    <option value="5" {selEstado6}>No especificado</option>
+                                    <option value="5" {selEstado6}>N.E.</option>
                                 </select>
                             </td>
                             <td></td>
@@ -398,7 +398,7 @@
                                     <option value="6" {selEscolaridad6}>Universidad Incompleta</option>
                                     <option value="5" {selEscolaridad5}>Universidad Completa</option>
                                     <option value="7" {selEscolaridad7}>Vocacional</option>
-                                    <option value="8" {selEscolaridad9}>No especificada</option>
+                                    <option value="8" {selEscolaridad9}>N.E.</option>
                                 </select>
                             </td>
                             <td ><label >Asegurado:<span class="mandatory">*</span></label></td>
@@ -454,6 +454,7 @@
                                     <option value="2" {selTrabajoSexualNo}>No</option>
                                     <option value="3" {selTrabajoSexualDesc}>Desc</option>
                                     <option value="4" {selTrabajoSexualNA}>No Aplica</option>
+                                    <option value="5" {selTrabajoSexualNE}>N.E.</option>
                                 </select>
                             </td>
                             <td colspan="2" >
@@ -670,6 +671,7 @@
                             <td>
                                 <input type="radio" name="data[condicion][tar]" value="1" {valTar1} onchange="mostrarFechaTar()"/> No
                                 <input type="radio" name="data[condicion][tar]" id="tar2" value="2" {valTar2} onchange="mostrarFechaTar()"/> Si
+                                <input type="radio" name="data[condicion][tar]" value="3" {valTar3} onchange="mostrarFechaTar()"/> N.E.
                             </td>
                             <td>
                                 <span id="fecha_tar_lbl">Fecha de inicio de TAR:</span>
@@ -780,8 +782,8 @@
                             <td><input type="text" name="data[nino][numnino][nacimiento]" id="nacimiento_numnino" style="width: 200px"> </td>
                             <td>Sexo</td>
                             <td>
-                                <input type="radio" name="data[nino][numnino][sexo]" value="1" id="sexo_1_numnino"/> Ni&ntilde;o
-                                <input type="radio" name="data[nino][numnino][sexo]" value="2" id="sexo_2_numnino"/> Ni&ntilde;a
+                                <input type="radio" name="data[nino][numnino][sexo]" value="1" id="sexo_1_numnino"/> M
+                                <input type="radio" name="data[nino][numnino][sexo]" value="2" id="sexo_2_numnino"/> F
                             </td>
                         </tr>
                         <tr>

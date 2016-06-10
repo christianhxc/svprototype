@@ -1646,3 +1646,6 @@ SELECT
         `view_vih_factor_matriz_diag` `matriz`
     GROUP BY `matriz`.`anio` , `matriz`.`semana_epi` , `matriz`.`id_region` , `matriz`.`id_grupo_factor` , `matriz`.`id_factor`;
 	
+
+UPDATE `sisvigdb`.`cat_factor_riesgo` SET `factor_nombre`='N.E.' WHERE `id_factor`='0';
+INSERT INTO `sisvigdb`.`cat_factor_riesgo` (`factor_nombre`, `id_grupo_factor`, `status`, `order`) VALUES ('N.E.', '8', '1', '13');

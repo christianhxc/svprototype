@@ -159,8 +159,10 @@ if (isset($_REQUEST["action"])) {
 //    }
 //}
 
+$excludeTipos = array('id_tipo_identidad' => [5]);
+$config["catalogos"]["tipoId"] = helperCatalogos::getTipoIdentificacion($excludeTipos);
+
 $config["catalogos"]["provincias"] = helperLugar::getProvincias($config);
-$config["catalogos"]["tipoId"] = helperCatalogos::getTipoIdentificacion();
 $config["catalogos"]["etnia"] = helperCatalogos::getEtniaVih();
 $config["catalogos"]["grupo_indigena"] = helperCatalogos::getGrupoIndigena();
 $config["catalogos"]["genero"] = helperCatalogos::getGenero();
