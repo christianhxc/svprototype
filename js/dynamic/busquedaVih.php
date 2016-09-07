@@ -23,11 +23,9 @@ $result.= '
                 <th class="dxgvHeader_PlasticBlue" scope="">N.</th>
                 <th class="dxgvHeader_PlasticBlue" scope="">Instalaci&oacute;n de salud</th>
                 <th class="dxgvHeader_PlasticBlue" scope="">Regi&oacute;n</th>
-                <th class="dxgvHeader_PlasticBlue" scope="">Semana Epi</th>
-                <th class="dxgvHeader_PlasticBlue" scope="">A&ntilde;o</th>
-                <th class="dxgvHeader_PlasticBlue" scope="">Id Paciente</th>
-                <th class="dxgvHeader_PlasticBlue" scope="">SILAB</th>
-                <th class="dxgvHeader_PlasticBlue" scope="">EpiInfo</th>
+                <th class="dxgvHeader_PlasticBlue" scope="">No. Caso</th>
+                <th class="dxgvHeader_PlasticBlue" scope="">Nombre y Apellido</th>
+                <th class="dxgvHeader_PlasticBlue" scope="">No. Cedula</th>
                 <th class="dxgvHeader_PlasticBlue" scope="">Acciones</th>
            </tr>';
 
@@ -61,16 +59,14 @@ if (is_array($data)) {
                     ' . ($data["nombre_region"] == "" ? "No disponible" : htmlentities($data["nombre_region"])) . '
                 </td>
                 <td class="dxgv" width="5%">
-                    ' . ($data["semana_epi"] == "" ? "Sin dato" : htmlentities($data["semana_epi"])) . '
+                    ' . ($data["semana_epi"] == "" ? "Sin dato" : htmlentities($data["id_vih_form"])) . '
                 </td>
-                <td class="dxgv" width="3%">
-                    ' . ($data["anio"] == "" ? "Sin dato" : htmlentities($data["anio"])) . '
+                <td class="dxgv" width="10%">
+                    ' . ($data["primer_nombre"] == "" ? "Sin dato" : htmlentities($data["primer_nombre"]." ".$data["primer_apellido"])) . '
                 </td>
-                <td class="dxgv" width="8%">
+                <td class="dxgv" width="7%">
                     ' . ($data["numero_identificacion"] == "" ? "Sin dato" : htmlentities($data["numero_identificacion"])) . '
                 </td>
-                <td class="dxgv" width="3%">'. $silab .'</td>
-                <td class="dxgv" width="3%">'. $epiInfo .'</td>
                 <td class="dxgv" width="6%">
                 <a href="formulario.php?action=R&tipo=' . $data["id_tipo_identidad"] . '&id=' . $data["numero_identificacion"] . '" class="" title="Editar">'
                 . '<img title="Editar" border=0 src="../img/edit.png"></a>';

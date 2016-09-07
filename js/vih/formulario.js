@@ -23,7 +23,6 @@ $(function() {
     $( "#fecha_parto" ).datepicker({
         changeYear: true,
         showOn: "both",
-        yearRange: "1900:"+new Date().getFullYear() ,
         buttonImage: urlprefix+"img/calendar.gif",
         buttonImageOnly: true,
         showAnim: "slideDown"
@@ -520,7 +519,7 @@ $(document).ready(function() {
         autoFill:false
     });
 
-    $("input[name='data[condicion][caso]']").change(function(){
+    $("input[name='data[condicion][caso_sida]']").change(function(){
         habilitarElmentoConRadio('check_sida','razonSida');
     });
     habilitarElmentoConRadio('check_sida','razonSida');

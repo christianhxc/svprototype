@@ -478,16 +478,19 @@ class helperVih {
         $vih["cond_vih"] = 0;
         $vih["cond_sida"] = 0;
         $vih["razon_sida"] = 0;
-        $condicion = (!isset($data["condicion"]["caso"]) ? NULL : $data["condicion"]["caso"]);
+
+        $condicion = (!isset($data["condicion"]["caso_vih"]) ? NULL : $data["condicion"]["caso_vih"]);
+        if ($condicion != NULL){
+            if ($condicion == 2){
+                $vih["cond_vih"] = 1;
+            }
+        }
+
+        $condicion = (!isset($data["condicion"]["caso_sida"]) ? NULL : $data["condicion"]["caso_sida"]);
         if ($condicion != NULL){
             if ($condicion == 1){
-                $vih["cond_vih"] = 0;
                 $vih["cond_sida"] = 1;
                 $vih["razon_sida"] = $data["condicion"]["razon_sida"];
-            }
-            else if ($condicion == 2){
-                $vih["cond_vih"] = 1;
-                $vih["cond_sida"] = 0;
             }
         }
         
@@ -569,10 +572,7 @@ class helperVih {
         return $tarv;
     }
 
-    // Obtiene el listado de uceti
-    public static function buscarVih($config) {
-        $conn = new Connection();
-        $conn->initConn();
+    public function buscarQuery($config, $count = false){
         $flag = 0;
         $filtro1 = "";
         $filtro2 = "";
@@ -581,8 +581,11 @@ class helperVih {
             if ($valor != "")
                 $flag++;
         }
+
+        $projection = $count ? "count(*) as total" : "*";
+
         if ($flag == 0)
-            $sql = "select * from vih_form vih 
+            $sql = "select ".$projection." from vih_form vih
                     inner join tbl_persona per on per.tipo_identificacion = vih.id_tipo_identidad and per.numero_identificacion = vih.numero_identificacion
                     left join cat_unidad_notificadora un on un.id_un = vih.id_un
                     left join cat_corregimiento cor on cor.id_corregimiento = per.id_corregimiento
@@ -591,28 +594,38 @@ class helperVih {
         else {
             if ($config["filtro"] != "") {
                 $filtro1 = " AND (un.nombre_un LIKE '%" . $config["filtro"] . "%'" .
-                        " OR reg.nombre_region LIKE '%" . $config["filtro"] . "%'" .
-                        " OR vih.semana_epi LIKE '%" . $config["filtro"] . "%'" .
-                        " OR vih.anio LIKE '%" . $config["filtro"] . "%'" .
-                        " OR vih.numero_identificacion LIKE '%" . $config["filtro"] . "%')";
+                    " OR reg.nombre_region LIKE '%" . $config["filtro"] . "%'" .
+                    " OR vih.id_vih_form LIKE '%" . $config["filtro"] . "%'" .
+                    " OR per.primer_nombre LIKE '%" . $config["filtro"] . "%'" .
+                    " OR per.primer_apellido LIKE '%" . $config["filtro"] . "%'" .
+                    " OR vih.numero_identificacion LIKE '%" . $config["filtro"] . "%')";
             } else if (isset($config["id_tipo_identidad"]) && isset($config["numero_identificacion"])) {
                 $filtro2 = " AND vih.id_tipo_identidad='" . $config["id_tipo_identidad"] . "'" .
-                        " AND vih.numero_identificacion='" . $config["numero_identificacion"] . "'";
+                    " AND vih.numero_identificacion='" . $config["numero_identificacion"] . "'";
                 $read = true;
             }
-            $sql = "select * from vih_form vih 
+            $sql = "select ".$projection." from vih_form vih
                     inner join tbl_persona per on per.tipo_identificacion = vih.id_tipo_identidad and per.numero_identificacion = vih.numero_identificacion
                     left join cat_unidad_notificadora un on un.id_un = vih.id_un
                     left join cat_corregimiento cor on cor.id_corregimiento = per.id_corregimiento
                     left join cat_distrito dis on dis.id_distrito = cor.id_distrito
                     left join cat_region_salud reg on reg.id_region = dis.id_region WHERE 1 "
-                    . $filtro1 . $filtro2 . ' order by id_vih_form desc';
+                . $filtro1 . $filtro2 . ' order by id_vih_form desc';
             //. " limit " . $config["inicio"] . "," . $config["paginado"];
-            if (!$read) {
+            if (!$read && !$count) {
                 $sql.= " limit " . $config["inicio"] . "," . $config["paginado"];
             }
         }
-        //echo $sql;
+
+        return $sql;
+    }
+
+    // Obtiene el listado de uceti
+    public static function buscarVih($config) {
+        $conn = new Connection();
+        $conn->initConn();
+
+        $sql = helperVih::buscarQuery($config);
         $conn->prepare($sql);
         $conn->execute();
         $data = $conn->fetch();
@@ -638,20 +651,7 @@ class helperVih {
     public static function buscarVihCantidad($config) {
         $conn = new Connection();
         $conn->initConn();
-        $filtro1 = "";
-        if ($config["filtro"] != "") {
-            $filtro1 = " AND (un.nombre_un LIKE '%" . $config["filtro"] . "%'" .
-                        " OR reg.nombre_region LIKE '%" . $config["filtro"] . "%'" .
-                        " OR vih.semana_epi LIKE '%" . $config["filtro"] . "%'" .
-                        " OR vih.anio LIKE '%" . $config["filtro"] . "%'" .
-                        " OR vih.numero_identificacion LIKE '%" . $config["filtro"] . "%')";
-        }
-        $sql = "select count(*) as total from vih_form vih 
-                    inner join tbl_persona per on per.tipo_identificacion = vih.id_tipo_identidad and per.numero_identificacion = vih.numero_identificacion
-                    left join cat_unidad_notificadora un on un.id_un = vih.id_un
-                    left join cat_corregimiento cor on cor.id_corregimiento = per.id_corregimiento
-                    left join cat_distrito dis on dis.id_distrito = cor.id_distrito
-                    left join cat_region_salud reg on reg.id_region = dis.id_region WHERE 1 ". $filtro1;
+        $sql = helperVih::buscarQuery($config, true);
         //echo $sql;
         $conn->prepare($sql);
         $conn->execute();
