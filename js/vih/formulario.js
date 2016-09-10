@@ -525,6 +525,7 @@ $(document).ready(function() {
     habilitarElmentoConRadio('check_sida','razonSida');
 
     getNinos();
+    getEmbarazos();
 });
 
 function mostrarGrupoIndigena(){
@@ -1026,13 +1027,13 @@ function transexual(){
 
 function estaEmbarazada(){
     embarazo = $('#drpEmbarazada').val();
-    if(embarazo == '1') {
-        $("#divFechaParto").show();
-        $("#trFechaParto").show();
-    }else {
-        $("#divFechaParto").hide();
-        $("#trFechaParto").hide();
-    }
+    //if(embarazo == '1') {
+    //    $("#divFechaParto").show();
+    //    $("#trFechaParto").show();
+    //}else {
+    //    $("#divFechaParto").hide();
+    //    $("#trFechaParto").hide();
+    //}
 }
 
 //Relacionar Enfermedades
@@ -1516,6 +1517,53 @@ function setTipoId(){
         $("#divCedula1").hide();
         $("#divCedula2").show();
     }
+}
+
+var counterEmb = 0;
+function agregarEmbarazo(){
+    insertarHtmlEmbarazo();
+}
+
+function insertarHtmlEmbarazo(){
+    counterEmb++;
+    var tpl = $('#tplEmbarazo').html().replace(new RegExp('numemb', 'g'),counterEmb);
+    $('#divEmbarazos').append(tpl);
+
+    $("#divEmbarazos > fieldset").each(function() {
+        var i = this.id.replace("embarazo_", "");
+        $("#fecha_parto_" + i).datepicker({
+            dateFormat: 'dd/mm/yy',
+            changeMonth: true,
+            changeYear: true,
+            showOn: "both",
+            buttonImage: urlprefix + "img/calendar.gif",
+            buttonImageOnly: true,
+            showAnim: "slideDown"
+        });
+    });
+}
+
+function borrarEmbarazo(id){
+    var divId = "#embarazo_"+id;
+    if (confirm("\u00BFEsta seguro que desea borrar el registro del embarazo?")){
+        $(divId).remove();
+    }
+}
+
+function getEmbarazos(){
+    var idVihForm = $("#idVihForm").val();
+    $.getJSON(urlprefix + 'js/dynamic/vih/getEmbarazos.php',{
+        idVihForm: idVihForm,
+        ajax: 'true'
+    }, function(embarazos){
+        for(var i = 0; i < embarazos.length; i++){
+            insertarHtmlEmbarazo();
+            var id = i + 1;
+            $('#drpEmbarazo_'+id+' select').val(embarazos[i].captada);
+            $('#emb_'+id+'_anio').val(embarazos[i].anio);
+            $('#fecha_parto_'+id).val(invFecha(1,embarazos[i].fecha_parto));
+        }
+    })
 }
 
 var counterNinos = 0;

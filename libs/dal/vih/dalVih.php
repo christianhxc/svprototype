@@ -188,6 +188,7 @@ class dalVih {
         $vih = array();
         $vih = helperVih::dataVihForm($data);
         $ninos = helperVih::dataVihVigilancia($data);
+        $embarazos = helperVih::dataVihEmbarazos($data);
 
         $vih["silab"] = 0;
         if ($data["notificacion"]["silab"] == 1)
@@ -242,6 +243,8 @@ class dalVih {
         $ok = $param['ok'];
         if (count($ninos) > 0)
             dalVih::GuardarVihNinos($conn, $filtro["id_vih_form"], $ninos);
+        if (count($embarazos) > 0)
+            dalVih::GuardarVihEmbarazos($conn, $filtro["id_vih_form"], $embarazos);
         if (is_array($enfermedades))
            dalVih::GuardarVihEnfermedad($conn, $filtro["id_vih_form"], $enfermedades);
         if (isset($factores[0]))
@@ -366,6 +369,22 @@ class dalVih {
         }
     }
 
+    public static function GuardarVihEmbarazos($conn, $idFormVih, $data) {
+        $embarazos = $data;
+        if ($embarazos != NULL) {
+            dalVih::BorrarVihEmbarazos($conn, $idFormVih);
+            $max = sizeof($embarazos)-1;
+            for ($i = 0; $i < $max; $i++) {
+                if ($embarazos[$i]!=""){
+                    $embarazo = $embarazos[$i];
+                    $embarazo["id_vih_form"] = $idFormVih;
+                    dalVih::GuardarTabla($conn, "vih_form_embarazo", $embarazo);
+                }
+            }
+            dalVih::GuardarBitacora($conn, "1", "vih_form_embarazo");
+        }
+    }
+
     public static function BorrarVihEnfermedades($conn, $idFormVih) {
         $filtro = array();
         $filtro["id_vih_form"] = $idFormVih;
@@ -376,6 +395,12 @@ class dalVih {
         $filtro = array();
         $filtro["id_vih_form"] = $idFormVih;
         dalVih::BorrarTabla($conn, "vih_form_nino", $filtro);
+    }
+
+    public static function BorrarVihEmbarazos($conn, $idFormVih) {
+        $filtro = array();
+        $filtro["id_vih_form"] = $idFormVih;
+        dalVih::BorrarTabla($conn, "vih_form_embarazo", $filtro);
     }
 
     public static function GuardarVihFactores($conn, $idFormVih, $factores) {

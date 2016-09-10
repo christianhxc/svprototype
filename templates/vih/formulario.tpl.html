@@ -505,30 +505,7 @@
                                     <option value="3" {selEmbarazadaDesc}>Desc</option>
                                 </select>
                             </td>
-                            <td colspan="3" id="divFechaParto">
-                                <label >Emb. captada:</label>
-                                <select id="drpEmbarazadaCaptada" name="data[individuo][embarazada_captada]">
-                                    <option value="0">Sel...</option>
-                                    <option value="1" {selEmbCaptada1}>> 20 semanas</option>
-                                    <option value="2" {selEmbCaptada2}>< 20 semanas</option>
-                                    <option value="5" {selEmbCaptadaParto}>Parto</option>
-                                    <option value="3" {selEmbCaptada3}>Puerperio</option>
-                                    <option value="4" {selEmbCaptadaDesc}>Desconce</option>
-                                </select>
-                                <label >&nbsp;&nbsp;A&ntilde;o Emb. 1:</label>
-                                <input type="text" id="anio_emb1" name="data[individuo][anio_emb1]" value="{valAnioEmb1}" style="width: 60px;" maxlength="4"/>
-                                <label >&nbsp;&nbsp;&nbsp;Emb. 2:</label>
-                                <input type="text" id="anio_emb2" name="data[individuo][anio_emb2]" value="{valAnioEmb2}" style="width: 60px;" maxlength="4"/>
-                                <label >&nbsp;&nbsp;&nbsp;Emb. 3:</label>
-                                <input type="text" id="anio_emb3" name="data[individuo][anio_emb3]" value="{valAnioEmb3}" style="width: 60px;" maxlength="4"/>
-                            </td>
-                        </tr>
-                        <tr id="trFechaParto">
-                            <td colspan="4">
-                                <label>Fecha Probable de Parto:</label>&nbsp;&nbsp;&nbsp;
-                                <input type="text" id="fecha_parto" name="data[individuo][fecha_parto]" value="{valFechaParto}" style="width: 135px;" maxlength="10""/>
-                                <span class="ui-datepicker-append"> dd/mm/aaaa</span>
-                            </td>
+                            <td colspan="3" id="divFechaParto"></td>
                         </tr>
                     </table>
                 </fieldset>
@@ -752,6 +729,24 @@
 
                 </div>
 
+                <div align="right">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div>
+                                    <a href="javascript:agregarEmbarazo();" class="ui-state-default ui-corner-all ui-button" onmouseover="RollOver(this)" onmouseout="RollOut(this)">Agregar Embarazos</a>&nbsp;
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="divEmbarazos">
+
+                </div>
+
                 <div id="tplNino" style="display: none;">
                     <fieldset class="ui-widget ui-widget-content ui-corner-all" style="margin-bottom: 10px;" id="nino_numnino" >
                         <legend>Ni&ntilde;o(a):</legend>
@@ -826,6 +821,41 @@
                             <td colspan="4"><span style="font-size: 11px; font-weight: bold">El ni&ntilde;o(a) es un nuevo caso de VIH y tiene que ser reportado</span></td>
                         </tr>
                     </table>
+                    </fieldset>
+                </div>
+
+                <div id="tplEmbarazo" style="display: none;">
+                    <fieldset class="ui-widget ui-widget-content ui-corner-all" style="margin-bottom: 10px;" id="embarazo_numemb" >
+                        <legend>Embarazo:</legend>
+                        <div align="right"><a href="javascript:borrarEmbarazo(numemb)">[ Borrar ]</a></div>
+                        <table border="0" cellpadding="2" cellspacing="2" align="center" width="100%">
+                            <tr>
+                                <td width="20%">
+                                    Embarazo Capatada:
+                                </td>
+                                <td colspan="3">
+                                    <select id="drpEmbarazo_numemb" name="data[embarazo][numemb][captada]">
+                                        <option value="1" {selEmbCaptada1}>> 20 semanas</option>
+                                        <option value="2" {selEmbCaptada2}>< 20 semanas</option>
+                                        <option value="5" {selEmbCaptadaParto}>Parto</option>
+                                        <option value="3" {selEmbCaptada3}>Puerperio</option>
+                                        <option value="4" {selEmbCaptadaDesc}>Desconce</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Año Embarazo:</td>
+                                <td colspan="3">
+                                    <input type="text" name="data[embarazo][numemb][anio]" id="emb_numemb_anio" style="width: 100px">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Fecha Probable de Parto:</td>
+                                <td colspan="3">
+                                    <input type="text" name="data[embarazo][numemb][fecha_parto]" id="fecha_parto_numemb" style="width: 100px">
+                                </td>
+                            </tr>
+                        </table>
                     </fieldset>
                 </div>
             </div>

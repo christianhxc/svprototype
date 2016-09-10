@@ -355,6 +355,17 @@ class helperVih {
 
         return $ninos;
     }
+
+    public static function dataVihEmbarazos($data){
+        $vih = $data["embarazo"];
+        $embarazos = array();
+        foreach ($vih as $embarazo){
+            $embarazo["fecha_parto"] = !isset($embarazo["fecha_parto"]) ? NULL : helperString::toDate($embarazo["fecha_parto"]);
+            $embarazos[] = $embarazo;
+        }
+
+        return $embarazos;
+    }
     
     public static function dataVihFactorRiesgo($data) {
         $vih = array();
@@ -640,6 +651,21 @@ class helperVih {
         $filtro1 = "";
         $filtro2 = "";
         $sql = "select * from vih_form_nino where id_vih_form = '".$idForm."'";
+        //echo $sql;
+        $conn->prepare($sql);
+        $conn->execute();
+        $data = $conn->fetch();
+        $conn->closeConn();
+        return $data;
+    }
+
+    public static function getVihEmbarazos($idForm){
+        $conn = new Connection();
+        $conn->initConn();
+        $flag = 0;
+        $filtro1 = "";
+        $filtro2 = "";
+        $sql = "select * from vih_form_embarazo where id_vih_form = '".$idForm."'";
         //echo $sql;
         $conn->prepare($sql);
         $conn->execute();
