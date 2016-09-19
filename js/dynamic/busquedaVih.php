@@ -20,10 +20,9 @@ $result = $extra . '<table id="resultados" class="dxgvControl_PlasticBlue" rules
                   border="0" style="width: 100%; border-collapse: collapse;">';
 $result.= '
             <tr>
-                <th class="dxgvHeader_PlasticBlue" scope="">N.</th>
+                <th class="dxgvHeader_PlasticBlue" scope="">No.</th>
                 <th class="dxgvHeader_PlasticBlue" scope="">Instalaci&oacute;n de salud</th>
                 <th class="dxgvHeader_PlasticBlue" scope="">Regi&oacute;n</th>
-                <th class="dxgvHeader_PlasticBlue" scope="">No. Caso</th>
                 <th class="dxgvHeader_PlasticBlue" scope="">Nombre y Apellido</th>
                 <th class="dxgvHeader_PlasticBlue" scope="">No. Cedula</th>
                 <th class="dxgvHeader_PlasticBlue" scope="">Acciones</th>
@@ -57,9 +56,6 @@ if (is_array($data)) {
                 </td>
                 <td class="dxgv" width="10%">
                     ' . ($data["nombre_region"] == "" ? "No disponible" : htmlentities($data["nombre_region"])) . '
-                </td>
-                <td class="dxgv" width="5%">
-                    ' . ($data["semana_epi"] == "" ? "Sin dato" : htmlentities($data["id_vih_form"])) . '
                 </td>
                 <td class="dxgv" width="10%">
                     ' . ($data["primer_nombre"] == "" ? "Sin dato" : htmlentities($data["primer_nombre"]." ".$data["primer_apellido"])) . '
