@@ -1306,9 +1306,10 @@ function clasificacionTB(){
         if ($("#drpres_WRD").val() == "2" && $("#drpmetodo_WRD").val() == "1" )
         {
             $("#tdMTBdet").show();
+			$("#drpres_rifampicina").show();
         } else
         {
-            $("#tdMTBdet").hide();
+            $("#tdMTBdet").hide();			
             $("#drpres_rifampicina").val("");
         }
         
