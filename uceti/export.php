@@ -6,7 +6,7 @@ $conn = new Connection();
 $conn->initConn();
 $conn->begin();
 
-$data = dalUceti::GetMuestras($conn, "3002134");
+$data = dalUceti::GetMuestras($conn);
 
 $flureg = 0;
 $resultadoFinal = null;
@@ -16,7 +16,7 @@ foreach ($data as $muestra){
     $currId = $muestra["id_flureg"];
     if ($flureg != $currId) {
         if ($resultadoFinal != null){
-            $actualizar[] = GuardarResultadoFinal($flureg, $resultadoFinal);
+            GuardarResultadoFinal($conn, $flureg, $resultadoFinal);
         }
 
         $flureg = $currId;
@@ -24,9 +24,10 @@ foreach ($data as $muestra){
         $resultado = [];
     }
 
-    $resultado["resultado"] = $muestra["resultado"];
-    $resultado["tipo1"] = $muestra["tipo1"];
-    $resultado["subtipo1"] = $muestra["subtipo1"];
+    $resultado["final_resultado"] = $muestra["resultado"];
+    $resultado["final_tipo"] = $muestra["tipo1"];
+    $resultado["final_subtipo"] = $muestra["subtipo1"];
+    $resultado["final_linaje"] = "";
 
     $prioridad = GetPrioridad($resultado);
     if ($prioridad < $currPrioridad){
@@ -35,7 +36,9 @@ foreach ($data as $muestra){
     }
 }
 
-$actualizar[] = GuardarResultadoFinal($flureg, $resultadoFinal);
+if ($resultadoFinal != null) {
+    GuardarResultadoFinal($conn, $flureg, $resultadoFinal);
+}
 
 if ($ok)
     $conn->commit();
@@ -45,8 +48,20 @@ else {
 
 $conn->closeConn();
 
-function GuardarResultadoFinal($flureg, $resultadoFinal) {
-    $resultadoFinal["id"] = $flureg;
+function GuardarResultadoFinal($conn, $flureg, $resultadoFinal) {
+    $filtro["id_flureg"] = $flureg;
+    $parmetros = $resultadoFinal;
+    $parmetros["id_flureg"] = $filtro["id_flureg"];
+
+    var_dump($parmetros);
+    echo "<br>";
+
+    $param = dalUceti::ActualizarTabla($conn, "flureg_form", $resultadoFinal, $filtro, $parmetros);
+    $ok = $param['ok'];
+
+    $param = dalUceti::GuardarBitacora($conn, "2", "flureg_form");
+    $ok = $param['ok'];
+
     return $resultadoFinal;
 }
 
@@ -82,13 +97,13 @@ function GetPrioridad($muestra){
     $matriz[] = "PCR - NEGATIVO";
     $matriz[] = "IFI - NEGATIVO";
 
-    if (strtoupper($muestra["resultado"]) == "NEGATIVO"){
+    if (strtoupper($muestra["final_resultado"]) == "NEGATIVO"){
         return count($matriz)+10;
     }
 
     $counter = 1;
     foreach ($matriz as $resultado){
-        if ($resultado == $muestra["tipo1"]." ".$muestra["subtipo1"]){
+        if ($resultado == $muestra["final_tipo"]." ".$muestra["final_subtipo"]){
             return $counter;
         }
         $counter++;
@@ -96,5 +111,3 @@ function GetPrioridad($muestra){
 
     return $counter;
 }
-
-echo json_encode($actualizar);
