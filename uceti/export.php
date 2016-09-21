@@ -9,6 +9,7 @@ $conn->begin();
 $data = dalUceti::GetMuestras($conn);
 
 $flureg = 0;
+$currPrioridad = 1000000;
 $resultadoFinal = null;
 $resultado = null;
 
