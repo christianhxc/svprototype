@@ -486,11 +486,11 @@ class dalUceti {
     }
 
     public static function GetMuestras($conn, $idForm = "") {
-        $sql = "SELECT id_flureg, resultado, tipo1, subtipo1 FROM flureg_muestra_silab ";
+        $sql = "SELECT id_flureg, resultado, tipo1, subtipo1, tipo2, subtipo2, tipo3, subtipo3 FROM flureg_muestra_silab ";
         if ($idForm != ""){
             $sql .= "WHERE id_flureg = '".$idForm."' ";
         }
-        $sql .= "GROUP BY id_flureg, resultado, tipo1, subtipo1";
+        $sql .= "GROUP BY id_flureg, resultado, tipo1, subtipo1, tipo2, subtipo2, tipo3, subtipo3";
 //        echo $sql;
         $conn->prepare($sql);
         $conn->execute();
@@ -562,15 +562,17 @@ class dalUceti {
                 $resultado = [];
             }
 
-            $resultado["final_resultado"] = $muestra["resultado"];
-            $resultado["final_tipo"] = $muestra["tipo1"];
-            $resultado["final_subtipo"] = $muestra["subtipo1"];
-            $resultado["final_linaje"] = "";
+            for ($i = 1; $i <= 3; $i++) {
+                $resultado["final_resultado"] = $muestra["resultado"];
+                $resultado["final_tipo"] = $muestra["tipo".$i];
+                $resultado["final_subtipo"] = $muestra["subtipo".$i];
+                $resultado["final_linaje"] = "";
 
-            $prioridad = dalUceti::GetPrioridad($resultado);
-            if ($prioridad < $currPrioridad) {
-                $currPrioridad = $prioridad;
-                $resultadoFinal = $resultado;
+                $prioridad = dalUceti::GetPrioridad($resultado);
+                if ($prioridad < $currPrioridad) {
+                    $currPrioridad = $prioridad;
+                    $resultadoFinal = $resultado;
+                }
             }
         }
 
@@ -623,7 +625,7 @@ class dalUceti {
         $matriz[] = "METAPNEUMOVIRUS";
         $matriz[] = "PARAINFLUENZA I";
         $matriz[] = "PARAINFLUENZA II";
-        $matriz[] = "PARAINFLUENZA III";
+        $matriz[] = "PARAINFLUENZA 3";
         $matriz[] = "PARAINFLUENZA IV";
         $matriz[] = "RINOVIRUS";
         $matriz[] = "OTRO";
@@ -636,7 +638,7 @@ class dalUceti {
 
         $counter = 1;
         foreach ($matriz as $resultado){
-            if ($resultado == $muestra["final_tipo"]." ".$muestra["final_subtipo"]){
+            if (trim($resultado) == trim($muestra["final_tipo"]." ".$muestra["final_subtipo"])){
                 return $counter;
             }
             $counter++;
