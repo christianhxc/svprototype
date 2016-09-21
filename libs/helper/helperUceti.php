@@ -59,7 +59,7 @@ class helperUceti {
         $individuo["id_pais"] = "174";
 
         $individuo["nombre_responsable"] = (!isset($data["individuo"]["nombre_responsable"]) ? NULL : strtoupper($data["individuo"]["nombre_responsable"]));
-        $individuo["tel_residencial "] = (!isset($data["individuo"]["telefono"]) ? NULL : strtoupper($data["individuo"]["telefono"]));
+        $individuo["tel_residencial"] = (!isset($data["individuo"]["telefono"]) ? NULL : strtoupper($data["individuo"]["telefono"]));
 
         return $individuo;
     }
@@ -186,7 +186,7 @@ class helperUceti {
         $uceti["id_corregimiento"] = $data["individuo"]["corregimiento"];
         $uceti["per_direccion"] = (!isset($data["individuo"]["direccion"]) ? NULL : strtoupper($data["individuo"]["direccion"]));
         $uceti["per_direccion_otra"] = (!isset($data["individuo"]["otra_direccion"]) ? NULL : strtoupper($data["individuo"]["otra_direccion"]));
-        $uceti["per_telefono "] = (!isset($data["individuo"]["telefono"]) ? NULL : strtoupper($data["individuo"]["telefono"]));
+        $uceti["per_telefono"] = (!isset($data["individuo"]["telefono"]) ? NULL : strtoupper($data["individuo"]["telefono"]));
 
         //Antecedentes
         $uceti["vac_tarjeta"] = (!isset($data["antecedentes"]["tarVacuna"]) ? NULL : $data["antecedentes"]["tarVacuna"]);

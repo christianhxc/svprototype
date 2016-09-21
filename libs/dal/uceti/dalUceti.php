@@ -95,7 +95,7 @@ class dalUceti {
                 $ok = $param['ok'];
                 //print_r($param);
             }
-            
+
             $param = dalUceti::GuardarTabla($conn, "flureg_form", $uceti);
             $idUceti = $param['id'];
             $ok = $param['ok'];
@@ -476,6 +476,20 @@ class dalUceti {
             dalUceti::GuardarBitacora($conn, "1", "flureg_muestra_silab");
         }
     }
+
+    public static function GetMuestras($conn, $idForm = "") {
+        $sql = "SELECT id_flureg, resultado, tipo1, subtipo1 FROM flureg_muestra_silab ";
+        if ($idForm != ""){
+            $sql .= "WHERE id_flureg = '".$idForm."' ";
+        }
+        $sql .= "GROUP BY id_flureg, resultado, tipo1, subtipo1";
+//        echo $sql;
+        $conn->prepare($sql);
+        $conn->execute();
+        $data = $conn->fetch();
+        return $data;
+    }
+
 
     public static function BorrarUcetiMuestras($conn, $idFormUceti) {
         $filtro = array();
