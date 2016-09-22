@@ -461,6 +461,7 @@ class dalUceti {
 //        echo "id form ".$idFormUceti."<br/>";
 //        print_r($data);
 //        exit;
+        $resultados = [];
         $muestras = $data;
         if ($muestras != NULL) {
             dalUceti::BorrarUcetiMuestras($conn, $idFormUceti);
@@ -472,17 +473,24 @@ class dalUceti {
                     //print_r($muestra);Exit;
                     dalUceti::GuardarTabla($conn, "flureg_muestra_silab", $muestra);
                 }
+
+                $resultados[] = $muestra;
             }
+
             dalUceti::GuardarBitacora($conn, "1", "flureg_muestra_silab");
+        }
+
+        if (count($resultados) > 0) {
+            dalUceti::ProcesarResultadoFinal($resultados, $conn);
         }
     }
 
     public static function GetMuestras($conn, $idForm = "") {
-        $sql = "SELECT id_flureg, resultado, tipo1, subtipo1 FROM flureg_muestra_silab ";
+        $sql = "SELECT id_flureg, resultado, tipo1, subtipo1, tipo2, subtipo2, tipo3, subtipo3 FROM flureg_muestra_silab ";
         if ($idForm != ""){
             $sql .= "WHERE id_flureg = '".$idForm."' ";
         }
-        $sql .= "GROUP BY id_flureg, resultado, tipo1, subtipo1";
+        $sql .= "GROUP BY id_flureg, resultado, tipo1, subtipo1, tipo2, subtipo2, tipo3, subtipo3";
 //        echo $sql;
         $conn->prepare($sql);
         $conn->execute();
@@ -533,6 +541,110 @@ class dalUceti {
         $filtro["id_muestra"] = $idMuestra;
         dalUceti::BorrarTabla($conn, "flureg_muestra_silab", $filtro);
         dalUceti::GuardarBitacora($conn, "3", "flureg_muestra_silab");
+    }
+
+    public static function ProcesarResultadoFinal($data, $conn, $debug = false) {
+        $flureg = 0;
+        $maxNumber = 1000000;
+        $currPrioridad = $maxNumber;
+        $resultadoFinal = null;
+        $resultado = null;
+
+        foreach ($data as $muestra) {
+            $currId = $muestra["id_flureg"];
+            if ($flureg != $currId) {
+                if ($resultadoFinal != null) {
+                    dalUceti::GuardarResultadoFinal($conn, $flureg, $resultadoFinal, $debug);
+                }
+
+                $flureg = $currId;
+                $currPrioridad = $maxNumber;
+                $resultado = [];
+            }
+
+            for ($i = 1; $i <= 3; $i++) {
+                $resultado["final_resultado"] = $muestra["resultado"];
+                $resultado["final_tipo"] = $muestra["tipo".$i];
+                $resultado["final_subtipo"] = $muestra["subtipo".$i];
+                $resultado["final_linaje"] = "";
+
+                $prioridad = dalUceti::GetPrioridad($resultado);
+                if ($prioridad < $currPrioridad) {
+                    $currPrioridad = $prioridad;
+                    $resultadoFinal = $resultado;
+                }
+            }
+        }
+
+        if ($resultadoFinal != null) {
+            dalUceti::GuardarResultadoFinal($conn, $flureg, $resultadoFinal, $debug);
+        }
+    }
+
+    public static function GuardarResultadoFinal($conn, $flureg, $resultadoFinal, $debug = false) {
+        $filtro["id_flureg"] = $flureg;
+        $parmetros = $resultadoFinal;
+        $parmetros["id_flureg"] = $filtro["id_flureg"];
+
+        if ($debug) {
+            var_dump($parmetros);
+            echo "<br>";
+        }
+
+        $param = dalUceti::ActualizarTabla($conn, "flureg_form", $resultadoFinal, $filtro, $parmetros);
+        $ok = $param['ok'];
+
+        $param = dalUceti::GuardarBitacora($conn, "2", "flureg_form");
+        $ok = $param['ok'];
+
+        return $resultadoFinal;
+    }
+
+    public static function GetPrioridad($muestra){
+        $matriz[] = "PCR -POSITIVO";
+        $matriz[] = "INFLUENZA (Tipo de virus)";
+        $matriz[] = "INFLUENZA A - No subtipificable";
+        $matriz[] = "INFLUENZA A H1N1";
+        $matriz[] = "INFLUENZA A H1N1 estacional";
+        $matriz[] = "INFLUENZA A H1";
+        $matriz[] = "INFLUENZA A H3N2 Estacional";
+        $matriz[] = "INFLUENZA A H3";
+        $matriz[] = "INFLUENZA A H5";
+        $matriz[] = "INFLUENZA A H7";
+        $matriz[] = "INFLUENZA A - Subtipo no realizado";
+        $matriz[] = "INFLUENZA B - Yamagata";
+        $matriz[] = "INFLUENZA B - Victoria";
+        $matriz[] = "INFLUENZA B - No realizado";
+        $matriz[] = "IFI - POSITIVO";
+        $matriz[] = "INFLUENZA A";
+        $matriz[] = "INFLUENZA B";
+        $matriz[] = "VIRUS SINCITIAL RESPIRATORIO";
+        $matriz[] = "ADENOVIRUS";
+        $matriz[] = "BOCAVIRUS";
+        $matriz[] = "CORONAVIRUS";
+        $matriz[] = "METAPNEUMOVIRUS";
+        $matriz[] = "PARAINFLUENZA I";
+        $matriz[] = "PARAINFLUENZA II";
+        $matriz[] = "PARAINFLUENZA 3";
+        $matriz[] = "PARAINFLUENZA IV";
+        $matriz[] = "RINOVIRUS";
+        $matriz[] = "OTRO";
+        $matriz[] = "PCR - NEGATIVO";
+        $matriz[] = "IFI - NEGATIVO";
+
+        if (strtoupper($muestra["final_resultado"]) == "NEGATIVO"){
+            return count($matriz)+10;
+        }
+
+        $counter = 1;
+        foreach ($matriz as $resultado){
+            if (trim($resultado) == trim($muestra["final_tipo"]." ".$muestra["final_subtipo"])){
+                return $counter;
+            }
+            $counter++;
+        }
+
+        return $counter;
     }
 
 }
