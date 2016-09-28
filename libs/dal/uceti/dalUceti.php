@@ -571,6 +571,14 @@ class dalUceti {
                 $prioridad = dalUceti::GetPrioridad($resultado);
                 if ($prioridad < $currPrioridad) {
                     $currPrioridad = $prioridad;
+
+                    if ($resultado["final_resultado"] == "NEGATIVO"){
+                        $resultado = array("final_resultado" => "NEGATIVO");
+                        $resultado["final_tipo"] = "";
+                        $resultado["final_subtipo"] = "";
+                        $resultado["final_linaje"] = "";
+                    }
+
                     $resultadoFinal = $resultado;
                 }
             }
@@ -601,36 +609,21 @@ class dalUceti {
     }
 
     public static function GetPrioridad($muestra){
-        $matriz[] = "PCR -POSITIVO";
-        $matriz[] = "INFLUENZA (Tipo de virus)";
-        $matriz[] = "INFLUENZA A - No subtipificable";
-        $matriz[] = "INFLUENZA A H1N1";
-        $matriz[] = "INFLUENZA A H1N1 estacional";
-        $matriz[] = "INFLUENZA A H1";
-        $matriz[] = "INFLUENZA A H3N2 Estacional";
-        $matriz[] = "INFLUENZA A H3";
-        $matriz[] = "INFLUENZA A H5";
-        $matriz[] = "INFLUENZA A H7";
-        $matriz[] = "INFLUENZA A - Subtipo no realizado";
-        $matriz[] = "INFLUENZA B - Yamagata";
-        $matriz[] = "INFLUENZA B - Victoria";
-        $matriz[] = "INFLUENZA B - No realizado";
-        $matriz[] = "IFI - POSITIVO";
         $matriz[] = "INFLUENZA A";
+        $matriz[] = "INFLUENZA A H1N1 Estacional";
+        $matriz[] = "INFLUENZA A H1N1 Pandemico";
+        $matriz[] = "INFLUENZA A H3N2 Estacional";
+        $matriz[] = "INFLUENZA A Sin Tipificar";
         $matriz[] = "INFLUENZA B";
         $matriz[] = "VIRUS SINCITIAL RESPIRATORIO";
         $matriz[] = "ADENOVIRUS";
-        $matriz[] = "BOCAVIRUS";
-        $matriz[] = "CORONAVIRUS";
-        $matriz[] = "METAPNEUMOVIRUS";
-        $matriz[] = "PARAINFLUENZA I";
-        $matriz[] = "PARAINFLUENZA II";
+        $matriz[] = "ENTEROVIRUS";
+        $matriz[] = "METAPNEUMOVIRUS HUMANO";
+        $matriz[] = "PARAINFLUENZA 1";
+        $matriz[] = "PARAINFLUENZA 2";
         $matriz[] = "PARAINFLUENZA 3";
-        $matriz[] = "PARAINFLUENZA IV";
         $matriz[] = "RINOVIRUS";
-        $matriz[] = "OTRO";
-        $matriz[] = "PCR - NEGATIVO";
-        $matriz[] = "IFI - NEGATIVO";
+        $matriz[] = "PARAINFLUENZA 3";
 
         if (strtoupper($muestra["final_resultado"]) == "NEGATIVO"){
             return count($matriz)+10;
@@ -638,7 +631,7 @@ class dalUceti {
 
         $counter = 1;
         foreach ($matriz as $resultado){
-            if (trim($resultado) == trim($muestra["final_tipo"]." ".$muestra["final_subtipo"])){
+            if (trim(strtoupper($resultado)) == trim(strtoupper($muestra["final_tipo"]." ".$muestra["final_subtipo"]))){
                 return $counter;
             }
             $counter++;
