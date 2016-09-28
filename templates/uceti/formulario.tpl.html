@@ -234,6 +234,16 @@
                             <td >Nombre de quien registra:</td>
                             <td colspan="2"><input type="text" id="nombreRegistra" name="data[notificacion][nombreRegistra]" style="width:100%" value="{valNombreRegistra}" {valReadOnly} /></td>    
                         </tr>
+                        <tr>
+                            <td>Vigilancia:</td>
+                            <td colspan="2">
+                                <select id="vigilancia_tipo" name="data[vigilancia][tipo]">
+                                    <option value="1" {selVigilancia1}>IRAG</option>
+                                    <option value="2" {selVigilancia2}>ETI</option>
+                                </select> &nbsp;
+                                <input type="checkbox" id="vigilancia_inusual" name="data[vigilancia][inusual]" {valVigilanciaInusual}/> Inusual
+                            </td>
+                        </tr>
                     </table>
                 </fieldset>
             </div>

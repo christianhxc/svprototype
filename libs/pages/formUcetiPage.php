@@ -37,6 +37,9 @@ class formUceti extends page {
         }
         $this->tpl->setVariable('rellenoFechasAntecedente', $relleno);
 
+        $this->tpl->setVariable('selVigilancia'.$this->config['read']['vigilancia_tipo'], 'selected="selected"');
+        $this->tpl->setVariable('valVigilanciaInusual', ($this->config['read']['vigilancia_inusual'] == '1' ? 'checked="checked"' : ''));
+
         // ESTADO DE LA MUESTRA
 //                $this->tpl->setVariable('estadoMuestra',$this->config["data"]["SIT_ID"]);
 //                $this->tpl->setVariable('idMuestra',$this->config["data"]["MUE_ID"]);                

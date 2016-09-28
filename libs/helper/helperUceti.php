@@ -317,6 +317,9 @@ class helperUceti {
 
         $uceti["nombre_toma_muestra"] = $data["muestras_laboratorio"]["nombre_toma_muestra"];
 
+        $uceti["vigilancia_tipo"] = $data["vigilancia"]["tipo"];
+        $uceti["vigilancia_inusual"] = (isset($data["vigilancia"]["inusual"]) ? '1' : '0');
+
         return $uceti;
     }
 
