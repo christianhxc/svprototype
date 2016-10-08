@@ -5,7 +5,7 @@ class ConfigurationCAUS{
     const DBuser = 'sisvigPan';
     const DBpass = 'qwerty12';
     const DB = 'caus_sisvig';
-   const host = '10.130.16.41';
+   const host = 'localhost';
     
  //BD EN EL SERVIDOR DE GODADDY
 //    const DBHandler = 'mysql';

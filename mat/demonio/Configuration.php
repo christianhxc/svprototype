@@ -19,7 +19,7 @@ class Configuration
     const DBuser = 'sisvigPan';
     const DBpass = 'qwerty12';
     const DB = 'sisvigdb';
-    const host = '10.130.16.41';
+    const host = 'localhost';
     
     //BD EN GODADDY
 //    const DBHandler = 'mysql';
@@ -60,7 +60,7 @@ class Configuration
     const urlprefixViejo ='http://190.34.154.85/sisvig/';
     const javaAddress = '/opt/lampp/htdocs/sisvig2/bridge/java/Java.inc';    
     const reportAddress = 'http://190.34.154.85/sisvig2/';    
-    const urlReport = "jdbc:mysql://10.130.16.41:3306/";
+    const urlReport = "jdbc:mysql://localhost:3306/";
     const dbReport = "sisvigdb?user=sisvigPan&password=qwerty12";
     
 
