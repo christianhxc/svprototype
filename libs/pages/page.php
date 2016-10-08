@@ -97,6 +97,9 @@ class page
                 $this->tpl->setVariable('menuVicIts','none');
                 
                 // menuEspeciales
+                $this->tpl->setVariable('menuVih','none');
+                $this->tpl->setVariable('menuMat','none');
+                $this->tpl->setVariable('menuTB','none');
                 $this->tpl->setVariable('menuSarampion','none');
                 $this->tpl->setVariable('menuSinRubeola','none');
                 $this->tpl->setVariable('menuParalisis','none');
@@ -129,10 +132,6 @@ class page
                 $this->tpl->setVariable('menuCatSintomas','none');
                 $this->tpl->setVariable('menuCatTipoIdentidad','none');
                 $this->tpl->setVariable('menuCatTipoMuestras','none');
-                $this->tpl->setVariable('menuCatVacunas','none');
-                $this->tpl->setVariable('menuCatCondicion','none');
-                $this->tpl->setVariable('menuCatModalidades','none');
-                $this->tpl->setVariable('menuCatGrupoEsp','none');
                                 
                 // menuRutinaria - Submenu Eno
                 $this->tpl->setVariable('menuEnoFormulario','none');
@@ -200,17 +199,6 @@ class page
                 $this->tpl->setVariable('menuTBPagInicio','none');
                 $this->tpl->setVariable('menuTBReportes','none');
                                 
-                // menuEspeciales - Submenu Vacunas
-                $this->tpl->setVariable('menuVacFormulario','none');
-                $this->tpl->setVariable('menuVacRegistroDiario','none');
-                $this->tpl->setVariable('menuVacReportes','none');
-                $this->tpl->setVariable('menuVacDenominador','none');
-                $this->tpl->setVariable('menuVacCargarDeno','none');
-                $this->tpl->setVariable('menuVacLdbi','none');
-                $this->tpl->setVariable('menuVacNotificacion','none');
-                $this->tpl->setVariable('menuVacExportar','none');
-                $this->tpl->setVariable('menuVacImportar','none');
-
                 if(clsCaus::validarSession())
                 {
                     // Mostrar las opciones del menú principal que puede accederse
@@ -351,8 +339,6 @@ class page
                                     break;
                                 case ConfigurationCAUS::TB:
                                     $this->tpl->setVariable('menuTB','');
-                                case ConfigurationCAUS::Vacunas:
-                                    $this->tpl->setVariable('menuVacunas','');
                                     break;
                             }
                         }

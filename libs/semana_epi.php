@@ -7,22 +7,29 @@
         $varlist = strtotime($time);
         $anioActual = strftime("%Y", $varlist);
 
+
         $first_day = strtotime("01/01/".$anioActual);
+        $last_day_year_ant = strtotime("12/31/".$anioActual - 1);
         $wkday = strftime("%w", $first_day);
-        $wkcalendar = date("W", strtotime($time));
+        $wkcalendar = strftime("%U", $varlist);
         
-        if ($wkday > 3) {
-            $semanaEpi = $wkcalendar;
-            $anioEpi = $anioActual;
-        }else{
-            $semanaEpi = $wkcalendar + 1;
-            $anioEpi = $anioActual; 
+        if ($wkcalendar == 0) {
+            $semanaEpi = strftime("%U", $last_day_year_ant);
+            $anioEpi = $anioActual - 1;
+        } else {
+            if ($wkday > 3) {
+                $semanaEpi = $wkcalendar;
+                $anioEpi = $anioActual;
+            } else {
+                $semanaEpi = $wkcalendar + 1;
+                $anioEpi = $anioActual;
+            }
         }
-            
+
         $data["semana"] = $semanaEpi;
         $data["anio"] = $anioEpi;
         
-        echo $semanaEpi."###".$anioEpi;
+        echo $semanaEpi."###".$anioEpi."###".$first_day;
 //        echo "### día de la semana de la fecha".$wkday. " - fecha del requerimiento ". $first_day . " - semana de la fecha seleccionada ". date("W", strtotime($time)) ." , ".date("W", $first_day);
         //return $data;
         

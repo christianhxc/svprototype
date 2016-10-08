@@ -76,6 +76,6 @@ function borrarFormulario(idFormulario){
 function reporteIndividual(idFormulario){
     var mensaje = 'A continuaci\xf3n se mostrara el reporte individual del Formulario N. '+idFormulario+', \xbfdesea continuar?';
     if(confirm(mensaje)){
-        window.open ('http://52.33.93.215:8081/jasperserver/flow.html?_flowId=viewReportFlow&reportUnit=/public/SISVIG/PRD/NOTIC/formulario_individual&P_ID_FORMULARIO='+idFormulario+'&j_username=jasURL&j_password=jasURLMinsa&output=pdf');
+        window.open ('http://190.34.154.87:8081/jasperserver/flow.html?_flowId=viewReportFlow&reportUnit=/public/SISVIG/PRD/NOTIC/formulario_individual&P_ID_FORMULARIO='+idFormulario+'&j_username=jasURL&j_password=jasURLMinsa&output=pdf');
     }
 }

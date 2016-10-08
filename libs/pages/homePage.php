@@ -44,6 +44,8 @@ class HomePage extends page
                 $this->tpl->setVariable('iniMenuVicIts','block');
                 
                 // menuEspeciales
+                $this->tpl->setVariable('iniMenuVIH','block');
+                $this->tpl->setVariable('iniMenuMat','block');
                 $this->tpl->setVariable('iniMenuSarampion','block');
                 $this->tpl->setVariable('iniMenuSinRubeola','block');
                 $this->tpl->setVariable('iniMenuParalisis','block');
@@ -119,14 +121,6 @@ class HomePage extends page
                 $this->tpl->setVariable('iniVicItsFormLaboratorio','none');
                 $this->tpl->setVariable('iniVicItsRepExcel','none');
                 
-                // menuEspeciales - Submenu Vacunas
-                $this->tpl->setVariable('iniVacFormulario','none');
-                $this->tpl->setVariable('iniVacRegistroDiario','none');
-                $this->tpl->setVariable('iniVacDenominador','none');
-                $this->tpl->setVariable('iniVacReportes','none');
-                $this->tpl->setVariable('iniVacCargarDeno','none');
-                $this->tpl->setVariable('iniVacLdbi','none');
-
                 // menuEspeciales - Submenu MAT
                 $this->tpl->setVariable('iniMatFormulario','none');
 
@@ -274,8 +268,6 @@ class HomePage extends page
                                     break;
                                 case ConfigurationCAUS::TB:
                                     $this->tpl->setVariable('iniMenuTB','');
-                                case ConfigurationCAUS::Vacunas:
-                                    $this->tpl->setVariable('iniMenuVacunas','');
                                     break;
                             }
                         }

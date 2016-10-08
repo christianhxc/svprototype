@@ -477,54 +477,11 @@ function calcularSemana(val){
     }
 }
 
-
-//function calculaSemanaEpi(){
-//    var fechaSida = $("#fechaSida").val();
-//   fechaSida="";
-//    var fechaVih = $("#fecha_isintomas").val();
-//    var fechaNotifica = "";
-//    var flag = false;
-//    if (fechaSida == ""){
-//        if(fechaVih!=""){
-//            if(isDate(fechaVih)){
-//                fechaNotifica = fechaVih;
-//                flag = true;
-//            }
-//        }
-//    }
-//    else{
-//        if (isDate(fechaSida)){
-//            fechaNotifica = fechaSida;
-//            flag = true;
-//        }
-//    }
-//    if(flag){
-//        var unidad = fechaNotifica.split("/");
-//        var dia = unidad[0];
-//        var mes = unidad[1];
-//        var anio = unidad[2];
-//        var fsintomas = new Date(anio,mes - 1,dia);
-//        semanaEpi = fsintomas.getWeek(0);
-//        $("#semanaEpi").val(semanaEpi);
-//        $("#anio_epi").val(anio);
-//    }
-//    else{
-//        $("#semanaEpi").val('0');
-//		$("#anio_epi").val('0');
-//    }
-//    
-//}
-
-
-
-
-
-
 function recibirSemanaEpi(val){
 //    var datos = val.split("###");
 //    $("#semana_epi").val(datos[0]);
 //    $("#anio_epi").val(datos[1]);
-// aqui el parche pa el aÃ±o
+// aqui el parche pa el año
 var fecha = new Date();
 var mes_act = fecha.getMonth();
 //alert(mes_act);
@@ -534,18 +491,17 @@ var mes_act = fecha.getMonth();
         var anio = unidad[0];
         var mes = unidad[1];
         var dia = unidad[2];
-		
-		
+        
+        
         var fsintomas = new Date(anio,mes - 1,dia);
         semanaEpi = fsintomas.getWeek(0);
         $("#semana_epi").val(semanaEpi);
-		if( semanaEpi>=52 && mes ==1){
-		$("#anio_epi").val(anio-1);
-			}
-		else{
+        if( semanaEpi>=52 && mes ==1){
+        $("#anio_epi").val(anio-1);
+            }
+        else{
         $("#anio_epi").val(anio);
-		}
-
+        }
 }
 
 function validarHora(){

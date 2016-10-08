@@ -26,7 +26,7 @@
 	<subDataset name="Table Dataset 1"/>
 	<parameter name="muestra" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["http://52.33.93.215/vigilab/reportes/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["http://173.201.187.40/vigilab/reportes/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[select * from derivacionesmuestra

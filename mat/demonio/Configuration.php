@@ -2,7 +2,7 @@
 class Configuration
 {
     //const absolutePath = 'http://localhost/sisvig2/';
-    const absolutePath = 'http://52.33.93.215/sisvig2/';
+    const absolutePath = 'http://190.34.154.85/sisvig2/';
 //    const absolutePath = 'http://173.201.187.40/sisvig2/';
 
     const DefaultTitleAdmin = 'SISVIG .::. Sistema de vigilancia en salud publica Panama';
@@ -19,7 +19,7 @@ class Configuration
     const DBuser = 'sisvigPan';
     const DBpass = 'qwerty12';
     const DB = 'sisvigdb';
-    const host = 'localhost';
+    const host = '10.130.16.41';
     
     //BD EN GODADDY
 //    const DBHandler = 'mysql';
@@ -29,10 +29,10 @@ class Configuration
 //    const host = '173.201.187.40';
 
 //    const templatesPath = 'C:/xampp/htdocs/sisvig2/templates/';
-    const templatesPath = '/var/www/html/sisvig2/templates/';
+    const templatesPath = '/opt/lampp/htdocs/sisvig2/templates/';
     
 //    const bdEpiInfoPath = 'C:/xampp/htdocs/sisvig2/vih/archivos_bd/';
-    const bdEpiInfoPath = '/var/www/html/sisvig2/vih/archivos_bd/';
+    const bdEpiInfoPath = '/opt/lampp/htdocs/sisvig2/vih/archivos_bd/';
 
     // No. de dias para cambiar una clave, si es 0 no solicita cambiar
     const expiracion = 0;
@@ -56,11 +56,11 @@ class Configuration
 //    const dbReport = "sisvigdb?user=sisvig&password=123456";
     
 
-    const urlprefix = 'http://52.33.93.215/sisvig2/';
-    const urlprefixViejo ='http://52.33.93.215/sisvig/';
-    const javaAddress = '/var/www/html/sisvig2/bridge/java/Java.inc';    
-    const reportAddress = 'http://52.33.93.215/sisvig2/';
-    const urlReport = "jdbc:mysql://localhost:3306/";
+    const urlprefix = 'http://190.34.154.85/sisvig2/';    
+    const urlprefixViejo ='http://190.34.154.85/sisvig/';
+    const javaAddress = '/opt/lampp/htdocs/sisvig2/bridge/java/Java.inc';    
+    const reportAddress = 'http://190.34.154.85/sisvig2/';    
+    const urlReport = "jdbc:mysql://10.130.16.41:3306/";
     const dbReport = "sisvigdb?user=sisvigPan&password=qwerty12";
     
 
