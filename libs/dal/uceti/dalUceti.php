@@ -552,6 +552,9 @@ class dalUceti {
 
         foreach ($data as $muestra) {
             $currId = $muestra["id_flureg"];
+            if ($currId == null) continue;
+            if ($muestra["id_muestra"] == "") continue;
+
             if ($flureg != $currId) {
                 if ($resultadoFinal != null) {
                     dalUceti::GuardarResultadoFinal($conn, $flureg, $resultadoFinal, $debug);
