@@ -14,14 +14,18 @@ class Actions{
 		
 		foreach($data as $key=>$value) {
 			$fields[] = $key;
+			$values2[] = $value;
 			$values[] = "?";
 		}
 		
 		$fields = implode('`,`', $fields);
 		$values = implode(",", $values);
-		
+		$values2 = implode("','", $values2);
+
 		$sql = "INSERT INTO `".$tabla."`(`".$fields."`) VALUES(".$values.")";
-    	
+//		$sql = "INSERT INTO `".$tabla."`(`".$fields."`) VALUES('".$values2."')";
+//        echo $sql; exit;
+
     	return $sql;
 	}
 	

@@ -160,7 +160,7 @@ class dalEno{
             $conn->rollback();
             $conn->closeConn();
             echo "<br/>Error: ".$error;
-            return "SQL:" . $sql . "<br/>Error" . $error;
+            //return "SQL:" . $sql . "<br/>Error" . $error;
             exit;
         }
         $param['id'] = $id;

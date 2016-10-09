@@ -18,7 +18,7 @@ class Configuration
     const DBuser = 'sisvigPan';
     const DBpass = 'qwerty12';
     const DB = 'sisvigdb';
-    const host = 'localhost';
+    const host = '190.34.154.87';
 
     //const templatesPath = 'C:/xampp/htdocs/sisvig2/templates/';
     const templatesPath = '/opt/lampp/htdocs/sisvig2/templates/';

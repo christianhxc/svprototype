@@ -19,7 +19,7 @@ class Configuration
     const DBuser = 'sisvigPan';
     const DBpass = 'qwerty12';
     const DB = 'sisvigdb';
-    const host = 'localhost';
+    const host = '190.34.154.87';
     
     //BD EN GODADDY
 //    const DBHandler = 'mysql';
