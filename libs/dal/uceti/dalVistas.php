@@ -240,6 +240,54 @@ class dalVistas {
         return $result;
     }
 
+    public function getFluidIrag($config) {
+
+        $sql = "CALL FLUID_IRAG('".$config['anio']."', '".$config['idun']."', '".$config['sei']."', ";
+        $sql .= "'".$config['sef']."', '2016-10-01', '2016-10-10', 1, '".$config['idpro']."', '".$config['idreg']."', '".$config['iddis']."', '".$config['idcor']."')";
+
+        $conn = new Connection();
+        $conn->initConn();
+        $conn->prepare($sql);
+        $conn->execute();
+        $dataTotal = $conn->fetch();
+
+        $conn->closeConn();
+
+        return $dataTotal;
+    }
+
+    public function getNationalVirus($config) {
+
+        $sql = "CALL FLUID_NATIONAL_VIRUS('".$config['anio']."', '".$config['idun']."', '".$config['sei']."', ";
+        $sql .= "'".$config['sef']."', '2016-10-01', '2016-10-10', 1, '".$config['idpro']."', '".$config['idreg']."', '".$config['iddis']."', '".$config['idcor']."')";
+
+        $conn = new Connection();
+        $conn->initConn();
+        $conn->prepare($sql);
+        $conn->execute();
+        $dataTotal = $conn->fetch();
+
+        $conn->closeConn();
+
+        return $dataTotal;
+    }
+
+    public function getFluidFallecidos($config) {
+
+        $sql = "CALL FLUID_FALLECIDOS('".$config['anio']."', '".$config['idun']."', '".$config['sei']."', ";
+        $sql .= "'".$config['sef']."', '2016-10-01', '2016-10-10', 1, '".$config['idpro']."', '".$config['idreg']."', '".$config['iddis']."', '".$config['idcor']."')";
+
+        $conn = new Connection();
+        $conn->initConn();
+        $conn->prepare($sql);
+        $conn->execute();
+        $dataTotal = $conn->fetch();
+
+        $conn->closeConn();
+
+        return $dataTotal;
+    }
+
 }
 
 ?>

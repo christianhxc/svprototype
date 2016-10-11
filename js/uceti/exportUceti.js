@@ -345,7 +345,7 @@ function validarReporte()
         {
             $("#errores").hide();
             $("#error").html('');
-            generarReporte(Filtro, Lugar, Condicion, sistema);
+            generarReporte(Filtro, Lugar, Condicion, sistema, anioIni, semanaIni, semanaFin,idUn,idPro,idReg,idDis,idCor);
         //$("#formBuscar").submit();
         }
     }else{
@@ -408,14 +408,14 @@ function generarReporteRevelac(filtro){
 }
 
 // Envía parámetros de reporte
-function generarReporte(filtro, lugar, condicion, sistema){
+function generarReporte(filtro, lugar, condicion, sistema, anioIni, semanaIni, semanaFin,idUn,idPro,idReg,idDis,idCor){
     var script = sistema == 1 ? "exportable_excel" : "fluid";
 
     $("#errores").hide();
     $("#error").html(' ');
     //    alert (filtro + "\n -" + lugar + " \n -" + condicion );
     
-    window.open(urlprefix+'reportes/uceti/'+script+'.php?f='+filtro+'&l='+lugar+'&c='+condicion
+    window.open(urlprefix+'reportes/uceti/'+script+'.php?anio='+anioIni+'&sei='+semanaIni+'&sef='+semanaFin+'&idun='+idUn+'&idpro='+idPro+'&idreg='+idReg+'&iddis='+idDis+'&idcor='+idCor+'&f='+filtro+'&l='+lugar+'&c='+condicion
         , 'Reporte',"toolbar=yes, status=yes, status=yes, scrollbars=yes, resizable=yes, menubar=yes, width=400, height=400");
 }
 
