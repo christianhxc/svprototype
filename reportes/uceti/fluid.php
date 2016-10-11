@@ -35,12 +35,12 @@ $config['idcor'] = $_REQUEST['idcor'];
 
 $vistas = new dalVistas();
 
-//$irag = $vistas->getNationalVirus($config);
-//GuardarDatos($excel, 0, $irag, 6);
+$irag = $vistas->getNationalVirus($config);
+GuardarDatos($excel, 0, $irag, 6);
 $irag = $vistas->getFluidIrag($config);
 GuardarDatos($excel, 3, $irag, 8);
-//$irag = $vistas->getFluidFallecidos($config);
-//GuardarDatos($excel, 4, $irag, 8);
+$irag = $vistas->getFluidFallecidos($config);
+GuardarDatos($excel, 4, $irag, 8);
 
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="FluID.xlsx"');
